@@ -1,6 +1,6 @@
 <?php
-// Halaman utama - sementara redirect ke login dulu
-// Akan diupdate setelah halaman home selesai dibuat
-header('Location: /resep-masakan/login.php');
+session_start();
+// Halaman utama sementara - akan diganti dengan home.php nanti
+header('Location: /resep-masakan/home.php');
 exit;
 ?>

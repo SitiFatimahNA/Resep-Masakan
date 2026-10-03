@@ -7,7 +7,7 @@ if (isset($_SESSION['user_id'])) {
     if ($_SESSION['role'] === 'admin') {
         header('Location: /resep-masakan/admin/dashboard.php');
     } else {
-        header('Location: /resep-masakan/index.php');
+        header('Location: /resep-masakan/home.php');
     }
     exit;
 }
