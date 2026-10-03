@@ -121,48 +121,74 @@ require_once 'includes/header.php';
 
             <!-- Hero Visual -->
             <div style="position:relative; text-align:center;" class="animate animate-delay-2">
-                <!-- Lingkaran utama -->
-                <div style="
-                    width: 380px;
-                    height: 380px;
-                    border-radius: 50%;
-                    border: 2px solid rgba(201,168,76,0.2);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin: 0 auto;
-                    position: relative;
-                    animation: pulseGold 3s ease-in-out infinite;
-                ">
-                    <!-- Lingkaran dalam -->
+                <!-- Frame foto utama -->
+                <div style="position:relative; width:380px; margin:0 auto;">
+                    <!-- Border dekorasi -->
                     <div style="
-                        width: 280px;
-                        height: 280px;
-                        border-radius: 50%;
-                        background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05));
-                        border: 1px solid rgba(201,168,76,0.3);
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        flex-direction: column;
-                        gap: 8px;
+                        position:absolute; top:-15px; left:-15px;
+                        width:100%; height:100%;
+                        border:2px solid rgba(201,168,76,0.4);
+                        border-radius:20px;
+                        z-index:0;
+                    "></div>
+                    <!-- Foto utama -->
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80"
+                         alt="Masakan Lezat"
+                         style="
+                            width:100%;
+                            height:420px;
+                            object-fit:cover;
+                            border-radius:20px;
+                            position:relative;
+                            z-index:1;
+                            border:3px solid rgba(201,168,76,0.3);
+                            animation: float 5s ease-in-out infinite;
+                         ">
+
+                    <!-- Card info mengambang kiri bawah -->
+                    <div style="
+                        position:absolute; bottom:20px; left:-30px;
+                        background:rgba(26,26,26,0.95);
+                        border:1px solid var(--border-gold);
+                        border-radius:14px;
+                        padding:12px 16px;
+                        z-index:2;
+                        backdrop-filter:blur(10px);
+                        animation: float 4s ease-in-out infinite 0.5s;
+                        text-align:left;
                     ">
-                        <i class="fas fa-utensils" style="font-size:5rem; color:var(--gold); animation: float 4s ease-in-out infinite;"></i>
-                        <span style="font-family:'Playfair Display',serif; color:var(--gold); font-size:1rem; letter-spacing:3px; text-transform:uppercase;">Masak Yuk</span>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <div style="width:36px; height:36px; background:rgba(201,168,76,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                                <i class="fas fa-fire" style="color:var(--gold);"></i>
+                            </div>
+                            <div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">Resep Populer</div>
+                                <div style="font-size:0.85rem; color:var(--text-primary); font-weight:600;">+<?= $total_resep ?> Resep</div>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Icon mengambang -->
-                    <div style="position:absolute; top:-10px; left:30px; width:60px; height:60px; background:var(--bg-card); border:1px solid var(--border-gold); border-radius:50%; display:flex; align-items:center; justify-content:center; animation: float 3s ease-in-out infinite 0.5s;">
-                        <i class="fas fa-fire" style="color:var(--gold); font-size:1.4rem;"></i>
-                    </div>
-                    <div style="position:absolute; top:20px; right:10px; width:55px; height:55px; background:var(--bg-card); border:1px solid var(--border-gold); border-radius:50%; display:flex; align-items:center; justify-content:center; animation: float 3s ease-in-out infinite 1s;">
-                        <i class="fas fa-leaf" style="color:#2ecc71; font-size:1.2rem;"></i>
-                    </div>
-                    <div style="position:absolute; bottom:20px; left:10px; width:55px; height:55px; background:var(--bg-card); border:1px solid var(--border-gold); border-radius:50%; display:flex; align-items:center; justify-content:center; animation: float 3s ease-in-out infinite 1.5s;">
-                        <i class="fas fa-star" style="color:var(--gold); font-size:1.2rem;"></i>
-                    </div>
-                    <div style="position:absolute; bottom:-10px; right:30px; width:60px; height:60px; background:var(--bg-card); border:1px solid var(--border-gold); border-radius:50%; display:flex; align-items:center; justify-content:center; animation: float 3s ease-in-out infinite 0.8s;">
-                        <i class="fas fa-heart" style="color:#e74c3c; font-size:1.3rem;"></i>
+                    <!-- Card rating mengambang kanan atas -->
+                    <div style="
+                        position:absolute; top:20px; right:-30px;
+                        background:rgba(26,26,26,0.95);
+                        border:1px solid var(--border-gold);
+                        border-radius:14px;
+                        padding:12px 16px;
+                        z-index:2;
+                        backdrop-filter:blur(10px);
+                        animation: float 4s ease-in-out infinite 1s;
+                        text-align:left;
+                    ">
+                        <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:4px;">Rating</div>
+                        <div style="display:flex; gap:3px; color:var(--gold); font-size:0.9rem;">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div style="font-size:0.8rem; color:var(--text-primary); font-weight:600; margin-top:2px;">5.0 / 5.0</div>
                     </div>
                 </div>
             </div>
@@ -193,7 +219,25 @@ require_once 'includes/header.php';
         </div>
 
         <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:1rem;">
-            <?php foreach ($kategori_list as $i => $kat): ?>
+            <?php
+            // Map kategori slug ke nama file gambar
+            $kat_img = [
+                'ayam'        => 'kat-ayam.jpg',
+                'daging-sapi' => 'kat-daging.jpg',
+                'ikan'        => 'kat-ikan.jpg',
+                'seafood'     => 'kat-seafood.jpg',
+                'sayuran'     => 'kat-sayuran.jpg',
+                'tahu-tempe'  => 'kat-tahu.jpg',
+                'telur'       => 'kat-telur.jpg',
+                'kambing'     => 'kat-kambing.jpg',
+                'bebek'       => 'kat-bebek.jpg',
+                'buah-buahan' => 'kat-buah.jpg',
+                'mie-pasta'   => 'kat-mie.jpg',
+                'nasi'        => 'kat-nasi.jpg',
+            ];
+            foreach ($kategori_list as $i => $kat):
+                $img = $kat_img[$kat['slug']] ?? 'kat-default.jpg';
+            ?>
             <a href="/resep-masakan/resep.php?kategori=<?= urlencode($kat['slug']) ?>"
                class="animate animate-delay-<?= ($i % 4) + 1 ?>"
                style="
@@ -201,19 +245,28 @@ require_once 'includes/header.php';
                 background:var(--bg-card);
                 border:1px solid var(--border);
                 border-radius:var(--radius);
-                padding:1.2rem 1rem;
-                text-align:center;
+                overflow:hidden;
                 transition:var(--transition);
                 display:block;
+                position:relative;
                "
                onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-5px)';this.style.boxShadow='0 10px 30px rgba(201,168,76,0.15)'"
                onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)';this.style.boxShadow='none'"
             >
-                <div style="font-size:1.8rem; margin-bottom:0.5rem; color:var(--gold);">
-                    <i class="fas fa-tag"></i>
+                <!-- Gambar kategori -->
+                <div style="width:100%; height:90px; overflow:hidden;">
+                    <img src="/resep-masakan/assets/images/kategori/<?= $img ?>"
+                         alt="<?= htmlspecialchars($kat['nama_kategori']) ?>"
+                         style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;"
+                         onmouseover="this.style.transform='scale(1.1)'"
+                         onmouseout="this.style.transform='scale(1)'"
+                         onerror="this.parentElement.style.background='var(--bg-hover)';this.style.display='none'">
                 </div>
-                <div style="font-size:0.8rem; color:var(--text-primary); font-weight:500;"><?= htmlspecialchars($kat['nama_kategori']) ?></div>
-                <div style="font-size:0.72rem; color:var(--text-muted); margin-top:3px;"><?= $kat['jumlah_resep'] ?> resep</div>
+                <!-- Teks -->
+                <div style="padding:0.7rem 0.5rem; text-align:center;">
+                    <div style="font-size:0.8rem; color:var(--text-primary); font-weight:500;"><?= htmlspecialchars($kat['nama_kategori']) ?></div>
+                    <div style="font-size:0.72rem; color:var(--text-muted); margin-top:2px;"><?= $kat['jumlah_resep'] ?> resep</div>
+                </div>
             </a>
             <?php endforeach; ?>
         </div>
