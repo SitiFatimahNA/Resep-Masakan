@@ -222,7 +222,7 @@ require_once 'includes/header.php';
                     <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
                          alt="<?= htmlspecialchars($resep['judul']) ?>"
                          class="card-img"
-                         onerror="this.src='/resep-masakan/assets/images/default-resep.jpg'">
+                         onerror="this.src='/resep-masakan/assets/images/default-resep.svg'">
                     <!-- Badge kesulitan -->
                     <span class="badge badge-<?= $resep['tingkat_kesulitan'] ?>"
                           style="position:absolute; top:12px; left:12px;">
@@ -307,7 +307,7 @@ require_once 'includes/header.php';
                     <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
                          alt="<?= htmlspecialchars($resep['judul']) ?>"
                          class="card-img"
-                         onerror="this.src='/resep-masakan/assets/images/default-resep.jpg'">
+                         onerror="this.src='/resep-masakan/assets/images/default-resep.svg'">
                     <!-- Rank badge -->
                     <div style="
                         position:absolute; top:12px; left:12px;

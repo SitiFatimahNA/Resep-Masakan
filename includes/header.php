@@ -91,7 +91,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($_SESSION['foto'] ?? 'default.png') ?>" 
                      alt="<?= htmlspecialchars($_SESSION['nama']) ?>"
                      class="user-avatar"
-                     onerror="this.src='/resep-masakan/assets/images/default-avatar.png'">
+                     onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
                 <div class="dropdown-menu">
                     <a href="/resep-masakan/user/profil.php">
                         <i class="fas fa-user"></i> Profil Saya
