@@ -1,0 +1,20 @@
+# Konfigurasi database (jangan di-push ke GitHub)
+config/koneksi.php
+
+# Folder upload (file gambar tidak perlu di-push)
+uploads/resep/*
+uploads/profil/*
+uploads/langkah/*
+
+# Kecualikan file .gitkeep agar folder tetap ada di GitHub
+!uploads/resep/.gitkeep
+!uploads/profil/.gitkeep
+!uploads/langkah/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
