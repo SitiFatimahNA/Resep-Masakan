@@ -7,7 +7,7 @@
         <div class="footer-grid">
             <!-- Brand -->
             <div>
-                <div class="footer-brand">🍳 ResepMasakan</div>
+                <div class="footer-brand"><i class="fas fa-utensils"></i> ResepMasakan</div>
                 <p class="footer-desc">
                     Platform berbagi resep masakan terlengkap. Temukan inspirasi masakan dari berbagai kategori, mulai dari sarapan hingga dessert.
                 </p>
@@ -54,7 +54,7 @@
 
         <!-- Footer Bottom -->
         <div class="footer-bottom">
-            <p>&copy; <?= date('Y') ?> <span>ResepMasakan</span>. Dibuat dengan ❤️ oleh <span>Siti Fatimah Nur Az-Zahra</span></p>
+            <p>&copy; <?= date('Y') ?> <span>ResepMasakan</span>. Dibuat dengan <i class="fas fa-heart" style="color:var(--danger);"></i> oleh <span>Siti Fatimah Nur Az-Zahra</span></p>
         </div>
     </div>
 </footer>

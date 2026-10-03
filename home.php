@@ -74,7 +74,7 @@ require_once 'includes/header.php';
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;">
             <!-- Hero Content -->
             <div class="hero-content">
-                <div class="hero-tag">✨ Platform Resep Terlengkap</div>
+                <div class="hero-tag"><i class="fas fa-crown"></i> Platform Resep Terlengkap</div>
                 <h1 class="hero-title">
                     Temukan Resep <span>Masakan</span> Terbaik
                 </h1>
@@ -121,24 +121,50 @@ require_once 'includes/header.php';
 
             <!-- Hero Visual -->
             <div style="position:relative; text-align:center;" class="animate animate-delay-2">
+                <!-- Lingkaran utama -->
                 <div style="
                     width: 380px;
                     height: 380px;
                     border-radius: 50%;
-                    background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+                    border: 2px solid rgba(201,168,76,0.2);
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     margin: 0 auto;
+                    position: relative;
                     animation: pulseGold 3s ease-in-out infinite;
                 ">
-                    <div style="font-size: 10rem; animation: float 4s ease-in-out infinite;">🍳</div>
+                    <!-- Lingkaran dalam -->
+                    <div style="
+                        width: 280px;
+                        height: 280px;
+                        border-radius: 50%;
+                        background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05));
+                        border: 1px solid rgba(201,168,76,0.3);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-direction: column;
+                        gap: 8px;
+                    ">
+                        <i class="fas fa-utensils" style="font-size:5rem; color:var(--gold); animation: float 4s ease-in-out infinite;"></i>
+                        <span style="font-family:'Playfair Display',serif; color:var(--gold); font-size:1rem; letter-spacing:3px; text-transform:uppercase;">Masak Yuk</span>
+                    </div>
+
+                    <!-- Icon mengambang -->
+                    <div style="position:absolute; top:-10px; left:30px; width:60px; height:60px; background:var(--bg-card); border:1px solid var(--border-gold); border-radius:50%; display:flex; align-items:center; justify-content:center; animation: float 3s ease-in-out infinite 0.5s;">
+                        <i class="fas fa-fire" style="color:var(--gold); font-size:1.4rem;"></i>
+                    </div>
+                    <div style="position:absolute; top:20px; right:10px; width:55px; height:55px; background:var(--bg-card); border:1px solid var(--border-gold); border-radius:50%; display:flex; align-items:center; justify-content:center; animation: float 3s ease-in-out infinite 1s;">
+                        <i class="fas fa-leaf" style="color:#2ecc71; font-size:1.2rem;"></i>
+                    </div>
+                    <div style="position:absolute; bottom:20px; left:10px; width:55px; height:55px; background:var(--bg-card); border:1px solid var(--border-gold); border-radius:50%; display:flex; align-items:center; justify-content:center; animation: float 3s ease-in-out infinite 1.5s;">
+                        <i class="fas fa-star" style="color:var(--gold); font-size:1.2rem;"></i>
+                    </div>
+                    <div style="position:absolute; bottom:-10px; right:30px; width:60px; height:60px; background:var(--bg-card); border:1px solid var(--border-gold); border-radius:50%; display:flex; align-items:center; justify-content:center; animation: float 3s ease-in-out infinite 0.8s;">
+                        <i class="fas fa-heart" style="color:#e74c3c; font-size:1.3rem;"></i>
+                    </div>
                 </div>
-                <!-- Floating icons -->
-                <div style="position:absolute; top:10%; left:5%; font-size:2.5rem; animation: float 3s ease-in-out infinite 0.5s;">🍜</div>
-                <div style="position:absolute; top:15%; right:5%; font-size:2rem; animation: float 3s ease-in-out infinite 1s;">🥗</div>
-                <div style="position:absolute; bottom:15%; left:8%; font-size:2.2rem; animation: float 3s ease-in-out infinite 1.5s;">🍰</div>
-                <div style="position:absolute; bottom:10%; right:8%; font-size:2rem; animation: float 3s ease-in-out infinite 0.8s;">🍱</div>
             </div>
         </div>
     </div>
@@ -183,7 +209,9 @@ require_once 'includes/header.php';
                onmouseover="this.style.borderColor='var(--gold)';this.style.transform='translateY(-5px)';this.style.boxShadow='0 10px 30px rgba(201,168,76,0.15)'"
                onmouseout="this.style.borderColor='var(--border)';this.style.transform='translateY(0)';this.style.boxShadow='none'"
             >
-                <div style="font-size:2rem; margin-bottom:0.5rem;"><?= $kat['icon'] ?></div>
+                <div style="font-size:1.8rem; margin-bottom:0.5rem; color:var(--gold);">
+                    <i class="fas fa-tag"></i>
+                </div>
                 <div style="font-size:0.8rem; color:var(--text-primary); font-weight:500;"><?= htmlspecialchars($kat['nama_kategori']) ?></div>
                 <div style="font-size:0.72rem; color:var(--text-muted); margin-top:3px;"><?= $kat['jumlah_resep'] ?> resep</div>
             </a>
@@ -210,7 +238,7 @@ require_once 'includes/header.php';
 
         <?php if (empty($resep_terbaru)): ?>
         <div style="text-align:center; padding:4rem; color:var(--text-muted);">
-            <div style="font-size:4rem; margin-bottom:1rem;">🍽️</div>
+            <i class="fas fa-utensils" style="font-size:4rem; color:var(--border); display:block; margin-bottom:1rem;"></i>
             <p>Belum ada resep. <a href="/resep-masakan/<?= isset($_SESSION['user_id']) ? 'user/tambah-resep.php' : 'register.php' ?>">Jadilah yang pertama!</a></p>
         </div>
         <?php else: ?>
@@ -230,7 +258,7 @@ require_once 'includes/header.php';
                     </span>
                     <!-- Kategori -->
                     <span style="position:absolute; top:12px; right:12px; background:rgba(0,0,0,0.7); padding:4px 10px; border-radius:20px; font-size:0.75rem; color:var(--gold);">
-                        <?= $resep['kategori_icon'] ?> <?= htmlspecialchars($resep['nama_kategori']) ?>
+                        <i class="fas fa-tag"></i> <?= htmlspecialchars($resep['nama_kategori']) ?>
                     </span>
                 </div>
 
@@ -367,7 +395,7 @@ require_once 'includes/header.php';
             <div style="position:absolute; top:-50px; right:-50px; width:200px; height:200px; background:radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%); border-radius:50%;"></div>
             <div style="position:absolute; bottom:-50px; left:-50px; width:200px; height:200px; background:radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%); border-radius:50%;"></div>
 
-            <div style="font-size:3rem; margin-bottom:1rem;">👨‍🍳</div>
+            <i class="fas fa-hat-chef" style="font-size:3rem; color:var(--gold); display:block; margin-bottom:1rem;"></i>
             <h2 class="section-title" style="margin-bottom:1rem;">
                 Punya Resep <span>Spesial?</span>
             </h2>

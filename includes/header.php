@@ -29,7 +29,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
     <div class="navbar-brand">
-        <span class="logo-icon">🍳</span>
+        <i class="fas fa-utensils logo-icon" style="font-size:1.4rem;"></i>
         <a href="/resep-masakan/index.php">
             Resep<span>Masakan</span>
         </a>
