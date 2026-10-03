@@ -11,7 +11,7 @@ session_start();
     <h1 style="color:#c9a84c;">🍳 Resep Masakan</h1>
     <p>Halaman beranda sedang dalam pembangunan.</p>
     <?php if (isset($_SESSION['user_id'])): ?>
-        <p>Halo, <strong><?= htmlspecialchars($_SESSION['nama']) ?></strong>!</p>
+        <p>Halo, <strong><?= htmlspecialchars($_SESSION['nama'] ?? 'User') ?></strong>!</p>
         <a href="/resep-masakan/logout.php" style="color:#c9a84c;">Keluar</a>
     <?php else: ?>
         <a href="/resep-masakan/login.php" style="color:#c9a84c;">Masuk</a> |
