@@ -67,138 +67,162 @@ require_once 'includes/header.php';
 ?>
 
 <!-- =====================================================
-     HERO SECTION
+     HERO SECTION - Modern 3D Style
      ===================================================== -->
-<section class="hero">
-    <div class="container">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;">
-            <!-- Hero Content -->
-            <div class="hero-content">
-                <div class="hero-tag"><i class="fas fa-crown"></i> Platform Resep Terlengkap</div>
-                <h1 class="hero-title">
-                    Temukan Resep <span>Masakan</span> Terbaik
+<section style="
+    min-height: 100vh;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+">
+    <!-- Background gradient blur blobs -->
+    <div style="position:absolute; top:-100px; right:-100px; width:500px; height:500px; background:radial-gradient(circle, rgba(149,213,178,0.35) 0%, transparent 70%); border-radius:50%; pointer-events:none;"></div>
+    <div style="position:absolute; bottom:-150px; left:-100px; width:450px; height:450px; background:radial-gradient(circle, rgba(64,145,108,0.12) 0%, transparent 70%); border-radius:50%; pointer-events:none;"></div>
+
+    <div class="container" style="position:relative; z-index:2;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:center; min-height:90vh;">
+
+            <!-- KIRI: Konten -->
+            <div style="padding-right:2rem;">
+                <!-- Tag -->
+                <div style="
+                    display:inline-flex; align-items:center; gap:8px;
+                    background:#f0faf4; border:1px solid var(--green-light);
+                    padding:6px 16px; border-radius:30px;
+                    font-size:0.78rem; font-weight:500;
+                    color:var(--green-dark); margin-bottom:2rem;
+                    animation: fadeInUp 0.5s ease;
+                ">
+                    <span style="width:8px; height:8px; background:var(--green); border-radius:50%; display:inline-block;"></span>
+                    Platform Resep Terlengkap
+                </div>
+
+                <!-- Judul besar -->
+                <h1 style="
+                    font-family:'Playfair Display', serif;
+                    font-size: clamp(2.8rem, 5vw, 4.2rem);
+                    line-height: 1.1;
+                    color: #111;
+                    margin-bottom: 1.5rem;
+                    font-weight: 700;
+                    animation: fadeInUp 0.5s ease 0.1s both;
+                ">
+                    Nikmati Masakan<br>
+                    <span style="color:var(--green);">Lezat & Sehat.</span>
                 </h1>
-                <p class="hero-desc">
-                    Jelajahi ribuan resep masakan dari berbagai kategori. Dari sarapan pagi hingga dessert malam, semuanya ada di sini.
+
+                <!-- Deskripsi -->
+                <p style="
+                    color:#666; font-size:1rem; line-height:1.8;
+                    max-width:440px; margin-bottom:2.5rem;
+                    animation: fadeInUp 0.5s ease 0.2s both;
+                ">
+                    Temukan ribuan resep masakan pilihan dari berbagai kategori. Mudah dipraktikkan, lezat hasilnya.
                 </p>
-                <div class="hero-actions">
-                    <a href="/resep-masakan/resep.php" class="btn btn-gold btn-lg">
-                        <i class="fas fa-utensils"></i> Jelajahi Resep
+
+                <!-- Tombol -->
+                <div style="display:flex; gap:1rem; margin-bottom:3rem; animation: fadeInUp 0.5s ease 0.3s both;">
+                    <a href="/resep-masakan/resep.php" class="btn btn-gold btn-lg" style="border-radius:50px; padding:14px 32px;">
+                        Jelajahi Resep
                     </a>
                     <?php if (!isset($_SESSION['user_id'])): ?>
-                    <a href="/resep-masakan/register.php" class="btn btn-outline btn-lg">
-                        <i class="fas fa-user-plus"></i> Bergabung
-                    </a>
-                    <?php else: ?>
-                    <a href="/resep-masakan/user/tambah-resep.php" class="btn btn-outline btn-lg">
-                        <i class="fas fa-plus"></i> Tambah Resep
+                    <a href="/resep-masakan/register.php" class="btn btn-outline btn-lg" style="border-radius:50px; padding:14px 32px;">
+                        Bergabung
                     </a>
                     <?php endif; ?>
                 </div>
 
-                <!-- Stats -->
-                <div class="hero-stats">
-                    <div class="hero-stat">
-                        <div class="number counter" data-target="<?= $total_resep ?>">
-                            <?= $total_resep ?>+
-                        </div>
-                        <div class="label">Resep</div>
+                <!-- Testimoni kecil -->
+                <div style="display:flex; align-items:center; gap:16px; animation: fadeInUp 0.5s ease 0.4s both;">
+                    <!-- Foto stack -->
+                    <div style="display:flex;">
+                        <img src="https://i.pravatar.cc/36?img=1" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;" alt="">
+                        <img src="https://i.pravatar.cc/36?img=2" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;margin-left:-10px;" alt="">
+                        <img src="https://i.pravatar.cc/36?img=3" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;margin-left:-10px;" alt="">
                     </div>
-                    <div class="hero-stat">
-                        <div class="number counter" data-target="<?= $total_user ?>">
-                            <?= $total_user ?>+
+                    <div>
+                        <div style="display:flex; gap:2px; color:#f4a124; font-size:0.8rem; margin-bottom:2px;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
-                        <div class="label">Member</div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="number counter" data-target="<?= $total_kategori ?>">
-                            <?= $total_kategori ?>+
+                        <div style="font-size:0.78rem; color:#888;">
+                            <strong style="color:#333;"><?= $total_resep ?>+</strong> resep dari <strong style="color:#333;"><?= $total_user ?>+</strong> member
                         </div>
-                        <div class="label">Kategori</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Hero Visual -->
-            <div style="position:relative; text-align:center;" class="animate animate-delay-2">
-                <!-- Frame foto utama -->
-                <div style="position:relative; width:380px; margin:0 auto;">
-                    <!-- Border dekorasi -->
-                    <div style="
-                        position:absolute; top:-15px; left:-15px;
-                        width:100%; height:100%;
-                        border:2px solid rgba(201,168,76,0.4);
-                        border-radius:20px;
-                        z-index:0;
-                    "></div>
-                    <!-- Foto utama -->
-                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80"
-                         alt="Masakan Lezat"
-                         style="
-                            width:100%;
-                            height:420px;
-                            object-fit:cover;
-                            border-radius:20px;
-                            position:relative;
-                            z-index:1;
-                            border:3px solid rgba(201,168,76,0.3);
-                            animation: float 5s ease-in-out infinite;
-                         ">
+            <!-- KANAN: Gambar 3D menonjol -->
+            <div style="position:relative; display:flex; justify-content:center; align-items:center;">
 
-                    <!-- Card info mengambang kiri bawah -->
-                    <div style="
-                        position:absolute; bottom:20px; left:-30px;
-                        background:rgba(26,26,26,0.95);
-                        border:1px solid var(--border-gold);
-                        border-radius:14px;
-                        padding:12px 16px;
-                        z-index:2;
-                        backdrop-filter:blur(10px);
-                        animation: float 4s ease-in-out infinite 0.5s;
-                        text-align:left;
-                    ">
-                        <div style="display:flex; align-items:center; gap:8px;">
-                            <div style="width:36px; height:36px; background:rgba(201,168,76,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center;">
-                                <i class="fas fa-fire" style="color:var(--gold);"></i>
-                            </div>
-                            <div>
-                                <div style="font-size:0.75rem; color:var(--text-muted);">Resep Populer</div>
-                                <div style="font-size:0.85rem; color:var(--text-primary); font-weight:600;">+<?= $total_resep ?> Resep</div>
-                            </div>
+                <!-- Lingkaran dekorasi belakang -->
+                <div style="
+                    position:absolute;
+                    width:420px; height:420px;
+                    border-radius:50%;
+                    background: linear-gradient(135deg, rgba(149,213,178,0.3), rgba(64,145,108,0.15));
+                    top:50%; left:50%;
+                    transform:translate(-50%,-50%);
+                    z-index:0;
+                "></div>
+
+                <!-- Gambar makanan menonjol ke depan -->
+                <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&q=85"
+                     alt="Masakan Lezat"
+                     style="
+                        width: 420px;
+                        height: 480px;
+                        object-fit: cover;
+                        border-radius: 30px;
+                        position: relative;
+                        z-index: 2;
+                        animation: float 5s ease-in-out infinite;
+                        filter: drop-shadow(0 30px 60px rgba(45,106,79,0.25));
+                     "
+                     onerror="this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80'">
+
+                <!-- Card rating kanan atas -->
+                <div style="
+                    position:absolute; top:40px; right:-10px;
+                    background:#fff;
+                    border-radius:16px;
+                    padding:12px 18px;
+                    box-shadow:0 10px 40px rgba(0,0,0,0.12);
+                    z-index:3;
+                    animation: float 4s ease-in-out infinite 0.8s;
+                    min-width:140px;
+                ">
+                    <div style="font-size:0.72rem; color:#999; margin-bottom:4px;"><?= $total_resep ?>+ Rating</div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <div style="display:flex; gap:2px; color:#f4a124; font-size:0.85rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
+                        <strong style="font-size:0.9rem; color:#333;">4.9</strong>
                     </div>
+                </div>
 
-                    <!-- Card rating mengambang kanan atas -->
-                    <div style="
-                        position:absolute; top:20px; right:-30px;
-                        background:rgba(26,26,26,0.95);
-                        border:1px solid var(--border-gold);
-                        border-radius:14px;
-                        padding:12px 16px;
-                        z-index:2;
-                        backdrop-filter:blur(10px);
-                        animation: float 4s ease-in-out infinite 1s;
-                        text-align:left;
-                    ">
-                        <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:4px;">Rating</div>
-                        <div style="display:flex; gap:3px; color:var(--gold); font-size:0.9rem;">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div style="font-size:0.8rem; color:var(--text-primary); font-weight:600; margin-top:2px;">5.0 / 5.0</div>
+                <!-- Card kategori kiri bawah -->
+                <div style="
+                    position:absolute; bottom:50px; left:-20px;
+                    background:#fff;
+                    border-radius:16px;
+                    padding:14px 18px;
+                    box-shadow:0 10px 40px rgba(0,0,0,0.12);
+                    z-index:3;
+                    animation: float 4s ease-in-out infinite 0.4s;
+                    min-width:160px;
+                ">
+                    <div style="font-size:0.72rem; color:#999; margin-bottom:6px;">Kategori Populer</div>
+                    <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                        <span style="background:var(--green-pale); color:var(--green-dark); padding:3px 10px; border-radius:20px; font-size:0.72rem; font-weight:500;">Ayam</span>
+                        <span style="background:var(--green-pale); color:var(--green-dark); padding:3px 10px; border-radius:20px; font-size:0.72rem; font-weight:500;">Ikan</span>
+                        <span style="background:var(--green-pale); color:var(--green-dark); padding:3px 10px; border-radius:20px; font-size:0.72rem; font-weight:500;"><?= $total_kategori ?>+ lainnya</span>
                     </div>
                 </div>
             </div>
+
         </div>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div style="position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); text-align:center; animation: fadeIn 1s ease 1s both;">
-        <div style="color:var(--text-muted); font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px;">Scroll</div>
-        <div style="width:1px; height:40px; background:linear-gradient(to bottom, var(--gold), transparent); margin:0 auto;"></div>
     </div>
 </section>
 
