@@ -67,20 +67,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--bg-primary);
+            background: linear-gradient(135deg, #f0f7f0, #e8f5e8);
             position: relative;
             overflow: hidden;
         }
 
-        /* Background dekorasi */
         body::before {
             content: '';
             position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(ellipse at 60% 40%, rgba(201,168,76,0.06) 0%, transparent 60%);
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(ellipse at 60% 40%, rgba(64,145,108,0.08) 0%, transparent 60%);
             pointer-events: none;
         }
 
@@ -92,11 +89,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .auth-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-gold);
+            background: #ffffff;
+            border: 1px solid rgba(64,145,108,0.2);
             border-radius: 20px;
             padding: 2.5rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 60px rgba(45,106,79,0.12);
         }
 
         .auth-logo {
@@ -105,7 +102,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .auth-logo .logo-icon {
-            font-size: 3rem;
+            font-size: 2.5rem;
+            color: var(--green);
             display: block;
             margin-bottom: 0.5rem;
             animation: float 3s ease-in-out infinite;
@@ -117,9 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: var(--text-primary);
         }
 
-        .auth-logo h1 span {
-            color: var(--gold);
-        }
+        .auth-logo h1 span { color: var(--green); }
 
         .auth-logo p {
             color: var(--text-muted);
@@ -136,27 +132,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-bottom: 1px solid var(--border);
         }
 
-        .input-group {
-            position: relative;
-        }
+        .input-group { position: relative; }
 
         .input-group .input-icon {
             position: absolute;
-            left: 14px;
-            top: 50%;
+            left: 14px; top: 50%;
             transform: translateY(-50%);
             color: var(--text-muted);
             font-size: 0.9rem;
         }
 
-        .input-group .form-control {
-            padding-left: 40px;
-        }
+        .input-group .form-control { padding-left: 40px; }
 
         .input-group .toggle-password {
             position: absolute;
-            right: 14px;
-            top: 50%;
+            right: 14px; top: 50%;
             transform: translateY(-50%);
             color: var(--text-muted);
             cursor: pointer;
@@ -166,9 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border: none;
         }
 
-        .input-group .toggle-password:hover {
-            color: var(--gold);
-        }
+        .input-group .toggle-password:hover { color: var(--green); }
 
         .auth-footer {
             text-align: center;
@@ -177,14 +165,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: var(--text-muted);
         }
 
-        .auth-footer a {
-            color: var(--gold);
-            font-weight: 500;
-        }
-
-        .auth-footer a:hover {
-            color: var(--gold-light);
-        }
+        .auth-footer a { color: var(--green); font-weight: 500; }
+        .auth-footer a:hover { color: var(--green-dark); }
 
         .divider-text {
             display: flex;
@@ -215,7 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="auth-card">
         <!-- Logo -->
         <div class="auth-logo">
-            <span class="logo-icon">🍳</span>
+            <i class="fas fa-utensils logo-icon"></i>
             <h1>Resep<span>Masakan</span></h1>
             <p>Platform berbagi resep terlengkap</p>
         </div>
