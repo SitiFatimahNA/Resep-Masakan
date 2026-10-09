@@ -6,10 +6,14 @@ uploads/resep/*
 uploads/profil/*
 uploads/langkah/*
 
+# Gambar kategori (upload manual)
+assets/images/kategori/*
+
 # Kecualikan file .gitkeep agar folder tetap ada di GitHub
 !uploads/resep/.gitkeep
 !uploads/profil/.gitkeep
 !uploads/langkah/.gitkeep
+!assets/images/kategori/.gitkeep
 
 # OS files
 .DS_Store
