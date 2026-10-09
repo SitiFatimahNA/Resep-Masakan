@@ -1,125 +1,170 @@
+<div align="center">
+
 # 🍳 Sistem Informasi Resep Masakan
 
-Aplikasi web berbasis **PHP Native** + **MySQL** untuk berbagi dan mengelola resep masakan. Dibangun sebagai project tugas sekolah dengan fitur lengkap meliputi autentikasi, CRUD resep, pencarian, pagination, laporan, dan panel admin.
+<p>Platform berbagi dan mengelola resep masakan berbasis <strong>PHP Native</strong> + <strong>MySQL</strong></p>
+
+[![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![XAMPP](https://img.shields.io/badge/XAMPP-FB7A24?style=for-the-badge&logo=xampp&logoColor=white)](https://apachefriends.org)
+
+[![License](https://img.shields.io/badge/License-MIT-2d6a4f?style=flat-square)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Completed-2d6a4f?style=flat-square)]()
+[![GitHub repo](https://img.shields.io/badge/GitHub-SitiFatimahNA-181717?style=flat-square&logo=github)](https://github.com/SitiFatimahNA/Resep-Masakan)
+
+</div>
 
 ---
 
-## 📋 Deskripsi
+## 📌 Tentang Project
 
-Sistem Informasi Resep Masakan adalah platform berbagi resep yang memungkinkan pengguna untuk:
-- Menemukan ribuan resep dari berbagai kategori
-- Membagikan resep masakan sendiri
-- Memberikan rating dan komentar pada resep
-- Menyimpan resep favorit
-- Admin dapat mengelola seluruh konten dan mengekspor laporan
+**Sistem Informasi Resep Masakan** adalah aplikasi web full-stack yang dibangun menggunakan PHP Native tanpa framework. Platform ini memungkinkan pengguna untuk berbagi, menemukan, dan mengelola resep masakan dari berbagai kategori — mulai dari masakan sehari-hari hingga dessert istimewa.
+
+> Project ini dikerjakan sebagai tugas akhir mata pelajaran Pemrograman Web.
 
 ---
 
-## ✨ Fitur Utama
+## ✨ Fitur
 
-### Fitur Publik
-- Halaman beranda dengan hero section modern dan animasi
-- Daftar resep dengan filter kategori, jenis, kesulitan, dan pencarian
-- Halaman detail resep (bahan, langkah memasak, foto langkah)
-- Halaman kategori bahan & jenis masakan
-- Halaman resep terpopuler dengan podium top 3
+<table>
+<tr>
+<td width="33%">
 
-### Fitur User (setelah login)
-- Tambah resep dengan form bahan & langkah dinamis
-- Edit dan hapus resep milik sendiri
-- Rating bintang (1–5) pada resep
+### 🌐 Publik
+- Hero section modern + animasi
+- Daftar resep + filter & pencarian
+- Detail resep lengkap
+- Halaman kategori & jenis
+- Resep terpopuler (podium top 3)
+
+</td>
+<td width="33%">
+
+### 👤 User (Login)
+- Tambah resep (bahan & langkah dinamis)
+- Edit & hapus resep sendiri
+- Rating bintang 1–5
 - Komentar pada resep
-- Simpan & kelola resep favorit
-- Edit profil, foto, dan ganti password
+- Simpan resep favorit
+- Edit profil & ganti password
 
-### Fitur Admin
-- Dashboard dengan statistik & bar chart resep per bulan
-- Kelola semua resep (CRUD + toggle status publik/draft)
-- Kelola user (toggle role admin/user, hapus)
-- Kelola kategori & jenis masakan (CRUD)
-- Moderasi komentar (aktif/nonaktif, hapus)
-- Laporan resep dengan filter tanggal + **Export CSV** + **Cetak PDF**
+</td>
+<td width="33%">
+
+### 🔧 Admin
+- Dashboard + bar chart statistik
+- Kelola resep (CRUD + toggle status)
+- Kelola user (role management)
+- Kelola kategori & jenis masakan
+- Moderasi komentar
+- Laporan + **Export CSV** + **Cetak PDF**
+
+</td>
+</tr>
+</table>
 
 ---
 
 ## 🛡️ Keamanan
 
-- Password di-hash menggunakan `password_hash()` bcrypt
-- Semua query menggunakan **prepared statement** mysqli
-- Validasi input di sisi server
-- Proteksi akses halaman berdasarkan role (admin/user)
-- File upload divalidasi tipe dan ukuran
+| Aspek | Implementasi |
+|-------|-------------|
+| Password | `password_hash()` bcrypt |
+| Query Database | Prepared Statement mysqli |
+| Validasi Input | Server-side validation |
+| Akses Halaman | Role-based access control (admin/user) |
+| Upload File | Validasi tipe & ukuran file |
 
 ---
 
-## 🗄️ Struktur Database
+## 🗄️ Database
 
-Database: `resep_masakan` — 9 tabel:
-
-| Tabel | Keterangan |
-|-------|-----------|
-| `users` | Data pengguna (admin & user) |
-| `kategori` | Kategori bahan (Ayam, Ikan, dll) |
-| `jenis_masakan` | Jenis sajian (Sarapan, Makan Siang, dll) |
-| `resep` | Data resep utama |
-| `bahan_resep` | Bahan-bahan tiap resep |
-| `langkah_resep` | Langkah memasak tiap resep |
-| `komentar` | Komentar user pada resep |
-| `rating` | Rating bintang user pada resep |
-| `favorit` | Resep favorit user |
-
-### ERD (Relasi Antar Tabel)
+**Nama:** `resep_masakan` &nbsp;|&nbsp; **Total Tabel:** 9
 
 ```
-users ──< resep ──< bahan_resep
-            │
-            ├──< langkah_resep
-            ├──< komentar >── users
-            ├──< rating   >── users
-            ├──< favorit  >── users
-            ├──> kategori
-            └──> jenis_masakan
+┌─────────────────────────────────────────────────────────┐
+│                    resep_masakan                        │
+├──────────────┬──────────────────────────────────────────┤
+│ users        │ Data pengguna & autentikasi              │
+│ kategori     │ Kategori bahan (Ayam, Ikan, Sapi, dll)   │
+│ jenis_masakan│ Jenis sajian (Sarapan, Makan Siang, dll) │
+│ resep        │ Data resep utama                         │
+│ bahan_resep  │ Bahan-bahan tiap resep                   │
+│ langkah_resep│ Langkah memasak tiap resep               │
+│ komentar     │ Komentar user pada resep                 │
+│ rating       │ Rating bintang (1–5) per user per resep  │
+│ favorit      │ Resep yang disimpan user                 │
+└──────────────┴──────────────────────────────────────────┘
+```
+
+### ERD — Relasi Antar Tabel
+
+```
+users ─────────────────────────────────────────┐
+  │                                             │
+  └──< resep ──< bahan_resep                    │
+         │                                      │
+         ├──< langkah_resep                     │
+         ├──< komentar >──────────────────── users
+         ├──< rating   >──────────────────── users
+         ├──< favorit  >──────────────────── users
+         ├──> kategori
+         └──> jenis_masakan
 ```
 
 ---
 
-## 🚀 Cara Instalasi
+## 🚀 Instalasi & Menjalankan
 
 ### Prasyarat
-- XAMPP (PHP 8.x + MySQL + Apache)
-- Git
 
-### Langkah-langkah
+- [XAMPP](https://www.apachefriends.org/) (PHP 8.x + MySQL + Apache)
+- [Git](https://git-scm.com/)
+
+### Langkah Instalasi
 
 **1. Clone repository**
+
 ```bash
 cd C:\xampp\htdocs
 git clone https://github.com/SitiFatimahNA/Resep-Masakan.git resep-masakan
+cd resep-masakan
 ```
 
-**2. Buat database**
-- Buka `http://localhost/phpmyadmin`
-- Buat database baru bernama `resep_masakan`
-- Import file `config/database.sql`
+**2. Import database**
+
+```
+1. Buka http://localhost/phpmyadmin
+2. Klik "New" → buat database: resep_masakan
+3. Pilih tab "Import" → pilih file config/database.sql
+4. Klik "Go"
+```
 
 **3. Konfigurasi koneksi**
+
 ```bash
-# Salin file contoh
+# Salin file konfigurasi contoh
 cp config/koneksi.example.php config/koneksi.php
 ```
-Edit `config/koneksi.php` sesuaikan dengan konfigurasi database lokal:
+
+Edit `config/koneksi.php`:
+
 ```php
 define('DB_HOST', 'localhost');
-define('DB_USER', 'root');       // username database
-define('DB_PASS', '');           // password database
+define('DB_USER', 'root');       // sesuaikan username
+define('DB_PASS', '');           // sesuaikan password
 define('DB_NAME', 'resep_masakan');
 ```
 
 **4. Jalankan aplikasi**
 
-Pastikan Apache dan MySQL sudah berjalan di XAMPP, lalu buka:
 ```
-http://localhost/resep-masakan/
+1. Buka XAMPP Control Panel
+2. Start Apache dan MySQL
+3. Buka browser → http://localhost/resep-masakan/
 ```
 
 ---
@@ -128,106 +173,128 @@ http://localhost/resep-masakan/
 
 | Role | Email | Password |
 |------|-------|----------|
-| Admin | admin@resepmasakan.com | password |
-
-> Akun user dapat dibuat melalui halaman Register.
+| 🔴 Admin | `admin@resepmasakan.com` | `password` |
+| 🟢 User | Daftar via `/register.php` | — |
 
 ---
 
-## 🗂️ Struktur Folder
+## 📁 Struktur Folder
 
 ```
 resep-masakan/
-├── admin/                  # Halaman panel admin
-│   ├── includes/           # Header & footer admin
-│   ├── dashboard.php
-│   ├── kelola-resep.php
-│   ├── kelola-user.php
-│   ├── kelola-kategori.php
-│   ├── kelola-komentar.php
-│   └── laporan.php
-├── assets/
-│   ├── css/style.css       # Stylesheet utama (tema hijau)
-│   ├── js/
-│   └── images/             # Gambar default & kategori
-├── config/
-│   ├── database.sql        # Skema database
-│   ├── koneksi.php         # Koneksi DB (tidak di-push)
-│   └── koneksi.example.php # Contoh konfigurasi
-├── includes/
-│   ├── header.php          # Navbar
-│   └── footer.php          # Footer + JS global
-├── uploads/
-│   ├── resep/              # Foto thumbnail resep
-│   ├── profil/             # Foto profil user
-│   └── langkah/            # Foto langkah memasak
-├── user/                   # Halaman khusus user login
-│   ├── ajax-favorit.php
-│   ├── tambah-resep.php
-│   ├── edit-resep.php
-│   ├── hapus-resep.php
-│   ├── resep-saya.php
-│   ├── favorit.php
-│   └── profil.php
-├── home.php                # Beranda
-├── resep.php               # Daftar resep
-├── detail-resep.php        # Detail resep
-├── kategori.php            # Semua kategori
-├── populer.php             # Resep terpopuler
-├── login.php
-├── register.php
-└── logout.php
+│
+├── 📂 admin/                    # Panel Admin
+│   ├── 📂 includes/             # Layout admin (header & footer)
+│   ├── dashboard.php            # Statistik & chart
+│   ├── kelola-resep.php         # CRUD resep
+│   ├── kelola-user.php          # Manajemen user
+│   ├── kelola-kategori.php      # CRUD kategori & jenis
+│   ├── kelola-komentar.php      # Moderasi komentar
+│   └── laporan.php              # Export CSV & cetak PDF
+│
+├── 📂 assets/
+│   ├── 📂 css/style.css         # Stylesheet utama (tema hijau)
+│   └── 📂 images/               # Gambar default & kategori
+│
+├── 📂 config/
+│   ├── database.sql             # Skema & data awal database
+│   ├── koneksi.php              # Koneksi DB (tidak di-push)
+│   └── koneksi.example.php      # Template konfigurasi
+│
+├── 📂 includes/
+│   ├── header.php               # Navbar responsif
+│   └── footer.php               # Footer + JavaScript global
+│
+├── 📂 uploads/
+│   ├── resep/                   # Thumbnail resep
+│   ├── profil/                  # Foto profil user
+│   └── langkah/                 # Foto langkah memasak
+│
+├── 📂 user/                     # Fitur khusus user login
+│   ├── ajax-favorit.php         # Handler AJAX favorit
+│   ├── tambah-resep.php         # Form tambah resep
+│   ├── edit-resep.php           # Form edit resep
+│   ├── hapus-resep.php          # Hapus resep
+│   ├── resep-saya.php           # Daftar resep milik user
+│   ├── favorit.php              # Daftar resep favorit
+│   └── profil.php               # Edit profil & password
+│
+├── home.php                     # Beranda utama
+├── resep.php                    # Daftar semua resep
+├── detail-resep.php             # Halaman detail resep
+├── kategori.php                 # Semua kategori
+├── populer.php                  # Resep terpopuler
+├── login.php                    # Halaman login
+├── register.php                 # Halaman daftar
+└── logout.php                   # Proses logout
 ```
 
 ---
 
-## 🛠️ Teknologi yang Digunakan
+## 🛠️ Tech Stack
 
-| Teknologi | Keterangan |
-|-----------|-----------|
-| PHP 8.x (Native) | Backend tanpa framework |
-| MySQL | Database |
-| HTML5 + CSS3 | Tampilan |
-| JavaScript (Vanilla) | Interaktivitas & animasi |
-| Font Awesome 6.5 | Icon |
-| Google Fonts | Playfair Display + Poppins |
-| XAMPP | Local server development |
+<div align="center">
 
----
+| Layer | Teknologi |
+|-------|-----------|
+| **Backend** | PHP 8.x Native (tanpa framework) |
+| **Database** | MySQL 8.0 |
+| **Frontend** | HTML5, CSS3, JavaScript (Vanilla) |
+| **Icon** | Font Awesome 6.5 |
+| **Font** | Playfair Display + Poppins (Google Fonts) |
+| **Server** | Apache via XAMPP |
 
-## 📱 Tampilan Responsif
-
-Aplikasi responsif dan dapat diakses dari berbagai perangkat:
-- Desktop (1200px+)
-- Tablet (768px – 1024px)
-- Mobile (< 768px)
+</div>
 
 ---
 
-## 📊 Fitur Laporan
+## 📱 Responsif
 
-- Filter berdasarkan rentang tanggal
-- Filter berdasarkan status (publik/draft)
-- **Export ke CSV** — dapat dibuka di Excel/Google Sheets
-- **Cetak / Simpan PDF** — via fitur print browser (Ctrl+P → Save as PDF)
+Tampilan dioptimalkan untuk semua ukuran layar:
+
+```
+Desktop  ████████████████████  1200px+
+Tablet   █████████████         768px – 1024px
+Mobile   ████████              < 768px
+```
 
 ---
 
-## 👩‍💻 Pembuat
+## 📊 Laporan
 
-| | |
-|--|--|
-| **Nama** | Siti Fatimah Nur Az-Zahra |
-| **Project** | Sistem Informasi Resep Masakan |
-| **Teknologi** | PHP Native + MySQL |
-| **GitHub** | [SitiFatimahNA/Resep-Masakan](https://github.com/SitiFatimahNA/Resep-Masakan) |
+Fitur laporan admin mendukung:
+
+- 🔍 Filter rentang tanggal & status resep
+- 📥 **Export CSV** — dapat dibuka di Excel / Google Sheets
+- 🖨️ **Cetak PDF** — via `Ctrl+P` → *Save as PDF*
 
 ---
 
 ## 📸 Screenshot
 
-> Screenshot akan ditambahkan setelah deployment selesai.
+> *Screenshot akan ditambahkan setelah semua halaman selesai diuji.*
 
 ---
 
-*Sistem Informasi Resep Masakan — Project Tugas Web*
+## 👩‍💻 Pembuat
+
+<div align="center">
+
+| | |
+|:--:|:--|
+| **Nama** | Siti Fatimah Nur Az-Zahra |
+| **Project** | Sistem Informasi Resep Masakan |
+| **Stack** | PHP Native + MySQL + Vanilla JS |
+| **Repository** | [github.com/SitiFatimahNA/Resep-Masakan](https://github.com/SitiFatimahNA/Resep-Masakan) |
+
+<br>
+
+*Dibuat dengan dedikasi untuk tugas akhir Pemrograman Web* 🌿
+
+</div>
+
+---
+
+<div align="center">
+<sub>© 2026 Siti Fatimah Nur Az-Zahra — Sistem Informasi Resep Masakan</sub>
+</div>
