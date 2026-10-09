@@ -28,10 +28,10 @@
             <div>
                 <h4 class="footer-title">Kategori</h4>
                 <div class="footer-links">
-                    <a href="/resep-masakan/resep.php?kategori=ayam">🍗 Ayam</a>
-                    <a href="/resep-masakan/resep.php?kategori=ikan">🐟 Ikan</a>
-                    <a href="/resep-masakan/resep.php?kategori=sayuran">🥦 Sayuran</a>
-                    <a href="/resep-masakan/resep.php?kategori=dessert">🍰 Dessert</a>
+                    <a href="/resep-masakan/resep.php?kategori=ayam">Ayam</a>
+                    <a href="/resep-masakan/resep.php?kategori=ikan">Ikan</a>
+                    <a href="/resep-masakan/resep.php?kategori=sayuran">Sayuran</a>
+                    <a href="/resep-masakan/resep.php?kategori=dessert">Dessert</a>
                 </div>
             </div>
 
@@ -54,7 +54,7 @@
 
         <!-- Footer Bottom -->
         <div class="footer-bottom">
-            <p>&copy; <?= date('Y') ?> <span>ResepMasakan</span>. Dibuat dengan <i class="fas fa-heart" style="color:var(--danger);"></i> oleh <span>Siti Fatimah Nur Az-Zahra</span></p>
+            <p>&copy; <?= date('Y') ?> <span>ResepMasakan</span>. Dibuat oleh <span>Siti Fatimah Nur Az-Zahra</span></p>
         </div>
     </div>
 </footer>
