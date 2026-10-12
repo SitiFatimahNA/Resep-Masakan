@@ -234,7 +234,7 @@ require_once '../includes/header.php';
                 </div>
                 <div class="form-group">
                     <label class="form-label">Status Publikasi</label>
-                    <select name="status" class="form-control">
+                    <select name="status" id="status-field" class="form-control">
                         <option value="publik" <?= ($_POST['status'] ?? '') === 'publik' ? 'selected' : '' ?>>Publik</option>
                         <option value="draft"  <?= ($_POST['status'] ?? 'draft') === 'draft'  ? 'selected' : '' ?>>Draft (Simpan dulu)</option>
                     </select>
@@ -308,10 +308,10 @@ require_once '../includes/header.php';
             <a href="/resep-masakan/user/resep-saya.php" class="btn btn-dark btn-lg">
                 <i class="fas fa-times"></i> Batal
             </a>
-            <button type="submit" name="status" value="draft" class="btn btn-outline btn-lg">
+            <button type="submit" onclick="document.getElementById('status-field').value='draft'" class="btn btn-outline btn-lg">
                 <i class="fas fa-save"></i> Simpan Draft
             </button>
-            <button type="submit" name="status" value="publik" class="btn btn-gold btn-lg">
+            <button type="submit" onclick="document.getElementById('status-field').value='publik'" class="btn btn-gold btn-lg">
                 <i class="fas fa-paper-plane"></i> Publikasikan
             </button>
         </div>

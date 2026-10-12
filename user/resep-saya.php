@@ -45,9 +45,9 @@ while ($row = mysqli_fetch_assoc($result)) $resep_list[] = $row;
 $stats = mysqli_fetch_assoc(mysqli_query($koneksi,
     "SELECT
      COUNT(*) as total,
-     SUM(status='publik') as publik,
-     SUM(status='draft') as draft,
-     SUM(views) as total_views
+     COUNT(CASE WHEN status='publik' THEN 1 END) as publik,
+     COUNT(CASE WHEN status='draft' THEN 1 END) as draft,
+     COALESCE(SUM(views), 0) as total_views
      FROM resep WHERE user_id = $user_id"));
 
 require_once '../includes/header.php';
