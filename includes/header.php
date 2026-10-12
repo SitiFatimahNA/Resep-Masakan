@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // Mulai session jika belum
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -12,8 +12,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sistem Informasi Resep Masakan - Temukan dan bagikan resep masakan terbaik">
-    <title><?= isset($page_title) ? $page_title . ' | ' : '' ?>Resep Masakan</title>
+    <meta name="description" content="DapurIn - Platform berbagi resep masakan terlengkap di Indonesia">
+    <title><?= isset($page_title) ? $page_title . ' | ' : '' ?>DapurIn</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="/resep-masakan/assets/css/style.css">
@@ -31,7 +31,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <div class="navbar-brand">
         <i class="fas fa-utensils logo-icon" style="font-size:1.4rem;"></i>
         <a href="/resep-masakan/index.php">
-            Resep<span>Masakan</span>
+            Dapur<span>In</span>
         </a>
     </div>
 

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once 'includes/admin-header.php';
 require_once '../config/koneksi.php';
 
@@ -222,7 +222,7 @@ if (isset($_GET['export']) && $_GET['export'] === 'csv') {
 <!-- Header khusus print -->
 <div id="print-header" style="margin-bottom:1.5rem; text-align:center; border-bottom:2px solid #2d6a4f; padding-bottom:1rem;">
     <h2 style="font-family:'Playfair Display',serif; font-size:1.4rem; color:#2d6a4f; margin:0;">
-        LAPORAN RESEP MASAKAN
+        LAPORAN DapurIn
     </h2>
     <p style="font-size:0.85rem; color:#666; margin:4px 0 0;">
         Periode: <?= date('d M Y', strtotime($dari)) ?> s/d <?= date('d M Y', strtotime($sampai)) ?>

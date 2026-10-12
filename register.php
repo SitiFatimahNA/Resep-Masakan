@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once 'config/koneksi.php';
 
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar | Resep Masakan</title>
+    <title>Daftar | DapurIn</title>
     <link rel="stylesheet" href="/resep-masakan/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -198,7 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- Logo -->
         <div class="auth-logo">
             <i class="fas fa-utensils logo-icon"></i>
-            <h1>Resep<span>Masakan</span></h1>
+            <h1>Dapur<span>In</span></h1>
             <p>Bergabung dan bagikan resep favoritmu</p>
         </div>
 

@@ -261,7 +261,7 @@ $current = basename($_SERVER['PHP_SELF']);
     <div class="sidebar-brand">
         <i class="fas fa-utensils" style="color:#95d5b2; font-size:1.3rem;"></i>
         <div>
-            <div class="brand-text">Resep<span>Masakan</span></div>
+            <div class="brand-text">Dapur<span>In</span></div>
             <div class="admin-badge">Admin</div>
         </div>
     </div>

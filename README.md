@@ -1,8 +1,8 @@
-<div align="center">
+﻿<div align="center">
 
-# 🍳 Sistem Informasi Resep Masakan
+# 🍳 Sistem Informasi DapurIn
 
-<p>Platform berbagi dan mengelola resep masakan berbasis <strong>PHP Native</strong> + <strong>MySQL</strong></p>
+<p>Platform berbagi dan mengelola DapurIn berbasis <strong>PHP Native</strong> + <strong>MySQL</strong></p>
 
 [![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
@@ -21,7 +21,7 @@
 
 ## 📌 Tentang Project
 
-**Sistem Informasi Resep Masakan** adalah aplikasi web full-stack yang dibangun menggunakan PHP Native tanpa framework. Platform ini memungkinkan pengguna untuk berbagi, menemukan, dan mengelola resep masakan dari berbagai kategori — mulai dari masakan sehari-hari hingga dessert istimewa.
+**Sistem Informasi DapurIn** adalah aplikasi web full-stack yang dibangun menggunakan PHP Native tanpa framework. Platform ini memungkinkan pengguna untuk berbagi, menemukan, dan mengelola DapurIn dari berbagai kategori — mulai dari masakan sehari-hari hingga dessert istimewa.
 
 > Project ini dikerjakan sebagai tugas akhir mata pelajaran Pemrograman Web.
 
@@ -173,7 +173,7 @@ define('DB_NAME', 'resep_masakan');
 
 | Role | Email | Password |
 |------|-------|----------|
-| 🔴 Admin | `admin@resepmasakan.com` | `password` |
+| 🔴 Admin | `admin@DapurIn.com` | `password` |
 | 🟢 User | Daftar via `/register.php` | — |
 
 ---
@@ -283,7 +283,7 @@ Fitur laporan admin mendukung:
 | | |
 |:--:|:--|
 | **Nama** | Siti Fatimah Nur Az-Zahra |
-| **Project** | Sistem Informasi Resep Masakan |
+| **Project** | Sistem Informasi DapurIn |
 | **Stack** | PHP Native + MySQL + Vanilla JS |
 | **Repository** | [github.com/SitiFatimahNA/Resep-Masakan](https://github.com/SitiFatimahNA/Resep-Masakan) |
 
@@ -296,5 +296,5 @@ Fitur laporan admin mendukung:
 ---
 
 <div align="center">
-<sub>© 2026 Siti Fatimah Nur Az-Zahra — Sistem Informasi Resep Masakan</sub>
+<sub>© 2026 Siti Fatimah Nur Az-Zahra — Sistem Informasi DapurIn</sub>
 </div>

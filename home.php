@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once 'config/koneksi.php';
 
@@ -119,7 +119,7 @@ require_once 'includes/header.php';
                     max-width:440px; margin-bottom:2.5rem;
                     animation: fadeInUp 0.5s ease 0.2s both;
                 ">
-                    Temukan ribuan resep masakan pilihan dari berbagai kategori. Mudah dipraktikkan, lezat hasilnya.
+                    Temukan ribuan DapurIn pilihan dari berbagai kategori. Mudah dipraktikkan, lezat hasilnya.
                 </p>
 
                 <!-- Tombol -->

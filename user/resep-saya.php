@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once '../config/koneksi.php';
 
@@ -111,7 +111,7 @@ require_once '../includes/header.php';
     <div style="text-align:center; padding:4rem; background:#fff; border-radius:var(--radius); border:1px solid var(--border);">
         <i class="fas fa-utensils" style="font-size:3rem; color:var(--border); display:block; margin-bottom:1rem;"></i>
         <h3 style="color:var(--text-secondary); margin-bottom:0.5rem;">Belum ada resep</h3>
-        <p style="color:var(--text-muted); margin-bottom:1.5rem;">Yuk bagikan resep masakan favoritmu!</p>
+        <p style="color:var(--text-muted); margin-bottom:1.5rem;">Yuk bagikan DapurIn favoritmu!</p>
         <a href="/resep-masakan/user/tambah-resep.php" class="btn btn-gold">
             <i class="fas fa-plus"></i> Buat Resep Pertama
         </a>

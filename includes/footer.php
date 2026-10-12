@@ -1,4 +1,4 @@
-</div>
+﻿</div>
 <!-- End Main Content -->
 
 <!-- FOOTER -->
@@ -7,7 +7,7 @@
         <div class="footer-grid">
             <!-- Brand -->
             <div>
-                <div class="footer-brand"><i class="fas fa-utensils"></i> ResepMasakan</div>
+                <div class="footer-brand"><i class="fas fa-utensils"></i> DapurIn</div>
                 <p class="footer-desc">
                     Platform berbagi resep masakan terlengkap. Temukan inspirasi masakan dari berbagai kategori, mulai dari sarapan hingga dessert.
                 </p>
@@ -54,7 +54,7 @@
 
         <!-- Footer Bottom -->
         <div class="footer-bottom">
-            <p>&copy; <?= date('Y') ?> <span>ResepMasakan</span>. Dibuat oleh <span>Siti Fatimah Nur Az-Zahra</span></p>
+            <p>&copy; <?= date('Y') ?> <span>DapurIn</span>. Dibuat oleh <span>Siti Fatimah Nur Az-Zahra</span></p>
         </div>
     </div>
 </footer>
