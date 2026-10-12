@@ -91,28 +91,49 @@ require_once 'includes/header.php';
         </div>
 
         <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:1rem;">
-            <?php $i=0; while ($j = mysqli_fetch_assoc($jenis_list)): $i++; ?>
+            <?php
+            $jenis_img = [
+                'sarapan'        => 'jenis-sarapan.jpg',
+                'makan-siang'    => 'jenis-makan-siang.jpg',
+                'makan-malam'    => 'jenis-makan-malam.jpg',
+                'camilan'        => 'jenis-camilan.jpg',
+                'minuman'        => 'jenis-minuman.jpg',
+                'dessert'        => 'jenis-dessert.jpg',
+                'sup-soto'       => 'jenis-sup-soto.jpg',
+                'bakar-panggang' => 'jenis-bakar-panggang.jpg',
+                'goreng'         => 'jenis-goreng.jpg',
+                'rebus-kukus'    => 'jenis-rebus-kukus.jpg',
+            ];
+            $i=0; while ($j = mysqli_fetch_assoc($jenis_list)): $i++;
+                $jimg = $jenis_img[$j['slug']] ?? null;
+            ?>
             <a href="/resep-masakan/resep.php?jenis=<?= urlencode($j['slug']) ?>"
-               class="animate animate-delay-<?= ($i%4)+1 ?>"
-               style="
-                text-decoration:none;
-                background:#fff;
-                border:1px solid var(--border);
-                border-radius:var(--radius);
-                padding:1.5rem 1rem;
-                text-align:center;
-                transition:var(--transition);
-                display:block;
-               "
-               onmouseover="this.style.borderColor='var(--green)';this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(64,145,108,0.15)'"
-               onmouseout="this.style.borderColor='var(--border)';this.style.transform='';this.style.boxShadow=''">
-                <div style="width:48px; height:48px; background:var(--green-pale); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 0.8rem;">
-                    <i class="fas fa-utensils" style="color:var(--green); font-size:1.1rem;"></i>
+               class="card animate animate-delay-<?= ($i%4)+1 ?>"
+               style="text-decoration:none; display:block;">
+                <div style="overflow:hidden; height:120px; position:relative;">
+                    <?php if ($jimg): ?>
+                    <img src="/resep-masakan/assets/images/kategori/<?= $jimg ?>"
+                         style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;"
+                         onmouseover="this.style.transform='scale(1.08)'"
+                         onmouseout="this.style.transform='scale(1)'"
+                         onerror="this.parentElement.style.background='var(--bg-secondary)'; this.style.display='none';">
+                    <?php else: ?>
+                    <div style="width:100%; height:100%; background:var(--green-pale); display:flex; align-items:center; justify-content:center;">
+                        <i class="fas fa-utensils" style="font-size:2rem; color:var(--green-light);"></i>
+                    </div>
+                    <?php endif; ?>
+                    <!-- Overlay gelap -->
+                    <div style="position:absolute; inset:0; background:linear-gradient(transparent 40%, rgba(0,0,0,0.65)); pointer-events:none;"></div>
+                    <!-- Teks di atas gambar -->
+                    <div style="position:absolute; bottom:0; left:0; right:0; padding:0.6rem 0.8rem;">
+                        <div style="color:#fff; font-weight:600; font-size:0.85rem; text-shadow:0 1px 3px rgba(0,0,0,0.5);">
+                            <?= htmlspecialchars($j['nama_jenis']) ?>
+                        </div>
+                        <div style="color:rgba(255,255,255,0.8); font-size:0.72rem;">
+                            <?= $j['total_resep'] ?> resep
+                        </div>
+                    </div>
                 </div>
-                <div style="font-size:0.875rem; font-weight:500; color:var(--text-primary); margin-bottom:4px;">
-                    <?= htmlspecialchars($j['nama_jenis']) ?>
-                </div>
-                <div style="font-size:0.75rem; color:var(--text-muted);"><?= $j['total_resep'] ?> resep</div>
             </a>
             <?php endwhile; ?>
         </div>
