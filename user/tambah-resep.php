@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = mysqli_prepare($koneksi,
                 "INSERT INTO resep (user_id, judul, slug, thumbnail, deskripsi, id_kategori, id_jenis, tingkat_kesulitan, waktu_masak, porsi, status)
                  VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-            mysqli_stmt_bind_param($stmt, 'issssiiisii',
+            mysqli_stmt_bind_param($stmt, 'issssiisssi',
                 $_SESSION['user_id'], $judul, $slug, $thumbnail, $deskripsi,
                 $id_kategori, $id_jenis, $kesulitan, $waktu, $porsi, $status);
             mysqli_stmt_execute($stmt);
