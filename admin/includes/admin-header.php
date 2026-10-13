@@ -1,11 +1,6 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) session_start();
 
-// Load koneksi database
-if (!isset($koneksi)) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/resep-masakan/config/koneksi.php';
-}
-
 // Harus login sebagai admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header('Location: /resep-masakan/login.php');

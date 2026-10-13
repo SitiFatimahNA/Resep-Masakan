@@ -1,5 +1,8 @@
 <?php
-require_once '../config/koneksi.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '/resep-masakan/config/koneksi.php';
 require_once 'includes/admin-header.php';
 
 $page_title = 'Dashboard';
