@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/admin-header.php';
 require_once '../config/koneksi.php';
+require_once 'includes/admin-header.php';
 
 $page_title = 'Dashboard';
 
