@@ -234,11 +234,10 @@ require_once '../includes/header.php';
                 </div>
                 <div class="form-group">
                     <label class="form-label">Status Publikasi</label>
-                    <select name="status" id="status-field" class="form-control">
-                        <option value="publik" <?= ($_POST['status'] ?? '') === 'publik' ? 'selected' : '' ?>>Publik</option>
-                        <option value="draft"  <?= ($_POST['status'] ?? 'draft') === 'draft'  ? 'selected' : '' ?>>Draft (Simpan dulu)</option>
-                    </select>
-                    <small style="color:var(--text-muted); font-size:0.75rem;">Draft tidak tampil di halaman publik</small>
+                    <div style="background:var(--bg-secondary); border-radius:var(--radius-sm); padding:10px 14px; font-size:0.85rem; color:var(--text-muted);">
+                        <i class="fas fa-info-circle" style="color:var(--green);"></i>
+                        Pilih <strong>Simpan Draft</strong> atau <strong>Publikasikan</strong> di tombol bawah
+                    </div>
                 </div>
             </div>
         </div>
@@ -305,13 +304,16 @@ require_once '../includes/header.php';
 
         <!-- Tombol Submit -->
         <div style="display:flex; gap:1rem; justify-content:flex-end;" class="animate animate-delay-3">
+            <!-- Hidden input untuk status -->
+            <input type="hidden" name="status" id="status-field" value="draft">
+
             <a href="/resep-masakan/user/resep-saya.php" class="btn btn-dark btn-lg">
                 <i class="fas fa-times"></i> Batal
             </a>
-            <button type="submit" onclick="document.getElementById('status-field').value='draft'" class="btn btn-outline btn-lg">
+            <button type="submit" onclick="document.getElementById('status-field').value='draft';" class="btn btn-outline btn-lg">
                 <i class="fas fa-save"></i> Simpan Draft
             </button>
-            <button type="submit" onclick="document.getElementById('status-field').value='publik'" class="btn btn-gold btn-lg">
+            <button type="submit" onclick="document.getElementById('status-field').value='publik';" class="btn btn-gold btn-lg">
                 <i class="fas fa-paper-plane"></i> Publikasikan
             </button>
         </div>
