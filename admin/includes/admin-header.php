@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 
 // Load koneksi database
 if (!isset($koneksi)) {
-    require_once __DIR__ . '/../../config/koneksi.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/resep-masakan/config/koneksi.php';
 }
 
 // Harus login sebagai admin
