@@ -1,10 +1,9 @@
-<?php
+﻿<?php
+$page_title = 'Kelola Resep';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once $_SERVER['DOCUMENT_ROOT'] . '/resep-masakan/config/koneksi.php';
 require_once 'includes/admin-header.php';
-
-$page_title = 'Kelola Resep';
 
 // Handle aksi
 $aksi = $_GET['aksi'] ?? '';
@@ -102,7 +101,7 @@ $result = mysqli_query($koneksi,
 </div>
 
 <!-- Tabel -->
-<div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;" class="animate">
+<div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;">
     <table class="admin-table">
         <thead>
             <tr>

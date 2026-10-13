@@ -1,10 +1,9 @@
-<?php
+﻿<?php
+$page_title = 'Kelola User';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once $_SERVER['DOCUMENT_ROOT'] . '/resep-masakan/config/koneksi.php';
 require_once 'includes/admin-header.php';
-
-$page_title = 'Kelola User';
 
 $aksi = $_GET['aksi'] ?? '';
 $id   = (int)($_GET['id'] ?? 0);
@@ -79,7 +78,7 @@ $result     = mysqli_query($koneksi,
     </form>
 </div>
 
-<div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;" class="animate">
+<div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;">
     <table class="admin-table">
         <thead>
             <tr><th>No</th><th>User</th><th>Email</th><th>Role</th><th>Resep</th><th>Bergabung</th><th>Aksi</th></tr>

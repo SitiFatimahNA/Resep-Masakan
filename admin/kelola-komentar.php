@@ -1,10 +1,9 @@
-<?php
+﻿<?php
+$page_title = 'Kelola Komentar';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once $_SERVER['DOCUMENT_ROOT'] . '/resep-masakan/config/koneksi.php';
 require_once 'includes/admin-header.php';
-
-$page_title = 'Kelola Komentar';
 
 $aksi = $_GET['aksi'] ?? '';
 $id   = (int)($_GET['id'] ?? 0);
@@ -91,7 +90,7 @@ $total_nonaktif = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(*) t F
     </form>
 </div>
 
-<div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;" class="animate">
+<div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;">
     <table class="admin-table">
         <thead>
             <tr><th>No</th><th>User</th><th>Komentar</th><th>Resep</th><th>Waktu</th><th>Status</th><th>Aksi</th></tr>

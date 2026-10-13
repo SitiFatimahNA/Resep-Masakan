@@ -1,10 +1,9 @@
-<?php
+﻿<?php
+$page_title = 'Kelola Kategori';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once $_SERVER['DOCUMENT_ROOT'] . '/resep-masakan/config/koneksi.php';
 require_once 'includes/admin-header.php';
-
-$page_title = 'Kelola Kategori';
 $error = $success = '';
 $edit_kat = $edit_jenis = null;
 
@@ -101,7 +100,7 @@ $jenis_list    = mysqli_query($koneksi,
 
     <!-- ===== KATEGORI ===== -->
     <div>
-        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; margin-bottom:1.5rem;" class="animate">
+        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; margin-bottom:1.5rem;">
             <h3 style="font-size:0.95rem; font-weight:600; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border); color:var(--text-primary);">
                 <i class="fas fa-<?= $edit_kat ? 'edit' : 'plus' ?>" style="color:var(--green);"></i>
                 <?= $edit_kat ? 'Edit Kategori' : 'Tambah Kategori' ?>
@@ -131,7 +130,7 @@ $jenis_list    = mysqli_query($koneksi,
             </form>
         </div>
 
-        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;" class="animate">
+        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;">
             <table class="admin-table">
                 <thead><tr><th>Nama</th><th>Resep</th><th>Aksi</th></tr></thead>
                 <tbody>
@@ -158,7 +157,7 @@ $jenis_list    = mysqli_query($koneksi,
 
     <!-- ===== JENIS MASAKAN ===== -->
     <div>
-        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; margin-bottom:1.5rem;" class="animate animate-delay-1">
+        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; margin-bottom:1.5rem;">
             <h3 style="font-size:0.95rem; font-weight:600; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border); color:var(--text-primary);">
                 <i class="fas fa-<?= $edit_jenis ? 'edit' : 'plus' ?>" style="color:var(--green);"></i>
                 <?= $edit_jenis ? 'Edit Jenis' : 'Tambah Jenis Masakan' ?>
@@ -182,7 +181,7 @@ $jenis_list    = mysqli_query($koneksi,
             </form>
         </div>
 
-        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;" class="animate animate-delay-1">
+        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;">
             <table class="admin-table">
                 <thead><tr><th>Nama Jenis</th><th>Resep</th><th>Aksi</th></tr></thead>
                 <tbody>

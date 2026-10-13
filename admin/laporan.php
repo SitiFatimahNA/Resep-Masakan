@@ -1,10 +1,9 @@
 ﻿<?php
+$page_title = 'Laporan';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once $_SERVER['DOCUMENT_ROOT'] . '/resep-masakan/config/koneksi.php';
 require_once 'includes/admin-header.php';
-
-$page_title = 'Laporan';
 
 // Filter tanggal
 $dari  = $_GET['dari']  ?? date('Y-m-01');
@@ -85,7 +84,7 @@ if (isset($_GET['export']) && $_GET['export'] === 'csv') {
 </div>
 
 <!-- Filter -->
-<div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; margin-bottom:1.5rem;" class="animate">
+<div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; margin-bottom:1.5rem;">
     <form method="GET" style="display:flex; gap:1rem; flex-wrap:wrap; align-items:flex-end;">
         <div class="form-group" style="margin:0; flex:1; min-width:150px;">
             <label class="form-label">Dari Tanggal</label>
@@ -110,7 +109,7 @@ if (isset($_GET['export']) && $_GET['export'] === 'csv') {
 </div>
 
 <!-- Ringkasan -->
-<div style="display:grid; grid-template-columns:repeat(5,1fr); gap:1rem; margin-bottom:1.5rem;" class="animate" id="ringkasan">
+<div style="display:grid; grid-template-columns:repeat(5,1fr); gap:1rem; margin-bottom:1.5rem;" id="ringkasan">
     <?php
     $sum = [
         ['label'=>'Total Resep',   'value'=>$stats['total'],          'icon'=>'fa-utensils', 'color'=>'var(--green)'],
@@ -134,7 +133,7 @@ if (isset($_GET['export']) && $_GET['export'] === 'csv') {
 </div>
 
 <!-- Tabel Laporan -->
-<div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;" class="animate" id="tabel-laporan">
+<div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;" id="tabel-laporan">
     <div style="padding:1rem 1.5rem; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
         <h3 style="font-size:0.95rem; font-weight:600; color:var(--text-primary); margin:0;">
             Daftar Resep — <?= date('d M Y', strtotime($dari)) ?> s/d <?= date('d M Y', strtotime($sampai)) ?>
