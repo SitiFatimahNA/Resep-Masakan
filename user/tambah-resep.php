@@ -262,15 +262,25 @@ require_once '../includes/header.php';
             </div>
 
             <div id="bahan-container">
-                <!-- Bahan default -->
+                <?php
+                // Tampilkan kembali bahan dari POST jika ada error, atau 1 baris kosong
+                $post_bahan_nama   = $_POST['bahan_nama']   ?? [''];
+                $post_bahan_jumlah = $_POST['bahan_jumlah'] ?? [''];
+                $post_bahan_satuan = $_POST['bahan_satuan'] ?? [''];
+                foreach ($post_bahan_nama as $idx => $nama_val):
+                ?>
                 <div class="bahan-row" style="display:grid; grid-template-columns:2fr 1fr 1fr 40px; gap:8px; margin-bottom:8px;">
-                    <input type="text" name="bahan_nama[]" class="form-control" placeholder="Contoh: Ayam">
-                    <input type="text" name="bahan_jumlah[]" class="form-control" placeholder="500">
-                    <input type="text" name="bahan_satuan[]" class="form-control" placeholder="gram">
+                    <input type="text" name="bahan_nama[]" class="form-control" placeholder="Contoh: Ayam"
+                           value="<?= htmlspecialchars($nama_val) ?>">
+                    <input type="text" name="bahan_jumlah[]" class="form-control" placeholder="500"
+                           value="<?= htmlspecialchars($post_bahan_jumlah[$idx] ?? '') ?>">
+                    <input type="text" name="bahan_satuan[]" class="form-control" placeholder="gram"
+                           value="<?= htmlspecialchars($post_bahan_satuan[$idx] ?? '') ?>">
                     <button type="button" onclick="hapusBaris(this)" style="background:var(--danger); color:#fff; border:none; border-radius:var(--radius-sm); cursor:pointer; width:36px; height:36px; display:flex; align-items:center; justify-content:center; margin-top:2px;">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
+                <?php endforeach; ?>
             </div>
         </div>
 
@@ -286,12 +296,17 @@ require_once '../includes/header.php';
             </div>
 
             <div id="langkah-container">
-                <!-- Langkah default -->
+                <?php
+                // Tampilkan kembali langkah dari POST jika ada error, atau 1 baris kosong
+                $post_langkah = $_POST['langkah_isi'] ?? [''];
+                foreach ($post_langkah as $lidx => $langkah_val):
+                    $num = $lidx + 1;
+                ?>
                 <div class="langkah-row" style="display:flex; gap:12px; margin-bottom:1rem; align-items:start;">
-                    <div style="width:36px; height:36px; background:var(--green); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9rem; flex-shrink:0; margin-top:4px;" class="langkah-num">1</div>
+                    <div style="width:36px; height:36px; background:var(--green); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9rem; flex-shrink:0; margin-top:4px;" class="langkah-num"><?= $num ?></div>
                     <div style="flex:1; display:grid; grid-template-columns:1fr auto; gap:8px; align-items:start;">
                         <div>
-                            <textarea name="langkah_isi[]" class="form-control" rows="2" placeholder="Tuliskan langkah memasak..."></textarea>
+                            <textarea name="langkah_isi[]" class="form-control" rows="2" placeholder="Tuliskan langkah memasak..."><?= htmlspecialchars($langkah_val) ?></textarea>
                             <input type="file" name="langkah_foto[]" accept="image/*" style="margin-top:6px; font-size:0.8rem; color:var(--text-muted);">
                         </div>
                         <button type="button" onclick="hapusBaris(this)" style="background:var(--danger); color:#fff; border:none; border-radius:var(--radius-sm); cursor:pointer; width:36px; height:36px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
@@ -299,6 +314,7 @@ require_once '../includes/header.php';
                         </button>
                     </div>
                 </div>
+                <?php endforeach; ?>
             </div>
         </div>
 
