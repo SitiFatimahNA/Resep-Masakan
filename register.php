@@ -78,7 +78,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             justify-content: center;
             background: linear-gradient(135deg, #f0f7f0, #e8f5e8);
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
             padding: 2rem 1rem;
         }
 
