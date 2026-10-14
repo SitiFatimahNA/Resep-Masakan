@@ -51,13 +51,26 @@ $langkah_list = [];
 while ($l = mysqli_fetch_assoc($langkah_result)) $langkah_list[] = $l;
 
 // Ambil komentar
+// Ambil komentar — hanya parent (parent_id IS NULL), reply diambil terpisah
 $komentar_result = mysqli_query($koneksi,
     "SELECT k.*, u.nama, u.foto FROM komentar k
      LEFT JOIN users u ON k.id_user = u.id
-     WHERE k.id_resep = {$resep['id']} AND k.status = 'aktif'
-     ORDER BY k.created_at DESC");
+     WHERE k.id_resep = {$resep['id']} AND k.status = 'aktif' AND (k.parent_id IS NULL OR k.parent_id = 0)
+     ORDER BY k.created_at ASC");
 $komentar_list = [];
-while ($k = mysqli_fetch_assoc($komentar_result)) $komentar_list[] = $k;
+while ($k = mysqli_fetch_assoc($komentar_result)) {
+    // Ambil balasan untuk komentar ini
+    $reply_result = mysqli_query($koneksi,
+        "SELECT k.*, u.nama, u.foto FROM komentar k
+         LEFT JOIN users u ON k.id_user = u.id
+         WHERE k.parent_id = {$k['id']} AND k.status = 'aktif'
+         ORDER BY k.created_at ASC");
+    $k['replies'] = [];
+    while ($reply = mysqli_fetch_assoc($reply_result)) {
+        $k['replies'][] = $reply;
+    }
+    $komentar_list[] = $k;
+}
 
 // Cek favorit user
 $is_favorit = false;
@@ -78,18 +91,24 @@ if (isset($_SESSION['user_id'])) {
     mysqli_stmt_close($rat_stmt);
 }
 
-// Handle POST komentar
+// Handle POST komentar & reply
 $pesan = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['komentar'])) {
     if (!isset($_SESSION['user_id'])) {
         $pesan = 'error:Silakan login untuk berkomentar.';
     } else {
-        $isi = trim($_POST['komentar']);
+        $isi       = trim($_POST['komentar']);
+        $parent_id = (int)($_POST['parent_id'] ?? 0);
         if (strlen($isi) < 3) {
             $pesan = 'error:Komentar terlalu pendek.';
         } else {
-            $ks = mysqli_prepare($koneksi, "INSERT INTO komentar (id_resep, id_user, komentar) VALUES (?,?,?)");
-            mysqli_stmt_bind_param($ks, 'iis', $resep['id'], $_SESSION['user_id'], $isi);
+            if ($parent_id > 0) {
+                $ks = mysqli_prepare($koneksi, "INSERT INTO komentar (id_resep, id_user, parent_id, komentar) VALUES (?,?,?,?)");
+                mysqli_stmt_bind_param($ks, 'iiis', $resep['id'], $_SESSION['user_id'], $parent_id, $isi);
+            } else {
+                $ks = mysqli_prepare($koneksi, "INSERT INTO komentar (id_resep, id_user, komentar) VALUES (?,?,?)");
+                mysqli_stmt_bind_param($ks, 'iis', $resep['id'], $_SESSION['user_id'], $isi);
+            }
             mysqli_stmt_execute($ks);
             mysqli_stmt_close($ks);
             header("Location: /resep-masakan/detail-resep.php?slug=" . urlencode($slug) . "#komentar");
@@ -279,8 +298,10 @@ require_once 'includes/header.php';
                     </div>
                 <?php endif; ?>
 
+                <!-- Form komentar utama -->
                 <?php if (isset($_SESSION['user_id'])): ?>
-                <form method="POST" style="margin-bottom:2rem;">
+                <form method="POST" style="margin-bottom:2rem;" id="form-komentar-utama">
+                    <input type="hidden" name="parent_id" value="0">
                     <div class="form-group">
                         <label class="form-label">Tulis komentar</label>
                         <textarea name="komentar" class="form-control" rows="3"
@@ -302,20 +323,89 @@ require_once 'includes/header.php';
                 <?php else: ?>
                 <div style="display:flex; flex-direction:column; gap:1.2rem;">
                     <?php foreach ($komentar_list as $k): ?>
-                    <div style="display:flex; gap:12px; padding:1rem; background:var(--bg-secondary); border-radius:var(--radius-sm);">
-                        <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($k['foto'] ?? 'default.png') ?>"
-                             style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--green-light);"
-                             onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
-                        <div style="flex:1;">
-                            <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
-                                <strong style="font-size:0.875rem; color:var(--text-primary);"><?= htmlspecialchars($k['nama']) ?></strong>
-                                <span style="font-size:0.75rem; color:var(--text-muted);"><?= date('d M Y', strtotime($k['created_at'])) ?></span>
+
+                    <!-- Komentar Utama -->
+                    <div>
+                        <div style="display:flex; gap:12px; padding:1rem; background:var(--bg-secondary); border-radius:var(--radius-sm);">
+                            <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($k['foto'] ?? 'default.png') ?>"
+                                 style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--green-light);"
+                                 onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                            <div style="flex:1;">
+                                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; flex-wrap:wrap; gap:8px;">
+                                    <div style="display:flex; align-items:center; gap:8px;">
+                                        <strong style="font-size:0.875rem; color:var(--text-primary);"><?= htmlspecialchars($k['nama']) ?></strong>
+                                        <span style="font-size:0.75rem; color:var(--text-muted);"><?= date('d M Y H:i', strtotime($k['created_at'])) ?></span>
+                                    </div>
+                                    <?php if (isset($_SESSION['user_id'])): ?>
+                                    <button onclick="toggleReplyForm('reply-form-<?= $k['id'] ?>')"
+                                            style="background:none; border:none; color:var(--green); font-size:0.8rem; cursor:pointer; display:flex; align-items:center; gap:4px; padding:2px 8px; border-radius:12px; border:1px solid var(--green-light);">
+                                        <i class="fas fa-reply"></i> Balas
+                                        <?php if (!empty($k['replies'])): ?>
+                                        <span style="background:var(--green); color:#fff; border-radius:50%; width:18px; height:18px; font-size:0.7rem; display:inline-flex; align-items:center; justify-content:center; margin-left:2px;">
+                                            <?= count($k['replies']) ?>
+                                        </span>
+                                        <?php endif; ?>
+                                    </button>
+                                    <?php endif; ?>
+                                </div>
+                                <p style="font-size:0.875rem; color:var(--text-secondary); margin:0; line-height:1.6;">
+                                    <?= nl2br(htmlspecialchars($k['komentar'])) ?>
+                                </p>
                             </div>
-                            <p style="font-size:0.875rem; color:var(--text-secondary); margin:0; line-height:1.6;">
-                                <?= nl2br(htmlspecialchars($k['komentar'])) ?>
-                            </p>
                         </div>
+
+                        <!-- Balasan komentar -->
+                        <?php if (!empty($k['replies'])): ?>
+                        <div style="margin-left:52px; margin-top:8px; display:flex; flex-direction:column; gap:8px;" id="replies-<?= $k['id'] ?>">
+                            <?php foreach ($k['replies'] as $reply): ?>
+                            <div style="display:flex; gap:10px; padding:0.8rem; background:#f0faf4; border-radius:var(--radius-sm); border-left:3px solid var(--green-light);">
+                                <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($reply['foto'] ?? 'default.png') ?>"
+                                     style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--green-light);"
+                                     onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                                <div style="flex:1;">
+                                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:3px;">
+                                        <strong style="font-size:0.82rem; color:var(--text-primary);"><?= htmlspecialchars($reply['nama']) ?></strong>
+                                        <span style="font-size:0.72rem; color:var(--text-muted);"><?= date('d M Y H:i', strtotime($reply['created_at'])) ?></span>
+                                        <span style="font-size:0.7rem; background:var(--green-pale); color:var(--green-dark); padding:1px 6px; border-radius:10px;">balasan</span>
+                                    </div>
+                                    <p style="font-size:0.82rem; color:var(--text-secondary); margin:0; line-height:1.6;">
+                                        <?= nl2br(htmlspecialchars($reply['komentar'])) ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
+                        <?php endif; ?>
+
+                        <!-- Form Balas -->
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                        <div id="reply-form-<?= $k['id'] ?>" style="display:none; margin-left:52px; margin-top:8px;">
+                            <form method="POST">
+                                <input type="hidden" name="parent_id" value="<?= $k['id'] ?>">
+                                <div style="display:flex; gap:8px; align-items:flex-start;">
+                                    <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($_SESSION['foto'] ?? 'default.png') ?>"
+                                         style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:2px solid var(--green-light);flex-shrink:0;"
+                                         onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                                    <div style="flex:1;">
+                                        <textarea name="komentar" class="form-control" rows="2"
+                                                  placeholder="Tulis balasan untuk <?= htmlspecialchars($k['nama']) ?>..."
+                                                  style="font-size:0.85rem;"></textarea>
+                                        <div style="display:flex; gap:8px; margin-top:6px;">
+                                            <button type="submit" class="btn btn-gold btn-sm">
+                                                <i class="fas fa-paper-plane"></i> Kirim Balasan
+                                            </button>
+                                            <button type="button" onclick="toggleReplyForm('reply-form-<?= $k['id'] ?>')"
+                                                    class="btn btn-dark btn-sm">
+                                                Batal
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <?php endif; ?>
                     </div>
+
                     <?php endforeach; ?>
                 </div>
                 <?php endif; ?>
@@ -392,7 +482,19 @@ require_once 'includes/header.php';
 </div>
 
 <script>
-// Toggle favorit AJAX
+// Toggle reply form
+function toggleReplyForm(id) {
+    const form = document.getElementById(id);
+    if (!form) return;
+    if (form.style.display === 'none' || form.style.display === '') {
+        // Tutup semua form reply lain dulu
+        document.querySelectorAll('[id^="reply-form-"]').forEach(f => f.style.display = 'none');
+        form.style.display = 'block';
+        form.querySelector('textarea').focus();
+    } else {
+        form.style.display = 'none';
+    }
+}
 function toggleFavorit() {
     fetch('/resep-masakan/user/ajax-favorit.php', {
         method: 'POST',
