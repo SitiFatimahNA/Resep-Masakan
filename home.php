@@ -459,7 +459,7 @@ require_once 'includes/header.php';
 <?php if (!isset($_SESSION['user_id'])): ?>
 <section class="section">
     <div class="container">
-        <div class="animate" style="
+        <div style="
             background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary));
             border: 1px solid var(--border-gold);
             border-radius: 24px;

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once '../config/koneksi.php';
 
@@ -144,7 +144,7 @@ require_once '../includes/header.php';
 <div class="container" style="max-width:860px;">
 
     <!-- Header -->
-    <div style="margin-bottom:2rem;" class="animate">
+    <div style="margin-bottom:2rem;">
         <h1 style="font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--text-primary);">
             <i class="fas fa-plus-circle" style="color:var(--green);"></i> Tambah <span style="color:var(--green);">Resep</span> Baru
         </h1>
@@ -158,7 +158,7 @@ require_once '../includes/header.php';
     <form method="POST" enctype="multipart/form-data" id="form-resep">
 
         <!-- ===== INFO DASAR ===== -->
-        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;" class="animate">
+        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;">
             <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin-bottom:1.5rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
                 <i class="fas fa-info-circle" style="color:var(--green);"></i> Informasi Dasar
             </h3>
@@ -243,7 +243,7 @@ require_once '../includes/header.php';
         </div>
 
         <!-- ===== BAHAN ===== -->
-        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;" class="animate animate-delay-1">
+        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;" class="">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
                 <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin:0;">
                     <i class="fas fa-list-ul" style="color:var(--green);"></i> Bahan-bahan
@@ -275,7 +275,7 @@ require_once '../includes/header.php';
         </div>
 
         <!-- ===== LANGKAH ===== -->
-        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;" class="animate animate-delay-2">
+        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;" class="">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
                 <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin:0;">
                     <i class="fas fa-list-ol" style="color:var(--green);"></i> Cara Memasak
@@ -303,7 +303,7 @@ require_once '../includes/header.php';
         </div>
 
         <!-- Tombol Submit -->
-        <div style="display:flex; gap:1rem; justify-content:flex-end;" class="animate animate-delay-3">
+        <div style="display:flex; gap:1rem; justify-content:flex-end;" class="">
             <!-- Hidden input untuk status -->
             <input type="hidden" name="status" id="status-field" value="draft">
 

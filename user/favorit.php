@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once '../config/koneksi.php';
 
@@ -41,7 +41,7 @@ require_once '../includes/header.php';
 <div style="background:#f8faf8; min-height:100vh; padding:2rem 0 4rem;">
 <div class="container">
 
-    <div style="margin-bottom:2rem;" class="animate">
+    <div style="margin-bottom:2rem;">
         <h1 style="font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--text-primary);">
             <i class="fas fa-heart" style="color:var(--danger);"></i> Resep <span style="color:var(--green);">Favorit</span>
         </h1>

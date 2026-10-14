@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once 'config/koneksi.php';
 
@@ -112,7 +112,7 @@ require_once 'includes/header.php';
 <div class="container">
 
     <!-- Breadcrumb -->
-    <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.5rem;" class="animate">
+    <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.5rem;">
         <a href="/resep-masakan/home.php" style="color:var(--green);">Beranda</a>
         <i class="fas fa-chevron-right" style="font-size:0.7rem; margin:0 6px;"></i>
         <a href="/resep-masakan/resep.php" style="color:var(--green);">Resep</a>
@@ -125,7 +125,7 @@ require_once 'includes/header.php';
         <!-- ===== KONTEN UTAMA ===== -->
         <div>
             <!-- Thumbnail -->
-            <div style="border-radius:var(--radius); overflow:hidden; margin-bottom:2rem; position:relative;" class="animate">
+            <div style="border-radius:var(--radius); overflow:hidden; margin-bottom:2rem; position:relative;">
                 <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
                      alt="<?= htmlspecialchars($resep['judul']) ?>"
                      style="width:100%; height:420px; object-fit:cover;"
@@ -137,7 +137,7 @@ require_once 'includes/header.php';
             </div>
 
             <!-- Judul & Info -->
-            <div class="animate" style="background:#fff; border-radius:var(--radius); padding:2rem; border:1px solid var(--border); margin-bottom:1.5rem;">
+            <div style="background:#fff; border-radius:var(--radius); padding:2rem; border:1px solid var(--border); margin-bottom:1.5rem;">
                 <div style="display:flex; align-items:start; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
                     <div style="flex:1;">
                         <h1 style="font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--text-primary); margin-bottom:0.8rem;">
@@ -205,7 +205,7 @@ require_once 'includes/header.php';
             </div>
 
             <!-- Bahan -->
-            <div class="animate" style="background:#fff; border-radius:var(--radius); padding:2rem; border:1px solid var(--border); margin-bottom:1.5rem;">
+            <div style="background:#fff; border-radius:var(--radius); padding:2rem; border:1px solid var(--border); margin-bottom:1.5rem;">
                 <h2 style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--text-primary); margin-bottom:1.2rem; display:flex; align-items:center; gap:10px;">
                     <i class="fas fa-list-ul" style="color:var(--green);"></i> Bahan-bahan
                 </h2>
@@ -224,7 +224,7 @@ require_once 'includes/header.php';
             </div>
 
             <!-- Langkah -->
-            <div class="animate" style="background:#fff; border-radius:var(--radius); padding:2rem; border:1px solid var(--border); margin-bottom:1.5rem;">
+            <div style="background:#fff; border-radius:var(--radius); padding:2rem; border:1px solid var(--border); margin-bottom:1.5rem;">
                 <h2 style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--text-primary); margin-bottom:1.5rem; display:flex; align-items:center; gap:10px;">
                     <i class="fas fa-list-ol" style="color:var(--green);"></i> Cara Memasak
                 </h2>
@@ -254,7 +254,7 @@ require_once 'includes/header.php';
             </div>
 
             <!-- Komentar -->
-            <div id="komentar" class="animate" style="background:#fff; border-radius:var(--radius); padding:2rem; border:1px solid var(--border);">
+            <div id="komentar" style="background:#fff; border-radius:var(--radius); padding:2rem; border:1px solid var(--border);">
                 <h2 style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--text-primary); margin-bottom:1.5rem; display:flex; align-items:center; gap:10px;">
                     <i class="fas fa-comments" style="color:var(--green);"></i>
                     Komentar <span style="font-size:1rem; color:var(--text-muted);">(<?= count($komentar_list) ?>)</span>
@@ -315,7 +315,7 @@ require_once 'includes/header.php';
         <div style="position:sticky; top:90px; display:flex; flex-direction:column; gap:1.5rem;">
 
             <!-- Rating -->
-            <div class="animate" style="background:#fff; border-radius:var(--radius); padding:1.5rem; border:1px solid var(--border);">
+            <div style="background:#fff; border-radius:var(--radius); padding:1.5rem; border:1px solid var(--border);">
                 <h3 style="font-size:1rem; font-weight:600; margin-bottom:1.2rem; color:var(--text-primary);">
                     <i class="fas fa-star" style="color:#f4a124;"></i> Beri Rating
                 </h3>
@@ -351,7 +351,7 @@ require_once 'includes/header.php';
             </div>
 
             <!-- Info Resep -->
-            <div class="animate animate-delay-2" style="background:#fff; border-radius:var(--radius); padding:1.5rem; border:1px solid var(--border);">
+            <div class="" style="background:#fff; border-radius:var(--radius); padding:1.5rem; border:1px solid var(--border);">
                 <h3 style="font-size:1rem; font-weight:600; margin-bottom:1rem; color:var(--text-primary);">
                     <i class="fas fa-info-circle" style="color:var(--green);"></i> Info Resep
                 </h3>

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once '../config/koneksi.php';
 
@@ -136,7 +136,7 @@ require_once '../includes/header.php';
 <div style="background:#f8faf8; min-height:100vh; padding:2rem 0 4rem;">
 <div class="container" style="max-width:860px;">
 
-    <div style="margin-bottom:2rem;" class="animate">
+    <div style="margin-bottom:2rem;">
         <h1 style="font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--text-primary);">
             <i class="fas fa-edit" style="color:var(--green);"></i> Edit <span style="color:var(--green);">Resep</span>
         </h1>
@@ -150,7 +150,7 @@ require_once '../includes/header.php';
     <form method="POST" enctype="multipart/form-data">
 
         <!-- INFO DASAR -->
-        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;" class="animate">
+        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;">
             <h3 style="font-size:1rem; font-weight:600; margin-bottom:1.5rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border); color:var(--text-primary);">
                 <i class="fas fa-info-circle" style="color:var(--green);"></i> Informasi Dasar
             </h3>
@@ -234,7 +234,7 @@ require_once '../includes/header.php';
         </div>
 
         <!-- BAHAN -->
-        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;" class="animate animate-delay-1">
+        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;" class="">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
                 <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin:0;">
                     <i class="fas fa-list-ul" style="color:var(--green);"></i> Bahan-bahan
@@ -264,7 +264,7 @@ require_once '../includes/header.php';
         </div>
 
         <!-- LANGKAH -->
-        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;" class="animate animate-delay-2">
+        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;" class="">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
                 <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin:0;">
                     <i class="fas fa-list-ol" style="color:var(--green);"></i> Cara Memasak
@@ -294,7 +294,7 @@ require_once '../includes/header.php';
             </div>
         </div>
 
-        <div style="display:flex; gap:1rem; justify-content:flex-end;" class="animate animate-delay-3">
+        <div style="display:flex; gap:1rem; justify-content:flex-end;" class="">
             <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>" class="btn btn-dark btn-lg">
                 <i class="fas fa-times"></i> Batal
             </a>

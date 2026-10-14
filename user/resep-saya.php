@@ -57,7 +57,7 @@ require_once '../includes/header.php';
 <div class="container">
 
     <!-- Header -->
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:2rem;" class="animate">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:2rem;">
         <div>
             <h1 style="font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--text-primary);">
                 Resep <span style="color:var(--green);">Saya</span>
@@ -75,7 +75,7 @@ require_once '../includes/header.php';
     <?php endif; ?>
 
     <!-- Statistik -->
-    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:2rem;" class="animate">
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:2rem;">
         <?php
         $stat_items = [
             ['label'=>'Total Resep',  'value'=>$stats['total'],       'icon'=>'fa-utensils',  'color'=>'var(--green)'],
@@ -98,7 +98,7 @@ require_once '../includes/header.php';
     </div>
 
     <!-- Filter Tab -->
-    <div style="display:flex; gap:8px; margin-bottom:1.5rem;" class="animate">
+    <div style="display:flex; gap:8px; margin-bottom:1.5rem;">
         <?php foreach (['semua'=>'Semua', 'publik'=>'Publik', 'draft'=>'Draft'] as $key=>$label): ?>
         <a href="?filter=<?= $key ?>" class="btn <?= $filter===$key ? 'btn-gold' : 'btn-dark' ?> btn-sm">
             <?= $label ?>

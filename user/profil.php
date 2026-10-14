@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once '../config/koneksi.php';
 
@@ -103,7 +103,7 @@ require_once '../includes/header.php';
 <div style="background:#f8faf8; min-height:100vh; padding:2rem 0 4rem;">
 <div class="container" style="max-width:900px;">
 
-    <div style="margin-bottom:2rem;" class="animate">
+    <div style="margin-bottom:2rem;">
         <h1 style="font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--text-primary);">
             <i class="fas fa-user-circle" style="color:var(--green);"></i> Profil <span style="color:var(--green);">Saya</span>
         </h1>
@@ -120,7 +120,7 @@ require_once '../includes/header.php';
     <div style="display:grid; grid-template-columns:280px 1fr; gap:2rem; align-items:start;">
 
         <!-- SIDEBAR PROFIL -->
-        <div class="animate">
+        <div>
             <!-- Foto & Info -->
             <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; text-align:center; margin-bottom:1.5rem;">
                 <div style="position:relative; display:inline-block; margin-bottom:1rem;">
@@ -172,7 +172,7 @@ require_once '../includes/header.php';
         <!-- FORM -->
         <div>
             <!-- Edit Profil -->
-            <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;" class="animate animate-delay-1">
+            <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;" class="">
                 <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin-bottom:1.5rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
                     <i class="fas fa-edit" style="color:var(--green);"></i> Edit Profil
                 </h3>
@@ -221,7 +221,7 @@ require_once '../includes/header.php';
             </div>
 
             <!-- Ganti Password -->
-            <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem;" class="animate animate-delay-2">
+            <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem;" class="">
                 <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin-bottom:1.5rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
                     <i class="fas fa-lock" style="color:var(--green);"></i> Ganti Password
                 </h3>

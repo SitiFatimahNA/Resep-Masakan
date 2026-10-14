@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once 'config/koneksi.php';
 
@@ -114,7 +114,7 @@ require_once 'includes/header.php';
 <div class="container">
 
     <!-- Page Header -->
-    <div style="margin-bottom:2rem; padding-top:1rem;" class="animate">
+    <div style="margin-bottom:2rem; padding-top:1rem;">
         <h1 style="font-family:'Playfair Display',serif; font-size:2rem; color:var(--text-primary);">
             <?php if ($q): ?>
                 Hasil pencarian: "<span style="color:var(--green);"><?= htmlspecialchars($q) ?></span>"
@@ -133,7 +133,7 @@ require_once 'includes/header.php';
     <div style="display:grid; grid-template-columns:260px 1fr; gap:2rem; align-items:start;">
 
         <!-- ========== SIDEBAR FILTER ========== -->
-        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; position:sticky; top:90px;" class="animate">
+        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem;">
             <form method="GET" action="">
                 <!-- Cari -->
                 <div class="form-group">
