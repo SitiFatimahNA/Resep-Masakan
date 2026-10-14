@@ -5,7 +5,10 @@ require_once 'config/koneksi.php';
 $slug = trim($_GET['slug'] ?? '');
 if (!$slug) { header('Location: /resep-masakan/resep.php'); exit; }
 
-// Ambil data resep
+// Ambil data resep — publik untuk semua, atau milik sendiri/admin
+$is_admin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+$user_id_session = (int)($_SESSION['user_id'] ?? 0);
+
 $stmt = mysqli_prepare($koneksi,
     "SELECT r.*, u.nama as nama_user, u.foto as foto_user, u.id as id_pemilik,
      k.nama_kategori, k.slug as kat_slug,
@@ -17,7 +20,7 @@ $stmt = mysqli_prepare($koneksi,
      LEFT JOIN kategori k ON r.id_kategori = k.id
      LEFT JOIN jenis_masakan j ON r.id_jenis = j.id
      LEFT JOIN rating rt ON r.id = rt.id_resep
-     WHERE r.slug = ? AND r.status = 'publik'
+     WHERE r.slug = ?
      GROUP BY r.id");
 mysqli_stmt_bind_param($stmt, 's', $slug);
 mysqli_stmt_execute($stmt);
@@ -25,6 +28,14 @@ $resep = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
 mysqli_stmt_close($stmt);
 
 if (!$resep) { header('Location: /resep-masakan/resep.php'); exit; }
+
+// Cek akses: resep draft hanya bisa dilihat pemilik atau admin
+if ($resep['status'] === 'draft') {
+    if (!$is_admin && $resep['id_pemilik'] !== $user_id_session) {
+        header('Location: /resep-masakan/resep.php');
+        exit;
+    }
+}
 
 // Tambah views
 mysqli_query($koneksi, "UPDATE resep SET views = views + 1 WHERE id = {$resep['id']}");
