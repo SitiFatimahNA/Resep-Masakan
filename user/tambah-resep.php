@@ -87,16 +87,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $slug = $slug_base . '-' . $i++;
             }
 
-            // Insert resep
-            $stmt = mysqli_prepare($koneksi,
-                "INSERT INTO resep (user_id, judul, slug, thumbnail, deskripsi, id_kategori, id_jenis, tingkat_kesulitan, waktu_masak, porsi, status)
-                 VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-            mysqli_stmt_bind_param($stmt, 'issssiisiis',
-                $_SESSION['user_id'], $judul, $slug, $thumbnail, $deskripsi,
-                $id_kategori, $id_jenis, $kesulitan, $waktu, $porsi, $status);
-            mysqli_stmt_execute($stmt);
+            // Insert resep - pakai direct query untuk hindari masalah bind_param
+            $judul_esc     = mysqli_real_escape_string($koneksi, $judul);
+            $slug_esc      = mysqli_real_escape_string($koneksi, $slug);
+            $thumbnail_esc = mysqli_real_escape_string($koneksi, $thumbnail);
+            $deskripsi_esc = mysqli_real_escape_string($koneksi, $deskripsi);
+            $kesulitan_esc = mysqli_real_escape_string($koneksi, $kesulitan);
+            $status_esc    = mysqli_real_escape_string($koneksi, $status);
+            $user_id_val   = (int)$_SESSION['user_id'];
+            $kat_val       = (int)$id_kategori;
+            $jenis_val     = (int)$id_jenis;
+            $waktu_val     = (int)$waktu;
+            $porsi_val     = (int)$porsi;
+
+            $sql_insert = "INSERT INTO resep 
+                (user_id, judul, slug, thumbnail, deskripsi, id_kategori, id_jenis, tingkat_kesulitan, waktu_masak, porsi, status)
+                VALUES 
+                ($user_id_val, '$judul_esc', '$slug_esc', '$thumbnail_esc', '$deskripsi_esc', 
+                 $kat_val, $jenis_val, '$kesulitan_esc', $waktu_val, $porsi_val, '$status_esc')";
+
+            mysqli_query($koneksi, $sql_insert);
             $id_resep = mysqli_insert_id($koneksi);
-            mysqli_stmt_close($stmt);
 
             // Insert bahan
             foreach ($bahan_nama as $idx => $nama) {
