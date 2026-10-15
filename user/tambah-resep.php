@@ -33,6 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $waktu      = (int)($_POST['waktu_masak'] ?? 0);
     $porsi      = (int)($_POST['porsi'] ?? 1);
     $status     = $_POST['status'] ?? 'draft';
+    // Pastikan status valid
+    if (!in_array($status, ['publik', 'draft'])) {
+        $status = 'draft';
+    }
 
     $bahan_nama   = $_POST['bahan_nama']   ?? [];
     $bahan_jumlah = $_POST['bahan_jumlah'] ?? [];
@@ -87,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = mysqli_prepare($koneksi,
                 "INSERT INTO resep (user_id, judul, slug, thumbnail, deskripsi, id_kategori, id_jenis, tingkat_kesulitan, waktu_masak, porsi, status)
                  VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-            mysqli_stmt_bind_param($stmt, 'issssiisssi',
+            mysqli_stmt_bind_param($stmt, 'issssiiissi',
                 $_SESSION['user_id'], $judul, $slug, $thumbnail, $deskripsi,
                 $id_kategori, $id_jenis, $kesulitan, $waktu, $porsi, $status);
             mysqli_stmt_execute($stmt);
