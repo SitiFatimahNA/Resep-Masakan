@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $kesulitan  = $_POST['tingkat_kesulitan'] ?? 'mudah';
     $waktu      = (int)($_POST['waktu_masak'] ?? 0);
     $porsi      = (int)($_POST['porsi'] ?? 1);
-    $status     = $_POST['status'] ?? 'draft';
+    $status     = $_POST['aksi'] ?? 'draft';
     // Pastikan status valid
     if (!in_array($status, ['publik', 'draft'])) {
         $status = 'draft';
@@ -324,16 +324,13 @@ require_once '../includes/header.php';
 
         <!-- Tombol Submit -->
         <div style="display:flex; gap:1rem; justify-content:flex-end;">
-            <!-- Hidden input untuk status -->
-            <input type="hidden" name="status" id="status-field" value="draft">
-
             <a href="/resep-masakan/user/resep-saya.php" class="btn btn-dark btn-lg">
                 <i class="fas fa-times"></i> Batal
             </a>
-            <button type="submit" id="btn-draft" class="btn btn-outline btn-lg">
+            <button type="submit" name="aksi" value="draft" class="btn btn-outline btn-lg">
                 <i class="fas fa-save"></i> Simpan Draft
             </button>
-            <button type="submit" id="btn-publik" class="btn btn-gold btn-lg">
+            <button type="submit" name="aksi" value="publik" class="btn btn-gold btn-lg">
                 <i class="fas fa-paper-plane"></i> Publikasikan
             </button>
         </div>
@@ -343,24 +340,6 @@ require_once '../includes/header.php';
 </div>
 
 <script>
-// Set status via mousedown (sebelum form submit)
-document.addEventListener('DOMContentLoaded', function() {
-    var btnDraft  = document.getElementById('btn-draft');
-    var btnPublik = document.getElementById('btn-publik');
-    var statusField = document.getElementById('status-field');
-
-    if (btnDraft) {
-        btnDraft.addEventListener('mousedown', function() {
-            statusField.value = 'draft';
-        });
-    }
-    if (btnPublik) {
-        btnPublik.addEventListener('mousedown', function() {
-            statusField.value = 'publik';
-        });
-    }
-});
-
 // Preview thumbnail
 function previewThumbnail(input) {
     const prev = document.getElementById('preview-thumbnail');
