@@ -270,12 +270,14 @@ require_once 'includes/header.php';
                     </div>
 
                     <div class="card-footer">
-                        <span style="font-size:0.78rem; color:var(--text-muted); display:flex; align-items:center; gap:5px;">
-                            <i class="fas fa-user-circle"></i>
-                            <?= htmlspecialchars($resep['nama_user']) ?>
+                        <span style="font-size:0.78rem; color:var(--text-muted); display:flex; align-items:center; gap:5px; min-width:0; flex:1; overflow:hidden;">
+                            <i class="fas fa-user-circle" style="flex-shrink:0;"></i>
+                            <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                                <?= htmlspecialchars($resep['nama_user']) ?>
+                            </span>
                         </span>
                         <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>"
-                           class="btn btn-gold btn-sm">
+                           class="btn btn-gold btn-sm" style="flex-shrink:0; margin-left:8px;">
                             Lihat <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>

@@ -374,6 +374,8 @@ ul { list-style: none; }
     align-items: center;
     justify-content: space-between;
     background: var(--bg-secondary);
+    gap: 8px;
+    overflow: hidden;
 }
 
 /* Badge */
