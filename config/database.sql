@@ -63,7 +63,7 @@ CREATE TABLE `resep` (
     `tingkat_kesulitan` ENUM('mudah', 'sedang', 'sulit') NOT NULL DEFAULT 'mudah',
     `waktu_masak` INT(11) NOT NULL COMMENT 'dalam menit',
     `porsi` INT(11) NOT NULL DEFAULT 2,
-    `status` ENUM('publik', 'draft') NOT NULL DEFAULT 'draft',
+    `status` VARCHAR(10) NOT NULL DEFAULT 'draft',
     `views` INT(11) UNSIGNED DEFAULT 0,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
