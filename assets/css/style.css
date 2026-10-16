@@ -392,10 +392,10 @@ ul { list-style: none; }
     font-weight: 500;
 }
 
-.badge-mudah  { background: rgba(45,106,79,0.12);  color: var(--green-dark); }
-.badge-sedang { background: rgba(233,196,106,0.2);  color: #9a6c00; }
-.badge-sulit  { background: rgba(230,57,70,0.12);   color: var(--danger); }
-.badge-gold   { background: rgba(181,137,58,0.12);  color: var(--gold); }
+.badge-mudah  { background: #2d6a4f; color: #ffffff; }
+.badge-sedang { background: #d4860a; color: #ffffff; }
+.badge-sulit  { background: #e63946; color: #ffffff; }
+.badge-gold   { background: rgba(181,137,58,0.15); color: var(--gold); }
 
 /* =====================================================
    RATING STARS
