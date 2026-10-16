@@ -322,6 +322,8 @@ ul { list-style: none; }
     overflow: hidden;
     transition: var(--transition);
     box-shadow: 0 2px 8px rgba(45,106,79,0.06);
+    display: flex;
+    flex-direction: column;
 }
 
 .card:hover {
@@ -338,7 +340,10 @@ ul { list-style: none; }
 
 .card:hover .card-img { transform: scale(1.05); }
 
-.card-body { padding: 1.2rem; }
+.card-body {
+    padding: 1.2rem;
+    flex: 1;
+}
 
 .card-title {
     font-family: 'Playfair Display', serif;
