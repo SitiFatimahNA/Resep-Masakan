@@ -52,8 +52,10 @@ require_once 'includes/header.php';
         foreach ($podium as $p):
             $r = $resep_list[$p['idx']];
         ?>
-        <div class="animate animate-delay-<?= $p['idx']+1 ?>"
-             style="background:#fff; border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); position:relative;">
+        <div onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($r['slug']) ?>'"
+             style="background:#fff; border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); position:relative; cursor:pointer; transition:var(--transition);"
+             onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(64,145,108,0.2)'; this.style.borderColor='var(--green-light)'"
+             onmouseout="this.style.transform=''; this.style.boxShadow=''; this.style.borderColor='var(--border)'">
             <div style="position:absolute; top:12px; left:12px; width:32px; height:32px; background:<?= $p['bg'] ?>; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff; font-size:0.9rem; z-index:2;">
                 #<?= $p['rank'] ?>
             </div>
