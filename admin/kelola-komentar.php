@@ -50,6 +50,8 @@ $result = mysqli_query($koneksi,
 
 $total_aktif    = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(*) t FROM komentar WHERE status='aktif'"))['t'];
 $total_nonaktif = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(*) t FROM komentar WHERE status='nonaktif'"))['t'];
+
+require_once 'includes/admin-header.php';
 ?>
 
 <div class="page-header">

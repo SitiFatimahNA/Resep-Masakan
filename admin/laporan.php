@@ -64,8 +64,7 @@ if (isset($_GET['export']) && $_GET['export'] === 'csv') {
 }
 
 // Include admin header SETELAH semua proses yang butuh redirect/header
-require_once 'includes/admin-header.php';
-?>
+require_once 'includes/admin-header.php';?>
 
 <div class="page-header">
     <h1>Laporan <span>Resep</span></h1>

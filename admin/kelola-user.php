@@ -30,8 +30,6 @@ if ($aksi === 'hapus' && $id && $id !== (int)$_SESSION['user_id']) {
     exit;
 }
 
-require_once 'includes/admin-header.php';
-
 $q        = trim($_GET['q'] ?? '');
 $filter   = $_GET['filter'] ?? 'semua';
 $page     = max(1, (int)($_GET['page'] ?? 1));
@@ -49,6 +47,8 @@ $total_page = ceil($total / $per_page);
 $result     = mysqli_query($koneksi,
     "SELECT u.*, (SELECT COUNT(*) FROM resep WHERE user_id=u.id) as total_resep
      FROM users u WHERE $w ORDER BY u.created_at DESC LIMIT $per_page OFFSET $offset");
+
+require_once 'includes/admin-header.php';
 ?>
 
 <div class="page-header">
