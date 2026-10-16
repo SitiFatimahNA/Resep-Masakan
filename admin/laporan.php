@@ -3,22 +3,19 @@ $page_title = 'Laporan';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once $_SERVER['DOCUMENT_ROOT'] . '/resep-masakan/config/koneksi.php';
-require_once 'includes/admin-header.php';
+if (session_status() === PHP_SESSION_NONE) session_start();
 
 // Filter tanggal
-$dari  = $_GET['dari']  ?? date('Y-m-01');
+$dari   = $_GET['dari']   ?? date('Y-m-01');
 $sampai = $_GET['sampai'] ?? date('Y-m-d');
-$jenis = $_GET['jenis'] ?? 'semua';
+$jenis  = $_GET['jenis']  ?? 'semua';
 
-// Validasi tanggal
 $dari   = preg_match('/^\d{4}-\d{2}-\d{2}$/', $dari)   ? $dari   : date('Y-m-01');
 $sampai = preg_match('/^\d{4}-\d{2}-\d{2}$/', $sampai) ? $sampai : date('Y-m-d');
 
-// WHERE tanggal
 $where_tgl = "r.created_at BETWEEN '$dari 00:00:00' AND '$sampai 23:59:59'";
 $where_pub = $jenis === 'publik' ? "AND r.status='publik'" : ($jenis==='draft' ? "AND r.status='draft'" : '');
 
-// Data laporan resep
 $resep_data = mysqli_query($koneksi,
     "SELECT r.*, u.nama as nama_user, k.nama_kategori, j.nama_jenis,
      COALESCE(AVG(rt.nilai),0) as rata_rating,
@@ -37,21 +34,20 @@ $resep_data = mysqli_query($koneksi,
 $resep_list = [];
 while ($row = mysqli_fetch_assoc($resep_data)) $resep_list[] = $row;
 
-// Statistik ringkasan
 $stats = [
-    'total'   => count($resep_list),
-    'publik'  => count(array_filter($resep_list, fn($r) => $r['status']==='publik')),
-    'draft'   => count(array_filter($resep_list, fn($r) => $r['status']==='draft')),
-    'views'   => array_sum(array_column($resep_list, 'views')),
-    'rating'  => count($resep_list) ? round(array_sum(array_column($resep_list,'rata_rating'))/count($resep_list),1) : 0,
+    'total'  => count($resep_list),
+    'publik' => count(array_filter($resep_list, fn($r) => $r['status']==='publik')),
+    'draft'  => count(array_filter($resep_list, fn($r) => $r['status']==='draft')),
+    'views'  => array_sum(array_column($resep_list, 'views')),
+    'rating' => count($resep_list) ? round(array_sum(array_column($resep_list,'rata_rating'))/count($resep_list),1) : 0,
 ];
 
-// Handle export CSV
+// Handle export CSV - SEBELUM include header agar tidak headers already sent
 if (isset($_GET['export']) && $_GET['export'] === 'csv') {
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename="laporan-resep-'.date('Ymd').'.csv"');
     $out = fopen('php://output', 'w');
-    fprintf($out, chr(0xEF).chr(0xBB).chr(0xBF)); // BOM untuk Excel
+    fprintf($out, chr(0xEF).chr(0xBB).chr(0xBF));
     fputcsv($out, ['No','Judul','Pembuat','Kategori','Jenis','Kesulitan','Waktu(mnt)','Porsi','Views','Rating','Komentar','Status','Tanggal']);
     $no = 1;
     foreach ($resep_list as $r) {
@@ -66,6 +62,9 @@ if (isset($_GET['export']) && $_GET['export'] === 'csv') {
     fclose($out);
     exit;
 }
+
+// Include admin header SETELAH semua proses yang butuh redirect/header
+require_once 'includes/admin-header.php';
 ?>
 
 <div class="page-header">
