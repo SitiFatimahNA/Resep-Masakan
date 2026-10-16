@@ -358,20 +358,59 @@ require_once 'includes/header.php';
                         <?php if (!empty($k['replies'])): ?>
                         <div style="margin-left:52px; margin-top:8px; display:flex; flex-direction:column; gap:8px;" id="replies-<?= $k['id'] ?>">
                             <?php foreach ($k['replies'] as $reply): ?>
-                            <div style="display:flex; gap:10px; padding:0.8rem; background:#f0faf4; border-radius:var(--radius-sm); border-left:3px solid var(--green-light);">
-                                <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($reply['foto'] ?? 'default.png') ?>"
-                                     style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--green-light);"
-                                     onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
-                                <div style="flex:1;">
-                                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:3px;">
-                                        <strong style="font-size:0.82rem; color:var(--text-primary);"><?= htmlspecialchars($reply['nama']) ?></strong>
-                                        <span style="font-size:0.72rem; color:var(--text-muted);"><?= date('d M Y H:i', strtotime($reply['created_at'])) ?></span>
-                                        <span style="font-size:0.7rem; background:var(--green-pale); color:var(--green-dark); padding:1px 6px; border-radius:10px;">balasan</span>
+                            <div>
+                                <div style="display:flex; gap:10px; padding:0.8rem; background:#f0faf4; border-radius:var(--radius-sm); border-left:3px solid var(--green-light);">
+                                    <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($reply['foto'] ?? 'default.png') ?>"
+                                         style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--green-light);"
+                                         onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                                    <div style="flex:1;">
+                                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:3px; flex-wrap:wrap; gap:6px;">
+                                            <div style="display:flex; align-items:center; gap:8px;">
+                                                <strong style="font-size:0.82rem; color:var(--text-primary);"><?= htmlspecialchars($reply['nama']) ?></strong>
+                                                <span style="font-size:0.72rem; color:var(--text-muted);"><?= date('d M Y H:i', strtotime($reply['created_at'])) ?></span>
+                                                <span style="font-size:0.7rem; background:var(--green-pale); color:var(--green-dark); padding:1px 6px; border-radius:10px;">balasan</span>
+                                            </div>
+                                            <?php if (isset($_SESSION['user_id'])): ?>
+                                            <button onclick="toggleReplyForm('reply-form-r-<?= $reply['id'] ?>')"
+                                                    style="background:none; border:1px solid var(--green-light); color:var(--green); font-size:0.75rem; cursor:pointer; display:flex; align-items:center; gap:4px; padding:2px 8px; border-radius:12px;">
+                                                <i class="fas fa-reply"></i> Balas
+                                            </button>
+                                            <?php endif; ?>
+                                        </div>
+                                        <p style="font-size:0.82rem; color:var(--text-secondary); margin:0; line-height:1.6;">
+                                            <?= nl2br(htmlspecialchars($reply['komentar'])) ?>
+                                        </p>
                                     </div>
-                                    <p style="font-size:0.82rem; color:var(--text-secondary); margin:0; line-height:1.6;">
-                                        <?= nl2br(htmlspecialchars($reply['komentar'])) ?>
-                                    </p>
                                 </div>
+
+                                <!-- Form balas untuk reply -->
+                                <?php if (isset($_SESSION['user_id'])): ?>
+                                <div id="reply-form-r-<?= $reply['id'] ?>" style="display:none; margin-left:42px; margin-top:6px;">
+                                    <form method="POST">
+                                        <!-- Balas ke parent komentar utama (flat, tidak nested dalam nested) -->
+                                        <input type="hidden" name="parent_id" value="<?= $k['id'] ?>">
+                                        <div style="display:flex; gap:8px; align-items:flex-start;">
+                                            <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($_SESSION['foto'] ?? 'default.png') ?>"
+                                                 style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid var(--green-light);flex-shrink:0;"
+                                                 onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                                            <div style="flex:1;">
+                                                <textarea name="komentar" class="form-control" rows="2"
+                                                          placeholder="Balas @<?= htmlspecialchars($reply['nama']) ?>..."
+                                                          style="font-size:0.82rem;"></textarea>
+                                                <div style="display:flex; gap:8px; margin-top:6px;">
+                                                    <button type="submit" class="btn btn-gold btn-sm" style="font-size:0.78rem; padding:5px 12px;">
+                                                        <i class="fas fa-paper-plane"></i> Kirim
+                                                    </button>
+                                                    <button type="button" onclick="toggleReplyForm('reply-form-r-<?= $reply['id'] ?>')"
+                                                            class="btn btn-dark btn-sm" style="font-size:0.78rem; padding:5px 12px;">
+                                                        Batal
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <?php endif; ?>
                             </div>
                             <?php endforeach; ?>
                         </div>
