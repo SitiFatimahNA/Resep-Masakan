@@ -66,9 +66,15 @@ require_once 'includes/header.php';
                         <?= htmlspecialchars(mb_strimwidth($r['judul'],0,45,'...')) ?>
                     </a>
                 </h3>
-                <div style="display:flex; gap:12px; font-size:0.78rem; color:var(--text-muted);">
-                    <span><i class="fas fa-eye"></i> <?= number_format($r['views']) ?></span>
-                    <span style="color:#f4a124;"><i class="fas fa-star"></i> <?= number_format($r['rata_rating'],1) ?></span>
+                <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+                    <div style="display:flex; gap:12px; font-size:0.78rem; color:var(--text-muted);">
+                        <span><i class="fas fa-eye"></i> <?= number_format($r['views']) ?></span>
+                        <span style="color:#f4a124;"><i class="fas fa-star"></i> <?= number_format($r['rata_rating'],1) ?></span>
+                    </div>
+                    <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($r['slug']) ?>"
+                       class="btn btn-gold btn-sm">
+                        Lihat <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -106,6 +112,15 @@ require_once 'includes/header.php';
                 <div class="stars" style="font-size:0.75rem;">
                     <?php $rat=round($resep['rata_rating']); for($s=1;$s<=5;$s++) echo $s<=$rat?'<i class="fas fa-star"></i>':'<i class="far fa-star empty"></i>'; ?>
                 </div>
+            </div>
+            <div class="card-footer">
+                <span style="font-size:0.75rem; color:var(--text-muted);">
+                    <i class="fas fa-eye"></i> <?= number_format($resep['views']) ?> views
+                </span>
+                <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>"
+                   class="btn btn-gold btn-sm">
+                    Lihat <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
         <?php endforeach; ?>
