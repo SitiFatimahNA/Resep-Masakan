@@ -93,7 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $thumbnail_esc = mysqli_real_escape_string($koneksi, $thumbnail);
             $deskripsi_esc = mysqli_real_escape_string($koneksi, $deskripsi);
             $kesulitan_esc = mysqli_real_escape_string($koneksi, $kesulitan);
-            $status_esc    = mysqli_real_escape_string($koneksi, $status);
+            // Paksa status hanya boleh publik atau draft
+            $status_bersih = ($status === 'publik') ? 'publik' : 'draft';
+            $status_esc    = mysqli_real_escape_string($koneksi, $status_bersih);
             $user_id_val   = (int)$_SESSION['user_id'];
             $kat_val       = (int)$id_kategori;
             $jenis_val     = (int)$id_jenis;
