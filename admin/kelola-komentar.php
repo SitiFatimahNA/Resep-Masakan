@@ -3,12 +3,12 @@ $page_title = 'Kelola Komentar';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once $_SERVER['DOCUMENT_ROOT'] . '/resep-masakan/config/koneksi.php';
-require_once 'includes/admin-header.php';
+if (session_status() === PHP_SESSION_NONE) session_start();
 
 $aksi = $_GET['aksi'] ?? '';
 $id   = (int)($_GET['id'] ?? 0);
 
-// Toggle status aktif/nonaktif
+// Toggle status SEBELUM include header
 if ($aksi === 'toggle' && $id) {
     $cur = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT status FROM komentar WHERE id=$id"));
     if ($cur) {
@@ -18,7 +18,7 @@ if ($aksi === 'toggle' && $id) {
     header('Location: /resep-masakan/admin/kelola-komentar.php?msg=updated'); exit;
 }
 
-// Hapus
+// Hapus SEBELUM include header
 if ($aksi === 'hapus' && $id) {
     mysqli_query($koneksi, "DELETE FROM komentar WHERE id=$id");
     header('Location: /resep-masakan/admin/kelola-komentar.php?msg=deleted'); exit;

@@ -3,7 +3,9 @@ $page_title = 'Kelola User';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once $_SERVER['DOCUMENT_ROOT'] . '/resep-masakan/config/koneksi.php';
-require_once 'includes/admin-header.php';
+
+// Proses aksi SEBELUM include header (agar header() redirect bisa jalan)
+if (session_status() === PHP_SESSION_NONE) session_start();
 
 $aksi = $_GET['aksi'] ?? '';
 $id   = (int)($_GET['id'] ?? 0);
@@ -27,6 +29,8 @@ if ($aksi === 'hapus' && $id && $id !== (int)$_SESSION['user_id']) {
     header('Location: /resep-masakan/admin/kelola-user.php?msg=deleted');
     exit;
 }
+
+require_once 'includes/admin-header.php';
 
 $q        = trim($_GET['q'] ?? '');
 $filter   = $_GET['filter'] ?? 'semua';
