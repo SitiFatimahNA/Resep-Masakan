@@ -321,7 +321,7 @@ require_once 'includes/header.php';
         <?php else: ?>
         <div class="grid-3">
             <?php foreach ($resep_terbaru as $i => $resep): ?>
-            <div class="card animate animate-delay-<?= ($i % 3) + 1 ?>">
+            <div class="card" onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'" style="cursor:pointer;">
                 <!-- Thumbnail -->
                 <div style="overflow:hidden; position:relative;">
                     <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
@@ -407,7 +407,7 @@ require_once 'includes/header.php';
 
         <div class="grid-4">
             <?php foreach ($resep_populer as $i => $resep): ?>
-            <div class="card animate animate-delay-<?= $i + 1 ?>">
+            <div class="card" onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'" style="cursor:pointer;">
                 <div style="overflow:hidden; position:relative;">
                     <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
                          alt="<?= htmlspecialchars($resep['judul']) ?>"

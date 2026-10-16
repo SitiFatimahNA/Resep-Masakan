@@ -220,7 +220,7 @@ require_once 'includes/header.php';
             <!-- Grid Resep -->
             <div class="grid-3" style="margin-bottom:2rem;">
                 <?php foreach ($resep_list as $i => $resep): ?>
-                <div class="card animate animate-delay-<?= ($i % 3) + 1 ?>">
+                <div class="card" onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'" style="cursor:pointer;">
                     <!-- Thumbnail -->
                     <div style="overflow:hidden; position:relative;">
                         <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
@@ -236,7 +236,7 @@ require_once 'includes/header.php';
                         </span>
                         <!-- Favorit btn (jika login) -->
                         <?php if (isset($_SESSION['user_id'])): ?>
-                        <button onclick="toggleFavorit(<?= $resep['id'] ?>, this)"
+                        <button onclick="event.stopPropagation(); toggleFavorit(<?= $resep['id'] ?>, this)"
                                 style="position:absolute; bottom:12px; right:12px; background:rgba(255,255,255,0.9); border:none; width:34px; height:34px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--danger); font-size:0.9rem; transition:var(--transition);"
                                 title="Simpan ke favorit">
                             <i class="far fa-heart"></i>
@@ -245,11 +245,8 @@ require_once 'includes/header.php';
                     </div>
 
                     <div class="card-body">
-                        <h3 class="card-title">
-                            <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>"
-                               style="color:var(--text-primary);">
-                                <?= htmlspecialchars($resep['judul']) ?>
-                            </a>
+                        <h3 class="card-title" style="color:var(--text-primary);">
+                            <?= htmlspecialchars($resep['judul']) ?>
                         </h3>
                         <div class="card-meta">
                             <span><i class="fas fa-clock"></i> <?= $resep['waktu_masak'] ?> mnt</span>

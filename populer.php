@@ -89,7 +89,7 @@ require_once 'includes/header.php';
     </h2>
     <div class="grid-4">
         <?php foreach (array_slice($resep_list, 3) as $i => $resep): ?>
-        <div class="card animate animate-delay-<?= ($i%4)+1 ?>">
+        <div class="card" onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'" style="cursor:pointer;">
             <div style="overflow:hidden; position:relative;">
                 <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
                      alt="<?= htmlspecialchars($resep['judul']) ?>"
