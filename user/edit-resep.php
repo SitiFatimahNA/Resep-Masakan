@@ -44,6 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $waktu       = (int)($_POST['waktu_masak'] ?? 0);
     $porsi       = (int)($_POST['porsi'] ?? 1);
     $status      = $_POST['status'] ?? 'draft';
+    // Paksa status valid
+    $status      = ($status === 'publik') ? 'publik' : 'draft';
 
     $bahan_nama   = $_POST['bahan_nama']   ?? [];
     $bahan_jumlah = $_POST['bahan_jumlah'] ?? [];
@@ -76,16 +78,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if (!$error) {
-            // Update resep
-            $upd = mysqli_prepare($koneksi,
-                "UPDATE resep SET judul=?, thumbnail=?, deskripsi=?, id_kategori=?, id_jenis=?,
-                 tingkat_kesulitan=?, waktu_masak=?, porsi=?, status=?, updated_at=NOW()
-                 WHERE id=?");
-            mysqli_stmt_bind_param($upd, 'sssiiisiii',
-                $judul, $thumbnail, $deskripsi, $id_kategori, $id_jenis,
-                $kesulitan, $waktu, $porsi, $status, $id);
-            mysqli_stmt_execute($upd);
-            mysqli_stmt_close($upd);
+            // Update resep - pakai direct query
+            $judul_esc     = mysqli_real_escape_string($koneksi, $judul);
+            $thumbnail_esc = mysqli_real_escape_string($koneksi, $thumbnail);
+            $deskripsi_esc = mysqli_real_escape_string($koneksi, $deskripsi);
+            $kesulitan_esc = mysqli_real_escape_string($koneksi, $kesulitan);
+            $status_esc    = mysqli_real_escape_string($koneksi, $status);
+            $kat_val       = (int)$id_kategori;
+            $jenis_val     = (int)$id_jenis;
+            $waktu_val     = (int)$waktu;
+            $porsi_val     = (int)$porsi;
+            $id_val        = (int)$id;
+
+            mysqli_query($koneksi,
+                "UPDATE resep SET 
+                 judul='$judul_esc', thumbnail='$thumbnail_esc', deskripsi='$deskripsi_esc',
+                 id_kategori=$kat_val, id_jenis=$jenis_val,
+                 tingkat_kesulitan='$kesulitan_esc', waktu_masak=$waktu_val, porsi=$porsi_val,
+                 status='$status_esc', updated_at=NOW()
+                 WHERE id=$id_val");
 
             // Hapus bahan & langkah lama, insert ulang
             mysqli_query($koneksi, "DELETE FROM bahan_resep WHERE id_resep=$id");
