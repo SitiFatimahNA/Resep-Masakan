@@ -229,8 +229,11 @@ require_once 'includes/header.php';
 <!-- =====================================================
      KATEGORI SECTION
      ===================================================== -->
-<section class="section" style="background:var(--bg-secondary);">
-    <div class="container">
+<section class="section" style="background: linear-gradient(135deg, #f0f7f0 0%, #e8f5e8 100%); position:relative; overflow:hidden;">
+    <!-- Dekorasi blob -->
+    <div style="position:absolute; top:-80px; right:-80px; width:320px; height:320px; border-radius:50%; background:radial-gradient(circle, rgba(82,183,136,0.1) 0%, transparent 70%); pointer-events:none;"></div>
+    <div style="position:absolute; bottom:-60px; left:10%; width:200px; height:200px; border-radius:50%; background:radial-gradient(circle, rgba(45,106,79,0.07) 0%, transparent 70%); pointer-events:none;"></div>
+    <div class="container" style="position:relative; z-index:1;">
         <div class="section-header animate">
             <div>
                 <h2 class="section-title">Jelajahi <span>Kategori</span></h2>
@@ -389,11 +392,8 @@ require_once 'includes/header.php';
 </section>
 
 <!-- =====================================================
-     RESEP POPULER
-     ===================================================== -->
-<?php if (!empty($resep_populer)): ?>
-<section class="section" style="background:var(--bg-secondary);">
-    <div class="container">
+    <div style="position:absolute; top:-80px; left:-80px; width:320px; height:320px; border-radius:50%; background:radial-gradient(circle, rgba(82,183,136,0.1) 0%, transparent 70%); pointer-events:none;"></div>
+    <div style="position:absolute; bottom:-60px; right:10%; width:200px; height:200px; border-radius:50%; background:radial-gradient(circle, rgba(45,106,79,0.07) 0%, transparent 70%); pointer-events:none;"></div>
         <div class="section-header animate">
             <div>
                 <h2 class="section-title">Resep <span>Populer</span></h2>

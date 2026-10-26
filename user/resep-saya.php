@@ -53,7 +53,7 @@ $stats = mysqli_fetch_assoc(mysqli_query($koneksi,
 require_once '../includes/header.php';
 ?>
 
-<div style="background:#f8faf8; min-height:100vh; padding:2rem 0 4rem;">
+<div style="background:linear-gradient(135deg, #f0f7f0 0%, #f8faf8 50%, #f0f5f0 100%); min-height:100vh; padding:2rem 0 4rem;">
 <div class="container">
 
     <!-- Header -->

@@ -128,5 +128,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
     </div>
 </nav>
 
+<!-- Dekorasi background blob -->
+<div class="blob-top-right"></div>
+<div class="blob-bottom-left"></div>
+
 <!-- Main Content Wrapper -->
 <div class="main-content">

@@ -47,6 +47,11 @@ html { scroll-behavior: smooth; }
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--bg-primary);
+    background-image:
+        radial-gradient(circle at 20% 20%, rgba(82,183,136,0.06) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(45,106,79,0.06) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(149,213,178,0.04) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2340916c' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
@@ -63,7 +68,32 @@ a:hover { color: var(--green-dark); }
 img { max-width: 100%; height: auto; display: block; }
 ul { list-style: none; }
 
-/* ---- Scrollbar ---- */
+/* =====================================================
+   DECORATIVE BLOBS
+   ===================================================== */
+.blob-top-right {
+    position: fixed;
+    top: -200px;
+    right: -200px;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(82,183,136,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.blob-bottom-left {
+    position: fixed;
+    bottom: -200px;
+    left: -200px;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(45,106,79,0.07) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-secondary); }
 ::-webkit-scrollbar-thumb { background: var(--green-light); border-radius: 10px; }
