@@ -50,6 +50,14 @@ $langkah_result = mysqli_query($koneksi, "SELECT * FROM langkah_resep WHERE id_r
 $langkah_list = [];
 while ($l = mysqli_fetch_assoc($langkah_result)) $langkah_list[] = $l;
 
+// Ambil alat masak
+$alat_result = mysqli_query($koneksi, "SELECT * FROM alat_masak WHERE id_resep = {$resep['id']} ORDER BY id ASC");
+$alat_list = [];
+while ($a = mysqli_fetch_assoc($alat_result)) $alat_list[] = $a;
+
+// Ambil nutrisi
+$nutrisi = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM nutrisi WHERE id_resep = {$resep['id']}")) ?? null;
+
 // Ambil komentar
 // Ambil komentar — hanya parent (parent_id IS NULL), reply diambil terpisah
 $komentar_result = mysqli_query($koneksi,
@@ -235,23 +243,93 @@ require_once 'includes/header.php';
             </div>
 
             <!-- Bahan -->
+            <!-- Bahan dengan centang -->
             <div style="background:#fff; border-radius:var(--radius); padding:2rem; border:1px solid var(--border); margin-bottom:1.5rem;">
-                <h2 style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--text-primary); margin-bottom:1.2rem; display:flex; align-items:center; gap:10px;">
-                    <i class="fas fa-list-ul" style="color:var(--green);"></i> Bahan-bahan
-                </h2>
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem;">
+                    <h2 style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--text-primary); display:flex; align-items:center; gap:10px; margin:0;">
+                        <i class="fas fa-list-ul" style="color:var(--green);"></i> Bahan-bahan
+                    </h2>
+                    <?php if (!empty($bahan_list)): ?>
+                    <button onclick="resetCentang()" style="background:none; border:1px solid var(--border); border-radius:20px; padding:4px 12px; font-size:0.75rem; color:var(--text-muted); cursor:pointer; transition:var(--transition);"
+                            onmouseover="this.style.borderColor='var(--green)';this.style.color='var(--green)'"
+                            onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                    <?php endif; ?>
+                </div>
                 <?php if (empty($bahan_list)): ?>
                     <p style="color:var(--text-muted);">Belum ada bahan.</p>
                 <?php else: ?>
-                <ul style="list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
-                    <?php foreach ($bahan_list as $b): ?>
-                    <li style="display:flex; align-items:center; gap:8px; padding:8px 12px; background:var(--bg-secondary); border-radius:var(--radius-sm); font-size:0.9rem;">
-                        <i class="fas fa-check-circle" style="color:var(--green); font-size:0.8rem; flex-shrink:0;"></i>
-                        <span><strong><?= htmlspecialchars($b['jumlah']) ?> <?= htmlspecialchars($b['satuan'] ?? '') ?></strong> <?= htmlspecialchars($b['nama_bahan']) ?></span>
+                <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">
+                    <i class="fas fa-info-circle"></i> Centang bahan yang sudah kamu siapkan
+                </p>
+                <ul style="list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;" id="bahan-checklist">
+                    <?php foreach ($bahan_list as $idx => $b): ?>
+                    <li id="bahan-item-<?= $idx ?>"
+                        onclick="toggleBahan(<?= $idx ?>)"
+                        style="display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--bg-secondary); border-radius:var(--radius-sm); font-size:0.9rem; cursor:pointer; transition:all 0.2s ease; border:1.5px solid transparent; user-select:none;"
+                        onmouseover="if(!this.classList.contains('checked')) this.style.borderColor='var(--green-light)'"
+                        onmouseout="if(!this.classList.contains('checked')) this.style.borderColor='transparent'">
+                        <div id="check-icon-<?= $idx ?>" style="width:22px; height:22px; border:2px solid var(--green-light); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.2s;">
+                            <i class="fas fa-check" style="font-size:0.65rem; color:transparent;"></i>
+                        </div>
+                        <span id="bahan-text-<?= $idx ?>">
+                            <strong><?= htmlspecialchars($b['jumlah']) ?> <?= htmlspecialchars($b['satuan'] ?? '') ?></strong>
+                            <?= htmlspecialchars($b['nama_bahan']) ?>
+                        </span>
                     </li>
                     <?php endforeach; ?>
                 </ul>
                 <?php endif; ?>
             </div>
+
+            <!-- Alat Masak -->
+            <?php if (!empty($alat_list)): ?>
+            <div style="background:#fff; border-radius:var(--radius); padding:2rem; border:1px solid var(--border); margin-bottom:1.5rem;">
+                <h2 style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--text-primary); margin-bottom:1.2rem; display:flex; align-items:center; gap:10px;">
+                    <i class="fas fa-tools" style="color:var(--green);"></i> Alat Masak
+                </h2>
+                <ul style="list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
+                    <?php foreach ($alat_list as $a): ?>
+                    <li style="display:flex; align-items:center; gap:8px; padding:10px 14px; background:var(--bg-secondary); border-radius:var(--radius-sm); font-size:0.9rem;">
+                        <i class="fas fa-wrench" style="color:var(--green); font-size:0.8rem; flex-shrink:0;"></i>
+                        <span><?= htmlspecialchars($a['nama_alat']) ?></span>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <?php endif; ?>
+
+            <!-- Nutrisi -->
+            <?php if ($nutrisi && ($nutrisi['kalori'] || $nutrisi['protein'] || $nutrisi['karbohidrat'] || $nutrisi['lemak'] || $nutrisi['serat'])): ?>
+            <div style="background:#fff; border-radius:var(--radius); padding:2rem; border:1px solid var(--border); margin-bottom:1.5rem;">
+                <h2 style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--text-primary); margin-bottom:1.2rem; display:flex; align-items:center; gap:10px;">
+                    <i class="fas fa-heartbeat" style="color:var(--green);"></i> Informasi Nutrisi
+                    <span style="font-size:0.8rem; font-weight:400; color:var(--text-muted);">per porsi</span>
+                </h2>
+                <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:1rem;">
+                    <?php
+                    $nutrisi_items = [
+                        ['label'=>'Kalori',      'value'=>$nutrisi['kalori'],      'unit'=>'kkal', 'icon'=>'🔥', 'color'=>'#e74c3c'],
+                        ['label'=>'Protein',     'value'=>$nutrisi['protein'],     'unit'=>'g',    'icon'=>'💪', 'color'=>'#3498db'],
+                        ['label'=>'Karbohidrat', 'value'=>$nutrisi['karbohidrat'], 'unit'=>'g',    'icon'=>'🌾', 'color'=>'#f39c12'],
+                        ['label'=>'Lemak',       'value'=>$nutrisi['lemak'],       'unit'=>'g',    'icon'=>'🥑', 'color'=>'#27ae60'],
+                        ['label'=>'Serat',       'value'=>$nutrisi['serat'],       'unit'=>'g',    'icon'=>'🌿', 'color'=>'#8e44ad'],
+                    ];
+                    foreach ($nutrisi_items as $ni):
+                    ?>
+                    <div style="text-align:center; padding:1.2rem 0.8rem; background:var(--bg-secondary); border-radius:var(--radius-sm); border-top:3px solid <?= $ni['color'] ?>;">
+                        <div style="font-size:1.5rem; margin-bottom:4px;"><?= $ni['icon'] ?></div>
+                        <div style="font-size:1.3rem; font-weight:700; color:var(--text-primary);">
+                            <?= number_format($ni['value'], 1) ?>
+                        </div>
+                        <div style="font-size:0.72rem; color:var(--text-muted); margin-bottom:2px;"><?= $ni['unit'] ?></div>
+                        <div style="font-size:0.78rem; font-weight:500; color:var(--text-secondary);"><?= $ni['label'] ?></div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <?php endif; ?>
 
             <!-- Langkah -->
             <div style="background:#fff; border-radius:var(--radius); padding:2rem; border:1px solid var(--border); margin-bottom:1.5rem;">
@@ -521,6 +599,69 @@ require_once 'includes/header.php';
 </div>
 
 <script>
+// ===== CENTANG BAHAN =====
+const resepId = '<?= $resep['id'] ?>';
+const storageKey = 'bahan_checked_' + resepId;
+
+// Load state dari localStorage saat halaman dibuka
+function loadCentang() {
+    const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    saved.forEach(idx => {
+        applyChecked(idx, true);
+    });
+}
+
+function toggleBahan(idx) {
+    const item = document.getElementById('bahan-item-' + idx);
+    const isChecked = item.classList.contains('checked');
+    applyChecked(idx, !isChecked);
+    saveCentang();
+}
+
+function applyChecked(idx, checked) {
+    const item  = document.getElementById('bahan-item-' + idx);
+    const icon  = document.getElementById('check-icon-' + idx);
+    const text  = document.getElementById('bahan-text-' + idx);
+    if (!item) return;
+    if (checked) {
+        item.classList.add('checked');
+        item.style.background   = 'rgba(45,106,79,0.08)';
+        item.style.borderColor  = 'var(--green)';
+        icon.style.background   = 'var(--green)';
+        icon.style.borderColor  = 'var(--green)';
+        icon.querySelector('i').style.color = '#fff';
+        text.style.textDecoration = 'line-through';
+        text.style.color          = 'var(--text-muted)';
+    } else {
+        item.classList.remove('checked');
+        item.style.background   = 'var(--bg-secondary)';
+        item.style.borderColor  = 'transparent';
+        icon.style.background   = 'transparent';
+        icon.style.borderColor  = 'var(--green-light)';
+        icon.querySelector('i').style.color = 'transparent';
+        text.style.textDecoration = 'none';
+        text.style.color          = '';
+    }
+}
+
+function saveCentang() {
+    const checked = [];
+    document.querySelectorAll('#bahan-checklist li.checked').forEach(li => {
+        checked.push(li.id.replace('bahan-item-', ''));
+    });
+    localStorage.setItem(storageKey, JSON.stringify(checked));
+}
+
+function resetCentang() {
+    localStorage.removeItem(storageKey);
+    document.querySelectorAll('#bahan-checklist li').forEach((li, idx) => {
+        applyChecked(idx, false);
+    });
+}
+
+// Jalankan saat load
+loadCentang();
+
 // Toggle reply form
 function toggleReplyForm(id) {
     const form = document.getElementById(id);

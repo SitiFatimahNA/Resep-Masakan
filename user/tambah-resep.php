@@ -148,6 +148,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $urutan++;
             }
 
+            // Insert alat masak
+            $alat_list = $_POST['alat_nama'] ?? [];
+            foreach ($alat_list as $alat) {
+                $alat = trim($alat);
+                if (!$alat) continue;
+                $alat_esc = mysqli_real_escape_string($koneksi, $alat);
+                mysqli_query($koneksi, "INSERT INTO alat_masak (id_resep, nama_alat) VALUES ($id_resep, '$alat_esc')");
+            }
+
+            // Insert nutrisi
+            $kalori      = (float)($_POST['kalori']      ?? 0);
+            $protein     = (float)($_POST['protein']     ?? 0);
+            $karbohidrat = (float)($_POST['karbohidrat'] ?? 0);
+            $lemak       = (float)($_POST['lemak']       ?? 0);
+            $serat       = (float)($_POST['serat']       ?? 0);
+            if ($kalori || $protein || $karbohidrat || $lemak || $serat) {
+                mysqli_query($koneksi,
+                    "INSERT INTO nutrisi (id_resep, kalori, protein, karbohidrat, lemak, serat)
+                     VALUES ($id_resep, $kalori, $protein, $karbohidrat, $lemak, $serat)");
+            }
+
             header("Location: /resep-masakan/detail-resep.php?slug=" . urlencode($slug) . "&success=1");
             exit;
         }
@@ -335,6 +356,84 @@ require_once '../includes/header.php';
             </div>
         </div>
 
+        <!-- ===== ALAT MASAK ===== -->
+        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
+                <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin:0;">
+                    <i class="fas fa-tools" style="color:var(--green);"></i> Alat Masak
+                </h3>
+                <button type="button" onclick="tambahAlat()" class="btn btn-outline btn-sm">
+                    <i class="fas fa-plus"></i> Tambah Alat
+                </button>
+            </div>
+            <small style="color:var(--text-muted); font-size:0.78rem; display:block; margin-bottom:1rem;">
+                <i class="fas fa-info-circle"></i> Opsional — isi alat masak yang dibutuhkan (wajan, panci, dll)
+            </small>
+            <div id="alat-container">
+                <?php
+                $post_alat = $_POST['alat_nama'] ?? [''];
+                foreach ($post_alat as $av):
+                ?>
+                <div class="alat-row" style="display:grid; grid-template-columns:1fr 40px; gap:8px; margin-bottom:8px;">
+                    <input type="text" name="alat_nama[]" class="form-control"
+                           placeholder="Contoh: Wajan anti lengket, Spatula kayu..."
+                           value="<?= htmlspecialchars($av) ?>">
+                    <button type="button" onclick="hapusBaris(this)" style="background:var(--danger); color:#fff; border:none; border-radius:var(--radius-sm); cursor:pointer; width:36px; height:36px; display:flex; align-items:center; justify-content:center;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <!-- ===== NUTRISI ===== -->
+        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;">
+            <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin-bottom:0.5rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
+                <i class="fas fa-heartbeat" style="color:var(--green);"></i> Informasi Nutrisi
+                <span style="font-size:0.75rem; font-weight:400; color:var(--text-muted); margin-left:8px;">(per porsi, opsional)</span>
+            </h3>
+            <small style="color:var(--text-muted); font-size:0.78rem; display:block; margin-bottom:1.2rem;">
+                <i class="fas fa-info-circle"></i> Kosongkan jika tidak tahu nilai nutrisinya
+            </small>
+            <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:1rem;">
+                <div class="form-group" style="margin:0;">
+                    <label class="form-label" style="display:flex; align-items:center; gap:4px;">
+                        <span style="color:#e74c3c;">🔥</span> Kalori (kkal)
+                    </label>
+                    <input type="number" name="kalori" class="form-control" min="0" step="0.1"
+                           placeholder="250" value="<?= htmlspecialchars($_POST['kalori'] ?? '') ?>">
+                </div>
+                <div class="form-group" style="margin:0;">
+                    <label class="form-label" style="display:flex; align-items:center; gap:4px;">
+                        <span>💪</span> Protein (g)
+                    </label>
+                    <input type="number" name="protein" class="form-control" min="0" step="0.1"
+                           placeholder="15" value="<?= htmlspecialchars($_POST['protein'] ?? '') ?>">
+                </div>
+                <div class="form-group" style="margin:0;">
+                    <label class="form-label" style="display:flex; align-items:center; gap:4px;">
+                        <span>🌾</span> Karbohidrat (g)
+                    </label>
+                    <input type="number" name="karbohidrat" class="form-control" min="0" step="0.1"
+                           placeholder="30" value="<?= htmlspecialchars($_POST['karbohidrat'] ?? '') ?>">
+                </div>
+                <div class="form-group" style="margin:0;">
+                    <label class="form-label" style="display:flex; align-items:center; gap:4px;">
+                        <span>🥑</span> Lemak (g)
+                    </label>
+                    <input type="number" name="lemak" class="form-control" min="0" step="0.1"
+                           placeholder="10" value="<?= htmlspecialchars($_POST['lemak'] ?? '') ?>">
+                </div>
+                <div class="form-group" style="margin:0;">
+                    <label class="form-label" style="display:flex; align-items:center; gap:4px;">
+                        <span>🌿</span> Serat (g)
+                    </label>
+                    <input type="number" name="serat" class="form-control" min="0" step="0.1"
+                           placeholder="5" value="<?= htmlspecialchars($_POST['serat'] ?? '') ?>">
+                </div>
+            </div>
+        </div>
+
         <!-- Tombol Submit -->
         <div style="display:flex; gap:1rem; justify-content:flex-end;">
             <a href="/resep-masakan/user/resep-saya.php" class="btn btn-dark btn-lg">
@@ -403,12 +502,26 @@ function tambahLangkah() {
 
 // Hapus baris
 function hapusBaris(btn) {
-    const row = btn.closest('.bahan-row, .langkah-row');
+    const row = btn.closest('.bahan-row, .langkah-row, .alat-row');
     if (row) row.remove();
     // Update nomor langkah
     document.querySelectorAll('#langkah-container .langkah-num').forEach((el, i) => {
         el.textContent = i + 1;
     });
+}
+
+// Tambah alat masak
+function tambahAlat() {
+    const container = document.getElementById('alat-container');
+    const row = document.createElement('div');
+    row.className = 'alat-row';
+    row.style.cssText = 'display:grid; grid-template-columns:1fr 40px; gap:8px; margin-bottom:8px;';
+    row.innerHTML = `
+        <input type="text" name="alat_nama[]" class="form-control" placeholder="Contoh: Wajan anti lengket, Spatula kayu...">
+        <button type="button" onclick="hapusBaris(this)" style="background:var(--danger);color:#fff;border:none;border-radius:var(--radius-sm);cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;">
+            <i class="fas fa-times"></i>
+        </button>`;
+    container.appendChild(row);
 }
 </script>
 

@@ -27,10 +27,14 @@ if (!$resep || ($resep['user_id'] != $_SESSION['user_id'] && $_SESSION['role'] !
 // Ambil bahan & langkah
 $bahan_list   = mysqli_query($koneksi, "SELECT * FROM bahan_resep WHERE id_resep=$id ORDER BY id ASC");
 $langkah_list = mysqli_query($koneksi, "SELECT * FROM langkah_resep WHERE id_resep=$id ORDER BY urutan ASC");
+$alat_list    = mysqli_query($koneksi, "SELECT * FROM alat_masak WHERE id_resep=$id ORDER BY id ASC");
+$nutrisi_data = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM nutrisi WHERE id_resep=$id")) ?? [];
 $bahan_arr    = [];
 $langkah_arr  = [];
+$alat_arr     = [];
 while ($b = mysqli_fetch_assoc($bahan_list))   $bahan_arr[]   = $b;
 while ($l = mysqli_fetch_assoc($langkah_list)) $langkah_arr[] = $l;
+while ($a = mysqli_fetch_assoc($alat_list))    $alat_arr[]    = $a;
 
 $kategori_list = mysqli_query($koneksi, "SELECT * FROM kategori ORDER BY nama_kategori ASC");
 $jenis_list    = mysqli_query($koneksi, "SELECT * FROM jenis_masakan ORDER BY nama_jenis ASC");
@@ -132,6 +136,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 mysqli_stmt_execute($ls);
                 mysqli_stmt_close($ls);
                 $urutan++;
+            }
+
+            // Hapus alat lama & insert ulang
+            mysqli_query($koneksi, "DELETE FROM alat_masak WHERE id_resep=$id");
+            $alat_list = $_POST['alat_nama'] ?? [];
+            foreach ($alat_list as $alat) {
+                $alat = trim($alat);
+                if (!$alat) continue;
+                $alat_esc = mysqli_real_escape_string($koneksi, $alat);
+                mysqli_query($koneksi, "INSERT INTO alat_masak (id_resep, nama_alat) VALUES ($id, '$alat_esc')");
+            }
+
+            // Update nutrisi
+            $kalori      = (float)($_POST['kalori']      ?? 0);
+            $protein     = (float)($_POST['protein']     ?? 0);
+            $karbohidrat = (float)($_POST['karbohidrat'] ?? 0);
+            $lemak       = (float)($_POST['lemak']       ?? 0);
+            $serat       = (float)($_POST['serat']       ?? 0);
+            mysqli_query($koneksi, "DELETE FROM nutrisi WHERE id_resep=$id");
+            if ($kalori || $protein || $karbohidrat || $lemak || $serat) {
+                mysqli_query($koneksi,
+                    "INSERT INTO nutrisi (id_resep, kalori, protein, karbohidrat, lemak, serat)
+                     VALUES ($id, $kalori, $protein, $karbohidrat, $lemak, $serat)");
             }
 
             header("Location: /resep-masakan/detail-resep.php?slug=" . urlencode($resep['slug']) . "&updated=1");
@@ -305,7 +332,63 @@ require_once '../includes/header.php';
             </div>
         </div>
 
-        <div style="display:flex; gap:1rem; justify-content:flex-end;" class="">
+        <!-- ===== ALAT MASAK ===== -->
+        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
+                <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin:0;">
+                    <i class="fas fa-tools" style="color:var(--green);"></i> Alat Masak
+                    <span style="font-size:0.75rem; font-weight:400; color:var(--text-muted); margin-left:8px;">(opsional)</span>
+                </h3>
+                <button type="button" onclick="tambahAlat()" class="btn btn-outline btn-sm">
+                    <i class="fas fa-plus"></i> Tambah
+                </button>
+            </div>
+            <div id="alat-container">
+                <?php
+                $alat_display = !empty($alat_arr) ? $alat_arr : [['nama_alat'=>'']];
+                foreach ($alat_display as $a):
+                ?>
+                <div class="alat-row" style="display:grid; grid-template-columns:1fr 40px; gap:8px; margin-bottom:8px;">
+                    <input type="text" name="alat_nama[]" class="form-control"
+                           placeholder="Contoh: Wajan anti lengket..."
+                           value="<?= htmlspecialchars($a['nama_alat']) ?>">
+                    <button type="button" onclick="hapusBaris(this)" style="background:var(--danger); color:#fff; border:none; border-radius:var(--radius-sm); cursor:pointer; width:36px; height:36px; display:flex; align-items:center; justify-content:center;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <!-- ===== NUTRISI ===== -->
+        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;">
+            <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin-bottom:0.5rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
+                <i class="fas fa-heartbeat" style="color:var(--green);"></i> Informasi Nutrisi
+                <span style="font-size:0.75rem; font-weight:400; color:var(--text-muted); margin-left:8px;">(per porsi, opsional)</span>
+            </h3>
+            <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:1rem; margin-top:1rem;">
+                <?php
+                $n = $nutrisi_data;
+                $nutrisi_fields = [
+                    ['name'=>'kalori',      'label'=>'🔥 Kalori (kkal)', 'placeholder'=>'250'],
+                    ['name'=>'protein',     'label'=>'💪 Protein (g)',   'placeholder'=>'15'],
+                    ['name'=>'karbohidrat', 'label'=>'🌾 Karbo (g)',     'placeholder'=>'30'],
+                    ['name'=>'lemak',       'label'=>'🥑 Lemak (g)',     'placeholder'=>'10'],
+                    ['name'=>'serat',       'label'=>'🌿 Serat (g)',     'placeholder'=>'5'],
+                ];
+                foreach ($nutrisi_fields as $nf):
+                ?>
+                <div class="form-group" style="margin:0;">
+                    <label class="form-label"><?= $nf['label'] ?></label>
+                    <input type="number" name="<?= $nf['name'] ?>" class="form-control"
+                           min="0" step="0.1" placeholder="<?= $nf['placeholder'] ?>"
+                           value="<?= htmlspecialchars($n[$nf['name']] ?? '') ?>">
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <div style="display:flex; gap:1rem; justify-content:flex-end;">
             <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>" class="btn btn-dark btn-lg">
                 <i class="fas fa-times"></i> Batal
             </a>
@@ -354,8 +437,21 @@ function tambahLangkah() {
 }
 
 function hapusBaris(btn) {
-    btn.closest('.bahan-row, .langkah-row').remove();
+    btn.closest('.bahan-row, .langkah-row, .alat-row').remove();
     document.querySelectorAll('#langkah-container .langkah-num').forEach((el,i) => el.textContent = i+1);
+}
+
+function tambahAlat() {
+    const c = document.getElementById('alat-container');
+    const row = document.createElement('div');
+    row.className = 'alat-row';
+    row.style.cssText = 'display:grid; grid-template-columns:1fr 40px; gap:8px; margin-bottom:8px;';
+    row.innerHTML = `
+        <input type="text" name="alat_nama[]" class="form-control" placeholder="Contoh: Wajan anti lengket...">
+        <button type="button" onclick="hapusBaris(this)" style="background:var(--danger);color:#fff;border:none;border-radius:var(--radius-sm);cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;">
+            <i class="fas fa-times"></i>
+        </button>`;
+    c.appendChild(row);
 }
 </script>
 

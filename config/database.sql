@@ -144,7 +144,33 @@ CREATE TABLE `favorit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- =====================================================
--- DATA AWAL: Admin default
+-- TABEL: alat_masak
+-- =====================================================
+CREATE TABLE `alat_masak` (
+    `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `id_resep` INT(11) UNSIGNED NOT NULL,
+    `nama_alat` VARCHAR(200) NOT NULL,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`id_resep`) REFERENCES `resep`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- =====================================================
+-- TABEL: nutrisi
+-- =====================================================
+CREATE TABLE `nutrisi` (
+    `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `id_resep` INT(11) UNSIGNED NOT NULL,
+    `kalori` DECIMAL(8,1) DEFAULT 0,
+    `protein` DECIMAL(8,1) DEFAULT 0,
+    `karbohidrat` DECIMAL(8,1) DEFAULT 0,
+    `lemak` DECIMAL(8,1) DEFAULT 0,
+    `serat` DECIMAL(8,1) DEFAULT 0,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `unique_resep` (`id_resep`),
+    FOREIGN KEY (`id_resep`) REFERENCES `resep`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
 -- password: admin123 (sudah di-hash dengan password_hash)
 -- =====================================================
 INSERT INTO `users` (`nama`, `email`, `password`, `role`) VALUES 
