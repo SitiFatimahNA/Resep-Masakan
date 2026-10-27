@@ -28,7 +28,8 @@ if ($q !== '') {
 }
 
 if ($kategori !== '') {
-    $where[]  = "k.slug = ?";
+    // Filter pakai resep_kategori untuk mendukung multi-kategori
+    $where[]  = "EXISTS (SELECT 1 FROM resep_kategori rk2 JOIN kategori k2 ON rk2.id_kategori=k2.id WHERE rk2.id_resep=r.id AND k2.slug=?)";
     $params[] = $kategori;
     $types   .= 's';
 }
@@ -102,6 +103,26 @@ while ($row = mysqli_fetch_assoc($result2)) {
     $resep_list[] = $row;
 }
 mysqli_stmt_close($stmt2);
+
+// Ambil kategori untuk setiap resep dari resep_kategori
+$resep_kategori_map = [];
+if (!empty($resep_list)) {
+    $ids = implode(',', array_column($resep_list, 'id'));
+    $rk = mysqli_query($koneksi,
+        "SELECT rk.id_resep, k.nama_kategori, k.slug
+         FROM resep_kategori rk
+         JOIN kategori k ON rk.id_kategori = k.id
+         WHERE rk.id_resep IN ($ids)");
+    while ($r = mysqli_fetch_assoc($rk)) {
+        $resep_kategori_map[$r['id_resep']][] = $r;
+    }
+    // Fallback: jika belum ada di resep_kategori, pakai nama_kategori dari join
+    foreach ($resep_list as $r) {
+        if (empty($resep_kategori_map[$r['id']]) && $r['nama_kategori']) {
+            $resep_kategori_map[$r['id']][] = ['nama_kategori' => $r['nama_kategori'], 'slug' => $r['kat_slug']];
+        }
+    }
+}
 
 // Ambil semua kategori untuk filter
 $kategori_list = mysqli_query($koneksi, "SELECT * FROM kategori ORDER BY nama_kategori ASC");
@@ -232,7 +253,10 @@ require_once 'includes/header.php';
                             <?= ucfirst($resep['tingkat_kesulitan']) ?>
                         </span>
                         <span style="position:absolute; top:12px; right:12px; background:rgba(255,255,255,0.92); padding:4px 10px; border-radius:20px; font-size:0.72rem; color:var(--green-dark); font-weight:500;">
-                            <?= htmlspecialchars($resep['nama_kategori']) ?>
+                            <?php
+                            $kats = $resep_kategori_map[$resep['id']] ?? [];
+                            echo htmlspecialchars(implode(', ', array_column($kats, 'nama_kategori')));
+                            ?>
                         </span>
                         <!-- Favorit btn (jika login) -->
                         <?php if (isset($_SESSION['user_id'])): ?>
