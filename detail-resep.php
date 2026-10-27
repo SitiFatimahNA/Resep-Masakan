@@ -58,6 +58,19 @@ while ($a = mysqli_fetch_assoc($alat_result)) $alat_list[] = $a;
 // Ambil nutrisi
 $nutrisi = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM nutrisi WHERE id_resep = {$resep['id']}")) ?? null;
 
+// Ambil semua kategori resep
+$kategori_resep_r = mysqli_query($koneksi,
+    "SELECT k.* FROM resep_kategori rk
+     JOIN kategori k ON rk.id_kategori = k.id
+     WHERE rk.id_resep = {$resep['id']}");
+$kategori_resep = [];
+while ($kr = mysqli_fetch_assoc($kategori_resep_r)) $kategori_resep[] = $kr;
+// Fallback jika resep_kategori kosong
+if (empty($kategori_resep) && $resep['id_kategori']) {
+    $kr_fb = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT * FROM kategori WHERE id = {$resep['id_kategori']}"));
+    if ($kr_fb) $kategori_resep[] = $kr_fb;
+}
+
 // Ambil komentar
 // Ambil komentar — hanya parent (parent_id IS NULL), reply diambil terpisah
 $komentar_result = mysqli_query($koneksi,
@@ -168,9 +181,11 @@ require_once 'includes/header.php';
                      alt="<?= htmlspecialchars($resep['judul']) ?>"
                      style="width:100%; height:420px; object-fit:cover;"
                      onerror="this.src='/resep-masakan/assets/images/default-resep.svg'">
-                <div style="position:absolute; top:16px; left:16px; display:flex; gap:8px;">
+                <div style="position:absolute; top:16px; left:16px; display:flex; gap:6px; flex-wrap:wrap;">
                     <span class="badge badge-<?= $resep['tingkat_kesulitan'] ?>"><?= ucfirst($resep['tingkat_kesulitan']) ?></span>
-                    <span class="badge badge-gold"><?= htmlspecialchars($resep['nama_kategori']) ?></span>
+                    <?php foreach ($kategori_resep as $kr): ?>
+                    <span class="badge badge-gold"><?= htmlspecialchars($kr['nama_kategori']) ?></span>
+                    <?php endforeach; ?>
                 </div>
             </div>
 
@@ -576,7 +591,14 @@ require_once 'includes/header.php';
                 <div style="display:flex; flex-direction:column; gap:0.6rem; font-size:0.875rem;">
                     <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border);">
                         <span style="color:var(--text-muted);">Kategori</span>
-                        <a href="/resep-masakan/resep.php?kategori=<?= $resep['kat_slug'] ?>" style="color:var(--green); font-weight:500;"><?= htmlspecialchars($resep['nama_kategori']) ?></a>
+                        <div style="display:flex; gap:4px; flex-wrap:wrap; justify-content:flex-end;">
+                            <?php foreach ($kategori_resep as $kr): ?>
+                            <a href="/resep-masakan/resep.php?kategori=<?= $kr['slug'] ?>"
+                               style="font-size:0.78rem; background:var(--green-pale); color:var(--green-dark); padding:2px 8px; border-radius:12px; text-decoration:none; font-weight:500;">
+                                <?= htmlspecialchars($kr['nama_kategori']) ?>
+                            </a>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
                     <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border);">
                         <span style="color:var(--text-muted);">Jenis</span>

@@ -144,6 +144,17 @@ CREATE TABLE `favorit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- =====================================================
+-- TABEL: resep_kategori (multi kategori per resep)
+-- =====================================================
+CREATE TABLE `resep_kategori` (
+    `id_resep` INT(11) UNSIGNED NOT NULL,
+    `id_kategori` INT(11) UNSIGNED NOT NULL,
+    PRIMARY KEY (`id_resep`, `id_kategori`),
+    FOREIGN KEY (`id_resep`) REFERENCES `resep`(`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`id_kategori`) REFERENCES `kategori`(`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- =====================================================
 -- TABEL: alat_masak
 -- =====================================================
 CREATE TABLE `alat_masak` (

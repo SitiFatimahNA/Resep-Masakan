@@ -36,18 +36,25 @@ while ($b = mysqli_fetch_assoc($bahan_list))   $bahan_arr[]   = $b;
 while ($l = mysqli_fetch_assoc($langkah_list)) $langkah_arr[] = $l;
 while ($a = mysqli_fetch_assoc($alat_list))    $alat_arr[]    = $a;
 
+// Ambil kategori yang sudah dipilih
+$kat_terpilih_r = mysqli_query($koneksi, "SELECT id_kategori FROM resep_kategori WHERE id_resep=$id");
+$kat_terpilih = [];
+while ($kt = mysqli_fetch_assoc($kat_terpilih_r)) $kat_terpilih[] = $kt['id_kategori'];
+// Fallback ke id_kategori lama jika resep_kategori kosong
+if (empty($kat_terpilih) && $resep['id_kategori']) $kat_terpilih[] = $resep['id_kategori'];
+
 $kategori_list = mysqli_query($koneksi, "SELECT * FROM kategori ORDER BY nama_kategori ASC");
 $jenis_list    = mysqli_query($koneksi, "SELECT * FROM jenis_masakan ORDER BY nama_jenis ASC");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $judul       = trim($_POST['judul'] ?? '');
-    $deskripsi   = trim($_POST['deskripsi'] ?? '');
-    $id_kategori = (int)($_POST['id_kategori'] ?? 0);
-    $id_jenis    = (int)($_POST['id_jenis'] ?? 0);
-    $kesulitan   = $_POST['tingkat_kesulitan'] ?? 'mudah';
-    $waktu       = (int)($_POST['waktu_masak'] ?? 0);
-    $porsi       = (int)($_POST['porsi'] ?? 1);
-    $status      = $_POST['status'] ?? 'draft';
+    $judul        = trim($_POST['judul'] ?? '');
+    $deskripsi    = trim($_POST['deskripsi'] ?? '');
+    $kategori_ids = array_map('intval', $_POST['id_kategori'] ?? []);
+    $id_jenis     = (int)($_POST['id_jenis'] ?? 0);
+    $kesulitan    = $_POST['tingkat_kesulitan'] ?? 'mudah';
+    $waktu        = (int)($_POST['waktu_masak'] ?? 0);
+    $porsi        = (int)($_POST['porsi'] ?? 1);
+    $status       = $_POST['status'] ?? 'draft';
     // Paksa status valid
     $status      = ($status === 'publik') ? 'publik' : 'draft';
 
@@ -56,8 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $bahan_satuan = $_POST['bahan_satuan'] ?? [];
     $langkah_isi  = $_POST['langkah_isi']  ?? [];
 
-    if (!$judul || !$deskripsi || !$id_kategori || !$id_jenis || !$waktu || !$porsi) {
-        $error = 'Semua field wajib diisi.';
+    if (!$judul || !$deskripsi || empty($kategori_ids) || !$id_jenis || !$waktu || !$porsi) {
+        $error = 'Semua field wajib diisi. Pilih minimal 1 kategori.';
     } else {
         $thumbnail = $resep['thumbnail'];
 
@@ -88,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $deskripsi_esc = mysqli_real_escape_string($koneksi, $deskripsi);
             $kesulitan_esc = mysqli_real_escape_string($koneksi, $kesulitan);
             $status_esc    = mysqli_real_escape_string($koneksi, $status);
-            $kat_val       = (int)$id_kategori;
+            $kat_val       = (int)($kategori_ids[0] ?? 0);
             $jenis_val     = (int)$id_jenis;
             $waktu_val     = (int)$waktu;
             $porsi_val     = (int)$porsi;
@@ -101,6 +108,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                  tingkat_kesulitan='$kesulitan_esc', waktu_masak=$waktu_val, porsi=$porsi_val,
                  status='$status_esc', updated_at=NOW()
                  WHERE id=$id_val");
+
+            // Update resep_kategori
+            mysqli_query($koneksi, "DELETE FROM resep_kategori WHERE id_resep=$id_val");
+            foreach ($kategori_ids as $kid) {
+                $kid = (int)$kid;
+                if ($kid > 0) {
+                    mysqli_query($koneksi, "INSERT IGNORE INTO resep_kategori (id_resep, id_kategori) VALUES ($id_val, $kid)");
+                }
+            }
 
             // Hapus bahan & langkah lama, insert ulang
             mysqli_query($koneksi, "DELETE FROM bahan_resep WHERE id_resep=$id");
@@ -206,14 +222,22 @@ require_once '../includes/header.php';
 
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
                 <div class="form-group">
-                    <label class="form-label">Kategori *</label>
-                    <select name="id_kategori" class="form-control" required>
-                        <?php while ($k = mysqli_fetch_assoc($kategori_list)): ?>
-                        <option value="<?= $k['id'] ?>" <?= $resep['id_kategori'] == $k['id'] ? 'selected':'' ?>>
+                    <label class="form-label">Kategori * <small style="color:var(--text-muted); font-weight:400;">(bisa pilih lebih dari satu)</small></label>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; padding:10px; background:var(--bg-secondary); border-radius:var(--radius-sm); border:1.5px solid var(--border); max-height:200px; overflow-y:auto;">
+                        <?php
+                        $post_kat_edit = !empty($_POST['id_kategori']) ? array_map('intval', $_POST['id_kategori']) : $kat_terpilih;
+                        while ($k = mysqli_fetch_assoc($kategori_list)):
+                        ?>
+                        <label style="display:flex; align-items:center; gap:8px; padding:6px 10px; background:#fff; border-radius:6px; cursor:pointer; font-size:0.85rem; border:1.5px solid transparent; transition:all 0.2s;"
+                               onmouseover="this.style.borderColor='var(--green-light)'"
+                               onmouseout="this.style.borderColor='transparent'">
+                            <input type="checkbox" name="id_kategori[]" value="<?= $k['id'] ?>"
+                                   <?= in_array((int)$k['id'], array_map('intval', $post_kat_edit)) ? 'checked' : '' ?>
+                                   style="accent-color:var(--green); width:16px; height:16px;">
                             <?= htmlspecialchars($k['nama_kategori']) ?>
-                        </option>
+                        </label>
                         <?php endwhile; ?>
-                    </select>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Jenis *</label>

@@ -25,14 +25,14 @@ function buat_slug($str) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $judul      = trim($_POST['judul'] ?? '');
-    $deskripsi  = trim($_POST['deskripsi'] ?? '');
-    $id_kategori= (int)($_POST['id_kategori'] ?? 0);
-    $id_jenis   = (int)($_POST['id_jenis'] ?? 0);
-    $kesulitan  = $_POST['tingkat_kesulitan'] ?? 'mudah';
-    $waktu      = (int)($_POST['waktu_masak'] ?? 0);
-    $porsi      = (int)($_POST['porsi'] ?? 1);
-    $status     = $_POST['aksi'] ?? 'draft';
+    $judul       = trim($_POST['judul'] ?? '');
+    $deskripsi   = trim($_POST['deskripsi'] ?? '');
+    $kategori_ids = array_map('intval', $_POST['id_kategori'] ?? []);
+    $id_jenis    = (int)($_POST['id_jenis'] ?? 0);
+    $kesulitan   = $_POST['tingkat_kesulitan'] ?? 'mudah';
+    $waktu       = (int)($_POST['waktu_masak'] ?? 0);
+    $porsi       = (int)($_POST['porsi'] ?? 1);
+    $status      = $_POST['aksi'] ?? 'draft';
     // Pastikan status valid
     if (!in_array($status, ['publik', 'draft'])) {
         $status = 'draft';
@@ -44,8 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $langkah_isi  = $_POST['langkah_isi']  ?? [];
 
     // Validasi
-    if (!$judul || !$deskripsi || !$id_kategori || !$id_jenis || !$waktu || !$porsi) {
-        $error = 'Semua field wajib diisi.';
+    if (!$judul || !$deskripsi || empty($kategori_ids) || !$id_jenis || !$waktu || !$porsi) {
+        $error = 'Semua field wajib diisi. Pilih minimal 1 kategori.';
     } elseif (empty($bahan_nama) || count(array_filter($bahan_nama)) === 0) {
         $error = 'Minimal satu bahan harus diisi.';
     } elseif (empty($langkah_isi) || count(array_filter($langkah_isi)) === 0) {
@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $status_bersih = ($status === 'publik') ? 'publik' : 'draft';
             $status_esc    = mysqli_real_escape_string($koneksi, $status_bersih);
             $user_id_val   = (int)$_SESSION['user_id'];
-            $kat_val       = (int)$id_kategori;
+            $kat_val       = (int)($kategori_ids[0] ?? 0); // kategori pertama untuk backward compat
             $jenis_val     = (int)$id_jenis;
             $waktu_val     = (int)$waktu;
             $porsi_val     = (int)$porsi;
@@ -110,6 +110,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             mysqli_query($koneksi, $sql_insert);
             $id_resep = mysqli_insert_id($koneksi);
+
+            // Insert ke resep_kategori (multi kategori)
+            foreach ($kategori_ids as $kid) {
+                $kid = (int)$kid;
+                if ($kid > 0) {
+                    mysqli_query($koneksi, "INSERT IGNORE INTO resep_kategori (id_resep, id_kategori) VALUES ($id_resep, $kid)");
+                }
+            }
 
             // Insert bahan
             foreach ($bahan_nama as $idx => $nama) {
@@ -216,15 +224,23 @@ require_once '../includes/header.php';
 
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
                 <div class="form-group">
-                    <label class="form-label">Kategori <span style="color:var(--danger);">*</span></label>
-                    <select name="id_kategori" class="form-control" required>
-                        <option value="">-- Pilih Kategori --</option>
-                        <?php while ($k = mysqli_fetch_assoc($kategori_list)): ?>
-                        <option value="<?= $k['id'] ?>" <?= ($_POST['id_kategori'] ?? '') == $k['id'] ? 'selected' : '' ?>>
+                    <label class="form-label">Kategori <span style="color:var(--danger);">*</span> <small style="color:var(--text-muted); font-weight:400;">(bisa pilih lebih dari satu)</small></label>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; padding:10px; background:var(--bg-secondary); border-radius:var(--radius-sm); border:1.5px solid var(--border); max-height:200px; overflow-y:auto;">
+                        <?php
+                        $post_kat = $_POST['id_kategori'] ?? [];
+                        mysqli_data_seek($kategori_list, 0);
+                        while ($k = mysqli_fetch_assoc($kategori_list)):
+                        ?>
+                        <label style="display:flex; align-items:center; gap:8px; padding:6px 10px; background:#fff; border-radius:6px; cursor:pointer; font-size:0.85rem; border:1.5px solid transparent; transition:all 0.2s;"
+                               onmouseover="this.style.borderColor='var(--green-light)'"
+                               onmouseout="this.style.borderColor='transparent'">
+                            <input type="checkbox" name="id_kategori[]" value="<?= $k['id'] ?>"
+                                   <?= in_array($k['id'], $post_kat) ? 'checked' : '' ?>
+                                   style="accent-color:var(--green); width:16px; height:16px;">
                             <?= htmlspecialchars($k['nama_kategori']) ?>
-                        </option>
+                        </label>
                         <?php endwhile; ?>
-                    </select>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Jenis Masakan <span style="color:var(--danger);">*</span></label>
