@@ -706,7 +706,7 @@ $current = basename($_SERVER['PHP_SELF']);
 
         <div class="nav-section">Laporan</div>
         <a href="/resep-masakan/admin/laporan.php" class="nav-item <?= $current==='laporan.php'?'active':'' ?>">
-            <div class="nav-icon"><i class="fas fa-file-chart-line"></i></div>
+            <div class="nav-icon"><i class="fas fa-file-alt"></i></div>
             Laporan & Export
         </a>
 
