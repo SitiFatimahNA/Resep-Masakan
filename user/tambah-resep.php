@@ -186,25 +186,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 require_once '../includes/header.php';
 ?>
 
-<div style="background:linear-gradient(135deg, #f0f7f0 0%, #f8faf8 50%, #f0f5f0 100%); min-height:100vh; padding:2rem 0 4rem;">
+<!-- MINI HERO -->
+<div style="background:linear-gradient(160deg,#0a2e1a 0%,#1a4731 50%,#2d6a4f 100%);padding:2.5rem 0 4.5rem;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:-60px;right:-60px;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(82,183,136,0.12) 0%,transparent 70%);pointer-events:none;"></div>
+    <div class="container" style="position:relative;z-index:1;max-width:860px;">
+        <p style="font-size:0.72rem;font-weight:600;color:#52b788;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">
+            <a href="/resep-masakan/user/resep-saya.php" style="color:#52b788;text-decoration:none;">Resep Saya</a>
+            <i class="fas fa-chevron-right" style="font-size:0.55rem;margin:0 6px;"></i> Tambah Resep
+        </p>
+        <h1 style="font-family:'Playfair Display',serif;font-size:2rem;color:#fff;font-weight:700;letter-spacing:-0.5px;">
+            Tambah <span style="color:#95d5b2;">Resep Baru</span>
+        </h1>
+    </div>
+    <div style="position:absolute;bottom:0;left:0;width:100%;overflow:hidden;line-height:0;">
+        <svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;height:40px;">
+            <path d="M0,20 C360,40 1080,0 1440,20 L1440,40 L0,40 Z" fill="#f4f7f4"/>
+        </svg>
+    </div>
+</div>
+
+<div style="background:#f4f7f4;padding:2rem 0 5rem;">
 <div class="container" style="max-width:860px;">
 
-    <!-- Header -->
-    <div style="margin-bottom:2rem;">
-        <h1 style="font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--text-primary);">
-            <i class="fas fa-plus-circle" style="color:var(--green);"></i> Tambah <span style="color:var(--green);">Resep</span> Baru
-        </h1>
-        <div class="divider"></div>
-    </div>
-
     <?php if ($error): ?>
-    <div class="alert alert-danger"><i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?></div>
+    <div style="display:flex;align-items:center;gap:8px;background:rgba(231,76,60,0.08);border:1.5px solid rgba(231,76,60,0.2);border-radius:12px;padding:12px 16px;font-size:0.875rem;color:#c0392b;margin-bottom:1.5rem;">
+        <i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?>
+    </div>
     <?php endif; ?>
 
     <form method="POST" enctype="multipart/form-data" id="form-resep">
 
         <!-- ===== INFO DASAR ===== -->
-        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;">
+        <div style="background:#fff; border-radius:20px; border:1.5px solid #e4ede6; padding:2rem; margin-bottom:1.5rem; box-shadow:0 2px 8px rgba(45,106,79,0.05);">
             <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin-bottom:1.5rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
                 <i class="fas fa-info-circle" style="color:var(--green);"></i> Informasi Dasar
             </h3>
@@ -297,7 +310,7 @@ require_once '../includes/header.php';
         </div>
 
         <!-- ===== BAHAN ===== -->
-        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;" class="">
+        <div style="background:#fff; border-radius:20px; border:1.5px solid #e4ede6; padding:2rem; margin-bottom:1.5rem; box-shadow:0 2px 8px rgba(45,106,79,0.05);">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
                 <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin:0;">
                     <i class="fas fa-list-ul" style="color:var(--green);"></i> Bahan-bahan
@@ -339,7 +352,7 @@ require_once '../includes/header.php';
         </div>
 
         <!-- ===== LANGKAH ===== -->
-        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;" class="">
+        <div style="background:#fff; border-radius:20px; border:1.5px solid #e4ede6; padding:2rem; margin-bottom:1.5rem; box-shadow:0 2px 8px rgba(45,106,79,0.05);">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
                 <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin:0;">
                     <i class="fas fa-list-ol" style="color:var(--green);"></i> Cara Memasak
@@ -373,7 +386,7 @@ require_once '../includes/header.php';
         </div>
 
         <!-- ===== ALAT MASAK ===== -->
-        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;">
+        <div style="background:#fff; border-radius:20px; border:1.5px solid #e4ede6; padding:2rem; margin-bottom:1.5rem; box-shadow:0 2px 8px rgba(45,106,79,0.05);">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
                 <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin:0;">
                     <i class="fas fa-tools" style="color:var(--green);"></i> Alat Masak
@@ -403,7 +416,7 @@ require_once '../includes/header.php';
         </div>
 
         <!-- ===== NUTRISI ===== -->
-        <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem; margin-bottom:1.5rem;">
+        <div style="background:#fff; border-radius:20px; border:1.5px solid #e4ede6; padding:2rem; margin-bottom:1.5rem; box-shadow:0 2px 8px rgba(45,106,79,0.05);">
             <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin-bottom:0.5rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
                 <i class="fas fa-heartbeat" style="color:var(--green);"></i> Informasi Nutrisi
                 <span style="font-size:0.75rem; font-weight:400; color:var(--text-muted); margin-left:8px;">(per porsi, opsional)</span>
