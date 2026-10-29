@@ -2,23 +2,17 @@
 session_start();
 require_once 'config/koneksi.php';
 
-// Redirect jika sudah login
-if (isset($_SESSION['user_id'])) {
-    header('Location: /resep-masakan/index.php');
-    exit;
-}
+if (isset($_SESSION['user_id'])) { header('Location: /resep-masakan/home.php'); exit; }
 
-$error   = '';
-$success = '';
+$error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nama     = trim($_POST['nama'] ?? '');
-    $email    = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
-    $konfirm  = $_POST['konfirm_password'] ?? '';
+    $nama    = trim($_POST['nama'] ?? '');
+    $email   = trim($_POST['email'] ?? '');
+    $password= $_POST['password'] ?? '';
+    $konfirm = $_POST['konfirm_password'] ?? '';
 
-    // Validasi
-    if (empty($nama) || empty($email) || empty($password) || empty($konfirm)) {
+    if (empty($nama)||empty($email)||empty($password)||empty($konfirm)) {
         $error = 'Semua field wajib diisi.';
     } elseif (strlen($nama) < 3) {
         $error = 'Nama minimal 3 karakter.';
@@ -29,31 +23,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($password !== $konfirm) {
         $error = 'Konfirmasi password tidak cocok.';
     } else {
-        // Cek email sudah terdaftar
-        $stmt = mysqli_prepare($koneksi, "SELECT id FROM users WHERE email = ?");
-        mysqli_stmt_bind_param($stmt, 's', $email);
+        $stmt = mysqli_prepare($koneksi, "SELECT id FROM users WHERE email=?");
+        mysqli_stmt_bind_param($stmt,'s',$email);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_store_result($stmt);
-
         if (mysqli_stmt_num_rows($stmt) > 0) {
-            $error = 'Email sudah terdaftar, gunakan email lain.';
+            $error = 'Email sudah terdaftar.';
             mysqli_stmt_close($stmt);
         } else {
             mysqli_stmt_close($stmt);
-
-            // Hash password
             $hashed = password_hash($password, PASSWORD_DEFAULT);
-
-            // Simpan user baru
-            $stmt2 = mysqli_prepare($koneksi, 
-                "INSERT INTO users (nama, email, password, role) VALUES (?, ?, ?, 'user')"
-            );
-            mysqli_stmt_bind_param($stmt2, 'sss', $nama, $email, $hashed);
-
+            $stmt2  = mysqli_prepare($koneksi, "INSERT INTO users (nama,email,password,role) VALUES (?,?,?,'user')");
+            mysqli_stmt_bind_param($stmt2,'sss',$nama,$email,$hashed);
             if (mysqli_stmt_execute($stmt2)) {
                 mysqli_stmt_close($stmt2);
-                header('Location: /resep-masakan/login.php?registered=1');
-                exit;
+                header('Location: /resep-masakan/login.php?registered=1'); exit;
             } else {
                 $error = 'Terjadi kesalahan, coba lagi.';
                 mysqli_stmt_close($stmt2);
@@ -67,269 +51,245 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar | DapurIn</title>
+    <title>Daftar — DapurIn</title>
     <link rel="stylesheet" href="/resep-masakan/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #f0f7f0, #e8f5e8);
-            position: relative;
-            overflow-x: hidden;
-            overflow-y: auto;
-            padding: 2rem 1rem;
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+        body{font-family:'Poppins',sans-serif;min-height:100vh;display:flex;overflow:hidden;}
+
+        .auth-left{
+            width:40%;flex-shrink:0;
+            background:linear-gradient(160deg,#0a2e1a 0%,#1a4731 50%,#2d6a4f 100%);
+            position:relative;overflow:hidden;
+            display:flex;flex-direction:column;justify-content:space-between;
+            padding:3rem;
         }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%; right: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(ellipse at 40% 60%, rgba(64,145,108,0.08) 0%, transparent 60%);
-            pointer-events: none;
+        .auth-left::before{
+            content:'';position:absolute;inset:0;
+            background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2352b788' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E") repeat;
+            pointer-events:none;
         }
+        .blob{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(82,183,136,0.15) 0%,transparent 70%);pointer-events:none;}
 
-        .auth-container {
-            width: 100%;
-            max-width: 480px;
-            padding: 1rem;
-            animation: fadeInUp 0.6s ease;
-        }
+        .auth-brand{display:flex;align-items:center;gap:12px;position:relative;z-index:1;}
+        .auth-brand-icon{width:42px;height:42px;background:linear-gradient(135deg,#40916c,#52b788);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#fff;box-shadow:0 4px 14px rgba(64,145,108,0.5);}
+        .auth-brand-text{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:#fff;}
+        .auth-brand-text span{color:#95d5b2;}
 
-        .auth-card {
-            background: #ffffff;
-            border: 1px solid rgba(64,145,108,0.2);
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: 0 20px 60px rgba(45,106,79,0.12);
-        }
+        .auth-left-body{position:relative;z-index:1;}
+        .auth-left-body h2{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#fff;line-height:1.2;margin-bottom:1rem;letter-spacing:-0.5px;}
+        .auth-left-body h2 span{background:linear-gradient(135deg,#52b788,#95d5b2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+        .auth-left-body p{color:rgba(255,255,255,0.55);font-size:0.875rem;line-height:1.8;}
 
-        .auth-logo { text-align: center; margin-bottom: 2rem; }
+        /* Steps visual */
+        .auth-steps{display:flex;flex-direction:column;gap:16px;margin-top:2rem;}
+        .auth-step{display:flex;align-items:flex-start;gap:14px;}
+        .auth-step-num{width:28px;height:28px;background:linear-gradient(135deg,#40916c,#52b788);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 3px 10px rgba(64,145,108,0.4);}
+        .auth-step-info strong{display:block;font-size:0.82rem;font-weight:600;color:#fff;margin-bottom:2px;}
+        .auth-step-info span{font-size:0.75rem;color:rgba(255,255,255,0.45);}
 
-        .auth-logo .logo-icon {
-            font-size: 2.5rem;
-            color: var(--green);
-            display: block;
-            margin-bottom: 0.5rem;
-            animation: float 3s ease-in-out infinite;
-        }
+        .auth-left-footer{position:relative;z-index:1;}
+        .auth-left-footer p{font-size:0.75rem;color:rgba(255,255,255,0.3);}
 
-        .auth-logo h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            color: var(--text-primary);
-        }
+        /* KANAN */
+        .auth-right{flex:1;background:#f4f7f4;display:flex;align-items:center;justify-content:center;padding:2rem;overflow-y:auto;}
+        .auth-form-wrap{width:100%;max-width:420px;animation:fadeInUp 0.5s ease;}
 
-        .auth-logo h1 span { color: var(--green); }
+        .auth-form-title{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:#1a2e1a;margin-bottom:0.4rem;letter-spacing:-0.5px;}
+        .auth-form-sub{font-size:0.85rem;color:#8a9e87;margin-bottom:1.8rem;}
 
-        .auth-logo p { color: var(--text-muted); font-size: 0.85rem; margin-top: 4px; }
+        .auth-form-group{margin-bottom:1rem;}
+        .auth-label{display:block;font-size:0.72rem;font-weight:700;color:#4a6741;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px;}
+        .auth-input-wrap{position:relative;}
+        .auth-input-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#8a9e87;font-size:0.82rem;pointer-events:none;}
+        .auth-input{width:100%;padding:10px 14px 10px 38px;background:#fff;border:1.5px solid #d4e6d4;border-radius:12px;font-size:0.875rem;font-family:'Poppins',sans-serif;color:#1a2e1a;outline:none;transition:all 0.2s;}
+        .auth-input:focus{border-color:#40916c;box-shadow:0 0 0 3px rgba(64,145,108,0.1);}
+        .auth-input::placeholder{color:#b0c4b0;}
+        .toggle-pw{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:#8a9e87;cursor:pointer;font-size:0.88rem;transition:color 0.2s;}
+        .toggle-pw:hover{color:#40916c;}
 
-        .auth-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border);
-        }
+        /* Strength bar */
+        .strength-wrap{margin-top:6px;}
+        .strength-bar-bg{height:4px;background:#e4ede6;border-radius:2px;overflow:hidden;}
+        .strength-bar{height:100%;border-radius:2px;transition:width 0.3s,background 0.3s;width:0;}
+        .strength-label{font-size:0.72rem;margin-top:3px;}
 
-        .input-group { position: relative; }
+        .match-text{font-size:0.72rem;margin-top:3px;}
 
-        .input-group .input-icon {
-            position: absolute;
-            left: 14px; top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
+        .auth-error{display:flex;align-items:center;gap:8px;background:rgba(231,76,60,0.08);border:1.5px solid rgba(231,76,60,0.2);border-radius:10px;padding:10px 14px;font-size:0.82rem;color:#c0392b;margin-bottom:1.2rem;}
 
-        .input-group .form-control { padding-left: 40px; }
+        .auth-btn{width:100%;padding:12px;background:linear-gradient(135deg,#2d6a4f,#40916c);color:#fff;border:none;border-radius:12px;font-size:0.9rem;font-weight:600;cursor:pointer;font-family:'Poppins',sans-serif;box-shadow:0 4px 14px rgba(45,106,79,0.3);transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:0.5rem;}
+        .auth-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(45,106,79,0.4);}
 
-        .input-group .toggle-password {
-            position: absolute;
-            right: 14px; top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 0.9rem;
-            background: none;
-            border: none;
-            transition: var(--transition);
-        }
+        .auth-link{text-align:center;font-size:0.85rem;color:#8a9e87;margin-top:1rem;}
+        .auth-link a{color:#2d6a4f;font-weight:600;text-decoration:none;}
+        .auth-link a:hover{text-decoration:underline;}
 
-        .input-group .toggle-password:hover { color: var(--green); }
-
-        .password-strength {
-            margin-top: 6px; height: 4px;
-            border-radius: 2px;
-            background: var(--border);
-            overflow: hidden;
-        }
-
-        .password-strength-bar {
-            height: 100%; border-radius: 2px;
-            transition: width 0.3s ease, background 0.3s ease;
-            width: 0%;
-        }
-
-        .strength-text { font-size: 0.75rem; margin-top: 4px; color: var(--text-muted); }
-
-        .auth-footer {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.875rem;
-            color: var(--text-muted);
-        }
-
-        .auth-footer a { color: var(--green); font-weight: 500; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
+        @media(max-width:768px){.auth-left{display:none;}.auth-right{padding:2rem 1.5rem;}}
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
     </style>
 </head>
 <body>
 
-<div class="auth-container">
-    <div class="auth-card">
-        <!-- Logo -->
-        <div class="auth-logo">
-            <i class="fas fa-utensils logo-icon"></i>
-            <h1>Dapur<span>In</span></h1>
-            <p>Bergabung dan bagikan resep favoritmu</p>
-        </div>
+<!-- KIRI -->
+<div class="auth-left">
+    <div class="blob" style="top:-150px;right:-150px;width:400px;height:400px;"></div>
+    <div class="blob" style="bottom:-100px;left:-100px;width:300px;height:300px;"></div>
 
-        <div class="auth-title">
-            <i class="fas fa-user-plus text-gold"></i> Buat Akun Baru
-        </div>
+    <div class="auth-brand">
+        <div class="auth-brand-icon"><i class="fas fa-utensils"></i></div>
+        <div class="auth-brand-text">Dapur<span>In</span></div>
+    </div>
 
-        <!-- Alert -->
-        <?php if ($error): ?>
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?>
+    <div class="auth-left-body">
+        <h2>Bergabung<br>Bersama <span>Kami!</span></h2>
+        <p>Daftar gratis dan mulai berbagi resep masakan terbaikmu kepada jutaan orang.</p>
+
+        <div class="auth-steps">
+            <div class="auth-step">
+                <div class="auth-step-num">1</div>
+                <div class="auth-step-info">
+                    <strong>Buat Akun Gratis</strong>
+                    <span>Daftar dengan email valid kamu</span>
+                </div>
             </div>
+            <div class="auth-step">
+                <div class="auth-step-num">2</div>
+                <div class="auth-step-info">
+                    <strong>Tambahkan Resep</strong>
+                    <span>Upload foto & isi detail resepmu</span>
+                </div>
+            </div>
+            <div class="auth-step">
+                <div class="auth-step-num">3</div>
+                <div class="auth-step-info">
+                    <strong>Bagikan ke Dunia</strong>
+                    <span>Publikasikan dan dapatkan feedback</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="auth-left-footer">
+        <p>© <?= date('Y') ?> DapurIn. Semua hak dilindungi.</p>
+    </div>
+</div>
+
+<!-- KANAN -->
+<div class="auth-right">
+    <div class="auth-form-wrap">
+        <h1 class="auth-form-title">Buat Akun Baru</h1>
+        <p class="auth-form-sub">Sudah punya akun? <a href="/resep-masakan/login.php">Masuk di sini</a></p>
+
+        <?php if ($error): ?>
+        <div class="auth-error"><i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
 
-        <!-- Form Register -->
-        <form method="POST" action="" id="form-register">
-            <div class="form-group">
-                <label class="form-label">Nama Lengkap</label>
-                <div class="input-group">
-                    <i class="fas fa-user input-icon"></i>
-                    <input type="text" name="nama" class="form-control"
+        <form method="POST" id="form-reg">
+            <div class="auth-form-group">
+                <label class="auth-label">Nama Lengkap</label>
+                <div class="auth-input-wrap">
+                    <i class="fas fa-user auth-input-icon"></i>
+                    <input type="text" name="nama" class="auth-input"
                            placeholder="Nama lengkap kamu"
                            value="<?= htmlspecialchars($_POST['nama'] ?? '') ?>"
                            minlength="3" required>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="form-label">Email</label>
-                <div class="input-group">
-                    <i class="fas fa-envelope input-icon"></i>
-                    <input type="email" name="email" class="form-control"
-                           placeholder="email@contoh.com"
-                           value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"
-                           required>
+            <div class="auth-form-group">
+                <label class="auth-label">Email</label>
+                <div class="auth-input-wrap">
+                    <i class="fas fa-envelope auth-input-icon"></i>
+                    <input type="email" name="email" class="auth-input"
+                           placeholder="nama@email.com"
+                           value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" required>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="form-label">Password</label>
-                <div class="input-group">
-                    <i class="fas fa-lock input-icon"></i>
-                    <input type="password" name="password" id="password"
-                           class="form-control" placeholder="Minimal 6 karakter"
-                           minlength="6" required oninput="checkStrength(this.value)">
-                    <button type="button" class="toggle-password" onclick="togglePass('password','eye1')">
+            <div class="auth-form-group">
+                <label class="auth-label">Password</label>
+                <div class="auth-input-wrap">
+                    <i class="fas fa-lock auth-input-icon"></i>
+                    <input type="password" name="password" id="pw" class="auth-input"
+                           placeholder="Minimal 6 karakter" minlength="6" required
+                           oninput="checkStrength(this.value)">
+                    <button type="button" class="toggle-pw" onclick="togglePw('pw','eye1')">
                         <i class="fas fa-eye" id="eye1"></i>
                     </button>
                 </div>
-                <div class="password-strength">
-                    <div class="password-strength-bar" id="strength-bar"></div>
+                <div class="strength-wrap">
+                    <div class="strength-bar-bg"><div class="strength-bar" id="str-bar"></div></div>
+                    <div class="strength-label" id="str-text"></div>
                 </div>
-                <div class="strength-text" id="strength-text"></div>
             </div>
 
-            <div class="form-group">
-                <label class="form-label">Konfirmasi Password</label>
-                <div class="input-group">
-                    <i class="fas fa-lock input-icon"></i>
-                    <input type="password" name="konfirm_password" id="konfirm"
-                           class="form-control" placeholder="Ulangi password"
-                           required>
-                    <button type="button" class="toggle-password" onclick="togglePass('konfirm','eye2')">
+            <div class="auth-form-group">
+                <label class="auth-label">Konfirmasi Password</label>
+                <div class="auth-input-wrap">
+                    <i class="fas fa-lock auth-input-icon"></i>
+                    <input type="password" name="konfirm_password" id="konfirm" class="auth-input"
+                           placeholder="Ulangi password" required>
+                    <button type="button" class="toggle-pw" onclick="togglePw('konfirm','eye2')">
                         <i class="fas fa-eye" id="eye2"></i>
                     </button>
                 </div>
-                <div class="strength-text" id="match-text"></div>
+                <div class="match-text" id="match-text"></div>
             </div>
 
-            <button type="submit" class="btn btn-gold w-100" style="margin-top: 0.5rem;">
+            <button type="submit" class="auth-btn">
                 <i class="fas fa-user-plus"></i> Daftar Sekarang
             </button>
         </form>
 
-        <div class="auth-footer" style="margin-top: 1.2rem;">
-            Sudah punya akun? <a href="/resep-masakan/login.php">Masuk di sini</a>
+        <div class="auth-link">
+            Sudah punya akun? <a href="/resep-masakan/login.php">Masuk</a>
         </div>
     </div>
 </div>
 
 <script>
-function togglePass(inputId, iconId) {
-    const input = document.getElementById(inputId);
+function togglePw(id, iconId) {
+    const input = document.getElementById(id);
     const icon  = document.getElementById(iconId);
-    if (input.type === 'password') {
-        input.type = 'text';
-        icon.classList.replace('fa-eye', 'fa-eye-slash');
-    } else {
-        input.type = 'password';
-        icon.classList.replace('fa-eye-slash', 'fa-eye');
-    }
+    input.type  = input.type === 'password' ? 'text' : 'password';
+    icon.classList.toggle('fa-eye');
+    icon.classList.toggle('fa-eye-slash');
 }
 
 function checkStrength(val) {
-    const bar  = document.getElementById('strength-bar');
-    const text = document.getElementById('strength-text');
-    let strength = 0;
-
-    if (val.length >= 6) strength++;
-    if (val.length >= 10) strength++;
-    if (/[A-Z]/.test(val)) strength++;
-    if (/[0-9]/.test(val)) strength++;
-    if (/[^A-Za-z0-9]/.test(val)) strength++;
-
-    const levels = [
-        { w: '20%', c: '#e74c3c', t: 'Sangat lemah' },
-        { w: '40%', c: '#e67e22', t: 'Lemah' },
-        { w: '60%', c: '#f1c40f', t: 'Cukup' },
-        { w: '80%', c: '#2ecc71', t: 'Kuat' },
-        { w: '100%', c: '#27ae60', t: 'Sangat kuat' },
-    ];
-
-    const lvl = levels[Math.max(0, strength - 1)];
-    bar.style.width      = lvl.w;
+    const bar  = document.getElementById('str-bar');
+    const text = document.getElementById('str-text');
+    let s = 0;
+    if (val.length >= 6)  s++;
+    if (val.length >= 10) s++;
+    if (/[A-Z]/.test(val)) s++;
+    if (/[0-9]/.test(val)) s++;
+    if (/[^A-Za-z0-9]/.test(val)) s++;
+    const lvl = [
+        {w:'20%',c:'#e74c3c',t:'Sangat lemah'},
+        {w:'40%',c:'#e67e22',t:'Lemah'},
+        {w:'60%',c:'#f1c40f',t:'Cukup'},
+        {w:'80%',c:'#2ecc71',t:'Kuat'},
+        {w:'100%',c:'#27ae60',t:'Sangat kuat'},
+    ][Math.max(0,s-1)];
+    bar.style.width      = val.length ? lvl.w : '0';
     bar.style.background = lvl.c;
     text.style.color     = lvl.c;
     text.textContent     = val.length ? lvl.t : '';
 }
 
-// Cek kecocokan password real-time
 document.getElementById('konfirm').addEventListener('input', function() {
-    const pass  = document.getElementById('password').value;
+    const pw    = document.getElementById('pw').value;
     const match = document.getElementById('match-text');
-    if (this.value === '') {
-        match.textContent = '';
-    } else if (this.value === pass) {
+    if (!this.value) { match.textContent = ''; return; }
+    if (this.value === pw) {
         match.textContent = '✓ Password cocok';
-        match.style.color = '#2ecc71';
+        match.style.color = '#27ae60';
     } else {
-        match.textContent = '✗ Password tidak cocok';
+        match.textContent = '✗ Tidak cocok';
         match.style.color = '#e74c3c';
     }
 });
