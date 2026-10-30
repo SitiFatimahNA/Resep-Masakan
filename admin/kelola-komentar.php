@@ -56,11 +56,11 @@ require_once 'includes/admin-header.php';
 
 <div class="page-header">
     <h1>Kelola <span>Komentar</span></h1>
-    <div style="display:flex; gap:8px;">
-        <span style="background:rgba(45,106,79,0.1); color:var(--green-dark); padding:6px 14px; border-radius:20px; font-size:0.82rem;">
+    <div style="display:flex;gap:8px;">
+        <span class="badge badge-aktif" style="padding:6px 14px;font-size:0.78rem;">
             <i class="fas fa-check-circle"></i> <?= $total_aktif ?> Aktif
         </span>
-        <span style="background:rgba(231,76,60,0.1); color:var(--danger); padding:6px 14px; border-radius:20px; font-size:0.82rem;">
+        <span class="badge badge-nonaktif" style="padding:6px 14px;font-size:0.78rem;">
             <i class="fas fa-ban"></i> <?= $total_nonaktif ?> Nonaktif
         </span>
     </div>
@@ -73,10 +73,10 @@ require_once 'includes/admin-header.php';
 <?php endif; ?>
 
 <!-- Filter -->
-<div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.2rem; margin-bottom:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
-    <form method="GET" style="display:flex; gap:8px; flex:1; flex-wrap:wrap;">
-        <div style="position:relative; flex:1; min-width:200px;">
-            <i class="fas fa-search" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--text-muted); font-size:0.85rem;"></i>
+<div class="filter-bar">
+    <form method="GET" style="display:flex;gap:8px;flex:1;flex-wrap:wrap;">
+        <div style="position:relative;flex:1;min-width:200px;">
+            <i class="fas fa-search" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-3);font-size:0.82rem;"></i>
             <input type="text" name="q" class="form-control" placeholder="Cari komentar atau nama user..."
                    value="<?= htmlspecialchars($q) ?>" style="padding-left:36px;">
         </div>
@@ -85,55 +85,53 @@ require_once 'includes/admin-header.php';
             <option value="aktif"    <?= $filter==='aktif'?'selected':'' ?>>Aktif</option>
             <option value="nonaktif" <?= $filter==='nonaktif'?'selected':'' ?>>Nonaktif</option>
         </select>
-        <button type="submit" class="btn btn-gold btn-sm"><i class="fas fa-search"></i></button>
+        <button type="submit" class="btn btn-gold btn-sm"><i class="fas fa-search"></i> Cari</button>
         <?php if ($q || $filter!=='semua'): ?>
-        <a href="/resep-masakan/admin/kelola-komentar.php" class="btn btn-dark btn-sm"><i class="fas fa-times"></i></a>
+        <a href="/resep-masakan/admin/kelola-komentar.php" class="btn btn-dark btn-sm"><i class="fas fa-times"></i> Reset</a>
         <?php endif; ?>
     </form>
 </div>
 
-<div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;">
+<div class="admin-card">
     <table class="admin-table">
         <thead>
             <tr><th>No</th><th>User</th><th>Komentar</th><th>Resep</th><th>Waktu</th><th>Status</th><th>Aksi</th></tr>
         </thead>
         <tbody>
         <?php if (mysqli_num_rows($result)===0): ?>
-            <tr><td colspan="7" style="text-align:center; padding:3rem; color:var(--text-muted);">Tidak ada komentar</td></tr>
+            <tr><td colspan="7" style="text-align:center;padding:3rem;color:var(--text-3);">Tidak ada komentar</td></tr>
         <?php else: ?>
         <?php $no=$offset+1; while ($k = mysqli_fetch_assoc($result)): ?>
             <tr>
-                <td style="color:var(--text-muted); font-size:0.8rem;"><?= $no++ ?></td>
+                <td style="color:var(--text-3);font-size:0.78rem;font-weight:600;"><?= $no++ ?></td>
                 <td>
-                    <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="display:flex;align-items:center;gap:10px;">
                         <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($k['foto_user'] ?? 'default.png') ?>"
-                             style="width:32px; height:32px; border-radius:50%; object-fit:cover;"
+                             style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border);"
                              onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
-                        <span style="font-size:0.82rem;"><?= htmlspecialchars($k['nama_user']) ?></span>
+                        <span style="font-size:0.82rem;font-weight:600;color:var(--text-1);"><?= htmlspecialchars($k['nama_user']) ?></span>
                     </div>
                 </td>
-                <td style="font-size:0.82rem; color:var(--text-secondary); max-width:250px;">
-                    <?= htmlspecialchars(mb_strimwidth($k['komentar'], 0, 80, '...')) ?>
+                <td style="font-size:0.82rem;color:var(--text-2);max-width:220px;">
+                    <?= htmlspecialchars(mb_strimwidth($k['komentar'],0,70,'...')) ?>
                 </td>
                 <td>
                     <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($k['slug_resep']) ?>"
-                       style="font-size:0.78rem; color:var(--green);" target="_blank">
-                        <?= htmlspecialchars(mb_strimwidth($k['judul_resep'], 0, 30, '...')) ?>
+                       style="font-size:0.78rem;color:var(--green-3);font-weight:500;text-decoration:none;" target="_blank">
+                        <?= htmlspecialchars(mb_strimwidth($k['judul_resep'],0,28,'...')) ?>
+                        <i class="fas fa-external-link-alt" style="font-size:0.6rem;"></i>
                     </a>
                 </td>
-                <td style="font-size:0.75rem; color:var(--text-muted); white-space:nowrap;">
+                <td style="font-size:0.75rem;color:var(--text-3);white-space:nowrap;">
                     <?= date('d M Y H:i', strtotime($k['created_at'])) ?>
                 </td>
                 <td>
-                    <a href="?aksi=toggle&id=<?= $k['id'] ?>"
-                       style="display:inline-block; padding:3px 10px; border-radius:20px; font-size:0.75rem; text-decoration:none; font-weight:500;
-                              background:<?= $k['status']==='aktif'?'rgba(45,106,79,0.12)':'rgba(231,76,60,0.12)' ?>;
-                              color:<?= $k['status']==='aktif'?'var(--green-dark)':'var(--danger)' ?>;">
+                    <a href="?aksi=toggle&id=<?= $k['id'] ?>" class="badge badge-<?= $k['status'] ?>" style="text-decoration:none;cursor:pointer;" title="Klik untuk toggle">
                         <?= ucfirst($k['status']) ?>
                     </a>
                 </td>
                 <td>
-                    <a href="?aksi=hapus&id=<?= $k['id'] ?>" class="btn btn-danger btn-sm" style="padding:5px 8px;"
+                    <a href="?aksi=hapus&id=<?= $k['id'] ?>" class="btn-action btn-action-delete" title="Hapus"
                        onclick="return confirm('Yakin hapus komentar ini?')">
                         <i class="fas fa-trash"></i>
                     </a>

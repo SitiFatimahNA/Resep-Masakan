@@ -53,7 +53,9 @@ require_once 'includes/admin-header.php';
 
 <div class="page-header">
     <h1>Kelola <span>User</span></h1>
-    <span style="font-size:0.85rem; color:var(--text-muted);">Total <?= $total ?> pengguna</span>
+    <span style="font-size:0.82rem;color:var(--text-3);background:var(--bg);padding:6px 14px;border-radius:20px;border:1px solid var(--border);">
+        <?= $total ?> pengguna
+    </span>
 </div>
 
 <?php if (isset($_GET['msg'])): ?>
@@ -63,74 +65,71 @@ require_once 'includes/admin-header.php';
 <?php endif; ?>
 
 <!-- Filter -->
-<div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.2rem; margin-bottom:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
-    <form method="GET" style="display:flex; gap:8px; flex:1; flex-wrap:wrap;">
-        <div style="position:relative; flex:1; min-width:200px;">
-            <i class="fas fa-search" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--text-muted); font-size:0.85rem;"></i>
+<div class="filter-bar">
+    <form method="GET" style="display:flex;gap:8px;flex:1;flex-wrap:wrap;">
+        <div style="position:relative;flex:1;min-width:200px;">
+            <i class="fas fa-search" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-3);font-size:0.82rem;"></i>
             <input type="text" name="q" class="form-control" placeholder="Cari nama atau email..."
                    value="<?= htmlspecialchars($q) ?>" style="padding-left:36px;">
         </div>
-        <select name="filter" class="form-control" style="width:130px;" onchange="this.form.submit()">
+        <select name="filter" class="form-control" style="width:140px;" onchange="this.form.submit()">
             <option value="semua" <?= $filter==='semua'?'selected':'' ?>>Semua Role</option>
             <option value="admin" <?= $filter==='admin'?'selected':'' ?>>Admin</option>
             <option value="user"  <?= $filter==='user' ?'selected':'' ?>>User</option>
         </select>
-        <button type="submit" class="btn btn-gold btn-sm"><i class="fas fa-search"></i></button>
+        <button type="submit" class="btn btn-gold btn-sm"><i class="fas fa-search"></i> Cari</button>
         <?php if ($q || $filter!=='semua'): ?>
-        <a href="/resep-masakan/admin/kelola-user.php" class="btn btn-dark btn-sm"><i class="fas fa-times"></i></a>
+        <a href="/resep-masakan/admin/kelola-user.php" class="btn btn-dark btn-sm"><i class="fas fa-times"></i> Reset</a>
         <?php endif; ?>
     </form>
 </div>
 
-<div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;">
+<div class="admin-card">
     <table class="admin-table">
         <thead>
             <tr><th>No</th><th>User</th><th>Email</th><th>Role</th><th>Resep</th><th>Bergabung</th><th>Aksi</th></tr>
         </thead>
         <tbody>
         <?php if (mysqli_num_rows($result)===0): ?>
-            <tr><td colspan="7" style="text-align:center; padding:3rem; color:var(--text-muted);">Tidak ada user ditemukan</td></tr>
+            <tr><td colspan="7" style="text-align:center;padding:3rem;color:var(--text-3);">Tidak ada user ditemukan</td></tr>
         <?php else: ?>
         <?php $no=$offset+1; while ($u = mysqli_fetch_assoc($result)): ?>
             <tr>
-                <td style="color:var(--text-muted); font-size:0.8rem;"><?= $no++ ?></td>
+                <td style="color:var(--text-3);font-size:0.78rem;font-weight:600;"><?= $no++ ?></td>
                 <td>
-                    <div style="display:flex; align-items:center; gap:10px;">
+                    <div style="display:flex;align-items:center;gap:12px;">
                         <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($u['foto'] ?? 'default.png') ?>"
-                             style="width:36px; height:36px; border-radius:50%; object-fit:cover; border:2px solid var(--green-light);"
+                             style="width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid var(--green-pale);flex-shrink:0;"
                              onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
-                        <span style="font-size:0.85rem; font-weight:500; color:var(--text-primary);">
-                            <?= htmlspecialchars($u['nama']) ?>
-                            <?= $u['id']==$_SESSION['user_id'] ? '<span style="font-size:0.7rem; color:var(--green);">(Saya)</span>' : '' ?>
-                        </span>
+                        <div>
+                            <div style="font-size:0.85rem;font-weight:600;color:var(--text-1);">
+                                <?= htmlspecialchars($u['nama']) ?>
+                                <?php if ($u['id']==$_SESSION['user_id']): ?>
+                                <span style="font-size:0.65rem;background:rgba(45,106,79,0.1);color:var(--green-2);padding:1px 6px;border-radius:10px;margin-left:4px;">Saya</span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
                 </td>
-                <td style="font-size:0.82rem; color:var(--text-muted);"><?= htmlspecialchars($u['email']) ?></td>
+                <td style="font-size:0.8rem;color:var(--text-3);"><?= htmlspecialchars($u['email']) ?></td>
+                <td><span class="badge badge-<?= $u['role'] ?>"><?= ucfirst($u['role']) ?></span></td>
+                <td style="font-size:0.85rem;font-weight:600;color:var(--text-1);"><?= $u['total_resep'] ?></td>
+                <td style="font-size:0.78rem;color:var(--text-3);"><?= date('d M Y', strtotime($u['created_at'])) ?></td>
                 <td>
-                    <span style="padding:3px 10px; border-radius:20px; font-size:0.75rem; font-weight:500;
-                                 background:<?= $u['role']==='admin'?'rgba(231,76,60,0.12)':'rgba(64,145,108,0.12)' ?>;
-                                 color:<?= $u['role']==='admin'?'var(--danger)':'var(--green-dark)' ?>;">
-                        <?= ucfirst($u['role']) ?>
-                    </span>
-                </td>
-                <td style="font-size:0.82rem;"><?= $u['total_resep'] ?> resep</td>
-                <td style="font-size:0.78rem; color:var(--text-muted);"><?= date('d M Y', strtotime($u['created_at'])) ?></td>
-                <td>
-                    <div style="display:flex; gap:4px;">
+                    <div style="display:flex;gap:4px;">
                         <?php if ($u['id'] !== (int)$_SESSION['user_id']): ?>
                         <a href="?aksi=toggle-role&id=<?= $u['id'] ?>"
-                           class="btn btn-outline btn-sm" style="padding:5px 8px; font-size:0.75rem;"
-                           title="<?= $u['role']==='admin'?'Jadikan User':'Jadikan Admin' ?>"
+                           class="btn-action btn-action-toggle" title="<?= $u['role']==='admin'?'Jadikan User':'Jadikan Admin' ?>"
                            onclick="return confirm('Ubah role user ini?')">
                             <i class="fas fa-user-cog"></i>
                         </a>
                         <a href="?aksi=hapus&id=<?= $u['id'] ?>"
-                           class="btn btn-danger btn-sm" style="padding:5px 8px;"
-                           title="Hapus" onclick="return confirm('Yakin hapus user ini?')">
+                           class="btn-action btn-action-delete" title="Hapus"
+                           onclick="return confirm('Yakin hapus user ini?')">
                             <i class="fas fa-trash"></i>
                         </a>
                         <?php else: ?>
-                        <span style="font-size:0.75rem; color:var(--text-muted);">—</span>
+                        <span style="font-size:0.75rem;color:var(--text-3);">—</span>
                         <?php endif; ?>
                     </div>
                 </td>

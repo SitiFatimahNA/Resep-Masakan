@@ -96,7 +96,113 @@ $jenis_list    = mysqli_query($koneksi,
 <?php if ($success): ?><div class="alert alert-success"><i class="fas fa-check-circle"></i> <?= htmlspecialchars($success) ?></div><?php endif; ?>
 <?php if (isset($_GET['msg'])): ?><div class="alert alert-success"><i class="fas fa-check-circle"></i> Data berhasil dihapus.</div><?php endif; ?>
 
-<div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+
+    <!-- KATEGORI -->
+    <div>
+        <div class="admin-card" style="margin-bottom:1.5rem;">
+            <div class="admin-card-header">
+                <h3><i class="fas fa-<?= $edit_kat?'edit':'plus' ?>"></i> <?= $edit_kat?'Edit Kategori':'Tambah Kategori' ?></h3>
+                <?php if ($edit_kat): ?><a href="/resep-masakan/admin/kelola-kategori.php" class="btn btn-dark btn-sm">Batal</a><?php endif; ?>
+            </div>
+            <div style="padding:1.5rem;">
+                <form method="POST">
+                    <input type="hidden" name="aksi" value="<?= $edit_kat?'edit-kategori':'tambah-kategori' ?>">
+                    <?php if ($edit_kat): ?><input type="hidden" name="id" value="<?= $edit_kat['id'] ?>"><?php endif; ?>
+                    <div class="form-group">
+                        <label class="form-label">Nama Kategori *</label>
+                        <input type="text" name="nama_kategori" class="form-control"
+                               value="<?= htmlspecialchars($edit_kat['nama_kategori'] ?? '') ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Icon (Font Awesome)</label>
+                        <input type="text" name="icon" class="form-control" placeholder="fa-utensils"
+                               value="<?= htmlspecialchars($edit_kat['icon'] ?? '') ?>">
+                        <small style="color:var(--text-3);font-size:0.72rem;">Contoh: fa-drumstick-bite, fa-fish</small>
+                    </div>
+                    <button type="submit" class="btn btn-gold btn-sm">
+                        <i class="fas fa-save"></i> <?= $edit_kat?'Simpan':'Tambah' ?>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="admin-card">
+            <table class="admin-table">
+                <thead><tr><th>Nama Kategori</th><th>Resep</th><th>Aksi</th></tr></thead>
+                <tbody>
+                <?php while ($k = mysqli_fetch_assoc($kategori_list)): ?>
+                <tr>
+                    <td>
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <div style="width:30px;height:30px;background:rgba(45,106,79,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                <i class="fas <?= htmlspecialchars($k['icon']??'fa-tag') ?>" style="color:var(--green-3);font-size:0.75rem;"></i>
+                            </div>
+                            <span style="font-size:0.85rem;font-weight:600;color:var(--text-1);"><?= htmlspecialchars($k['nama_kategori']) ?></span>
+                        </div>
+                    </td>
+                    <td><span class="badge badge-user"><?= $k['total_resep'] ?> resep</span></td>
+                    <td>
+                        <div style="display:flex;gap:4px;">
+                            <a href="?aksi=edit-form-kategori&id=<?= $k['id'] ?>" class="btn-action btn-action-edit"><i class="fas fa-edit"></i></a>
+                            <a href="?aksi=hapus-kategori&id=<?= $k['id'] ?>" class="btn-action btn-action-delete"
+                               onclick="return confirm('Yakin hapus kategori ini?')"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- JENIS MASAKAN -->
+    <div>
+        <div class="admin-card" style="margin-bottom:1.5rem;">
+            <div class="admin-card-header">
+                <h3><i class="fas fa-<?= $edit_jenis?'edit':'plus' ?>"></i> <?= $edit_jenis?'Edit Jenis':'Tambah Jenis Masakan' ?></h3>
+                <?php if ($edit_jenis): ?><a href="/resep-masakan/admin/kelola-kategori.php" class="btn btn-dark btn-sm">Batal</a><?php endif; ?>
+            </div>
+            <div style="padding:1.5rem;">
+                <form method="POST">
+                    <input type="hidden" name="aksi" value="<?= $edit_jenis?'edit-jenis':'tambah-jenis' ?>">
+                    <?php if ($edit_jenis): ?><input type="hidden" name="id" value="<?= $edit_jenis['id'] ?>"><?php endif; ?>
+                    <div class="form-group">
+                        <label class="form-label">Nama Jenis *</label>
+                        <input type="text" name="nama_jenis" class="form-control"
+                               value="<?= htmlspecialchars($edit_jenis['nama_jenis']??'') ?>" required>
+                    </div>
+                    <button type="submit" class="btn btn-gold btn-sm">
+                        <i class="fas fa-save"></i> <?= $edit_jenis?'Simpan':'Tambah' ?>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="admin-card">
+            <table class="admin-table">
+                <thead><tr><th>Nama Jenis</th><th>Resep</th><th>Aksi</th></tr></thead>
+                <tbody>
+                <?php while ($j = mysqli_fetch_assoc($jenis_list)): ?>
+                <tr>
+                    <td style="font-size:0.85rem;font-weight:600;color:var(--text-1);"><?= htmlspecialchars($j['nama_jenis']) ?></td>
+                    <td><span class="badge badge-user"><?= $j['total_resep'] ?> resep</span></td>
+                    <td>
+                        <div style="display:flex;gap:4px;">
+                            <a href="?aksi=edit-form-jenis&id=<?= $j['id'] ?>" class="btn-action btn-action-edit"><i class="fas fa-edit"></i></a>
+                            <a href="?aksi=hapus-jenis&id=<?= $j['id'] ?>" class="btn-action btn-action-delete"
+                               onclick="return confirm('Yakin hapus jenis ini?')"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<?php require_once 'includes/admin-footer.php'; ?>
 
     <!-- ===== KATEGORI ===== -->
     <div>
