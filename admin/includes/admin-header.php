@@ -656,14 +656,77 @@ $current = basename($_SERVER['PHP_SELF']);
     }
 
     @media (max-width: 768px) {
-        .admin-sidebar { transform: translateX(-100%); }
+        .admin-sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .admin-sidebar.open {
+            transform: translateX(0);
+            box-shadow: 0 0 40px rgba(0,0,0,0.4);
+        }
         .admin-main { margin-left: 0; }
         .admin-content { padding: 1rem; }
+
+        /* Hamburger button */
+        .admin-hamburger {
+            display: flex !important;
+        }
+
+        /* Overlay */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 150;
+        }
+        .sidebar-overlay.open {
+            display: block;
+        }
+
+        /* Topbar mobile */
+        .admin-topbar {
+            padding: 0 1rem;
+        }
+        .topbar-date { display: none; }
+
+        /* Stat cards 2 kolom */
+        .admin-content [style*="grid-template-columns:repeat(3,1fr)"],
+        .admin-content [style*="grid-template-columns:repeat(2,1fr)"],
+        .admin-content [style*="grid-template-columns:1fr 1fr"] {
+            grid-template-columns: repeat(2,1fr) !important;
+            gap: 0.8rem !important;
+        }
+
+        /* Chart + tabel bawah jadi 1 kolom */
+        .admin-content [style*="grid-template-columns:1.2fr 1fr"],
+        .admin-content [style*="grid-template-columns:1fr 1fr;gap:1.5rem"] {
+            grid-template-columns: 1fr !important;
+        }
+
+        /* Filter bar */
+        .filter-bar { flex-direction: column; }
+        .filter-bar form { flex-direction: column; }
+    }
+
+    .admin-hamburger {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 38px; height: 38px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        cursor: pointer;
+        flex-shrink: 0;
     }
     </style>
 </head>
 <body>
 <div class="admin-wrapper">
+
+<!-- Overlay untuk close sidebar di mobile -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
 
 <!-- SIDEBAR -->
 <aside class="admin-sidebar">
@@ -743,6 +806,10 @@ $current = basename($_SERVER['PHP_SELF']);
 <main class="admin-main">
     <div class="admin-topbar">
         <div class="topbar-left">
+            <!-- Hamburger untuk mobile -->
+            <button class="admin-hamburger" id="admin-hamburger" onclick="toggleSidebar()">
+                <i class="fas fa-bars" style="font-size:1rem;color:var(--text-2);"></i>
+            </button>
             <div>
                 <div class="topbar-title"><?= $page_title ?? 'Dashboard' ?></div>
                 <div class="topbar-breadcrumb">DapurIn / <?= $page_title ?? 'Dashboard' ?></div>

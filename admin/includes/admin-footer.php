@@ -13,17 +13,25 @@ document.querySelectorAll('.alert').forEach(el => {
     }, 4000);
 });
 
-// Sidebar active hover effect
+// ===== SIDEBAR MOBILE =====
+function toggleSidebar() {
+    const sidebar = document.querySelector('.admin-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+}
+
+function closeSidebar() {
+    const sidebar = document.querySelector('.admin-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+}
+
+// Tutup sidebar saat klik nav item di mobile
 document.querySelectorAll('.nav-item').forEach(item => {
-    item.addEventListener('mouseenter', function() {
-        if (!this.classList.contains('active')) {
-            this.querySelector('.nav-icon').style.background = 'rgba(255,255,255,0.15)';
-        }
-    });
-    item.addEventListener('mouseleave', function() {
-        if (!this.classList.contains('active')) {
-            this.querySelector('.nav-icon').style.background = 'rgba(255,255,255,0.08)';
-        }
+    item.addEventListener('click', () => {
+        if (window.innerWidth <= 768) closeSidebar();
     });
 });
 </script>

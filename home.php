@@ -70,7 +70,7 @@ require_once 'includes/header.php';
     <div style="position:absolute;bottom:-150px;left:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(149,213,178,0.1) 0%,transparent 70%);pointer-events:none;"></div>
 
     <div class="container" style="position:relative;z-index:2;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;" class="hero-grid-2col">
 
             <!-- KIRI -->
             <div>

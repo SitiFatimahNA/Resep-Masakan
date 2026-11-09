@@ -870,3 +870,214 @@ select.form-control { cursor: pointer; }
     .navbar { padding: 0 1rem; }
     .container { padding: 0 1rem; }
 }
+
+/* =====================================================
+   RESPONSIVE MOBILE — Halaman Spesifik
+   ===================================================== */
+@media (max-width: 768px) {
+
+    /* ---- NAVBAR ---- */
+    .navbar { height: 60px; padding: 0 1rem; }
+    .main-content { margin-top: 60px; }
+
+    /* ---- HOME HERO ---- */
+    /* Grid 2 kolom jadi 1 kolom */
+    [style*="grid-template-columns:1fr 1fr"],
+    [style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* ---- KATEGORI GRID ---- */
+    [style*="grid-template-columns:repeat(4,1fr)"],
+    [style*="grid-template-columns:repeat(6,1fr)"] {
+        grid-template-columns: repeat(2,1fr) !important;
+    }
+
+    [style*="grid-template-columns:repeat(5,1fr)"] {
+        grid-template-columns: repeat(2,1fr) !important;
+    }
+
+    /* ---- DETAIL RESEP — layout 2 kolom jadi 1 ---- */
+    [style*="grid-template-columns:1fr 320px"],
+    [style*="grid-template-columns: 1fr 320px"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* ---- DETAIL RESEP — info grid 4 kotak ---- */
+    [style*="grid-template-columns:repeat(4,1fr)"] {
+        grid-template-columns: repeat(2,1fr) !important;
+    }
+
+    /* ---- NUTRISI 5 kolom ---- */
+    [style*="grid-template-columns:repeat(5,1fr)"] {
+        grid-template-columns: repeat(3,1fr) !important;
+    }
+
+    /* ---- BAHAN checklist 2 kolom jadi 1 ---- */
+    [style*="grid-template-columns:1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* ---- RESEP — sidebar + konten ---- */
+    [style*="grid-template-columns:260px 1fr"],
+    [style*="grid-template-columns: 260px 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* ---- FOOTER ---- */
+    .footer-grid { grid-template-columns: 1fr !important; }
+
+    /* ---- PROFIL 2 kolom ---- */
+    [style*="grid-template-columns:1fr 1fr;gap:1.5rem"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Sidebar sticky jangan sticky di mobile */
+    [style*="position:sticky"] {
+        position: relative !important;
+        top: auto !important;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* ---- HERO HOME — padding ---- */
+    [style*="padding:4rem 0"] { padding: 2rem 0 !important; }
+    [style*="padding:3rem 0"] { padding: 2rem 0 !important; }
+    [style*="min-height:92vh"] { min-height: auto !important; padding: 3rem 0 4rem !important; }
+    [style*="min-height: 92vh"] { min-height: auto !important; padding: 3rem 0 4rem !important; }
+
+    /* ---- FONT SIZE ---- */
+    h1[style*="font-size:clamp"] { font-size: 1.8rem !important; }
+    h1[style*="font-size:2.5rem"] { font-size: 1.8rem !important; }
+    h1[style*="font-size:2.2rem"] { font-size: 1.6rem !important; }
+    h1[style*="font-size:2rem"]   { font-size: 1.5rem !important; }
+
+    /* ---- FLOATING CARDS di hero — sembunyikan ---- */
+    [style*="position:absolute; top:40px; right:-10px"],
+    [style*="position:absolute; bottom:50px; left:-20px"],
+    [style*="position:absolute; top:30px; right:-20px"],
+    [style*="position:absolute; bottom:40px; left:-30px"] {
+        display: none !important;
+    }
+
+    /* ---- CTA buttons ---- */
+    [style*="display:flex;gap:1rem"] {
+        flex-wrap: wrap !important;
+    }
+
+    /* ---- STAT cards di home ---- */
+    [style*="display:flex;gap:2rem;margin-top:3rem"],
+    [style*="display:flex; gap:2rem; margin-top:3rem"] {
+        gap: 1rem !important;
+        flex-wrap: wrap !important;
+    }
+
+    /* ---- KATEGORI grid ---- */
+    [style*="grid-template-columns:repeat(4,1fr)"],
+    [style*="grid-template-columns:repeat(6,1fr)"],
+    [style*="grid-template-columns:repeat(5,1fr)"] {
+        grid-template-columns: repeat(2,1fr) !important;
+        gap: 0.8rem !important;
+    }
+
+    /* ---- RESEP grid 3 kolom ---- */
+    [style*="grid-template-columns:repeat(3,1fr)"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* ---- POPULER podium 3 kolom ---- */
+    [style*="grid-template-columns:1fr 1.15fr 1fr"],
+    [style*="grid-template-columns: 1fr 1.2fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* ---- PADDING container ---- */
+    .container { padding: 0 1rem !important; }
+
+    /* ---- ADMIN sidebar ---- */
+    .admin-sidebar { display: none !important; }
+    .admin-main { margin-left: 0 !important; }
+    .admin-content { padding: 1rem !important; }
+}
+
+/* =====================================================
+   CLASS-BASED RESPONSIVE (lebih reliable dari inline)
+   ===================================================== */
+.hero-grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .hero-grid-2col {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+
+    .hero-grid-2col > div:last-child {
+        display: none; /* Sembunyikan gambar hero di mobile */
+    }
+
+    /* Resep grid */
+    .resep-grid-3 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+    }
+
+    /* Detail resep layout */
+    .detail-layout {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Stat grid */
+    .stat-grid-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* Filter bar di resep */
+    [style*="grid-template-columns:260px 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-grid-2col {
+        gap: 1.5rem !important;
+    }
+
+    .resep-grid-3 {
+        grid-template-columns: 1fr !important;
+    }
+
+    .stat-grid-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* Navbar brand font size */
+    .navbar-brand {
+        font-size: 1.1rem !important;
+    }
+
+    /* Sembunyikan floating card di hero */
+    .hero-float-card {
+        display: none !important;
+    }
+
+    /* Tombol CTA */
+    .hero-cta-wrap {
+        flex-direction: column !important;
+        gap: 0.8rem !important;
+    }
+
+    /* Padding section */
+    .section { padding: 2.5rem 0 !important; }
+
+    /* Footer grid */
+    .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+}
