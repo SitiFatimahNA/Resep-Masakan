@@ -191,18 +191,18 @@ INSERT INTO `users` (`nama`, `email`, `password`, `role`) VALUES
 -- DATA AWAL: Kategori
 -- =====================================================
 INSERT INTO `kategori` (`nama_kategori`, `slug`, `icon`) VALUES
-('Ayam', 'ayam', '🍗'),
-('Daging Sapi', 'daging-sapi', '🥩'),
-('Ikan', 'ikan', '🐟'),
-('Seafood', 'seafood', '🦐'),
-('Sayuran', 'sayuran', '🥦'),
-('Tahu & Tempe', 'tahu-tempe', '🟫'),
-('Telur', 'telur', '🥚'),
-('Kambing', 'kambing', '🐑'),
-('Bebek', 'bebek', '🦆'),
-('Buah-buahan', 'buah-buahan', '🍎'),
-('Mie & Pasta', 'mie-pasta', '🍜'),
-('Nasi', 'nasi', '🍚');
+('Ayam', 'ayam', 'fa-drumstick-bite'),
+('Daging Sapi', 'daging-sapi', 'fa-bacon'),
+('Ikan', 'ikan', 'fa-fish'),
+('Seafood', 'seafood', 'fa-shrimp'),
+('Sayuran', 'sayuran', 'fa-leaf'),
+('Tahu & Tempe', 'tahu-tempe', 'fa-cube'),
+('Telur', 'telur', 'fa-egg'),
+('Kambing', 'kambing', 'fa-paw'),
+('Bebek', 'bebek', 'fa-feather'),
+('Buah-buahan', 'buah-buahan', 'fa-apple-alt'),
+('Mie & Pasta', 'mie-pasta', 'fa-utensils'),
+('Nasi', 'nasi', 'fa-bowl-rice');
 
 -- =====================================================
 -- DATA AWAL: Jenis Masakan
