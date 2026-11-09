@@ -9,6 +9,7 @@ $kategori  = trim($_GET['kategori'] ?? '');
 $jenis     = trim($_GET['jenis'] ?? '');
 $kesulitan = trim($_GET['kesulitan'] ?? '');
 $sort      = trim($_GET['sort'] ?? 'terbaru');
+$penulis   = (int)($_GET['penulis'] ?? 0); // filter by user_id
 $page      = max(1, (int)($_GET['page'] ?? 1));
 $per_page  = 9;
 $offset    = ($page - 1) * $per_page;
@@ -41,6 +42,12 @@ if ($kesulitan !== '') {
     $where[]  = "r.tingkat_kesulitan = ?";
     $params[] = $kesulitan;
     $types   .= 's';
+}
+
+if ($penulis > 0) {
+    $where[]  = "r.user_id = ?";
+    $params[] = $penulis;
+    $types   .= 'i';
 }
 
 $where_sql = implode(' AND ', $where);
@@ -114,6 +121,13 @@ if (!empty($resep_list)) {
 $kategori_list = mysqli_query($koneksi, "SELECT * FROM kategori ORDER BY nama_kategori ASC");
 $jenis_list    = mysqli_query($koneksi, "SELECT * FROM jenis_masakan ORDER BY nama_jenis ASC");
 
+// Ambil nama penulis jika filter by penulis
+$nama_penulis = '';
+if ($penulis > 0) {
+    $pu = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT nama FROM users WHERE id=$penulis"));
+    $nama_penulis = $pu['nama'] ?? '';
+}
+
 require_once 'includes/header.php';
 ?>
 
@@ -142,6 +156,8 @@ require_once 'includes/header.php';
                         Hasil "<span style="color:#95d5b2;"><?= htmlspecialchars($q) ?></span>"
                     <?php elseif ($kategori): ?>
                         Resep <span style="color:#95d5b2;"><?= htmlspecialchars(ucwords(str_replace('-',' ',$kategori))) ?></span>
+                    <?php elseif ($penulis && $nama_penulis): ?>
+                        Resep oleh <span style="color:#95d5b2;"><?= htmlspecialchars($nama_penulis) ?></span>
                     <?php else: ?>
                         Semua <span style="color:#95d5b2;">Resep</span>
                     <?php endif; ?>

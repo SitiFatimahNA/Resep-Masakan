@@ -639,7 +639,7 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                     <div style="font-size:0.72rem;color:rgba(255,255,255,0.45);">Penulis Resep</div>
                 </div>
             </div>
-            <a href="/resep-masakan/resep.php?q=<?= urlencode($resep['nama_user']) ?>"
+            <a href="/resep-masakan/resep.php?penulis=<?= $resep['id_pemilik'] ?>"
                style="display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,255,255,0.1);color:#95d5b2;border:1px solid rgba(149,213,178,0.2);border-radius:20px;padding:8px;font-size:0.78rem;font-weight:600;text-decoration:none;transition:all 0.2s;"
                onmouseover="this.style.background='rgba(255,255,255,0.18)'"
                onmouseout="this.style.background='rgba(255,255,255,0.1)'">
