@@ -411,6 +411,7 @@ require_once 'includes/header.php';
         </div>
 
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;" class="grid-populer-home">
+            <?php foreach ($resep_populer as $i => $resep): ?>
             <div onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'"
                  style="
                     background:rgba(255,255,255,0.06);border-radius:20px;overflow:hidden;
