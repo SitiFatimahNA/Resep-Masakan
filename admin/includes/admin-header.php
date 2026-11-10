@@ -836,25 +836,50 @@ $current = basename($_SERVER['PHP_SELF']);
 
     <div class="admin-content">
 <script>
-// Sidebar mobile functions
 function toggleSidebar() {
     const sidebar = document.querySelector('.admin-sidebar');
     const overlay = document.getElementById('sidebar-overlay');
     if (!sidebar) return;
-    const isOpen = sidebar.classList.contains('open');
+
+    const isOpen = sidebar.getAttribute('data-open') === 'true';
+
     if (isOpen) {
-        sidebar.classList.remove('open');
-        if (overlay) overlay.classList.remove('open');
+        // Tutup
+        sidebar.setAttribute('data-open', 'false');
+        sidebar.style.transform = 'translateX(-100%)';
+        sidebar.style.visibility = 'hidden';
+        if (overlay) overlay.style.display = 'none';
     } else {
-        sidebar.classList.add('open');
-        if (overlay) overlay.classList.add('open');
+        // Buka
+        sidebar.setAttribute('data-open', 'true');
+        sidebar.style.position = 'fixed';
+        sidebar.style.top = '0';
+        sidebar.style.left = '0';
+        sidebar.style.width = '260px';
+        sidebar.style.height = '100vh';
+        sidebar.style.zIndex = '9999';
+        sidebar.style.transform = 'translateX(0)';
+        sidebar.style.visibility = 'visible';
+        sidebar.style.boxShadow = '4px 0 30px rgba(0,0,0,0.5)';
+        sidebar.style.transition = 'transform 0.3s ease';
+        if (overlay) {
+            overlay.style.display = 'block';
+            overlay.style.position = 'fixed';
+            overlay.style.inset = '0';
+            overlay.style.background = 'rgba(0,0,0,0.6)';
+            overlay.style.zIndex = '9998';
+        }
     }
 }
 
 function closeSidebar() {
     const sidebar = document.querySelector('.admin-sidebar');
     const overlay = document.getElementById('sidebar-overlay');
-    if (sidebar) sidebar.classList.remove('open');
-    if (overlay) overlay.classList.remove('open');
+    if (sidebar) {
+        sidebar.setAttribute('data-open', 'false');
+        sidebar.style.transform = 'translateX(-100%)';
+        sidebar.style.visibility = 'hidden';
+    }
+    if (overlay) overlay.style.display = 'none';
 }
 </script>
