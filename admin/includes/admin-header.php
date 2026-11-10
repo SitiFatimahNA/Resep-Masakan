@@ -844,30 +844,37 @@ function toggleSidebar() {
     const isOpen = sidebar.getAttribute('data-open') === 'true';
 
     if (isOpen) {
-        // Tutup
-        sidebar.setAttribute('data-open', 'false');
-        sidebar.style.transform = 'translateX(-100%)';
-        sidebar.style.visibility = 'hidden';
-        if (overlay) overlay.style.display = 'none';
+        closeSidebar();
     } else {
-        // Buka
+        // Set sidebar properties
         sidebar.setAttribute('data-open', 'true');
-        sidebar.style.position = 'fixed';
-        sidebar.style.top = '0';
-        sidebar.style.left = '0';
-        sidebar.style.width = '260px';
-        sidebar.style.height = '100vh';
-        sidebar.style.zIndex = '9999';
-        sidebar.style.transform = 'translateX(0)';
-        sidebar.style.visibility = 'visible';
-        sidebar.style.boxShadow = '4px 0 30px rgba(0,0,0,0.5)';
-        sidebar.style.transition = 'transform 0.3s ease';
+        sidebar.style.cssText = `
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 260px !important;
+            height: 100% !important;
+            z-index: 99999 !important;
+            transform: translateX(0) !important;
+            visibility: visible !important;
+            display: flex !important;
+            flex-direction: column !important;
+            overflow-y: auto !important;
+            box-shadow: 4px 0 30px rgba(0,0,0,0.6) !important;
+            background: var(--green-1) !important;
+        `;
+        // Set overlay
         if (overlay) {
-            overlay.style.display = 'block';
-            overlay.style.position = 'fixed';
-            overlay.style.inset = '0';
-            overlay.style.background = 'rgba(0,0,0,0.6)';
-            overlay.style.zIndex = '9998';
+            overlay.style.cssText = `
+                display: block !important;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+                background: rgba(0,0,0,0.6) !important;
+                z-index: 99998 !important;
+            `;
         }
     }
 }
@@ -877,9 +884,19 @@ function closeSidebar() {
     const overlay = document.getElementById('sidebar-overlay');
     if (sidebar) {
         sidebar.setAttribute('data-open', 'false');
-        sidebar.style.transform = 'translateX(-100%)';
-        sidebar.style.visibility = 'hidden';
+        sidebar.style.cssText = `
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 260px !important;
+            height: 100% !important;
+            z-index: 99999 !important;
+            transform: translateX(-100%) !important;
+            visibility: hidden !important;
+        `;
     }
-    if (overlay) overlay.style.display = 'none';
+    if (overlay) {
+        overlay.style.cssText = 'display: none !important;';
+    }
 }
 </script>

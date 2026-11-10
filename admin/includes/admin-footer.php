@@ -25,13 +25,16 @@ if (window.innerWidth <= 768) {
     const sidebar = document.querySelector('.admin-sidebar');
     if (sidebar) {
         sidebar.setAttribute('data-open', 'false');
-        sidebar.style.transform = 'translateX(-100%)';
-        sidebar.style.visibility = 'hidden';
-        sidebar.style.position = 'fixed';
-        sidebar.style.top = '0';
-        sidebar.style.left = '0';
-        sidebar.style.height = '100vh';
-        sidebar.style.zIndex = '9999';
+        sidebar.style.cssText = `
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 260px !important;
+            height: 100% !important;
+            z-index: 99999 !important;
+            transform: translateX(-100%) !important;
+            visibility: hidden !important;
+        `;
     }
 }
 </script>
