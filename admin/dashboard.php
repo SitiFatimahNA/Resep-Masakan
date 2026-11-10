@@ -124,7 +124,7 @@ foreach ($stats as $s):
 </div>
 
 <!-- ===== TABEL BAWAH ===== -->
-<div class="dash-bot-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+<div class="dash-bot-grid" style="display:grid; grid-template-columns:1fr; gap:1.5rem;">
 
     <!-- Resep Terbaru -->
     <div class="admin-card">
@@ -136,7 +136,7 @@ foreach ($stats as $s):
             <thead>
                 <tr>
                     <th>Judul</th>
-                    <th class="dash-hide-mobile">Oleh</th>
+                    <th>Oleh</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -146,14 +146,14 @@ foreach ($stats as $s):
             <?php else: ?>
             <?php while($r=mysqli_fetch_assoc($resep_terbaru)): ?>
                 <tr>
-                    <td style="max-width:120px;">
+                    <td>
                         <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($r['slug']) ?>"
-                           style="color:var(--text-1); font-size:0.78rem; font-weight:500; text-decoration:none; display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-                            <?= htmlspecialchars($r['judul']) ?>
+                           style="color:var(--text-1); font-size:0.82rem; font-weight:600; text-decoration:none;">
+                            <?= htmlspecialchars(mb_strimwidth($r['judul'],0,40,'...')) ?>
                         </a>
                     </td>
-                    <td class="dash-hide-mobile" style="font-size:0.72rem; color:var(--text-3); white-space:nowrap;"><?= htmlspecialchars(mb_strimwidth($r['nama_user'],0,12,'...')) ?></td>
-                    <td><span class="badge badge-<?= $r['status'] ?>" style="font-size:0.65rem; padding:2px 7px;"><?= ucfirst($r['status']) ?></span></td>
+                    <td style="font-size:0.78rem; color:var(--text-3); white-space:nowrap;"><?= htmlspecialchars($r['nama_user']) ?></td>
+                    <td><span class="badge badge-<?= $r['status'] ?>"><?= ucfirst($r['status']) ?></span></td>
                 </tr>
             <?php endwhile; endif; ?>
             </tbody>
@@ -171,7 +171,7 @@ foreach ($stats as $s):
                 <tr>
                     <th>User</th>
                     <th>Komentar</th>
-                    <th class="dash-hide-mobile">Status</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -180,9 +180,9 @@ foreach ($stats as $s):
             <?php else: ?>
             <?php while($k=mysqli_fetch_assoc($komentar_terbaru)): ?>
                 <tr>
-                    <td style="font-size:0.75rem; font-weight:600; color:var(--text-1); white-space:nowrap; max-width:60px; overflow:hidden; text-overflow:ellipsis;"><?= htmlspecialchars(mb_strimwidth($k['nama'],0,8,'...')) ?></td>
-                    <td style="font-size:0.72rem; color:var(--text-3); max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars(mb_strimwidth($k['komentar'],0,25,'...')) ?></td>
-                    <td class="dash-hide-mobile"><span class="badge badge-<?= $k['status'] ?>" style="font-size:0.65rem; padding:2px 7px;"><?= ucfirst($k['status']) ?></span></td>
+                    <td style="font-size:0.78rem; font-weight:600; color:var(--text-1); white-space:nowrap;"><?= htmlspecialchars($k['nama']) ?></td>
+                    <td style="font-size:0.78rem; color:var(--text-3);"><?= htmlspecialchars(mb_strimwidth($k['komentar'],0,50,'...')) ?></td>
+                    <td><span class="badge badge-<?= $k['status'] ?>"><?= ucfirst($k['status']) ?></span></td>
                 </tr>
             <?php endwhile; endif; ?>
             </tbody>
