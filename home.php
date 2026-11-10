@@ -363,7 +363,8 @@ require_once 'includes/header.php';
                         display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">
                         <?= htmlspecialchars($resep['judul']) ?>
                     </h3>
-                    <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <div style="display:flex;flex-direction:column;gap:5px;">
+                        <!-- Bintang rating -->
                         <div style="display:flex;align-items:center;gap:5px;">
                             <?php
                             $rat = round($resep['rata_rating']);
@@ -373,9 +374,10 @@ require_once 'includes/header.php';
                             ?>
                             <span style="font-size:0.72rem;color:var(--text-muted);">(<?= $resep['jumlah_rating'] ?>)</span>
                         </div>
-                        <div style="display:flex;align-items:center;gap:5px;font-size:0.75rem;color:var(--text-muted);">
-                            <i class="fas fa-user-circle"></i>
-                            <?= htmlspecialchars(mb_strimwidth($resep['nama_user'],0,15,'...')) ?>
+                        <!-- Nama user di bawah bintang -->
+                        <div style="display:flex;align-items:center;gap:4px;font-size:0.72rem;color:var(--text-muted);">
+                            <i class="fas fa-user-circle" style="color:var(--green);font-size:0.68rem;"></i>
+                            <?= htmlspecialchars(mb_strimwidth($resep['nama_user'],0,18,'...')) ?>
                         </div>
                     </div>
                 </div>

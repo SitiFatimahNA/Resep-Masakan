@@ -826,3 +826,18 @@ $current = basename($_SERVER['PHP_SELF']);
     </div>
 
     <div class="admin-content">
+<script>
+// Sidebar mobile functions — harus di sini agar tersedia saat tombol diklik
+function toggleSidebar() {
+    const sidebar = document.querySelector('.admin-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    if (sidebar) sidebar.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('open');
+}
+function closeSidebar() {
+    const sidebar = document.querySelector('.admin-sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+}
+</script>

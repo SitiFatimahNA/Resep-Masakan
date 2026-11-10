@@ -13,21 +13,6 @@ document.querySelectorAll('.alert').forEach(el => {
     }, 4000);
 });
 
-// ===== SIDEBAR MOBILE =====
-function toggleSidebar() {
-    const sidebar = document.querySelector('.admin-sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    sidebar.classList.toggle('open');
-    overlay.classList.toggle('open');
-}
-
-function closeSidebar() {
-    const sidebar = document.querySelector('.admin-sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    if (sidebar) sidebar.classList.remove('open');
-    if (overlay) overlay.classList.remove('open');
-}
-
 // Tutup sidebar saat klik nav item di mobile
 document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', () => {
