@@ -658,14 +658,22 @@ $current = basename($_SERVER['PHP_SELF']);
     @media (max-width: 768px) {
         .admin-sidebar {
             transform: translateX(-100%);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            height: 100vh !important;
+            height: 100dvh !important;
+            width: 260px !important;
+            z-index: 300 !important;
+            overflow-y: auto;
         }
         .admin-sidebar.open {
-            transform: translateX(0);
-            box-shadow: 0 0 40px rgba(0,0,0,0.4);
+            transform: translateX(0) !important;
+            box-shadow: 4px 0 30px rgba(0,0,0,0.5);
         }
-        .admin-main { margin-left: 0; }
-        .admin-content { padding: 1rem; }
+        .admin-main { margin-left: 0 !important; }
+        .admin-content { padding: 1rem !important; }
 
         /* Hamburger button */
         .admin-hamburger {
@@ -677,8 +685,9 @@ $current = basename($_SERVER['PHP_SELF']);
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 150;
+            background: rgba(0,0,0,0.6);
+            z-index: 250;
+            backdrop-filter: blur(2px);
         }
         .sidebar-overlay.open {
             display: block;
@@ -827,13 +836,21 @@ $current = basename($_SERVER['PHP_SELF']);
 
     <div class="admin-content">
 <script>
-// Sidebar mobile functions — harus di sini agar tersedia saat tombol diklik
+// Sidebar mobile functions
 function toggleSidebar() {
     const sidebar = document.querySelector('.admin-sidebar');
     const overlay = document.getElementById('sidebar-overlay');
-    if (sidebar) sidebar.classList.toggle('open');
-    if (overlay) overlay.classList.toggle('open');
+    if (!sidebar) return;
+    const isOpen = sidebar.classList.contains('open');
+    if (isOpen) {
+        sidebar.classList.remove('open');
+        if (overlay) overlay.classList.remove('open');
+    } else {
+        sidebar.classList.add('open');
+        if (overlay) overlay.classList.add('open');
+    }
 }
+
 function closeSidebar() {
     const sidebar = document.querySelector('.admin-sidebar');
     const overlay = document.getElementById('sidebar-overlay');
