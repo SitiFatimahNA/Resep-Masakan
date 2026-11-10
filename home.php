@@ -321,7 +321,7 @@ require_once 'includes/header.php';
             <p style="color:var(--text-muted);">Belum ada resep. <a href="/resep-masakan/<?= isset($_SESSION['user_id'])?'user/tambah-resep.php':'register.php' ?>" style="color:var(--green);font-weight:600;">Jadilah yang pertama!</a></p>
         </div>
         <?php else: ?>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;" class="grid-resep-home">
             <?php foreach ($resep_terbaru as $resep): ?>
             <div onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'"
                  style="
@@ -410,8 +410,7 @@ require_once 'includes/header.php';
             </a>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;">
-            <?php foreach ($resep_populer as $i => $resep): ?>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;" class="grid-populer-home">
             <div onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'"
                  style="
                     background:rgba(255,255,255,0.06);border-radius:20px;overflow:hidden;

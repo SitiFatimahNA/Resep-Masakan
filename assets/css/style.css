@@ -1081,3 +1081,37 @@ select.form-control { cursor: pointer; }
         gap: 1.5rem !important;
     }
 }
+
+/* =====================================================
+   HOME — GRID RESEP MOBILE 2 KOLOM
+   ===================================================== */
+.grid-resep-home {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.grid-populer-home {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .grid-resep-home {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+    }
+
+    .grid-populer-home {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.8rem !important;
+    }
+}
+
+@media (max-width: 360px) {
+    .grid-resep-home,
+    .grid-populer-home {
+        grid-template-columns: 1fr !important;
+    }
+}
