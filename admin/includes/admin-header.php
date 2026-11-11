@@ -46,6 +46,11 @@ $current = basename($_SERVER['PHP_SELF']);
         --transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
     }
 
+    html, body {
+        overflow-x: hidden;
+        max-width: 100%;
+    }
+
     body {
         font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
         background: var(--bg);
@@ -54,7 +59,7 @@ $current = basename($_SERVER['PHP_SELF']);
     }
 
     /* ===== LAYOUT ===== */
-    .admin-wrapper { display: flex; min-height: 100vh; }
+    .admin-wrapper { display: flex; min-height: 100vh; overflow-x: hidden; }
 
     /* ===== SIDEBAR ===== */
     .admin-sidebar {
@@ -234,6 +239,8 @@ $current = basename($_SERVER['PHP_SELF']);
         display: flex;
         flex-direction: column;
         min-height: 100vh;
+        overflow-x: hidden;
+        max-width: 100%;
     }
 
     /* ===== TOPBAR ===== */
@@ -300,7 +307,7 @@ $current = basename($_SERVER['PHP_SELF']);
     }
 
     /* ===== CONTENT ===== */
-    .admin-content { padding: 2rem; flex: 1; }
+    .admin-content { padding: 2rem; flex: 1; overflow-x: hidden; max-width: 100%; }
 
     /* ===== PAGE HEADER ===== */
     .page-header {
