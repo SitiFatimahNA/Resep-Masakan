@@ -139,7 +139,7 @@ require_once 'includes/admin-header.php';?>
         <h3><i class="fas fa-table"></i> Daftar Resep — <?= date('d M Y', strtotime($dari)) ?> s/d <?= date('d M Y', strtotime($sampai)) ?></h3>
         <span style="font-size:0.78rem;color:var(--text-3);"><?= $stats['total'] ?> resep</span>
     </div>
-    <div style="overflow-x:auto;">
+    <div style="overflow-x:auto;" class="desktop-table">
         <table class="admin-table" id="laporan-table">
             <thead>
                 <tr>
@@ -185,6 +185,57 @@ require_once 'includes/admin-header.php';?>
             <?php endforeach; endif; ?>
             </tbody>
         </table>
+    </div>
+
+    <!-- ===== MOBILE CARDS ===== -->
+    <div class="mobile-cards" style="padding:1rem;">
+    <?php if (empty($resep_list)): ?>
+        <div style="text-align:center;padding:3rem;color:var(--text-3);">
+            <i class="fas fa-file-alt" style="font-size:2rem;display:block;margin-bottom:0.5rem;opacity:0.3;"></i>
+            Tidak ada data pada periode ini
+        </div>
+    <?php else: ?>
+    <?php $no=1; foreach ($resep_list as $r): ?>
+    <div style="background:var(--bg);border-radius:14px;border:1.5px solid var(--border);padding:0.9rem;margin-bottom:0.7rem;">
+        <!-- Judul + Status -->
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:0.6rem;">
+            <div style="flex:1;min-width:0;">
+                <div style="font-size:0.88rem;font-weight:700;color:var(--text-1);"><?= $no++ ?>. <?= htmlspecialchars(mb_strimwidth($r['judul'],0,40,'...')) ?></div>
+                <div style="font-size:0.72rem;color:var(--text-3);margin-top:2px;"><?= $r['nama_jenis'] ?> &bull; <?= $r['waktu_masak'] ?> mnt</div>
+            </div>
+            <span class="badge badge-<?= $r['status']==='publik'?'publik':'draft' ?>" style="flex-shrink:0;"><?= ucfirst($r['status']) ?></span>
+        </div>
+        <!-- Pembuat + Kategori -->
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:0.6rem;">
+            <span style="display:inline-flex;align-items:center;gap:4px;font-size:0.72rem;color:var(--text-2);background:var(--bg-card);padding:4px 10px;border-radius:20px;">
+                <i class="fas fa-user" style="font-size:0.65rem;color:var(--text-3);"></i> <?= htmlspecialchars($r['nama_user']) ?>
+            </span>
+            <span style="display:inline-flex;align-items:center;gap:4px;font-size:0.72rem;color:var(--green-2);background:rgba(45,106,79,0.06);padding:4px 10px;border-radius:20px;">
+                <i class="fas fa-tag" style="font-size:0.65rem;"></i> <?= htmlspecialchars($r['nama_kategori']) ?>
+            </span>
+            <span class="badge badge-<?= $r['tingkat_kesulitan'] ?>" style="font-size:0.68rem;"><?= ucfirst($r['tingkat_kesulitan']) ?></span>
+        </div>
+        <!-- Stats row -->
+        <div style="display:flex;justify-content:space-around;text-align:center;padding-top:0.6rem;border-top:1px solid var(--border);">
+            <div>
+                <div style="font-size:0.78rem;font-weight:700;color:var(--text-1);"><?= number_format($r['views']) ?></div>
+                <div style="font-size:0.6rem;color:var(--text-3);"><i class="fas fa-eye"></i> Views</div>
+            </div>
+            <div>
+                <div style="font-size:0.78rem;font-weight:700;color:var(--text-1);"><?= number_format($r['rata_rating'],1) ?></div>
+                <div style="font-size:0.6rem;color:var(--text-3);"><i class="fas fa-star" style="color:#f59e0b;"></i> Rating</div>
+            </div>
+            <div>
+                <div style="font-size:0.78rem;font-weight:700;color:var(--text-1);"><?= $r['jumlah_komentar'] ?></div>
+                <div style="font-size:0.6rem;color:var(--text-3);"><i class="fas fa-comment"></i> Komentar</div>
+            </div>
+            <div>
+                <div style="font-size:0.72rem;font-weight:600;color:var(--text-2);"><?= date('d/m/y', strtotime($r['created_at'])) ?></div>
+                <div style="font-size:0.6rem;color:var(--text-3);"><i class="fas fa-calendar"></i> Tanggal</div>
+            </div>
+        </div>
+    </div>
+    <?php endforeach; endif; ?>
     </div>
 </div>
 

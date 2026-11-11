@@ -674,6 +674,8 @@ $current = basename($_SERVER['PHP_SELF']);
         .admin-card-header { flex-wrap: wrap; gap: 8px; }
 
         /* Stat cards 2 kolom */
+        .admin-content [style*="grid-template-columns:repeat(5,1fr)"],
+        .admin-content [style*="grid-template-columns:repeat(4,1fr)"],
         .admin-content [style*="grid-template-columns:repeat(3,1fr)"],
         .admin-content [style*="grid-template-columns:repeat(2,1fr)"],
         .admin-content [style*="grid-template-columns:1fr 1fr"] {
@@ -742,6 +744,8 @@ $current = basename($_SERVER['PHP_SELF']);
         .topbar-date { display: none; }
 
         /* Stat cards 2 kolom */
+        .admin-content [style*="grid-template-columns:repeat(5,1fr)"],
+        .admin-content [style*="grid-template-columns:repeat(4,1fr)"],
         .admin-content [style*="grid-template-columns:repeat(3,1fr)"],
         .admin-content [style*="grid-template-columns:repeat(2,1fr)"],
         .admin-content [style*="grid-template-columns:1fr 1fr"] {
