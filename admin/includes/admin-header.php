@@ -727,7 +727,14 @@ $current = basename($_SERVER['PHP_SELF']);
         }
         .topbar-left { gap: 8px; min-width: 0; overflow: hidden; }
         .topbar-right { flex-shrink: 0; gap: 6px; }
-    }
+
+        /* Sidebar mobile */
+        .admin-sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
             height: 100vh !important;
             height: 100dvh !important;
             width: 260px !important;
@@ -742,9 +749,7 @@ $current = basename($_SERVER['PHP_SELF']);
         .admin-content { padding: 1rem !important; }
 
         /* Hamburger button */
-        .admin-hamburger {
-            display: flex !important;
-        }
+        .admin-hamburger { display: flex !important; }
 
         /* Overlay */
         .sidebar-overlay {
@@ -755,35 +760,8 @@ $current = basename($_SERVER['PHP_SELF']);
             z-index: 250;
             backdrop-filter: blur(2px);
         }
-        .sidebar-overlay.open {
-            display: block;
-        }
-
-        /* Topbar mobile */
-        .admin-topbar {
-            padding: 0 0.8rem;
-            height: auto;
-            min-height: var(--topbar-h);
-            flex-wrap: nowrap;
-        }
-        .topbar-date { display: none; }
-        /* Topbar mobile - handled in first @media block above */
-
-        /* Stat cards 2 kolom */
-        .admin-content [style*="grid-template-columns:repeat(5,1fr)"],
-        .admin-content [style*="grid-template-columns:repeat(4,1fr)"],
-        .admin-content [style*="grid-template-columns:repeat(3,1fr)"],
-        .admin-content [style*="grid-template-columns:repeat(2,1fr)"],
-        .admin-content [style*="grid-template-columns:1fr 1fr"] {
-            grid-template-columns: repeat(2,1fr) !important;
-            gap: 0.8rem !important;
-        }
-
-        /* Chart + tabel bawah jadi 1 kolom */
-        .admin-content [style*="grid-template-columns:1.2fr 1fr"],
-        .admin-content [style*="grid-template-columns:1fr 1fr;gap:1.5rem"] {
-            grid-template-columns: 1fr !important;
-        }
+        .sidebar-overlay.open { display: block; }
+    }
 
         /* Filter bar */
         .filter-bar { flex-direction: column; }
