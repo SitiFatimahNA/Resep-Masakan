@@ -655,35 +655,9 @@ $current = basename($_SERVER['PHP_SELF']);
         background: var(--border);
     }
 
-    /* ===== MOBILE ADMIN TABLE → CARD STYLE ===== */
-    @media (max-width: 768px) {
-        /* Tabel jadi card per baris */
-        .admin-table thead { display: none !important; }
-        .admin-table { display: block !important; }
-        .admin-table tbody { display: block !important; }
-        .admin-table tr {
-            display: flex !important;
-            flex-wrap: wrap !important;
-            background: var(--bg-card) !important;
-            border-radius: 14px !important;
-            border: 1.5px solid var(--border) !important;
-            margin-bottom: 0.8rem !important;
-            padding: 0.9rem !important;
-            gap: 6px !important;
-            align-items: center !important;
-        }
-        .admin-table td {
-            display: block !important;
-            border: none !important;
-            padding: 2px 0 !important;
-            font-size: 0.8rem !important;
-            width: 100% !important;
-        }
-        /* Sembunyikan kolom no urut */
-        .admin-table td:first-child { display: none !important; }
-        /* Kolom aksi selalu di bawah */
-        .admin-table td:last-child { width: 100% !important; margin-top: 6px !important; padding-top: 8px !important; border-top: 1px solid var(--border) !important; }
 
+    /* ===== MOBILE ADMIN RESPONSIVE ===== */
+    @media (max-width: 768px) {
         /* Page header font */
         .page-header h1 { font-size: 1.2rem !important; }
 
@@ -698,6 +672,29 @@ $current = basename($_SERVER['PHP_SELF']);
 
         /* Admin card header */
         .admin-card-header { flex-wrap: wrap; gap: 8px; }
+
+        /* Stat cards 2 kolom */
+        .admin-content [style*="grid-template-columns:repeat(3,1fr)"],
+        .admin-content [style*="grid-template-columns:repeat(2,1fr)"],
+        .admin-content [style*="grid-template-columns:1fr 1fr"] {
+            grid-template-columns: repeat(2,1fr) !important;
+            gap: 0.8rem !important;
+        }
+
+        /* Chart + tabel bawah jadi 1 kolom */
+        .admin-content [style*="grid-template-columns:1.2fr 1fr"],
+        .admin-content [style*="grid-template-columns:1fr 1fr;gap:1.5rem"] {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
+    /* desktop-table & mobile-cards toggle */
+    @media (max-width: 768px) {
+        .desktop-table { display: none !important; }
+        .mobile-cards  { display: block !important; }
+    }
+    @media (min-width: 769px) {
+        .mobile-cards { display: none !important; }
     }
 
     @media (max-width: 768px) {

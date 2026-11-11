@@ -69,15 +69,10 @@ $result = mysqli_query($koneksi,
 
 <style>
 @media (max-width: 768px) {
-    .desktop-table { display: none !important; }
-    .mobile-cards  { display: block !important; }
     .page-header h1 { font-size: 1.2rem !important; }
     .filter-bar { flex-direction: column !important; gap: 8px !important; }
     .filter-bar form { flex-direction: column !important; gap: 6px !important; }
     .filter-bar form > * { min-width: 100% !important; width: 100% !important; }
-}
-@media (min-width: 769px) {
-    .mobile-cards { display: none !important; }
 }
 </style>
 

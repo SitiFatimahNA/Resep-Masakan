@@ -91,12 +91,6 @@ while ($j = mysqli_fetch_assoc($jenis_list)) $jenis_arr[] = $j;
 <style>
 @media (max-width: 768px) {
     .kat-grid { grid-template-columns: 1fr !important; }
-    /* Override CSS global yang menyembunyikan td:first-child */
-    .kat-tabel .admin-table td:first-child { display: table-cell !important; }
-    .kat-tabel .admin-table thead { display: table-header-group !important; }
-    .kat-tabel .admin-table, .kat-tabel .admin-table tbody,
-    .kat-tabel .admin-table tr, .kat-tabel .admin-table td { display: table-cell !important; }
-    .kat-tabel .admin-table tr { display: table-row !important; padding: 0 !important; border: none !important; border-radius: 0 !important; }
 }
 </style>
 
