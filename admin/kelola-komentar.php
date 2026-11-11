@@ -51,6 +51,10 @@ $result = mysqli_query($koneksi,
 $total_aktif    = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(*) t FROM komentar WHERE status='aktif'"))['t'];
 $total_nonaktif = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(*) t FROM komentar WHERE status='nonaktif'"))['t'];
 
+// Simpan ke array untuk dual view
+$kom_arr = [];
+while ($k = mysqli_fetch_assoc($result)) $kom_arr[] = $k;
+
 require_once 'includes/admin-header.php';
 ?>
 
@@ -92,16 +96,16 @@ require_once 'includes/admin-header.php';
     </form>
 </div>
 
-<div class="admin-card">
+<div class="admin-card desktop-table">
     <table class="admin-table">
         <thead>
             <tr><th>No</th><th>User</th><th>Komentar</th><th>Resep</th><th>Waktu</th><th>Status</th><th>Aksi</th></tr>
         </thead>
         <tbody>
-        <?php if (mysqli_num_rows($result)===0): ?>
+        <?php if (empty($kom_arr)): ?>
             <tr><td colspan="7" style="text-align:center;padding:3rem;color:var(--text-3);">Tidak ada komentar</td></tr>
         <?php else: ?>
-        <?php $no=$offset+1; while ($k = mysqli_fetch_assoc($result)): ?>
+        <?php $no=$offset+1; foreach ($kom_arr as $k): ?>
             <tr>
                 <td style="color:var(--text-3);font-size:0.78rem;font-weight:600;"><?= $no++ ?></td>
                 <td>
@@ -137,9 +141,59 @@ require_once 'includes/admin-header.php';
                     </a>
                 </td>
             </tr>
-        <?php endwhile; endif; ?>
+        <?php endforeach; endif; ?>
         </tbody>
     </table>
+</div>
+
+<!-- ===== MOBILE CARDS ===== -->
+<div class="mobile-cards">
+<?php if (empty($kom_arr)): ?>
+    <div style="background:var(--bg-card);border-radius:16px;padding:3rem;text-align:center;color:var(--text-3);">
+        <i class="fas fa-comments" style="font-size:2rem;display:block;margin-bottom:0.5rem;opacity:0.3;"></i>
+        Tidak ada komentar
+    </div>
+<?php else: ?>
+<?php foreach ($kom_arr as $k): ?>
+<div style="background:var(--bg-card);border-radius:16px;border:1.5px solid var(--border);padding:1rem;margin-bottom:0.8rem;box-shadow:0 2px 8px rgba(45,106,79,0.06);">
+
+    <!-- Baris 1: Avatar + Nama + Waktu -->
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.8rem;">
+        <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($k['foto_user'] ?? 'default.png') ?>"
+             style="width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid var(--border);flex-shrink:0;"
+             onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+        <div style="flex:1;min-width:0;">
+            <div style="font-size:0.875rem;font-weight:700;color:var(--text-1);"><?= htmlspecialchars($k['nama_user']) ?></div>
+            <div style="font-size:0.68rem;color:var(--text-3);"><?= date('d M Y H:i', strtotime($k['created_at'])) ?></div>
+        </div>
+        <!-- Status badge -->
+        <a href="?aksi=toggle&id=<?= $k['id'] ?>" class="badge badge-<?= $k['status'] ?>" style="text-decoration:none;cursor:pointer;flex-shrink:0;" title="Tap untuk toggle">
+            <?= ucfirst($k['status']) ?>
+        </a>
+    </div>
+
+    <!-- Baris 2: Isi komentar -->
+    <div style="font-size:0.85rem;color:var(--text-2);line-height:1.5;padding:0.7rem;background:var(--bg);border-radius:10px;margin-bottom:0.8rem;border-left:3px solid var(--green-4);">
+        <?= htmlspecialchars(mb_strimwidth($k['komentar'],0,120,'...')) ?>
+    </div>
+
+    <!-- Baris 3: Resep + Tombol Hapus -->
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($k['slug_resep']) ?>"
+           style="display:flex;align-items:center;gap:6px;font-size:0.75rem;color:var(--green-3);font-weight:600;text-decoration:none;flex:1;min-width:0;"
+           target="_blank">
+            <i class="fas fa-book-open" style="flex-shrink:0;"></i>
+            <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><?= htmlspecialchars(mb_strimwidth($k['judul_resep'],0,35,'...')) ?></span>
+            <i class="fas fa-external-link-alt" style="font-size:0.6rem;flex-shrink:0;"></i>
+        </a>
+        <a href="?aksi=hapus&id=<?= $k['id'] ?>"
+           style="display:flex;align-items:center;gap:5px;padding:7px 14px;background:rgba(231,76,60,0.08);border-radius:20px;color:#c0392b;text-decoration:none;font-size:0.78rem;font-weight:600;flex-shrink:0;"
+           onclick="return confirm('Yakin hapus komentar ini?')">
+            <i class="fas fa-trash"></i> Hapus
+        </a>
+    </div>
+</div>
+<?php endforeach; endif; ?>
 </div>
 
 <?php if ($total_page > 1): ?>
