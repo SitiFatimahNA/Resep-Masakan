@@ -2,6 +2,18 @@
 $page_title = 'Kelola Kategori';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/resep-masakan/config/koneksi.php';
 require_once 'includes/admin-header.php';
+?>
+<style>
+@media (max-width: 768px) {
+    .tabel-kategori { display: none !important; }
+    .cards-kategori { display: block !important; }
+}
+@media (min-width: 769px) {
+    .tabel-kategori { display: block !important; }
+    .cards-kategori { display: none !important; }
+}
+</style>
+<?php
 $error = $success = '';
 $edit_kat = $edit_jenis = null;
 
@@ -132,7 +144,7 @@ while ($j = mysqli_fetch_assoc($jenis_list)) $jenis_arr[] = $j;
 
         <!-- List Kategori — MOBILE: card, DESKTOP: tabel -->
         <!-- Desktop -->
-        <div class="admin-card desktop-table">
+        <div class="admin-card tabel-kategori">
             <table class="admin-table">
                 <thead><tr><th>Nama Kategori</th><th>Resep</th><th>Aksi</th></tr></thead>
                 <tbody>
@@ -160,7 +172,7 @@ while ($j = mysqli_fetch_assoc($jenis_list)) $jenis_arr[] = $j;
         </div>
 
         <!-- Mobile cards -->
-        <div class="mobile-cards">
+        <div class="cards-kategori">
             <?php foreach ($kat_arr as $k): ?>
             <div style="background:var(--bg-card);border-radius:14px;border:1.5px solid var(--border);padding:0.9rem;margin-bottom:0.7rem;display:flex;align-items:center;gap:12px;">
                 <div style="width:38px;height:38px;background:rgba(45,106,79,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
@@ -202,7 +214,7 @@ while ($j = mysqli_fetch_assoc($jenis_list)) $jenis_arr[] = $j;
         </div>
 
         <!-- Desktop -->
-        <div class="admin-card desktop-table">
+        <div class="admin-card tabel-kategori">
             <table class="admin-table">
                 <thead><tr><th>Nama Jenis</th><th>Resep</th><th>Aksi</th></tr></thead>
                 <tbody>
@@ -223,7 +235,7 @@ while ($j = mysqli_fetch_assoc($jenis_list)) $jenis_arr[] = $j;
         </div>
 
         <!-- Mobile cards -->
-        <div class="mobile-cards">
+        <div class="cards-kategori">
             <?php foreach ($jenis_arr as $j): ?>
             <div style="background:var(--bg-card);border-radius:14px;border:1.5px solid var(--border);padding:0.9rem;margin-bottom:0.7rem;display:flex;align-items:center;gap:12px;">
                 <div style="width:38px;height:38px;background:rgba(45,106,79,0.08);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">

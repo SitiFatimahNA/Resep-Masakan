@@ -43,8 +43,18 @@ $per_page  = 10;
 $offset    = ($page - 1) * $per_page;
 
 require_once 'includes/admin-header.php';
-
-$where = ['1=1'];
+?>
+<style>
+@media (max-width: 768px) {
+    .tabel-resep { display: none !important; }
+    .cards-resep { display: block !important; }
+}
+@media (min-width: 769px) {
+    .tabel-resep { display: block !important; }
+    .cards-resep { display: none !important; }
+}
+</style>
+<?php
 if ($q !== '')         $where[] = "(r.judul LIKE '%".mysqli_real_escape_string($koneksi,$q)."%' OR u.nama LIKE '%".mysqli_real_escape_string($koneksi,$q)."%')";
 if ($filter === 'publik') $where[] = "r.status='publik'";
 if ($filter === 'draft')  $where[] = "r.status='draft'";
@@ -119,7 +129,7 @@ $no_start = $offset + 1;
 ?>
 
 <!-- ===== DESKTOP TABLE ===== -->
-<div class="admin-card desktop-table">
+<div class="admin-card tabel-resep">
     <table class="admin-table">
         <thead>
             <tr>
@@ -182,7 +192,7 @@ $no_start = $offset + 1;
 </div>
 
 <!-- ===== MOBILE CARDS ===== -->
-<div class="mobile-cards">
+<div class="cards-resep">
 <?php if (empty($resep_arr)): ?>
     <div style="background:var(--bg-card);border-radius:16px;padding:3rem;text-align:center;color:var(--text-3);">
         <i class="fas fa-search" style="font-size:2rem;display:block;margin-bottom:0.5rem;opacity:0.3;"></i>

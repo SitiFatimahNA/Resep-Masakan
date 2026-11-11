@@ -57,6 +57,16 @@ while ($k = mysqli_fetch_assoc($result)) $kom_arr[] = $k;
 
 require_once 'includes/admin-header.php';
 ?>
+<style>
+@media (max-width: 768px) {
+    .tabel-komentar { display: none !important; }
+    .cards-komentar { display: block !important; }
+}
+@media (min-width: 769px) {
+    .tabel-komentar { display: block !important; }
+    .cards-komentar { display: none !important; }
+}
+</style>
 
 <div class="page-header">
     <h1>Kelola <span>Komentar</span></h1>
@@ -96,7 +106,7 @@ require_once 'includes/admin-header.php';
     </form>
 </div>
 
-<div class="admin-card desktop-table">
+<div class="admin-card tabel-komentar">
     <table class="admin-table">
         <thead>
             <tr><th>No</th><th>User</th><th>Komentar</th><th>Resep</th><th>Waktu</th><th>Status</th><th>Aksi</th></tr>
@@ -147,7 +157,7 @@ require_once 'includes/admin-header.php';
 </div>
 
 <!-- ===== MOBILE CARDS ===== -->
-<div class="mobile-cards">
+<div class="cards-komentar">
 <?php if (empty($kom_arr)): ?>
     <div style="background:var(--bg-card);border-radius:16px;padding:3rem;text-align:center;color:var(--text-3);">
         <i class="fas fa-comments" style="font-size:2rem;display:block;margin-bottom:0.5rem;opacity:0.3;"></i>

@@ -54,6 +54,16 @@ while ($u = mysqli_fetch_assoc($result)) $user_arr[] = $u;
 
 require_once 'includes/admin-header.php';
 ?>
+<style>
+@media (max-width: 768px) {
+    .tabel-user { display: none !important; }
+    .cards-user { display: block !important; }
+}
+@media (min-width: 769px) {
+    .tabel-user { display: block !important; }
+    .cards-user { display: none !important; }
+}
+</style>
 
 <div class="page-header">
     <h1>Kelola <span>User</span></h1>
@@ -88,7 +98,7 @@ require_once 'includes/admin-header.php';
     </form>
 </div>
 
-<div class="admin-card desktop-table">
+<div class="admin-card tabel-user">
     <table class="admin-table">
         <thead>
             <tr><th>No</th><th>User</th><th>Email</th><th>Role</th><th>Resep</th><th>Bergabung</th><th>Aksi</th></tr>
@@ -144,7 +154,7 @@ require_once 'includes/admin-header.php';
 </div>
 
 <!-- ===== MOBILE CARDS ===== -->
-<div class="mobile-cards">
+<div class="cards-user">
 <?php if (empty($user_arr)): ?>
     <div style="background:var(--bg-card);border-radius:16px;padding:3rem;text-align:center;color:var(--text-3);">
         <i class="fas fa-users" style="font-size:2rem;display:block;margin-bottom:0.5rem;opacity:0.3;"></i>

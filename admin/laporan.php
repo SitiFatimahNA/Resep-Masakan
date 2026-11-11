@@ -65,6 +65,16 @@ if (isset($_GET['export']) && $_GET['export'] === 'csv') {
 
 // Include admin header SETELAH semua proses yang butuh redirect/header
 require_once 'includes/admin-header.php';?>
+<style>
+@media (max-width: 768px) {
+    .tabel-laporan { display: none !important; }
+    .cards-laporan { display: block !important; }
+}
+@media (min-width: 769px) {
+    .tabel-laporan { display: block !important; }
+    .cards-laporan { display: none !important; }
+}
+</style>
 
 <div class="page-header">
     <h1>Laporan <span>Resep</span></h1>
@@ -139,7 +149,7 @@ require_once 'includes/admin-header.php';?>
         <h3><i class="fas fa-table"></i> Daftar Resep — <?= date('d M Y', strtotime($dari)) ?> s/d <?= date('d M Y', strtotime($sampai)) ?></h3>
         <span style="font-size:0.78rem;color:var(--text-3);"><?= $stats['total'] ?> resep</span>
     </div>
-    <div style="overflow-x:auto;" class="desktop-table">
+    <div style="overflow-x:auto;" class="tabel-laporan">
         <table class="admin-table" id="laporan-table">
             <thead>
                 <tr>
@@ -188,7 +198,7 @@ require_once 'includes/admin-header.php';?>
     </div>
 
     <!-- ===== MOBILE CARDS ===== -->
-    <div class="mobile-cards" style="padding:1rem;">
+    <div class="cards-laporan" style="padding:1rem;">
     <?php if (empty($resep_list)): ?>
         <div style="text-align:center;padding:3rem;color:var(--text-3);">
             <i class="fas fa-file-alt" style="font-size:2rem;display:block;margin-bottom:0.5rem;opacity:0.3;"></i>
