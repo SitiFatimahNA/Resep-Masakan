@@ -41,6 +41,7 @@ $filter    = $_GET['filter'] ?? 'semua';
 $page      = max(1, (int)($_GET['page'] ?? 1));
 $per_page  = 10;
 $offset    = ($page - 1) * $per_page;
+$where     = ['1=1'];
 
 require_once 'includes/admin-header.php';
 ?>
