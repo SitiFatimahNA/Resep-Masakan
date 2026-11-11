@@ -60,11 +60,11 @@ require_once 'includes/admin-header.php';
 
 <div class="page-header">
     <h1>Kelola <span>Komentar</span></h1>
-    <div style="display:flex;gap:8px;">
-        <span class="badge badge-aktif" style="padding:6px 14px;font-size:0.78rem;">
+    <div style="display:flex;gap:6px;flex-shrink:0;">
+        <span class="badge badge-aktif" style="padding:5px 10px;font-size:0.72rem;white-space:nowrap;">
             <i class="fas fa-check-circle"></i> <?= $total_aktif ?> Aktif
         </span>
-        <span class="badge badge-nonaktif" style="padding:6px 14px;font-size:0.78rem;">
+        <span class="badge badge-nonaktif" style="padding:5px 10px;font-size:0.72rem;white-space:nowrap;">
             <i class="fas fa-ban"></i> <?= $total_nonaktif ?> Nonaktif
         </span>
     </div>

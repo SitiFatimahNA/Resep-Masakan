@@ -793,11 +793,12 @@ $current = basename($_SERVER['PHP_SELF']);
 
     /* desktop-table & mobile-cards toggle */
     @media (max-width: 768px) {
-        .desktop-table { display: none !important; }
-        .mobile-cards  { display: block !important; }
+        .desktop-table { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; }
+        .mobile-cards  { display: block !important; visibility: visible !important; }
     }
     @media (min-width: 769px) {
-        .mobile-cards { display: none !important; }
+        .mobile-cards { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; }
+        .desktop-table { display: block !important; visibility: visible !important; height: auto !important; }
     }
 
     .admin-hamburger {
