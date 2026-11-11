@@ -665,14 +665,27 @@ $current = basename($_SERVER['PHP_SELF']);
 
     /* ===== MOBILE ADMIN RESPONSIVE ===== */
     @media (max-width: 768px) {
-        /* Page header font */
-        .page-header h1 { font-size: 1.2rem !important; }
+        /* Page header */
+        .page-header h1 { font-size: 1.1rem !important; white-space: nowrap; }
+        .page-header {
+            flex-wrap: nowrap !important;
+            align-items: center !important;
+            gap: 8px !important;
+            margin-bottom: 1.2rem !important;
+        }
+        .page-header > div {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            flex-shrink: 0;
+        }
 
-        /* Filter bar stack */
+        /* Filter bar — input/select full width, tombol tidak */
         .filter-bar { flex-direction: column !important; align-items: stretch !important; }
         .filter-bar form { flex-direction: column !important; }
-        .filter-bar form > * { width: 100% !important; }
+        .filter-bar form input,
         .filter-bar form select { width: 100% !important; }
+        .filter-bar form .btn { align-self: flex-start; width: auto !important; }
 
         /* Tombol aksi lebih besar di mobile */
         .btn-action { width: 36px !important; height: 36px !important; border-radius: 10px !important; }
@@ -695,24 +708,26 @@ $current = basename($_SERVER['PHP_SELF']);
         .admin-content [style*="grid-template-columns:1fr 1fr;gap:1.5rem"] {
             grid-template-columns: 1fr !important;
         }
-    }
 
-    /* desktop-table & mobile-cards toggle */
-    @media (max-width: 768px) {
-        .desktop-table { display: none !important; }
-        .mobile-cards  { display: block !important; }
+        /* Topbar mobile */
+        .admin-topbar {
+            padding: 0 0.8rem;
+            height: auto;
+            min-height: var(--topbar-h);
+            flex-wrap: nowrap;
+        }
+        .topbar-date { display: none; }
+        .topbar-title { font-size: 0.9rem !important; }
+        .topbar-breadcrumb { display: none; }
+        .topbar-btn {
+            padding: 7px 12px !important;
+            font-size: 0.75rem !important;
+            gap: 5px !important;
+            white-space: nowrap;
+        }
+        .topbar-left { gap: 8px; min-width: 0; overflow: hidden; }
+        .topbar-right { flex-shrink: 0; gap: 6px; }
     }
-    @media (min-width: 769px) {
-        .mobile-cards { display: none !important; }
-    }
-
-    @media (max-width: 768px) {
-        .admin-sidebar {
-            transform: translateX(-100%);
-            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
             height: 100vh !important;
             height: 100dvh !important;
             width: 260px !important;
@@ -746,9 +761,13 @@ $current = basename($_SERVER['PHP_SELF']);
 
         /* Topbar mobile */
         .admin-topbar {
-            padding: 0 1rem;
+            padding: 0 0.8rem;
+            height: auto;
+            min-height: var(--topbar-h);
+            flex-wrap: nowrap;
         }
         .topbar-date { display: none; }
+        /* Topbar mobile - handled in first @media block above */
 
         /* Stat cards 2 kolom */
         .admin-content [style*="grid-template-columns:repeat(5,1fr)"],
@@ -769,6 +788,16 @@ $current = basename($_SERVER['PHP_SELF']);
         /* Filter bar */
         .filter-bar { flex-direction: column; }
         .filter-bar form { flex-direction: column; }
+        .filter-bar form .btn { align-self: flex-start; }
+    }
+
+    /* desktop-table & mobile-cards toggle */
+    @media (max-width: 768px) {
+        .desktop-table { display: none !important; }
+        .mobile-cards  { display: block !important; }
+    }
+    @media (min-width: 769px) {
+        .mobile-cards { display: none !important; }
     }
 
     .admin-hamburger {
