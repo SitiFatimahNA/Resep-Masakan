@@ -37,7 +37,11 @@ for ($i = 5; $i >= 0; $i--) {
 ?>
 
 <style>
-/* Dashboard mobile responsive */
+/* Dashboard desktop & mobile */
+.dash-stat-grid  { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; margin-bottom:1.5rem; }
+.dash-mid-grid   { display:grid; grid-template-columns:1.2fr 1fr; gap:1.5rem; margin-bottom:1.5rem; }
+.dash-bot-grid   { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+
 @media (max-width: 768px) {
     .dash-stat-grid  { grid-template-columns: repeat(2,1fr) !important; gap: 0.8rem !important; }
     .dash-mid-grid   { grid-template-columns: 1fr !important; gap: 1rem !important; }
@@ -52,7 +56,7 @@ for ($i = 5; $i >= 0; $i--) {
 </style>
 
 <!-- ===== STAT CARDS ===== -->
-<div class="dash-stat-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; margin-bottom:1.5rem;">
+<div class="dash-stat-grid">
 <?php
 $stats = [
     ['label'=>'Total Resep',    'value'=>$total_resep,                'icon'=>'fa-book-open','bg'=>'rgba(45,106,79,0.1)',   'color'=>'#2d6a4f', 'sub'=>$total_publik.' publik'],
@@ -78,7 +82,7 @@ foreach ($stats as $s):
 </div>
 
 <!-- ===== CHART + POPULER ===== -->
-<div class="dash-mid-grid" style="display:grid; grid-template-columns:1.2fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
+<div class="dash-mid-grid">
 
     <!-- Chart -->
     <div class="admin-card">
@@ -124,7 +128,7 @@ foreach ($stats as $s):
 </div>
 
 <!-- ===== TABEL BAWAH ===== -->
-<div class="dash-bot-grid" style="display:grid; grid-template-columns:1fr; gap:1.5rem;">
+<div class="dash-bot-grid">
 
     <!-- Resep Terbaru -->
     <div class="admin-card">
