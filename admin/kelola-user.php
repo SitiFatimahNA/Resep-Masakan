@@ -48,15 +48,12 @@ $result     = mysqli_query($koneksi,
     "SELECT u.*, (SELECT COUNT(*) FROM resep WHERE user_id=u.id) as total_resep
      FROM users u WHERE $w ORDER BY u.created_at DESC LIMIT $per_page OFFSET $offset");
 
+// Simpan ke array untuk dual view
+$user_arr = [];
+while ($u = mysqli_fetch_assoc($result)) $user_arr[] = $u;
+
 require_once 'includes/admin-header.php';
 ?>
-
-<style>
-@media (max-width: 768px) {
-    .admin-table td:nth-child(3) { color: var(--text-3) !important; font-size: 0.72rem !important; } /* email */
-    .admin-table td:nth-child(5) { display: none !important; } /* bergabung */
-}
-</style>
 
 <div class="page-header">
     <h1>Kelola <span>User</span></h1>
@@ -91,16 +88,16 @@ require_once 'includes/admin-header.php';
     </form>
 </div>
 
-<div class="admin-card">
+<div class="admin-card desktop-table">
     <table class="admin-table">
         <thead>
             <tr><th>No</th><th>User</th><th>Email</th><th>Role</th><th>Resep</th><th>Bergabung</th><th>Aksi</th></tr>
         </thead>
         <tbody>
-        <?php if (mysqli_num_rows($result)===0): ?>
+        <?php if (empty($user_arr)): ?>
             <tr><td colspan="7" style="text-align:center;padding:3rem;color:var(--text-3);">Tidak ada user ditemukan</td></tr>
         <?php else: ?>
-        <?php $no=$offset+1; while ($u = mysqli_fetch_assoc($result)): ?>
+        <?php $no=$offset+1; foreach ($user_arr as $u): ?>
             <tr>
                 <td style="color:var(--text-3);font-size:0.78rem;font-weight:600;"><?= $no++ ?></td>
                 <td>
@@ -141,9 +138,70 @@ require_once 'includes/admin-header.php';
                     </div>
                 </td>
             </tr>
-        <?php endwhile; endif; ?>
+        <?php endforeach; endif; ?>
         </tbody>
     </table>
+</div>
+
+<!-- ===== MOBILE CARDS ===== -->
+<div class="mobile-cards">
+<?php if (empty($user_arr)): ?>
+    <div style="background:var(--bg-card);border-radius:16px;padding:3rem;text-align:center;color:var(--text-3);">
+        <i class="fas fa-users" style="font-size:2rem;display:block;margin-bottom:0.5rem;opacity:0.3;"></i>
+        Tidak ada user ditemukan
+    </div>
+<?php else: ?>
+<?php foreach ($user_arr as $u): ?>
+<div style="background:var(--bg-card);border-radius:16px;border:1.5px solid var(--border);padding:1rem;margin-bottom:0.8rem;box-shadow:0 2px 8px rgba(45,106,79,0.06);">
+
+    <!-- Baris 1: Avatar + Nama + Role badge -->
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:0.8rem;">
+        <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($u['foto'] ?? 'default.png') ?>"
+             style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--green-pale);flex-shrink:0;"
+             onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+        <div style="flex:1;min-width:0;">
+            <div style="font-size:0.9rem;font-weight:700;color:var(--text-1);display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                <?= htmlspecialchars($u['nama']) ?>
+                <?php if ($u['id']==$_SESSION['user_id']): ?>
+                <span style="font-size:0.6rem;background:rgba(45,106,79,0.1);color:var(--green-2);padding:1px 6px;border-radius:10px;">Saya</span>
+                <?php endif; ?>
+            </div>
+            <div style="font-size:0.72rem;color:var(--text-3);margin-top:2px;"><?= htmlspecialchars($u['email']) ?></div>
+        </div>
+        <span class="badge badge-<?= $u['role'] ?>" style="flex-shrink:0;"><?= ucfirst($u['role']) ?></span>
+    </div>
+
+    <!-- Baris 2: Info chips -->
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:0.8rem;">
+        <span style="display:inline-flex;align-items:center;gap:5px;font-size:0.72rem;color:var(--text-2);background:var(--bg);padding:5px 10px;border-radius:20px;">
+            <i class="fas fa-book" style="color:var(--green-3);"></i> <?= $u['total_resep'] ?> resep
+        </span>
+        <span style="display:inline-flex;align-items:center;gap:5px;font-size:0.72rem;color:var(--text-2);background:var(--bg);padding:5px 10px;border-radius:20px;">
+            <i class="fas fa-calendar-alt" style="color:var(--text-3);"></i> <?= date('d M Y', strtotime($u['created_at'])) ?>
+        </span>
+    </div>
+
+    <!-- Baris 3: Tombol aksi -->
+    <?php if ($u['id'] !== (int)$_SESSION['user_id']): ?>
+    <div style="display:flex;gap:8px;">
+        <a href="?aksi=toggle-role&id=<?= $u['id'] ?>"
+           style="display:flex;align-items:center;justify-content:center;gap:5px;flex:1;padding:8px;background:rgba(45,106,79,0.08);border-radius:10px;color:var(--green-2);text-decoration:none;font-size:0.78rem;font-weight:600;"
+           onclick="return confirm('Ubah role user ini?')">
+            <i class="fas fa-user-cog"></i> <?= $u['role']==='admin'?'Jadikan User':'Jadikan Admin' ?>
+        </a>
+        <a href="?aksi=hapus&id=<?= $u['id'] ?>"
+           style="display:flex;align-items:center;justify-content:center;gap:5px;padding:8px 14px;background:rgba(231,76,60,0.08);border-radius:10px;color:#c0392b;text-decoration:none;font-size:0.78rem;font-weight:600;flex-shrink:0;"
+           onclick="return confirm('Yakin hapus user ini?')">
+            <i class="fas fa-trash"></i>
+        </a>
+    </div>
+    <?php else: ?>
+    <div style="text-align:center;font-size:0.75rem;color:var(--text-3);padding:6px;background:var(--bg);border-radius:10px;">
+        <i class="fas fa-lock" style="font-size:0.68rem;"></i> Akun sendiri — tidak bisa diubah
+    </div>
+    <?php endif; ?>
+</div>
+<?php endforeach; endif; ?>
 </div>
 
 <?php if ($total_page > 1): ?>
