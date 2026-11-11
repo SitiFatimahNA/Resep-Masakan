@@ -440,6 +440,18 @@ $current = basename($_SERVER['PHP_SELF']);
         box-shadow: var(--shadow-sm);
     }
 
+    /* Desktop: form dalam filter bar selalu horizontal */
+    .filter-bar form {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+        flex-wrap: wrap;
+    }
+    .filter-bar form select { width: auto; min-width: 130px; }
+    .filter-bar form input  { flex: 1; min-width: 180px; }
+
     /* ===== BADGES ===== */
     .badge {
         display: inline-flex;
@@ -680,11 +692,11 @@ $current = basename($_SERVER['PHP_SELF']);
             flex-shrink: 0;
         }
 
-        /* Filter bar — input/select full width, tombol tidak */
+        /* Filter bar — mobile: stack vertikal, input full width */
         .filter-bar { flex-direction: column !important; align-items: stretch !important; }
-        .filter-bar form { flex-direction: column !important; }
+        .filter-bar form { flex-direction: column !important; align-items: stretch !important; }
         .filter-bar form input,
-        .filter-bar form select { width: 100% !important; }
+        .filter-bar form select { width: 100% !important; min-width: unset !important; }
         .filter-bar form .btn { align-self: flex-start; width: auto !important; }
 
         /* Tombol aksi lebih besar di mobile */
@@ -763,10 +775,7 @@ $current = basename($_SERVER['PHP_SELF']);
         .sidebar-overlay.open { display: block; }
     }
 
-        /* Filter bar */
-        .filter-bar { flex-direction: column; }
-        .filter-bar form { flex-direction: column; }
-        .filter-bar form .btn { align-self: flex-start; }
+        /* Filter bar sudah dihandle di blok mobile pertama */
     }
 
     /* desktop-table & mobile-cards toggle */
