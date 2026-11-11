@@ -69,6 +69,20 @@ require_once 'includes/admin-header.php';?>
 @media (max-width: 768px) {
     .tabel-laporan { display: none !important; }
     .cards-laporan { display: block !important; }
+
+    /* Tombol export/cetak di mobile */
+    .laporan-actions { flex-wrap: wrap; gap: 6px !important; }
+    .laporan-actions .btn { font-size: 0.72rem !important; padding: 6px 10px !important; }
+    .laporan-actions .btn i { margin-right: 3px; }
+
+    /* Filter form di mobile — stack vertikal */
+    .laporan-filter-form {
+        flex-direction: column !important;
+        gap: 0.8rem !important;
+    }
+    .laporan-filter-form .form-group { flex: none !important; width: 100% !important; min-width: unset !important; }
+    .laporan-filter-form select { width: 100% !important; }
+    .laporan-filter-form .btn { align-self: flex-start; }
 }
 @media (min-width: 769px) {
     .tabel-laporan { display: block !important; }
@@ -78,13 +92,13 @@ require_once 'includes/admin-header.php';?>
 
 <div class="page-header">
     <h1>Laporan <span>Resep</span></h1>
-    <div style="display:flex;gap:8px;">
+    <div class="laporan-actions" style="display:flex;gap:8px;flex-shrink:0;">
         <a href="?dari=<?= $dari ?>&sampai=<?= $sampai ?>&jenis=<?= $jenis ?>&export=csv"
            class="btn btn-outline btn-sm">
-            <i class="fas fa-file-csv"></i> Export CSV
+            <i class="fas fa-file-csv"></i> <span class="btn-label">Export CSV</span>
         </a>
         <button onclick="cetakPDF()" class="btn btn-gold btn-sm">
-            <i class="fas fa-print"></i> Cetak / PDF
+            <i class="fas fa-print"></i> <span class="btn-label">Cetak / PDF</span>
         </button>
     </div>
 </div>
@@ -95,7 +109,7 @@ require_once 'includes/admin-header.php';?>
         <h3><i class="fas fa-filter"></i> Filter Laporan</h3>
     </div>
     <div style="padding:1.5rem;">
-        <form method="GET" style="display:flex;gap:1rem;flex-wrap:wrap;align-items:flex-end;">
+        <form method="GET" class="laporan-filter-form" style="display:flex;gap:1rem;flex-wrap:wrap;align-items:flex-end;">
             <div class="form-group" style="margin:0;flex:1;min-width:150px;">
                 <label class="form-label">Dari Tanggal</label>
                 <input type="date" name="dari" class="form-control" value="<?= $dari ?>">
