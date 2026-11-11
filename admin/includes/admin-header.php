@@ -655,6 +655,51 @@ $current = basename($_SERVER['PHP_SELF']);
         background: var(--border);
     }
 
+    /* ===== MOBILE ADMIN TABLE → CARD STYLE ===== */
+    @media (max-width: 768px) {
+        /* Tabel jadi card per baris */
+        .admin-table thead { display: none !important; }
+        .admin-table { display: block !important; }
+        .admin-table tbody { display: block !important; }
+        .admin-table tr {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            background: var(--bg-card) !important;
+            border-radius: 14px !important;
+            border: 1.5px solid var(--border) !important;
+            margin-bottom: 0.8rem !important;
+            padding: 0.9rem !important;
+            gap: 6px !important;
+            align-items: center !important;
+        }
+        .admin-table td {
+            display: block !important;
+            border: none !important;
+            padding: 2px 0 !important;
+            font-size: 0.8rem !important;
+            width: 100% !important;
+        }
+        /* Sembunyikan kolom no urut */
+        .admin-table td:first-child { display: none !important; }
+        /* Kolom aksi selalu di bawah */
+        .admin-table td:last-child { width: 100% !important; margin-top: 6px !important; padding-top: 8px !important; border-top: 1px solid var(--border) !important; }
+
+        /* Page header font */
+        .page-header h1 { font-size: 1.2rem !important; }
+
+        /* Filter bar stack */
+        .filter-bar { flex-direction: column !important; align-items: stretch !important; }
+        .filter-bar form { flex-direction: column !important; }
+        .filter-bar form > * { width: 100% !important; }
+        .filter-bar form select { width: 100% !important; }
+
+        /* Tombol aksi lebih besar di mobile */
+        .btn-action { width: 36px !important; height: 36px !important; border-radius: 10px !important; }
+
+        /* Admin card header */
+        .admin-card-header { flex-wrap: wrap; gap: 8px; }
+    }
+
     @media (max-width: 768px) {
         .admin-sidebar {
             transform: translateX(-100%);

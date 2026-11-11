@@ -67,9 +67,23 @@ $result = mysqli_query($koneksi,
      LIMIT $per_page OFFSET $offset");
 ?>
 
+<style>
+@media (max-width: 768px) {
+    .desktop-table { display: none !important; }
+    .mobile-cards  { display: block !important; }
+    .page-header h1 { font-size: 1.2rem !important; }
+    .filter-bar { flex-direction: column !important; gap: 8px !important; }
+    .filter-bar form { flex-direction: column !important; gap: 6px !important; }
+    .filter-bar form > * { min-width: 100% !important; width: 100% !important; }
+}
+@media (min-width: 769px) {
+    .mobile-cards { display: none !important; }
+}
+</style>
+
 <div class="page-header">
     <h1>Kelola <span>Resep</span></h1>
-    <a href="/resep-masakan/user/tambah-resep.php" class="btn btn-gold">
+    <a href="/resep-masakan/user/tambah-resep.php" class="btn btn-gold btn-sm">
         <i class="fas fa-plus"></i> Tambah Resep
     </a>
 </div>
@@ -102,8 +116,15 @@ $result = mysqli_query($koneksi,
     <span style="font-size:0.8rem;color:var(--text-3);background:var(--bg);padding:6px 12px;border-radius:20px;border:1px solid var(--border);"><?= $total ?> resep</span>
 </div>
 
-<!-- Tabel -->
-<div class="admin-card">
+<?php
+// Simpan result ke array agar bisa dipakai 2x (desktop + mobile)
+$resep_arr = [];
+while ($r = mysqli_fetch_assoc($result)) $resep_arr[] = $r;
+$no_start = $offset + 1;
+?>
+
+<!-- ===== DESKTOP TABLE ===== -->
+<div class="admin-card desktop-table">
     <table class="admin-table">
         <thead>
             <tr>
@@ -118,13 +139,13 @@ $result = mysqli_query($koneksi,
             </tr>
         </thead>
         <tbody>
-        <?php if (mysqli_num_rows($result) === 0): ?>
+        <?php if (empty($resep_arr)): ?>
             <tr><td colspan="8" style="text-align:center;padding:3rem;color:var(--text-3);">
                 <i class="fas fa-search" style="font-size:2rem;display:block;margin-bottom:0.5rem;opacity:0.3;"></i>
                 Tidak ada resep ditemukan
             </td></tr>
         <?php else: ?>
-        <?php $no = $offset + 1; while ($r = mysqli_fetch_assoc($result)): ?>
+        <?php $no = $no_start; foreach ($resep_arr as $r): ?>
             <tr>
                 <td style="color:var(--text-3);font-size:0.78rem;font-weight:600;"><?= $no++ ?></td>
                 <td>
@@ -133,9 +154,7 @@ $result = mysqli_query($koneksi,
                              style="width:46px;height:46px;border-radius:12px;object-fit:cover;flex-shrink:0;border:1.5px solid var(--border);"
                              onerror="this.src='/resep-masakan/assets/images/default-resep.svg'">
                         <div>
-                            <div style="font-size:0.85rem;font-weight:600;color:var(--text-1);">
-                                <?= htmlspecialchars(mb_strimwidth($r['judul'],0,38,'...')) ?>
-                            </div>
+                            <div style="font-size:0.85rem;font-weight:600;color:var(--text-1);"><?= htmlspecialchars(mb_strimwidth($r['judul'],0,38,'...')) ?></div>
                             <div style="font-size:0.7rem;color:var(--text-3);margin-top:2px;">
                                 <span class="badge badge-<?= $r['tingkat_kesulitan'] ?>"><?= ucfirst($r['tingkat_kesulitan']) ?></span>
                                 &bull; <?= $r['waktu_masak'] ?> mnt &bull; <?= $r['porsi'] ?> porsi
@@ -144,45 +163,102 @@ $result = mysqli_query($koneksi,
                     </div>
                 </td>
                 <td style="font-size:0.82rem;color:var(--text-2);font-weight:500;"><?= htmlspecialchars($r['nama_user']) ?></td>
-                <td>
-                    <span style="font-size:0.78rem;background:rgba(45,106,79,0.08);color:var(--green-2);padding:3px 10px;border-radius:20px;font-weight:500;">
-                        <?= htmlspecialchars($r['nama_kategori']) ?>
-                    </span>
-                </td>
-                <td style="font-size:0.85rem;font-weight:600;color:var(--text-1);"><?= number_format($r['views']) ?></td>
+                <td><span style="font-size:0.78rem;background:rgba(45,106,79,0.08);color:var(--green-2);padding:3px 10px;border-radius:20px;font-weight:500;"><?= htmlspecialchars($r['nama_kategori']) ?></span></td>
+                <td style="font-size:0.85rem;font-weight:600;"><?= number_format($r['views']) ?></td>
                 <td>
                     <div style="display:flex;align-items:center;gap:4px;">
                         <i class="fas fa-star" style="color:#f59e0b;font-size:0.75rem;"></i>
-                        <span style="font-size:0.82rem;font-weight:600;color:var(--text-1);"><?= number_format($r['rata_rating'],1) ?></span>
+                        <span style="font-size:0.82rem;font-weight:600;"><?= number_format($r['rata_rating'],1) ?></span>
                         <span style="font-size:0.7rem;color:var(--text-3);">(<?= $r['jumlah_rating'] ?>)</span>
                     </div>
                 </td>
-                <td>
-                    <a href="?aksi=toggle&id=<?= $r['id'] ?>" class="badge badge-<?= $r['status']==='publik'?'publik':'draft' ?>" style="text-decoration:none;cursor:pointer;" title="Klik untuk toggle">
-                        <?= ucfirst($r['status']) ?>
-                    </a>
-                </td>
+                <td><a href="?aksi=toggle&id=<?= $r['id'] ?>" class="badge badge-<?= $r['status']==='publik'?'publik':'draft' ?>" style="text-decoration:none;cursor:pointer;"><?= ucfirst($r['status']) ?></a></td>
                 <td>
                     <div style="display:flex;gap:4px;">
-                        <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($r['slug']) ?>"
-                           class="btn-action btn-action-view" target="_blank" title="Lihat">
-                            <i class="fas fa-eye"></i>
-                        </a>
-                        <a href="/resep-masakan/user/edit-resep.php?id=<?= $r['id'] ?>"
-                           class="btn-action btn-action-edit" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a href="?aksi=hapus&id=<?= $r['id'] ?>"
-                           class="btn-action btn-action-delete" title="Hapus"
-                           onclick="return confirm('Yakin hapus resep ini?')">
-                            <i class="fas fa-trash"></i>
-                        </a>
+                        <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($r['slug']) ?>" class="btn-action btn-action-view" target="_blank"><i class="fas fa-eye"></i></a>
+                        <a href="/resep-masakan/user/edit-resep.php?id=<?= $r['id'] ?>" class="btn-action btn-action-edit"><i class="fas fa-edit"></i></a>
+                        <a href="?aksi=hapus&id=<?= $r['id'] ?>" class="btn-action btn-action-delete" onclick="return confirm('Yakin hapus?')"><i class="fas fa-trash"></i></a>
                     </div>
                 </td>
             </tr>
-        <?php endwhile; endif; ?>
+        <?php endforeach; endif; ?>
         </tbody>
     </table>
+</div>
+
+<!-- ===== MOBILE CARDS ===== -->
+<div class="mobile-cards">
+<?php if (empty($resep_arr)): ?>
+    <div style="background:var(--bg-card);border-radius:16px;padding:3rem;text-align:center;color:var(--text-3);">
+        <i class="fas fa-search" style="font-size:2rem;display:block;margin-bottom:0.5rem;opacity:0.3;"></i>
+        Tidak ada resep
+    </div>
+<?php else: ?>
+<?php foreach ($resep_arr as $r): ?>
+<div style="background:var(--bg-card);border-radius:16px;border:1.5px solid var(--border);padding:1rem;margin-bottom:0.8rem;box-shadow:0 2px 8px rgba(45,106,79,0.06);">
+    <!-- Baris 1: Foto + Info Utama -->
+    <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:0.8rem;">
+        <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($r['thumbnail']) ?>"
+             style="width:60px;height:60px;border-radius:12px;object-fit:cover;flex-shrink:0;border:1.5px solid var(--border);"
+             onerror="this.src='/resep-masakan/assets/images/default-resep.svg'">
+        <div style="flex:1;min-width:0;">
+            <div style="font-size:0.9rem;font-weight:700;color:var(--text-1);line-height:1.3;margin-bottom:4px;">
+                <?= htmlspecialchars($r['judul']) ?>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                <span class="badge badge-<?= $r['tingkat_kesulitan'] ?>" style="font-size:0.65rem;"><?= ucfirst($r['tingkat_kesulitan']) ?></span>
+                <span style="font-size:0.7rem;color:var(--text-3);"><i class="fas fa-clock"></i> <?= $r['waktu_masak'] ?> mnt</span>
+                <span style="font-size:0.7rem;color:var(--text-3);"><i class="fas fa-users"></i> <?= $r['porsi'] ?> porsi</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Baris 2: Meta info dalam 1 baris -->
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:0.6rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:0.8rem;">
+        <!-- Pembuat -->
+        <span style="font-size:0.75rem;color:var(--text-2);display:flex;align-items:center;gap:4px;">
+            <i class="fas fa-user-circle" style="color:var(--green-3);"></i>
+            <?= htmlspecialchars($r['nama_user']) ?>
+        </span>
+        <!-- Kategori -->
+        <span style="font-size:0.72rem;background:rgba(45,106,79,0.08);color:var(--green-2);padding:2px 8px;border-radius:20px;font-weight:500;">
+            <?= htmlspecialchars($r['nama_kategori']) ?>
+        </span>
+        <!-- Views -->
+        <span style="font-size:0.75rem;color:var(--text-3);display:flex;align-items:center;gap:3px;">
+            <i class="fas fa-eye" style="font-size:0.7rem;"></i> <?= number_format($r['views']) ?>
+        </span>
+        <!-- Rating -->
+        <span style="font-size:0.75rem;color:#b7950b;display:flex;align-items:center;gap:3px;">
+            <i class="fas fa-star" style="font-size:0.7rem;"></i>
+            <?= number_format($r['rata_rating'],1) ?>
+            <span style="color:var(--text-3);">(<?= $r['jumlah_rating'] ?>)</span>
+        </span>
+        <!-- Status -->
+        <a href="?aksi=toggle&id=<?= $r['id'] ?>" class="badge badge-<?= $r['status']==='publik'?'publik':'draft' ?>" style="text-decoration:none;cursor:pointer;font-size:0.7rem;" title="Tap untuk toggle">
+            <?= ucfirst($r['status']) ?>
+        </a>
+    </div>
+
+    <!-- Baris 3: Aksi -->
+    <div style="display:flex;gap:8px;">
+        <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($r['slug']) ?>"
+           style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px;background:rgba(52,152,219,0.08);border-radius:10px;color:#2471a3;text-decoration:none;font-size:0.78rem;font-weight:600;"
+           target="_blank">
+            <i class="fas fa-eye"></i> Lihat
+        </a>
+        <a href="/resep-masakan/user/edit-resep.php?id=<?= $r['id'] ?>"
+           style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px;background:rgba(45,106,79,0.08);border-radius:10px;color:var(--green-2);text-decoration:none;font-size:0.78rem;font-weight:600;">
+            <i class="fas fa-edit"></i> Edit
+        </a>
+        <a href="?aksi=hapus&id=<?= $r['id'] ?>"
+           style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px;background:rgba(231,76,60,0.08);border-radius:10px;color:#c0392b;text-decoration:none;font-size:0.78rem;font-weight:600;"
+           onclick="return confirm('Yakin hapus resep ini?')">
+            <i class="fas fa-trash"></i> Hapus
+        </a>
+    </div>
+</div>
+<?php endforeach; endif; ?>
 </div>
 
 <!-- Pagination -->

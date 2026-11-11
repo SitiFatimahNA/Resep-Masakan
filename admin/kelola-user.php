@@ -51,6 +51,13 @@ $result     = mysqli_query($koneksi,
 require_once 'includes/admin-header.php';
 ?>
 
+<style>
+@media (max-width: 768px) {
+    .admin-table td:nth-child(3) { color: var(--text-3) !important; font-size: 0.72rem !important; } /* email */
+    .admin-table td:nth-child(5) { display: none !important; } /* bergabung */
+}
+</style>
+
 <div class="page-header">
     <h1>Kelola <span>User</span></h1>
     <span style="font-size:0.82rem;color:var(--text-3);background:var(--bg);padding:6px 14px;border-radius:20px;border:1px solid var(--border);">
