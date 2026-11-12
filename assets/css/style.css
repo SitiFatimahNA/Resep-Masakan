@@ -1452,24 +1452,33 @@ select.form-control { cursor: pointer; }
     /* Header kolom bahan sembunyikan di mobile */
     .bahan-header { display: none !important; }
 
-    /* Langkah row — pastikan tidak meluber */
+    /* Langkah row — textarea full width, tombol hapus di pojok kanan atas */
     .langkah-row {
         gap: 8px !important;
+        align-items: flex-start !important;
     }
     .langkah-row > div:nth-child(2) {
         min-width: 0;
-        max-width: 100%;
-        overflow: visible;
+        position: relative;
     }
-    /* Grid dalam langkah: textarea | tombol hapus */
-    .langkah-row > div:nth-child(2) > div:first-child {
-        min-width: 0;
-        overflow: hidden;
+    /* Grid langkah: sembunyikan kolom tombol, pakai absolute */
+    .langkah-row > div:nth-child(2) {
+        grid-template-columns: 1fr !important;
     }
-    /* Textarea tidak meluber */
+    .langkah-row > div:nth-child(2) > button {
+        position: absolute !important;
+        top: 0 !important;
+        right: 0 !important;
+        width: 28px !important;
+        height: 28px !important;
+        border-radius: 6px !important;
+        font-size: 0.7rem !important;
+    }
+    /* Textarea full width, padding kanan agar tidak tertutup tombol */
     .langkah-row textarea {
         width: 100% !important;
-        box-sizing: border-box;
+        box-sizing: border-box !important;
+        padding-right: 36px !important;
     }
     /* Nomor langkah lebih kecil */
     .langkah-num {
