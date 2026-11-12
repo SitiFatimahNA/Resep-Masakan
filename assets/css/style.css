@@ -1183,7 +1183,12 @@ select.form-control { cursor: pointer; }
    DETAIL RESEP — Hero responsive
    ===================================================== */
 @media (max-width: 768px) {
-    /* Hero flex: judul di atas, tombol di bawah — tidak overlap wave */
+    /* Padding bawah hero cukup untuk tombol + wave */
+    .detail-hero-container {
+        padding-bottom: 5.5rem !important;
+    }
+
+    /* Hero flex: judul di atas, tombol di bawah */
     .detail-hero-flex {
         flex-direction: column !important;
         gap: 1.2rem !important;
@@ -1199,7 +1204,4 @@ select.form-control { cursor: pointer; }
         min-width: 120px;
         justify-content: center;
     }
-
-    /* Kurangi padding bawah hero agar tidak terlalu dalam */
-    .detail-hero-flex ~ * { }
 }
