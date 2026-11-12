@@ -1381,6 +1381,36 @@ select.form-control { cursor: pointer; }
     .navbar-mobile-search-wrap { display: none !important; }
     .navbar-desktop-only { display: none !important; }
     .navbar-search { display: none; }
+
+    /* Navbar layout mobile — logo | search | avatar | hamburger */
+    .navbar {
+        gap: 8px;
+    }
+    .navbar-brand {
+        flex-shrink: 0;
+    }
+    .navbar-actions {
+        flex: 1;
+        gap: 8px;
+        justify-content: flex-end;
+    }
+    .navbar-mobile-search-form {
+        flex: 1;
+        max-width: 160px;
+        min-width: 0;
+    }
+    .navbar-mobile-search-form input {
+        width: 100%;
+        padding: 6px 10px 6px 28px;
+        font-size: 0.78rem;
+        height: 34px;
+    }
+    /* Avatar ukuran sedikit lebih kecil */
+    .user-avatar {
+        width: 32px !important;
+        height: 32px !important;
+        flex-shrink: 0;
+    }
 }
 
 @media (min-width: 769px) {
