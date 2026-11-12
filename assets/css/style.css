@@ -1417,3 +1417,42 @@ select.form-control { cursor: pointer; }
     .navbar-mobile-search-form { display: none !important; }
     .navbar-desktop-only { display: inline-flex !important; }
 }
+
+/* =====================================================
+   TAMBAH/EDIT RESEP — Mobile responsive
+   ===================================================== */
+@media (max-width: 768px) {
+
+    /* Section header — judul & tombol sejajar, tidak wrap */
+    .resep-section-header {
+        flex-wrap: nowrap !important;
+        gap: 8px !important;
+    }
+    .resep-section-header h3 {
+        font-size: 0.88rem !important;
+        white-space: nowrap;
+    }
+    .resep-section-header .btn {
+        padding: 6px 10px !important;
+        font-size: 0.75rem !important;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    /* Bahan row — nama full width di atas, jumlah+satuan+hapus sejajar di bawah */
+    .bahan-row {
+        grid-template-columns: 1fr 1fr 36px !important;
+        gap: 6px !important;
+        margin-bottom: 10px !important;
+    }
+    /* Nama bahan span full 3 kolom */
+    .bahan-nama-input {
+        grid-column: 1 / -1;
+    }
+
+    /* Header kolom bahan sembunyikan di mobile */
+    .bahan-header { display: none !important; }
+
+    /* File input lebih kecil */
+    input[type="file"] { font-size: 0.78rem; }
+}

@@ -311,7 +311,7 @@ require_once '../includes/header.php';
 
         <!-- ===== BAHAN ===== -->
         <div style="background:#fff; border-radius:20px; border:1.5px solid #e4ede6; padding:2rem; margin-bottom:1.5rem; box-shadow:0 2px 8px rgba(45,106,79,0.05);">
-            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
+            <div class="resep-section-header" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
                 <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin:0;">
                     <i class="fas fa-list-ul" style="color:var(--green);"></i> Bahan-bahan
                 </h3>
@@ -321,7 +321,7 @@ require_once '../includes/header.php';
             </div>
 
             <!-- Header kolom -->
-            <div style="display:grid; grid-template-columns:2fr 1fr 1fr 40px; gap:8px; margin-bottom:8px;">
+            <div class="bahan-header" style="display:grid; grid-template-columns:2fr 1fr 1fr 40px; gap:8px; margin-bottom:8px;">
                 <span style="font-size:0.78rem; color:var(--text-muted); font-weight:500;">Nama Bahan</span>
                 <span style="font-size:0.78rem; color:var(--text-muted); font-weight:500;">Jumlah</span>
                 <span style="font-size:0.78rem; color:var(--text-muted); font-weight:500;">Satuan</span>
@@ -330,14 +330,13 @@ require_once '../includes/header.php';
 
             <div id="bahan-container">
                 <?php
-                // Tampilkan kembali bahan dari POST jika ada error, atau 1 baris kosong
                 $post_bahan_nama   = $_POST['bahan_nama']   ?? [''];
                 $post_bahan_jumlah = $_POST['bahan_jumlah'] ?? [''];
                 $post_bahan_satuan = $_POST['bahan_satuan'] ?? [''];
                 foreach ($post_bahan_nama as $idx => $nama_val):
                 ?>
                 <div class="bahan-row" style="display:grid; grid-template-columns:2fr 1fr 1fr 40px; gap:8px; margin-bottom:8px;">
-                    <input type="text" name="bahan_nama[]" class="form-control" placeholder="Contoh: Ayam"
+                    <input type="text" name="bahan_nama[]" class="form-control bahan-nama-input" placeholder="Contoh: Ayam"
                            value="<?= htmlspecialchars($nama_val) ?>">
                     <input type="text" name="bahan_jumlah[]" class="form-control" placeholder="500"
                            value="<?= htmlspecialchars($post_bahan_jumlah[$idx] ?? '') ?>">
@@ -353,7 +352,7 @@ require_once '../includes/header.php';
 
         <!-- ===== LANGKAH ===== -->
         <div style="background:#fff; border-radius:20px; border:1.5px solid #e4ede6; padding:2rem; margin-bottom:1.5rem; box-shadow:0 2px 8px rgba(45,106,79,0.05);">
-            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
+            <div class="resep-section-header" style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border);">
                 <h3 style="font-size:1rem; font-weight:600; color:var(--text-primary); margin:0;">
                     <i class="fas fa-list-ol" style="color:var(--green);"></i> Cara Memasak
                 </h3>
