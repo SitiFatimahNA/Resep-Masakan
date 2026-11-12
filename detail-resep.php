@@ -195,8 +195,8 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                 <button onclick="toggleFavorit()" id="btn-favorit"
                         style="
                             display:inline-flex;align-items:center;gap:8px;
-                            padding:10px 20px;border-radius:20px;font-size:0.875rem;font-weight:600;
-                            border:none;cursor:pointer;transition:all 0.2s;font-family:inherit;
+                            padding:9px 18px;border-radius:20px;font-size:0.85rem;font-weight:600;
+                            border:none;cursor:pointer;transition:all 0.2s;font-family:inherit;white-space:nowrap;
                             <?= $is_favorit
                                 ? 'background:#e74c3c;color:#fff;'
                                 : 'background:rgba(255,255,255,0.1);color:#fff;border:1.5px solid rgba(255,255,255,0.2);' ?>
@@ -207,7 +207,7 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                 <?php endif; ?>
                 <?php if (isset($_SESSION['user_id']) && ($_SESSION['user_id']==$resep['id_pemilik'] || $_SESSION['role']==='admin')): ?>
                 <a href="/resep-masakan/user/edit-resep.php?id=<?= $resep['id'] ?>"
-                   style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:20px;font-size:0.875rem;font-weight:600;background:rgba(255,255,255,0.1);color:#fff;text-decoration:none;border:1.5px solid rgba(255,255,255,0.2);transition:all 0.2s;"
+                   style="display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:20px;font-size:0.85rem;font-weight:600;background:rgba(255,255,255,0.1);color:#fff;text-decoration:none;border:1.5px solid rgba(255,255,255,0.2);transition:all 0.2s;white-space:nowrap;"
                    onmouseover="this.style.background='rgba(255,255,255,0.18)'"
                    onmouseout="this.style.background='rgba(255,255,255,0.1)'">
                     <i class="fas fa-edit"></i> Edit Resep
@@ -241,7 +241,7 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
         </div>
 
         <!-- Info cepat 4 kotak -->
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;">
+        <div class="detail-info-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;">
             <?php
             $info_items = [
                 ['icon'=>'fa-clock','val'=>$resep['waktu_masak'].' mnt','label'=>'Waktu Masak','bg'=>'rgba(45,106,79,0.06)','ic_color'=>'#2d6a4f'],
@@ -251,11 +251,11 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
             ];
             foreach ($info_items as $ii):
             ?>
-            <div style="background:#fff;border-radius:16px;padding:1.2rem;text-align:center;border:1.5px solid #e4ede6;box-shadow:0 2px 8px rgba(45,106,79,0.05);">
-                <div style="width:40px;height:40px;background:<?= $ii['bg'] ?>;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 0.6rem;">
+            <div class="detail-info-card" style="background:#fff;border-radius:16px;padding:1.2rem;text-align:center;border:1.5px solid #e4ede6;box-shadow:0 2px 8px rgba(45,106,79,0.05);">
+                <div class="detail-info-icon" style="width:40px;height:40px;background:<?= $ii['bg'] ?>;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 0.6rem;">
                     <i class="fas <?= $ii['icon'] ?>" style="color:<?= $ii['ic_color'] ?>;font-size:1rem;"></i>
                 </div>
-                <div style="font-size:1rem;font-weight:700;color:#1a2e1a;"><?= $ii['val'] ?></div>
+                <div class="detail-info-val" style="font-size:1rem;font-weight:700;color:#1a2e1a;"><?= $ii['val'] ?></div>
                 <div style="font-size:0.7rem;color:#8a9e87;margin-top:2px;"><?= $ii['label'] ?></div>
             </div>
             <?php endforeach; ?>

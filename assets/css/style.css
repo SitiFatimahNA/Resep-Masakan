@@ -1193,6 +1193,8 @@ select.form-control { cursor: pointer; }
         flex-direction: column !important;
         gap: 1.2rem !important;
     }
+
+    /* Tombol Simpan/Edit — compact, tidak stretch */
     .detail-hero-actions {
         flex-direction: row !important;
         flex-wrap: wrap;
@@ -1200,8 +1202,28 @@ select.form-control { cursor: pointer; }
     }
     .detail-hero-actions a,
     .detail-hero-actions button {
-        flex: 1;
-        min-width: 120px;
-        justify-content: center;
+        flex: 0 0 auto !important;
+        padding: 7px 14px !important;
+        font-size: 0.78rem !important;
+        border-radius: 16px !important;
     }
+
+    /* Info 4 kotak — lebih compact */
+    .detail-info-grid {
+        grid-template-columns: repeat(4,1fr) !important;
+        gap: 0.5rem !important;
+    }
+    .detail-info-card {
+        padding: 0.7rem 0.4rem !important;
+        border-radius: 12px !important;
+    }
+    .detail-info-icon {
+        width: 28px !important;
+        height: 28px !important;
+        border-radius: 8px !important;
+        margin-bottom: 0.4rem !important;
+    }
+    .detail-info-icon i { font-size: 0.75rem !important; }
+    .detail-info-val { font-size: 0.78rem !important; }
+    .detail-info-card > div:last-child { font-size: 0.6rem !important; }
 }
