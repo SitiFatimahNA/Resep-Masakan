@@ -1350,43 +1350,75 @@ select.form-control { cursor: pointer; }
 }
 
 /* =====================================================
-   NAVBAR — mobile search icon, desktop-only items
+   NAVBAR — mobile search expandable, desktop-only items
    ===================================================== */
 
-/* Ikon search mobile — sembunyikan di desktop */
-.navbar-mobile-search {
+/* Wrapper search mobile */
+.navbar-mobile-search-wrap {
     display: none;
     align-items: center;
-    justify-content: center;
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: rgba(45,106,79,0.1);
-    color: var(--green-dark);
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: var(--transition);
-    flex-shrink: 0;
+    position: relative;
 }
-.navbar-mobile-search:hover {
+
+/* Ikon search tombol */
+.navbar-mobile-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: rgba(45,106,79,0.08);
+    border: 1px solid var(--border);
+    color: var(--green-dark);
+    font-size: 0.9rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+.navbar-mobile-search:hover,
+.navbar-mobile-search.active {
     background: var(--green);
     color: #fff;
+    border-color: var(--green);
+}
+
+/* Input search yang bisa expand/collapse */
+.navbar-mobile-search-form {
+    position: absolute;
+    right: 42px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    overflow: hidden;
+    transition: width 0.3s ease;
+    white-space: nowrap;
+}
+.navbar-mobile-search-form.open {
+    width: 180px;
+}
+.navbar-mobile-search-form input {
+    width: 100%;
+    padding: 7px 10px 7px 30px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    font-size: 0.82rem;
+    color: var(--text-primary);
+    outline: none;
+    font-family: inherit;
+}
+.navbar-mobile-search-form input:focus {
+    border-color: var(--green);
+    background: #fff;
 }
 
 @media (max-width: 768px) {
-    /* Tampilkan ikon search di mobile */
-    .navbar-mobile-search { display: flex; }
-
-    /* Sembunyikan tombol Tambah Resep / Admin di mobile */
+    .navbar-mobile-search-wrap { display: flex; }
     .navbar-desktop-only { display: none !important; }
-
-    /* Sembunyikan search bar input di mobile (sudah ada ikon) */
     .navbar-search { display: none; }
 }
 
 @media (min-width: 769px) {
-    /* Sembunyikan ikon search di desktop */
-    .navbar-mobile-search { display: none !important; }
-
-    /* Tampilkan tombol desktop */
+    .navbar-mobile-search-wrap { display: none !important; }
     .navbar-desktop-only { display: inline-flex !important; }
 }
