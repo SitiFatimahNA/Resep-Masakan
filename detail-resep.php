@@ -135,7 +135,7 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
 <!-- ===== HERO SECTION ===== -->
 <div style="background:linear-gradient(160deg,#0a2e1a,#1a4731,#2d6a4f);position:relative;overflow:hidden;">
     <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(82,183,136,0.15) 0%,transparent 60%);pointer-events:none;"></div>
-    <div class="container" style="position:relative;z-index:1;padding:2.5rem 1.5rem 5rem;">
+    <div class="container" style="position:relative;z-index:1;padding:2.5rem 1.5rem 4rem;">
         <!-- Breadcrumb -->
         <div style="font-size:0.75rem;color:rgba(255,255,255,0.45);margin-bottom:1.2rem;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
             <a href="/resep-masakan/home.php" style="color:#52b788;text-decoration:none;">Beranda</a>
@@ -146,7 +146,7 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
         </div>
 
         <!-- Judul & meta -->
-        <div style="display:flex;gap:4rem;align-items:flex-start;flex-wrap:wrap;">
+        <div class="detail-hero-flex" style="display:flex;gap:4rem;align-items:flex-start;flex-wrap:wrap;">
             <div style="flex:1;min-width:280px;">
                 <!-- Kategori badges -->
                 <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem;">
@@ -189,8 +189,8 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                 </div>
             </div>
 
-            <!-- Aksi -->
-            <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;">
+            <!-- Aksi — desktop kanan, mobile bawah info -->
+            <div class="detail-hero-actions" style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;">
                 <?php if (isset($_SESSION['user_id'])): ?>
                 <button onclick="toggleFavorit()" id="btn-favorit"
                         style="

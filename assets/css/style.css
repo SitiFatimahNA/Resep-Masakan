@@ -1178,3 +1178,28 @@ select.form-control { cursor: pointer; }
     .detail-resep-img { height: 200px !important; }
     .card-img       { height: 130px !important; }
 }
+
+/* =====================================================
+   DETAIL RESEP — Hero responsive
+   ===================================================== */
+@media (max-width: 768px) {
+    /* Hero flex: judul di atas, tombol di bawah — tidak overlap wave */
+    .detail-hero-flex {
+        flex-direction: column !important;
+        gap: 1.2rem !important;
+    }
+    .detail-hero-actions {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        gap: 8px !important;
+    }
+    .detail-hero-actions a,
+    .detail-hero-actions button {
+        flex: 1;
+        min-width: 120px;
+        justify-content: center;
+    }
+
+    /* Kurangi padding bawah hero agar tidak terlalu dalam */
+    .detail-hero-flex ~ * { }
+}
