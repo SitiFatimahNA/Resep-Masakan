@@ -427,10 +427,10 @@ require_once '../includes/header.php';
         </div>
 
         <div style="display:flex; gap:1rem; justify-content:flex-end;">
-            <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>" class="btn btn-dark btn-lg">
+            <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>" class="btn btn-dark btn-sm">
                 <i class="fas fa-times"></i> Batal
             </a>
-            <button type="submit" class="btn btn-gold btn-lg">
+            <button type="submit" class="btn btn-gold btn-sm">
                 <i class="fas fa-save"></i> Simpan Perubahan
             </button>
         </div>

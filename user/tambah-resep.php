@@ -463,14 +463,14 @@ require_once '../includes/header.php';
         </div>
 
         <!-- Tombol Submit -->
-        <div style="display:flex; gap:1rem; justify-content:flex-end;">
-            <a href="/resep-masakan/user/resep-saya.php" class="btn btn-dark btn-lg">
+        <div style="display:flex; gap:0.8rem; justify-content:flex-end; flex-wrap:wrap;">
+            <a href="/resep-masakan/user/resep-saya.php" class="btn btn-dark btn-sm">
                 <i class="fas fa-times"></i> Batal
             </a>
-            <button type="submit" name="aksi" value="draft" class="btn btn-outline btn-lg">
+            <button type="submit" name="aksi" value="draft" class="btn btn-outline btn-sm">
                 <i class="fas fa-save"></i> Simpan Draft
             </button>
-            <button type="submit" name="aksi" value="publik" class="btn btn-gold btn-lg" form="form-resep">
+            <button type="submit" name="aksi" value="publik" class="btn btn-gold btn-sm" form="form-resep">
                 <i class="fas fa-paper-plane"></i> Publikasikan
             </button>
         </div>
