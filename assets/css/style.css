@@ -1279,6 +1279,7 @@ select.form-control { cursor: pointer; }
 /* Desktop default */
 .hero-col-text { order: 1; }
 .hero-col-img  { order: 2; }
+.hero-img-mobile { display: none; } /* Sembunyikan di desktop */
 
 /* Foto utama detail resep */
 .detail-resep-img {
@@ -1340,4 +1341,10 @@ select.form-control { cursor: pointer; }
     .hero-main-img    { height: 220px !important; }
     .detail-resep-img { height: 200px !important; }
     .card-img         { height: 130px !important; }
+}
+
+/* Mobile: tampilkan gambar inline, sembunyikan kolom kanan */
+@media (max-width: 768px) {
+    .hero-img-mobile { display: block !important; }
+    .hero-col-img    { display: none !important; }
 }

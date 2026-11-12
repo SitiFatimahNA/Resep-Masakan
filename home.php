@@ -110,6 +110,34 @@ require_once 'includes/header.php';
                     Temukan ribuan resep masakan Indonesia dari berbagai kategori. Dari sarapan pagi hingga dessert malam — semua ada di sini.
                 </p>
 
+                <!-- Gambar hero — hanya tampil di mobile, posisi antara deskripsi dan tombol -->
+                <div class="hero-img-mobile" style="margin-bottom:2rem;position:relative;border-radius:20px;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=85"
+                         alt="Masakan Lezat"
+                         style="width:100%;height:220px;object-fit:cover;display:block;border-radius:20px;"
+                         onerror="this.src='https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&q=80'">
+                    <!-- Floating card rating di mobile -->
+                    <div style="position:absolute;top:10px;right:10px;background:rgba(255,255,255,0.95);border-radius:12px;padding:8px 12px;box-shadow:0 8px 20px rgba(0,0,0,0.15);backdrop-filter:blur(10px);">
+                        <div style="font-size:0.6rem;color:#999;font-weight:500;">RATING RATA-RATA</div>
+                        <div style="display:flex;align-items:center;gap:5px;margin-top:2px;">
+                            <div style="display:flex;gap:1px;color:#f59e0b;font-size:0.75rem;">
+                                <?php for($s=0;$s<5;$s++) echo '<i class="fas fa-star"></i>'; ?>
+                            </div>
+                            <strong style="font-size:0.85rem;color:#1a2e1a;">4.9</strong>
+                        </div>
+                    </div>
+                    <!-- Floating card resep populer di mobile -->
+                    <div style="position:absolute;bottom:10px;left:10px;background:rgba(255,255,255,0.95);border-radius:12px;padding:8px 12px;box-shadow:0 8px 20px rgba(0,0,0,0.15);backdrop-filter:blur(10px);display:flex;align-items:center;gap:8px;">
+                        <div style="width:28px;height:28px;background:linear-gradient(135deg,#52b788,#2d6a4f);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                            <i class="fas fa-fire" style="color:#fff;font-size:0.7rem;"></i>
+                        </div>
+                        <div>
+                            <div style="font-size:0.58rem;color:#999;font-weight:500;">RESEP POPULER</div>
+                            <div style="font-size:0.72rem;font-weight:700;color:#1a2e1a;"><?= $total_resep ?>+ Resep</div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- CTA -->
                 <div style="display:flex;gap:1rem;margin-bottom:3rem;flex-wrap:wrap;">
                     <a href="/resep-masakan/resep.php" style="
