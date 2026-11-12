@@ -355,7 +355,7 @@ require_once '../includes/header.php';
                     <div style="width:36px;height:36px;background:var(--green);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;flex-shrink:0;margin-top:4px;" class="langkah-num"><?= $l['urutan'] ?></div>
                     <div style="flex:1;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;">
                         <div>
-                            <textarea name="langkah_isi[]" class="form-control" rows="2"><?= htmlspecialchars($l['instruksi']) ?></textarea>
+                            <textarea name="langkah_isi[]" class="form-control" rows="4"><?= htmlspecialchars($l['instruksi']) ?></textarea>
                             <input type="file" name="langkah_foto[]" accept="image/*" style="margin-top:6px;font-size:0.8rem;">
                             <?php if ($l['foto_langkah']): ?>
                             <small style="color:var(--text-muted);">Foto saat ini: <?= htmlspecialchars($l['foto_langkah']) ?></small>
@@ -464,7 +464,7 @@ function tambahLangkah() {
         <div style="width:36px;height:36px;background:var(--green);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;flex-shrink:0;margin-top:4px;" class="langkah-num">${num}</div>
         <div style="flex:1;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start;">
             <div>
-                <textarea name="langkah_isi[]" class="form-control" rows="2" placeholder="Langkah memasak..."></textarea>
+                <textarea name="langkah_isi[]" class="form-control" rows="4" placeholder="Langkah memasak..."></textarea>
                 <input type="file" name="langkah_foto[]" accept="image/*" style="margin-top:6px;font-size:0.8rem;">
             </div>
             <button type="button" onclick="hapusBaris(this)" style="background:var(--danger);color:#fff;border:none;border-radius:var(--radius-sm);cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
