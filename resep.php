@@ -419,8 +419,9 @@ require_once 'includes/header.php';
                     </div>
 
                     <!-- Footer card -->
-                    <div style="display:flex;align-items:center;justify-content:space-between;padding-top:0.8rem;border-top:1px solid #f0f5f0;">
-                        <div style="display:flex;align-items:center;gap:5px;">
+                    <div style="padding-top:0.8rem;border-top:1px solid #f0f5f0;">
+                        <!-- Baris 1: Rating -->
+                        <div style="display:flex;align-items:center;gap:5px;margin-bottom:0.4rem;">
                             <div style="display:flex;gap:1px;color:#f59e0b;font-size:0.72rem;">
                                 <?php
                                 $rat=round($resep['rata_rating']);
@@ -429,7 +430,8 @@ require_once 'includes/header.php';
                             </div>
                             <span style="font-size:0.7rem;color:#8a9e87;">(<?= $resep['jumlah_rating'] ?>)</span>
                         </div>
-                        <div style="font-size:0.72rem;color:#8a9e87;display:flex;align-items:center;gap:4px;max-width:100px;overflow:hidden;">
+                        <!-- Baris 2: Nama pembuat -->
+                        <div style="font-size:0.72rem;color:#8a9e87;display:flex;align-items:center;gap:4px;overflow:hidden;">
                             <i class="fas fa-user-circle" style="flex-shrink:0;"></i>
                             <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
                                 <?= htmlspecialchars($resep['nama_user']) ?>
