@@ -1483,3 +1483,25 @@ select.form-control { cursor: pointer; }
     /* File input lebih kecil */
     input[type="file"] { font-size: 0.78rem; }
 }
+
+/* =====================================================
+   POPULER — Podium reorder mobile: #1, #2, #3
+   ===================================================== */
+@media (max-width: 768px) {
+    .podium-grid {
+        grid-template-columns: 1fr !important;
+        align-items: stretch !important;
+        gap: 1rem !important;
+    }
+    /* Urutan: #1 dulu, lalu #2, lalu #3 */
+    .podium-card-1 { order: 1; }
+    .podium-card-2 { order: 2; }
+    .podium-card-3 { order: 3; }
+
+    /* Tinggi gambar sama semua di mobile */
+    .podium-grid .podium-card-1 > div:first-child,
+    .podium-grid .podium-card-2 > div:first-child,
+    .podium-grid .podium-card-3 > div:first-child {
+        height: 200px !important;
+    }
+}

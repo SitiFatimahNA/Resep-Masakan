@@ -62,7 +62,7 @@ require_once 'includes/header.php';
             <h2 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#1a2e1a;">Top 3 Terpopuler</h2>
         </div>
 
-        <div style="display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:1.2rem;align-items:end;">
+        <div class="podium-grid" style="display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:1.2rem;align-items:end;">
             <?php
             $podium = [
                 ['idx'=>1,'h'=>'210px','rank'=>2,'medal'=>'linear-gradient(135deg,#9ca3af,#6b7280)','label'=>'Perak'],
@@ -72,7 +72,7 @@ require_once 'includes/header.php';
             foreach ($podium as $p):
                 $r = $resep_list[$p['idx']];
             ?>
-            <div onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($r['slug']) ?>'"
+            <div class="podium-card-<?= $p['rank'] ?>" onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($r['slug']) ?>'"
                  style="background:#fff;border-radius:20px;overflow:hidden;border:1.5px solid #e4ede6;cursor:pointer;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 2px 12px rgba(45,106,79,0.07);"
                  onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 50px rgba(45,106,79,0.15)';this.style.borderColor='#95d5b2'"
                  onmouseout="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(45,106,79,0.07)';this.style.borderColor='#e4ede6'">
