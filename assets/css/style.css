@@ -981,9 +981,17 @@ select.form-control { cursor: pointer; }
         gap: 0.8rem !important;
     }
 
-    /* ---- RESEP grid 3 kolom ---- */
+    /* ---- RESEP grid 3 kolom — jadi 2 kolom di mobile, bukan 1 ---- */
     [style*="grid-template-columns:repeat(3,1fr)"] {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+    }
+
+    /* Grid resep halaman resep.php & home */
+    .resep-grid-main,
+    .grid-resep-home {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
     }
 
     /* ---- POPULER podium 3 kolom ---- */
@@ -1250,5 +1258,31 @@ select.form-control { cursor: pointer; }
     /* Layar sangat kecil: 3+2 biar tidak terlalu sempit */
     .detail-nutrisi-grid {
         grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+/* =====================================================
+   CARD RESEP — compact di 2 kolom mobile
+   ===================================================== */
+@media (max-width: 768px) {
+    /* Card body lebih compact */
+    .resep-grid-main .card-body,
+    .grid-resep-home .card-body {
+        padding: 0.8rem !important;
+    }
+
+    /* Judul resep lebih kecil */
+    .resep-grid-main .card-title,
+    .grid-resep-home .card-title {
+        font-size: 0.82rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 0.4rem !important;
+    }
+
+    /* Meta info (porsi, views, dll) lebih kecil */
+    .resep-grid-main .card-meta,
+    .grid-resep-home .card-meta {
+        font-size: 0.68rem !important;
+        gap: 6px !important;
     }
 }

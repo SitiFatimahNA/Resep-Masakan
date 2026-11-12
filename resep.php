@@ -327,7 +327,7 @@ require_once 'includes/header.php';
 
         <?php else: ?>
         <!-- Grid -->
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:2rem;">
+        <div class="resep-grid-main" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:2rem;">
             <?php foreach ($resep_list as $resep): ?>
             <div onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'"
                  style="
