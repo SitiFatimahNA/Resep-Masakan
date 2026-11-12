@@ -74,18 +74,13 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </form>
         </div>
 
-        <!-- Ikon search (mobile only) — tap untuk expand -->
-        <div class="navbar-mobile-search-wrap">
-            <button class="navbar-mobile-search" onclick="toggleMobileSearch(this)" title="Cari Resep" type="button">
-                <i class="fas fa-search"></i>
-            </button>
-            <form class="navbar-mobile-search-form" action="/resep-masakan/resep.php" method="GET">
-                <i class="fas fa-search" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#8a9e87;font-size:0.78rem;pointer-events:none;"></i>
-                <input type="text" name="q" placeholder="Cari resep..."
-                       value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>"
-                       autocomplete="off">
-            </form>
-        </div>
+        <!-- Search mobile — langsung tampil, tidak perlu tap ikon -->
+        <form class="navbar-mobile-search-form" action="/resep-masakan/resep.php" method="GET">
+            <i class="fas fa-search" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#8a9e87;font-size:0.78rem;pointer-events:none;"></i>
+            <input type="text" name="q" placeholder="Cari resep..."
+                   value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>"
+                   autocomplete="off">
+        </form>
 
         <?php if (isset($_SESSION['user_id'])): ?>
             <!-- Tambah Resep / Admin (desktop only) -->

@@ -81,32 +81,6 @@ function toggleMenu() {
     hamburger.classList.toggle('open');
 }
 
-// Toggle mobile search expand
-function toggleMobileSearch(btn) {
-    const form = btn.nextElementSibling;
-    const isOpen = form.classList.contains('open');
-    if (isOpen) {
-        form.classList.remove('open');
-        btn.classList.remove('active');
-        form.querySelector('input').blur();
-    } else {
-        form.classList.add('open');
-        btn.classList.add('active');
-        setTimeout(() => form.querySelector('input').focus(), 320);
-    }
-}
-
-// Tutup mobile search saat klik di luar
-document.addEventListener('click', function(e) {
-    const wrap = document.querySelector('.navbar-mobile-search-wrap');
-    if (wrap && !wrap.contains(e.target)) {
-        const form = wrap.querySelector('.navbar-mobile-search-form');
-        const btn  = wrap.querySelector('.navbar-mobile-search');
-        if (form) form.classList.remove('open');
-        if (btn)  btn.classList.remove('active');
-    }
-});
-
 // Animate on scroll
 const animateElements = document.querySelectorAll('.animate');
 const observer = new IntersectionObserver((entries) => {

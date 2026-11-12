@@ -1350,51 +1350,15 @@ select.form-control { cursor: pointer; }
 }
 
 /* =====================================================
-   NAVBAR — mobile search expandable, desktop-only items
+   NAVBAR — mobile search langsung tampil, desktop-only items
    ===================================================== */
 
-/* Wrapper search mobile */
-.navbar-mobile-search-wrap {
-    display: none;
-    align-items: center;
-    position: relative;
-}
-
-/* Ikon search tombol */
-.navbar-mobile-search {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px; height: 34px;
-    border-radius: 50%;
-    background: rgba(45,106,79,0.08);
-    border: 1px solid var(--border);
-    color: var(--green-dark);
-    font-size: 0.9rem;
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: var(--transition);
-}
-.navbar-mobile-search:hover,
-.navbar-mobile-search.active {
-    background: var(--green);
-    color: #fff;
-    border-color: var(--green);
-}
-
-/* Input search yang bisa expand/collapse */
+/* Form search mobile — langsung tampil di navbar */
 .navbar-mobile-search-form {
-    position: absolute;
-    right: 42px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 0;
-    overflow: hidden;
-    transition: width 0.3s ease;
-    white-space: nowrap;
-}
-.navbar-mobile-search-form.open {
-    width: 180px;
+    display: none;
+    position: relative;
+    flex: 1;
+    max-width: 180px;
 }
 .navbar-mobile-search-form input {
     width: 100%;
@@ -1413,12 +1377,13 @@ select.form-control { cursor: pointer; }
 }
 
 @media (max-width: 768px) {
-    .navbar-mobile-search-wrap { display: flex; }
+    .navbar-mobile-search-form { display: block; }
+    .navbar-mobile-search-wrap { display: none !important; }
     .navbar-desktop-only { display: none !important; }
     .navbar-search { display: none; }
 }
 
 @media (min-width: 769px) {
-    .navbar-mobile-search-wrap { display: none !important; }
+    .navbar-mobile-search-form { display: none !important; }
     .navbar-desktop-only { display: inline-flex !important; }
 }
