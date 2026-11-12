@@ -1227,3 +1227,28 @@ select.form-control { cursor: pointer; }
     .detail-info-val { font-size: 0.78rem !important; }
     .detail-info-card > div:last-child { font-size: 0.6rem !important; }
 }
+
+/* Nutrisi grid mobile */
+@media (max-width: 768px) {
+    .detail-nutrisi-grid {
+        grid-template-columns: repeat(5, 1fr) !important;
+        gap: 0.4rem !important;
+    }
+    .detail-nutrisi-card {
+        padding: 0.6rem 0.2rem !important;
+        border-radius: 10px !important;
+        border-top-width: 2px !important;
+    }
+    .detail-nutrisi-val {
+        font-size: 0.85rem !important;
+    }
+    .detail-nutrisi-card > div:nth-child(2) { font-size: 0.55rem !important; }
+    .detail-nutrisi-card > div:nth-child(3) { font-size: 0.6rem !important; }
+}
+
+@media (max-width: 400px) {
+    /* Layar sangat kecil: 3+2 biar tidak terlalu sempit */
+    .detail-nutrisi-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}

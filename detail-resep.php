@@ -275,7 +275,7 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                 </span>
                 Informasi Nutrisi <small style="font-family:'Poppins',sans-serif;font-size:0.72rem;color:#8a9e87;font-weight:400;">per porsi</small>
             </h2>
-            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;">
+            <div class="detail-nutrisi-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;">
                 <?php
                 $ni_list = [
                     ['label'=>'Kalori','value'=>$nutrisi['kalori'],'unit'=>'kkal','color'=>'#e74c3c','bg'=>'rgba(231,76,60,0.08)'],
@@ -286,8 +286,8 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                 ];
                 foreach ($ni_list as $ni):
                 ?>
-                <div style="text-align:center;padding:1.2rem 0.5rem;background:<?= $ni['bg'] ?>;border-radius:14px;border-top:3px solid <?= $ni['color'] ?>;">
-                    <div style="font-size:1.3rem;font-weight:700;color:#1a2e1a;"><?= number_format($ni['value'],1) ?></div>
+                <div class="detail-nutrisi-card" style="text-align:center;padding:1.2rem 0.5rem;background:<?= $ni['bg'] ?>;border-radius:14px;border-top:3px solid <?= $ni['color'] ?>;">
+                    <div class="detail-nutrisi-val" style="font-size:1.3rem;font-weight:700;color:#1a2e1a;"><?= number_format($ni['value'],1) ?></div>
                     <div style="font-size:0.68rem;color:#8a9e87;margin:2px 0;"><?= $ni['unit'] ?></div>
                     <div style="font-size:0.75rem;font-weight:600;color:<?= $ni['color'] ?>;"><?= $ni['label'] ?></div>
                 </div>
