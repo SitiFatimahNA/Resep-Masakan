@@ -1445,13 +1445,35 @@ select.form-control { cursor: pointer; }
         gap: 6px !important;
         margin-bottom: 10px !important;
     }
-    /* Nama bahan span full 3 kolom */
     .bahan-nama-input {
         grid-column: 1 / -1;
     }
 
     /* Header kolom bahan sembunyikan di mobile */
     .bahan-header { display: none !important; }
+
+    /* Langkah row — pastikan tidak meluber */
+    .langkah-row {
+        gap: 8px !important;
+        overflow: hidden;
+    }
+    .langkah-row > div:nth-child(2) {
+        min-width: 0;
+        overflow: hidden;
+    }
+    /* Tombol hapus langkah tetap di dalam, textarea tidak meluber */
+    .langkah-row textarea {
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+    /* Nomor langkah lebih kecil */
+    .langkah-num {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 0.78rem !important;
+        margin-top: 6px !important;
+        flex-shrink: 0 !important;
+    }
 
     /* File input lebih kecil */
     input[type="file"] { font-size: 0.78rem; }
