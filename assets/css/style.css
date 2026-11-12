@@ -1348,3 +1348,45 @@ select.form-control { cursor: pointer; }
     .hero-img-mobile { display: block !important; }
     .hero-col-img    { display: none !important; }
 }
+
+/* =====================================================
+   NAVBAR — mobile search icon, desktop-only items
+   ===================================================== */
+
+/* Ikon search mobile — sembunyikan di desktop */
+.navbar-mobile-search {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(45,106,79,0.1);
+    color: var(--green-dark);
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+.navbar-mobile-search:hover {
+    background: var(--green);
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    /* Tampilkan ikon search di mobile */
+    .navbar-mobile-search { display: flex; }
+
+    /* Sembunyikan tombol Tambah Resep / Admin di mobile */
+    .navbar-desktop-only { display: none !important; }
+
+    /* Sembunyikan search bar input di mobile (sudah ada ikon) */
+    .navbar-search { display: none; }
+}
+
+@media (min-width: 769px) {
+    /* Sembunyikan ikon search di desktop */
+    .navbar-mobile-search { display: none !important; }
+
+    /* Tampilkan tombol desktop */
+    .navbar-desktop-only { display: inline-flex !important; }
+}

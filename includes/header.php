@@ -65,7 +65,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     <!-- Search + Actions -->
     <div class="navbar-actions">
-        <!-- Search -->
+        <!-- Search (desktop) -->
         <div class="navbar-search">
             <form action="/resep-masakan/resep.php" method="GET">
                 <i class="fas fa-search search-icon"></i>
@@ -74,14 +74,19 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </form>
         </div>
 
+        <!-- Ikon search (mobile only) -->
+        <a href="/resep-masakan/resep.php" class="navbar-mobile-search" title="Cari Resep">
+            <i class="fas fa-search"></i>
+        </a>
+
         <?php if (isset($_SESSION['user_id'])): ?>
-            <!-- User sudah login -->
+            <!-- Tambah Resep / Admin (desktop only) -->
             <?php if ($_SESSION['role'] === 'admin'): ?>
-                <a href="/resep-masakan/admin/dashboard.php" class="btn btn-outline btn-sm">
+                <a href="/resep-masakan/admin/dashboard.php" class="btn btn-outline btn-sm navbar-desktop-only">
                     <i class="fas fa-tachometer-alt"></i> Admin
                 </a>
             <?php else: ?>
-                <a href="/resep-masakan/user/tambah-resep.php" class="btn btn-gold btn-sm">
+                <a href="/resep-masakan/user/tambah-resep.php" class="btn btn-gold btn-sm navbar-desktop-only">
                     <i class="fas fa-plus"></i> Tambah Resep
                 </a>
             <?php endif; ?>
