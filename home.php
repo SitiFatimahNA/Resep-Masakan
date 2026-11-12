@@ -7,7 +7,7 @@ $page_title = 'Beranda';
 // Resep terbaru
 $resep_terbaru = [];
 $result = mysqli_query($koneksi,
-    "SELECT r.*, u.nama as nama_user, k.nama_kategori,
+    "SELECT r.*, u.nama as nama_user, u.foto as foto_user, k.nama_kategori,
      COALESCE(AVG(rt.nilai),0) as rata_rating,
      COUNT(DISTINCT rt.id) as jumlah_rating
      FROM resep r
@@ -21,7 +21,7 @@ if ($result) while ($row = mysqli_fetch_assoc($result)) $resep_terbaru[] = $row;
 // Resep populer
 $resep_populer = [];
 $result2 = mysqli_query($koneksi,
-    "SELECT r.*, u.nama as nama_user, k.nama_kategori,
+    "SELECT r.*, u.nama as nama_user, u.foto as foto_user, k.nama_kategori,
      COALESCE(AVG(rt.nilai),0) as rata_rating,
      COUNT(DISTINCT rt.id) as jumlah_rating
      FROM resep r
@@ -398,8 +398,10 @@ require_once 'includes/header.php';
                             <span style="font-size:0.72rem;color:var(--text-muted);">(<?= $resep['jumlah_rating'] ?>)</span>
                         </div>
                         <!-- Nama user di bawah bintang -->
-                        <div style="display:flex;align-items:center;gap:4px;font-size:0.72rem;color:var(--text-muted);">
-                            <i class="fas fa-user-circle" style="color:var(--green);font-size:0.68rem;"></i>
+                        <div style="display:flex;align-items:center;gap:5px;font-size:0.72rem;color:var(--text-muted);">
+                            <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($resep['foto_user'] ?? 'default.png') ?>"
+                                 style="width:18px;height:18px;border-radius:50%;object-fit:cover;border:1px solid #c8ddc8;flex-shrink:0;"
+                                 onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
                             <?= htmlspecialchars(mb_strimwidth($resep['nama_user'],0,18,'...')) ?>
                         </div>
                     </div>

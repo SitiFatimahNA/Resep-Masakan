@@ -78,7 +78,7 @@ if (!empty($params)) {
 
 $total_page = ceil($total_data / $per_page);
 
-$sql = "SELECT r.*, u.nama as nama_user,
+$sql = "SELECT r.*, u.nama as nama_user, u.foto as foto_user,
         k.nama_kategori, k.slug as kat_slug,
         j.nama_jenis,
         COALESCE(AVG(rt.nilai),0) as rata_rating,
@@ -430,10 +430,12 @@ require_once 'includes/header.php';
                             </div>
                             <span style="font-size:0.7rem;color:#8a9e87;">(<?= $resep['jumlah_rating'] ?>)</span>
                         </div>
-                        <!-- Baris 2: Nama pembuat -->
-                        <div style="font-size:0.72rem;color:#8a9e87;display:flex;align-items:center;gap:4px;overflow:hidden;">
-                            <i class="fas fa-user-circle" style="flex-shrink:0;"></i>
-                            <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                        <!-- Baris 2: Foto + Nama pembuat -->
+                        <div style="display:flex;align-items:center;gap:6px;overflow:hidden;">
+                            <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($resep['foto_user'] ?? 'default.png') ?>"
+                                 style="width:20px;height:20px;border-radius:50%;object-fit:cover;border:1.5px solid #c8ddc8;flex-shrink:0;"
+                                 onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                            <span style="font-size:0.72rem;color:#8a9e87;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
                                 <?= htmlspecialchars($resep['nama_user']) ?>
                             </span>
                         </div>
