@@ -72,8 +72,8 @@ require_once 'includes/header.php';
     <div class="container" style="position:relative;z-index:2;">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;" class="hero-grid-2col">
 
-            <!-- KIRI -->
-            <div>
+            <!-- KIRI: teks -->
+            <div class="hero-col-text">
                 <!-- Tag -->
                 <div style="
                     display:inline-flex;align-items:center;gap:8px;
@@ -158,7 +158,7 @@ require_once 'includes/header.php';
             </div>
 
             <!-- KANAN: Foto + floating cards -->
-            <div style="position:relative;display:flex;justify-content:center;align-items:center;">
+            <div class="hero-col-img" style="position:relative;display:flex;justify-content:center;align-items:center;">
                 <!-- Lingkaran cahaya -->
                 <div style="position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(82,183,136,0.2) 0%,transparent 70%);z-index:0;"></div>
 
