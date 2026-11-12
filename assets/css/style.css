@@ -1455,13 +1455,18 @@ select.form-control { cursor: pointer; }
     /* Langkah row — pastikan tidak meluber */
     .langkah-row {
         gap: 8px !important;
-        overflow: hidden;
     }
     .langkah-row > div:nth-child(2) {
         min-width: 0;
+        max-width: 100%;
+        overflow: visible;
+    }
+    /* Grid dalam langkah: textarea | tombol hapus */
+    .langkah-row > div:nth-child(2) > div:first-child {
+        min-width: 0;
         overflow: hidden;
     }
-    /* Tombol hapus langkah tetap di dalam, textarea tidak meluber */
+    /* Textarea tidak meluber */
     .langkah-row textarea {
         width: 100% !important;
         box-sizing: border-box;
