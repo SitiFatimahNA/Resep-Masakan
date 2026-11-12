@@ -65,7 +65,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     <!-- Search + Actions -->
     <div class="navbar-actions">
-        <!-- Search -->
+        <!-- Search (desktop only, mobile pakai tombol search) -->
         <div class="navbar-search">
             <form action="/resep-masakan/resep.php" method="GET">
                 <i class="fas fa-search search-icon"></i>
@@ -74,25 +74,31 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </form>
         </div>
 
+        <!-- Tombol Search mobile (hanya tampil di mobile) -->
+        <a href="/resep-masakan/resep.php" class="navbar-search-btn" title="Cari Resep">
+            <i class="fas fa-search"></i>
+        </a>
+
         <?php if (isset($_SESSION['user_id'])): ?>
-            <!-- User sudah login -->
+            <!-- Tambah Resep (sembunyikan di mobile) -->
             <?php if ($_SESSION['role'] === 'admin'): ?>
-                <a href="/resep-masakan/admin/dashboard.php" class="btn btn-outline btn-sm">
+                <a href="/resep-masakan/admin/dashboard.php" class="btn btn-outline btn-sm navbar-hide-mobile">
                     <i class="fas fa-tachometer-alt"></i> Admin
                 </a>
             <?php else: ?>
-                <a href="/resep-masakan/user/tambah-resep.php" class="btn btn-gold btn-sm">
+                <a href="/resep-masakan/user/tambah-resep.php" class="btn btn-gold btn-sm navbar-hide-mobile">
                     <i class="fas fa-plus"></i> Tambah Resep
                 </a>
             <?php endif; ?>
 
-            <!-- Avatar Dropdown -->
-            <div class="user-dropdown">
+            <!-- Avatar Dropdown — tap untuk toggle -->
+            <div class="user-dropdown" id="user-dropdown">
                 <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($_SESSION['foto'] ?? 'default.png') ?>" 
                      alt="<?= htmlspecialchars($_SESSION['nama']) ?>"
                      class="user-avatar"
+                     onclick="toggleDropdown(event)"
                      onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
-                <div class="dropdown-menu">
+                <div class="dropdown-menu" id="dropdown-menu">
                     <a href="/resep-masakan/user/profil.php">
                         <i class="fas fa-user"></i> Profil Saya
                     </a>
@@ -114,7 +120,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <a href="/resep-masakan/login.php" class="btn btn-outline btn-sm">
                 <i class="fas fa-sign-in-alt"></i> Masuk
             </a>
-            <a href="/resep-masakan/register.php" class="btn btn-gold btn-sm">
+            <a href="/resep-masakan/register.php" class="btn btn-gold btn-sm navbar-hide-mobile">
                 <i class="fas fa-user-plus"></i> Daftar
             </a>
         <?php endif; ?>

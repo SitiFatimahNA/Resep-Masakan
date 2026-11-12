@@ -81,6 +81,21 @@ function toggleMenu() {
     hamburger.classList.toggle('open');
 }
 
+// Toggle dropdown avatar — tap buka, tap lagi tutup
+function toggleDropdown(e) {
+    e.stopPropagation();
+    const dropdown = document.getElementById('user-dropdown');
+    dropdown.classList.toggle('open');
+}
+
+// Tutup dropdown saat klik di luar
+document.addEventListener('click', function(e) {
+    const dropdown = document.getElementById('user-dropdown');
+    if (dropdown && !dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+    }
+});
+
 // Animate on scroll
 const animateElements = document.querySelectorAll('.animate');
 const observer = new IntersectionObserver((entries) => {
