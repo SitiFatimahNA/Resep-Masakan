@@ -1115,3 +1115,66 @@ select.form-control { cursor: pointer; }
         grid-template-columns: 1fr !important;
     }
 }
+
+/* =====================================================
+   IMAGE SIZING — Hero & Detail Resep
+   ===================================================== */
+
+/* Hero image home */
+.hero-main-img {
+    width: 360px;
+    height: 420px;
+    object-fit: cover;
+    border-radius: 28px;
+    position: relative;
+    z-index: 2;
+    animation: float 6s ease-in-out infinite;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+}
+
+/* Foto utama detail resep */
+.detail-resep-img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Card resep — gambar */
+.card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    /* Hero: lebih kecil dan tidak terlalu tinggi */
+    .hero-main-img {
+        width: 100% !important;
+        max-width: 300px !important;
+        height: 260px !important;
+        margin: 0 auto;
+        display: block;
+    }
+
+    /* Foto detail resep */
+    .detail-resep-img {
+        height: 240px !important;
+    }
+
+    /* Card resep thumbnail */
+    .card-img {
+        height: 150px !important;
+    }
+
+    /* Floating cards hero — sembunyikan di mobile kecil agar tidak bertumpuk */
+    .hero-float-card {
+        display: none !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-main-img  { max-width: 260px !important; height: 200px !important; }
+    .detail-resep-img { height: 200px !important; }
+    .card-img       { height: 130px !important; }
+}

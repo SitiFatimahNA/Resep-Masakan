@@ -235,8 +235,8 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
         <!-- Foto utama -->
         <div style="border-radius:24px;overflow:hidden;box-shadow:0 8px 32px rgba(45,106,79,0.15);">
             <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
+                 class="detail-resep-img"
                  alt="<?= htmlspecialchars($resep['judul']) ?>"
-                 style="width:100%;height:400px;object-fit:cover;display:block;"
                  onerror="this.src='/resep-masakan/assets/images/default-resep.svg'">
         </div>
 

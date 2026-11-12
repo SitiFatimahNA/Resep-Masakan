@@ -165,18 +165,12 @@ require_once 'includes/header.php';
                 <!-- Foto utama -->
                 <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=85"
                      alt="Masakan Lezat"
-                     style="
-                        width:360px;height:420px;
-                        object-fit:cover;
-                        border-radius:28px;
-                        position:relative;z-index:2;
-                        animation:float 6s ease-in-out infinite;
-                        box-shadow:0 40px 80px rgba(0,0,0,0.4);
-                     "
+                     class="hero-main-img"
+                     style="animation:float 6s ease-in-out infinite;"
                      onerror="this.src='https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&q=80'">
 
                 <!-- Floating card — Rating -->
-                <div style="
+                <div class="hero-float-card" style="
                     position:absolute;top:30px;right:-20px;
                     background:rgba(255,255,255,0.95);
                     border-radius:16px;padding:12px 16px;
@@ -196,7 +190,8 @@ require_once 'includes/header.php';
                 </div>
 
                 <!-- Floating card — Resep baru -->
-                <div style="
+                <!-- Floating card — Resep baru -->
+                <div class="hero-float-card" style="
                     position:absolute;bottom:40px;left:-30px;
                     background:rgba(255,255,255,0.95);
                     border-radius:16px;padding:14px 16px;
