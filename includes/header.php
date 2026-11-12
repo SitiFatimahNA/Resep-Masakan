@@ -96,7 +96,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
             <!-- Avatar Dropdown -->
             <div class="user-dropdown">
-                <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($_SESSION['foto'] ?? 'default.png') ?>" 
+                <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($_SESSION['foto'] ?? 'default.png') ?>?v=<?= $_SESSION['user_id'] ?? 0 ?>" 
                      alt="<?= htmlspecialchars($_SESSION['nama']) ?>"
                      class="user-avatar"
                      onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">

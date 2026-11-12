@@ -78,10 +78,12 @@ require_once '../includes/header.php';
     <div class="container" style="position:relative;z-index:1;">
         <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
             <!-- Avatar -->
-            <div style="position:relative;">
-                <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($user['foto'] ?? 'default.png') ?>"
+            <div style="position:relative;cursor:pointer;" onclick="document.getElementById('foto-upload').click()" title="Klik untuk ganti foto">
+                <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($user['foto'] ?? 'default.png') ?>?v=<?= time() ?>"
                      id="avatar-preview"
-                     style="width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid rgba(82,183,136,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.3);"
+                     style="width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid rgba(82,183,136,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:opacity 0.2s;"
+                     onmouseover="this.style.opacity='0.8'"
+                     onmouseout="this.style.opacity='1'"
                      onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
                 <div style="position:absolute;bottom:0;right:0;width:26px;height:26px;background:linear-gradient(135deg,#40916c,#52b788);border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid rgba(10,46,26,0.8);">
                     <i class="fas fa-camera" style="font-size:0.6rem;color:#fff;"></i>
@@ -161,6 +163,7 @@ require_once '../includes/header.php';
                              onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
                         <div style="flex:1;">
                             <input type="file" name="foto" accept="image/*"
+                                   id="foto-upload"
                                    onchange="previewFoto(this)"
                                    style="width:100%;font-size:0.8rem;color:#4a6741;">
                             <small style="color:#8a9e87;font-size:0.72rem;">JPG/PNG/WEBP, maks 2MB</small>
