@@ -2,7 +2,7 @@
 $page_title = 'Laporan';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-require_once $_SERVER['DOCUMENT_ROOT'] . '/resep-masakan/config/koneksi.php';
+require_once dirname(__DIR__) . '/config/koneksi.php';
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 // Filter tanggal
@@ -75,7 +75,7 @@ require_once 'includes/admin-header.php';?>
     .laporan-actions .btn { font-size: 0.72rem !important; padding: 6px 10px !important; }
     .laporan-actions .btn i { margin-right: 3px; }
 
-    /* Filter form di mobile — stack vertikal */
+    /* Filter form di mobile � stack vertikal */
     .laporan-filter-form {
         flex-direction: column !important;
         gap: 0.8rem !important;
@@ -160,7 +160,7 @@ require_once 'includes/admin-header.php';?>
 <!-- Tabel Laporan -->
 <div class="admin-card" id="tabel-laporan">
     <div class="admin-card-header">
-        <h3><i class="fas fa-table"></i> Daftar Resep — <?= date('d M Y', strtotime($dari)) ?> s/d <?= date('d M Y', strtotime($sampai)) ?></h3>
+        <h3><i class="fas fa-table"></i> Daftar Resep &mdash; <?= date('d M Y', strtotime($dari)) ?> s/d <?= date('d M Y', strtotime($sampai)) ?></h3>
         <span style="font-size:0.78rem;color:var(--text-3);"><?= $stats['total'] ?> resep</span>
     </div>
     <div style="overflow-x:auto;" class="tabel-laporan">
