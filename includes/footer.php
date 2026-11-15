@@ -87,13 +87,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const dropdown = document.querySelector('.user-dropdown');
     if (!avatar || !dropdown) return;
 
+    let skipNext = false;
+
     avatar.addEventListener('click', function(e) {
-        e.stopPropagation();
+        skipNext = true;
         dropdown.classList.toggle('open');
     });
 
-    // Tutup saat tap/klik di luar
     document.addEventListener('click', function(e) {
+        if (skipNext) { skipNext = false; return; }
         if (!dropdown.contains(e.target)) {
             dropdown.classList.remove('open');
         }
