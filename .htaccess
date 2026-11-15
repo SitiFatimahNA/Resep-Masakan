@@ -1,0 +1,6 @@
+Options -Indexes
+DirectoryIndex index.php home.php
+
+# Redirect root ke home.php
+RewriteEngine On
+RewriteRule ^$ /home.php [L,R=301]
