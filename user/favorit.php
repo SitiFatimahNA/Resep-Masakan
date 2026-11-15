@@ -14,7 +14,7 @@ $total      = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT COUNT(*) t FROM 
 $total_page = ceil($total / $per_page);
 
 $result = mysqli_query($koneksi,
-    "SELECT r.*, u.nama as nama_user, k.nama_kategori,
+    "SELECT r.*, u.nama as nama_user, u.foto as foto_user, k.nama_kategori,
      COALESCE(AVG(rt.nilai),0) as rata_rating,
      COUNT(DISTINCT rt.id) as jumlah_rating,
      f.created_at as tanggal_simpan
@@ -98,14 +98,23 @@ require_once '../includes/header.php';
                 <h3 style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:#1a2e1a;margin-bottom:0.5rem;line-height:1.4;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">
                     <?= htmlspecialchars($resep['judul']) ?>
                 </h3>
-                <div style="display:flex;align-items:center;justify-content:space-between;padding-top:0.7rem;border-top:1px solid #f0f5f0;">
-                    <div style="display:flex;gap:2px;color:#f59e0b;font-size:0.72rem;">
-                        <?php $rat=round($resep['rata_rating']); for($s=1;$s<=5;$s++) echo $s<=$rat?'<i class="fas fa-star"></i>':'<i class="far fa-star" style="color:#e0e0e0;"></i>'; ?>
-                        <span style="color:#8a9e87;margin-left:3px;">(<?= $resep['jumlah_rating'] ?>)</span>
+                <div style="padding-top:0.7rem;border-top:1px solid #f0f5f0;">
+                    <!-- Baris 1: Rating -->
+                    <div style="display:flex;align-items:center;gap:2px;margin-bottom:0.3rem;">
+                        <div style="display:flex;gap:2px;color:#f59e0b;font-size:0.72rem;">
+                            <?php $rat=round($resep['rata_rating']); for($s=1;$s<=5;$s++) echo $s<=$rat?'<i class="fas fa-star"></i>':'<i class="far fa-star" style="color:#e0e0e0;"></i>'; ?>
+                        </div>
+                        <span style="color:#8a9e87;margin-left:3px;font-size:0.7rem;">(<?= $resep['jumlah_rating'] ?>)</span>
                     </div>
-                    <span style="font-size:0.68rem;color:#8a9e87;">
-                        <i class="fas fa-user-circle"></i> <?= htmlspecialchars(mb_strimwidth($resep['nama_user'],0,12,'...')) ?>
-                    </span>
+                    <!-- Baris 2: Foto + Nama -->
+                    <div style="display:flex;align-items:center;gap:5px;overflow:hidden;">
+                        <img src="/uploads/profil/<?= htmlspecialchars($resep['foto_user'] ?? 'default.png') ?>"
+                             style="width:18px;height:18px;border-radius:50%;object-fit:cover;border:1px solid #c8ddc8;flex-shrink:0;"
+                             onerror="this.src='/assets/images/default-avatar.svg'">
+                        <span style="font-size:0.7rem;color:#8a9e87;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                            <?= htmlspecialchars(mb_strimwidth($resep['nama_user'],0,18,'...')) ?>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
