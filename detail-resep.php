@@ -133,6 +133,11 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
 ?>
 
 <!-- ===== HERO SECTION ===== -->
+<style>
+@media (max-width: 768px) {
+    .detail-hero-container { padding-top: 2.5rem !important; padding-bottom: 5.5rem !important; }
+}
+</style>
 <div style="background:linear-gradient(160deg,#0a2e1a,#1a4731,#2d6a4f);position:relative;overflow:hidden;">
     <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(82,183,136,0.15) 0%,transparent 60%);pointer-events:none;"></div>
     <div class="container detail-hero-container" style="position:relative;z-index:1;padding:2.5rem 1.5rem 4rem;">
@@ -189,7 +194,7 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                 </div>
             </div>
 
-            <!-- Aksi — desktop kanan, mobile bawah info -->
+            <!-- Aksi ï¿½ desktop kanan, mobile bawah info -->
             <div class="detail-hero-actions" style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;">
                 <?php if (isset($_SESSION['user_id'])): ?>
                 <button onclick="toggleFavorit()" id="btn-favorit"
