@@ -89,9 +89,6 @@ $result = mysqli_query($koneksi,
 
 <div class="page-header">
     <h1>Kelola <span>Resep</span></h1>
-    <a href="/user/tambah-resep.php" class="btn btn-gold btn-sm">
-        <i class="fas fa-plus"></i> Tambah Resep
-    </a>
 </div>
 
 <?php if (isset($_GET['msg'])): ?>
@@ -221,11 +218,6 @@ $no_start = $offset + 1;
 
     <!-- Baris 2: Meta info dalam 1 baris -->
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:0.6rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:0.8rem;">
-        <!-- Pembuat -->
-        <span style="font-size:0.75rem;color:var(--text-2);display:flex;align-items:center;gap:4px;">
-            <i class="fas fa-user-circle" style="color:var(--green-3);"></i>
-            <?= htmlspecialchars($r['nama_user']) ?>
-        </span>
         <!-- Kategori -->
         <span style="font-size:0.72rem;background:rgba(45,106,79,0.08);color:var(--green-2);padding:2px 8px;border-radius:20px;font-weight:500;">
             <?= htmlspecialchars($r['nama_kategori']) ?>

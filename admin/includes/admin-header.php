@@ -757,7 +757,7 @@ $current = basename($_SERVER['PHP_SELF']);
             transform: translateX(0) !important;
             box-shadow: 4px 0 30px rgba(0,0,0,0.5);
         }
-        .admin-main { margin-left: 0 !important; }
+        .admin-main { margin-left: 0 !important; padding-top: 0 !important; }
         .admin-content { padding: 1rem !important; }
 
         /* Hamburger button */
