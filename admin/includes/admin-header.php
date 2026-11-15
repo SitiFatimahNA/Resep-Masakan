@@ -49,11 +49,14 @@ $current = basename($_SERVER['PHP_SELF']);
     html, body {
         overflow-x: hidden;
         max-width: 100%;
-        background: var(--bg-card); /* Sama dengan warna topbar agar tidak ada jeda putih */
+        background: var(--bg-card);
+        margin: 0;
+        padding: 0;
     }
 
     /* Override style.css publik yang punya margin-top untuk navbar */
     .main-content { margin-top: 0 !important; }
+    .admin-wrapper { margin: 0; padding: 0; }
 
     body {
         font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
