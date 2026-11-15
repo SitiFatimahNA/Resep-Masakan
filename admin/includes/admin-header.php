@@ -49,6 +49,7 @@ $current = basename($_SERVER['PHP_SELF']);
     html, body {
         overflow-x: hidden;
         max-width: 100%;
+        background: var(--bg-card); /* Sama dengan warna topbar agar tidak ada jeda putih */
     }
 
     /* Override style.css publik yang punya margin-top untuk navbar */
