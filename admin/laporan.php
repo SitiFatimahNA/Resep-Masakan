@@ -1,4 +1,5 @@
 ﻿<?php
+ob_start();
 $page_title = 'Laporan';
 error_reporting(0);
 ini_set('display_errors', 0);
@@ -44,8 +45,12 @@ $stats = [
 
 // Handle export CSV - SEBELUM include header agar tidak headers already sent
 if (isset($_GET['export']) && $_GET['export'] === 'csv') {
+    // Bersihkan semua output buffer yang mungkin sudah terisi
+    while (ob_get_level()) ob_end_clean();
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename="laporan-resep-'.date('Ymd').'.csv"');
+    header('Cache-Control: no-cache, no-store, must-revalidate');
+    header('Pragma: no-cache');
     $out = fopen('php://output', 'w');
     fputcsv($out, ['No','Judul','Pembuat','Kategori','Jenis','Kesulitan','Waktu(mnt)','Porsi','Views','Rating','Komentar','Status','Tanggal']);
     $no = 1;
