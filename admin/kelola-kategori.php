@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 $page_title = 'Kelola Kategori';
 require_once dirname(__DIR__) . '/config/koneksi.php';
 require_once 'includes/admin-header.php';
