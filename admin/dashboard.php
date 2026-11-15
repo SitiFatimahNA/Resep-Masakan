@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 $page_title = 'Dashboard';
 require_once dirname(__DIR__) . '/config/koneksi.php';
 require_once 'includes/admin-header.php';
@@ -119,7 +119,7 @@ foreach ($stats as $s):
             <div style="width:24px; height:24px; background:<?= $rank<=3?'linear-gradient(135deg,var(--green-2),var(--green-3))':'var(--bg)' ?>; color:<?= $rank<=3?'#fff':'var(--text-3)' ?>; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:0.65rem; font-weight:700; flex-shrink:0;"><?= $rank ?></div>
             <div style="flex:1; min-width:0;">
                 <div style="font-size:0.75rem; font-weight:600; color:var(--text-1); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($r['judul']) ?></div>
-                <div style="font-size:0.65rem; color:var(--text-3);"><?= number_format($r['views']) ?> views · <?= number_format($r['rata_rating'],1) ?>?</div>
+                <div style="font-size:0.65rem; color:var(--text-3);"><?= number_format($r['views']) ?> views &bull; &#11088; <?= number_format($r['rata_rating'],1) ?></div>
             </div>
         </div>
         <?php $rank++; endwhile; ?>
@@ -134,7 +134,7 @@ foreach ($stats as $s):
     <div class="admin-card">
         <div class="admin-card-header">
             <h3><i class="fas fa-clock"></i> Resep Terbaru</h3>
-            <a href="/admin/kelola-resep.php" style="font-size:0.72rem; color:var(--green-3); font-weight:600; text-decoration:none; white-space:nowrap;">Lihat ?</a>
+            <a href="/admin/kelola-resep.php" style="font-size:0.72rem; color:var(--green-3); font-weight:600; text-decoration:none; white-space:nowrap;">Lihat &rarr;</a>
         </div>
         <table class="admin-table">
             <thead>
@@ -168,7 +168,7 @@ foreach ($stats as $s):
     <div class="admin-card">
         <div class="admin-card-header">
             <h3><i class="fas fa-comments"></i> Komentar Terbaru</h3>
-            <a href="/admin/kelola-komentar.php" style="font-size:0.72rem; color:var(--green-3); font-weight:600; text-decoration:none; white-space:nowrap;">Lihat ?</a>
+            <a href="/admin/kelola-komentar.php" style="font-size:0.72rem; color:var(--green-3); font-weight:600; text-decoration:none; white-space:nowrap;">Lihat &rarr;</a>
         </div>
         <table class="admin-table">
             <thead>
