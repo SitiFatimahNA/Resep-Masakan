@@ -1,8 +1,8 @@
-﻿<?php
+<?php
 $page_title = 'Kelola Komentar';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-require_once $_SERVER['DOCUMENT_ROOT'] . '/resep-masakan/config/koneksi.php';
+require_once dirname(__DIR__) . '/config/koneksi.php';
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 $aksi = $_GET['aksi'] ?? '';
@@ -15,13 +15,13 @@ if ($aksi === 'toggle' && $id) {
         $new = $cur['status'] === 'aktif' ? 'nonaktif' : 'aktif';
         mysqli_query($koneksi, "UPDATE komentar SET status='$new' WHERE id=$id");
     }
-    header('Location: /resep-masakan/admin/kelola-komentar.php?msg=updated'); exit;
+    header('Location: /admin/kelola-komentar.php?msg=updated'); exit;
 }
 
 // Hapus SEBELUM include header
 if ($aksi === 'hapus' && $id) {
     mysqli_query($koneksi, "DELETE FROM komentar WHERE id=$id");
-    header('Location: /resep-masakan/admin/kelola-komentar.php?msg=deleted'); exit;
+    header('Location: /admin/kelola-komentar.php?msg=deleted'); exit;
 }
 
 $q        = trim($_GET['q'] ?? '');
@@ -101,7 +101,7 @@ require_once 'includes/admin-header.php';
         </select>
         <button type="submit" class="btn btn-gold btn-sm"><i class="fas fa-search"></i> Cari</button>
         <?php if ($q || $filter!=='semua'): ?>
-        <a href="/resep-masakan/admin/kelola-komentar.php" class="btn btn-dark btn-sm"><i class="fas fa-times"></i> Reset</a>
+        <a href="/admin/kelola-komentar.php" class="btn btn-dark btn-sm"><i class="fas fa-times"></i> Reset</a>
         <?php endif; ?>
     </form>
 </div>
@@ -120,9 +120,9 @@ require_once 'includes/admin-header.php';
                 <td style="color:var(--text-3);font-size:0.78rem;font-weight:600;"><?= $no++ ?></td>
                 <td>
                     <div style="display:flex;align-items:center;gap:10px;">
-                        <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($k['foto_user'] ?? 'default.png') ?>"
+                        <img src="/uploads/profil/<?= htmlspecialchars($k['foto_user'] ?? 'default.png') ?>"
                              style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:1.5px solid var(--border);"
-                             onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                             onerror="this.src='/assets/images/default-avatar.svg'">
                         <span style="font-size:0.82rem;font-weight:600;color:var(--text-1);"><?= htmlspecialchars($k['nama_user']) ?></span>
                     </div>
                 </td>
@@ -130,7 +130,7 @@ require_once 'includes/admin-header.php';
                     <?= htmlspecialchars(mb_strimwidth($k['komentar'],0,70,'...')) ?>
                 </td>
                 <td>
-                    <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($k['slug_resep']) ?>"
+                    <a href="/detail-resep.php?slug=<?= urlencode($k['slug_resep']) ?>"
                        style="font-size:0.78rem;color:var(--green-3);font-weight:500;text-decoration:none;" target="_blank">
                         <?= htmlspecialchars(mb_strimwidth($k['judul_resep'],0,28,'...')) ?>
                         <i class="fas fa-external-link-alt" style="font-size:0.6rem;"></i>
@@ -169,9 +169,9 @@ require_once 'includes/admin-header.php';
 
     <!-- Baris 1: Avatar + Nama + Waktu -->
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.8rem;">
-        <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($k['foto_user'] ?? 'default.png') ?>"
+        <img src="/uploads/profil/<?= htmlspecialchars($k['foto_user'] ?? 'default.png') ?>"
              style="width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid var(--border);flex-shrink:0;"
-             onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+             onerror="this.src='/assets/images/default-avatar.svg'">
         <div style="flex:1;min-width:0;">
             <div style="font-size:0.875rem;font-weight:700;color:var(--text-1);"><?= htmlspecialchars($k['nama_user']) ?></div>
             <div style="font-size:0.68rem;color:var(--text-3);"><?= date('d M Y H:i', strtotime($k['created_at'])) ?></div>
@@ -189,7 +189,7 @@ require_once 'includes/admin-header.php';
 
     <!-- Baris 3: Resep + Tombol Hapus -->
     <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
-        <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($k['slug_resep']) ?>"
+        <a href="/detail-resep.php?slug=<?= urlencode($k['slug_resep']) ?>"
            style="display:flex;align-items:center;gap:6px;font-size:0.75rem;color:var(--green-3);font-weight:600;text-decoration:none;flex:1;min-width:0;"
            target="_blank">
             <i class="fas fa-book-open" style="flex-shrink:0;"></i>
@@ -209,7 +209,7 @@ require_once 'includes/admin-header.php';
 <?php if ($total_page > 1): ?>
 <div class="pagination" style="margin-top:1.5rem;">
     <?php
-    $base = '/resep-masakan/admin/kelola-komentar.php?q='.urlencode($q).'&filter='.$filter.'&page=';
+    $base = '/admin/kelola-komentar.php?q='.urlencode($q).'&filter='.$filter.'&page=';
     if ($page>1) echo "<a href='{$base}".($page-1)."'><i class='fas fa-chevron-left'></i></a>";
     for ($p=max(1,$page-2);$p<=min($total_page,$page+2);$p++)
         echo "<a href='{$base}{$p}' class='".($p===$page?'active':'')."'>{$p}</a>";

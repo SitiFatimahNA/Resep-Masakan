@@ -1,8 +1,8 @@
-﻿<?php
+<?php
 $page_title = 'Kelola Resep';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-require_once $_SERVER['DOCUMENT_ROOT'] . '/resep-masakan/config/koneksi.php';
+require_once dirname(__DIR__) . '/config/koneksi.php';
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 // Handle aksi SEBELUM include header
@@ -16,7 +16,7 @@ if ($aksi === 'toggle' && $id) {
         $new = $cur['status'] === 'publik' ? 'draft' : 'publik';
         mysqli_query($koneksi, "UPDATE resep SET status='$new' WHERE id=$id");
     }
-    header('Location: /resep-masakan/admin/kelola-resep.php?msg=updated');
+    header('Location: /admin/kelola-resep.php?msg=updated');
     exit;
 }
 
@@ -31,7 +31,7 @@ if ($aksi === 'hapus' && $id) {
         if ($l['foto_langkah']) @unlink('../uploads/langkah/' . $l['foto_langkah']);
     }
     mysqli_query($koneksi, "DELETE FROM resep WHERE id=$id");
-    header('Location: /resep-masakan/admin/kelola-resep.php?msg=deleted');
+    header('Location: /admin/kelola-resep.php?msg=deleted');
     exit;
 }
 
@@ -89,7 +89,7 @@ $result = mysqli_query($koneksi,
 
 <div class="page-header">
     <h1>Kelola <span>Resep</span></h1>
-    <a href="/resep-masakan/user/tambah-resep.php" class="btn btn-gold btn-sm">
+    <a href="/user/tambah-resep.php" class="btn btn-gold btn-sm">
         <i class="fas fa-plus"></i> Tambah Resep
     </a>
 </div>
@@ -116,7 +116,7 @@ $result = mysqli_query($koneksi,
         </select>
         <button type="submit" class="btn btn-gold btn-sm"><i class="fas fa-search"></i> Cari</button>
         <?php if ($q || $filter !== 'semua'): ?>
-        <a href="/resep-masakan/admin/kelola-resep.php" class="btn btn-dark btn-sm"><i class="fas fa-times"></i> Reset</a>
+        <a href="/admin/kelola-resep.php" class="btn btn-dark btn-sm"><i class="fas fa-times"></i> Reset</a>
         <?php endif; ?>
     </form>
     <span style="font-size:0.8rem;color:var(--text-3);background:var(--bg);padding:6px 12px;border-radius:20px;border:1px solid var(--border);"><?= $total ?> resep</span>
@@ -156,9 +156,9 @@ $no_start = $offset + 1;
                 <td style="color:var(--text-3);font-size:0.78rem;font-weight:600;"><?= $no++ ?></td>
                 <td>
                     <div style="display:flex;align-items:center;gap:12px;">
-                        <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($r['thumbnail']) ?>"
+                        <img src="/uploads/resep/<?= htmlspecialchars($r['thumbnail']) ?>"
                              style="width:46px;height:46px;border-radius:12px;object-fit:cover;flex-shrink:0;border:1.5px solid var(--border);"
-                             onerror="this.src='/resep-masakan/assets/images/default-resep.svg'">
+                             onerror="this.src='/assets/images/default-resep.svg'">
                         <div>
                             <div style="font-size:0.85rem;font-weight:600;color:var(--text-1);"><?= htmlspecialchars(mb_strimwidth($r['judul'],0,38,'...')) ?></div>
                             <div style="font-size:0.7rem;color:var(--text-3);margin-top:2px;">
@@ -181,8 +181,8 @@ $no_start = $offset + 1;
                 <td><a href="?aksi=toggle&id=<?= $r['id'] ?>" class="badge badge-<?= $r['status']==='publik'?'publik':'draft' ?>" style="text-decoration:none;cursor:pointer;"><?= ucfirst($r['status']) ?></a></td>
                 <td>
                     <div style="display:flex;gap:4px;">
-                        <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($r['slug']) ?>" class="btn-action btn-action-view" target="_blank"><i class="fas fa-eye"></i></a>
-                        <a href="/resep-masakan/user/edit-resep.php?id=<?= $r['id'] ?>" class="btn-action btn-action-edit"><i class="fas fa-edit"></i></a>
+                        <a href="/detail-resep.php?slug=<?= urlencode($r['slug']) ?>" class="btn-action btn-action-view" target="_blank"><i class="fas fa-eye"></i></a>
+                        <a href="/user/edit-resep.php?id=<?= $r['id'] ?>" class="btn-action btn-action-edit"><i class="fas fa-edit"></i></a>
                         <a href="?aksi=hapus&id=<?= $r['id'] ?>" class="btn-action btn-action-delete" onclick="return confirm('Yakin hapus?')"><i class="fas fa-trash"></i></a>
                     </div>
                 </td>
@@ -204,9 +204,9 @@ $no_start = $offset + 1;
 <div style="background:var(--bg-card);border-radius:16px;border:1.5px solid var(--border);padding:1rem;margin-bottom:0.8rem;box-shadow:0 2px 8px rgba(45,106,79,0.06);">
     <!-- Baris 1: Foto + Info Utama -->
     <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:0.8rem;">
-        <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($r['thumbnail']) ?>"
+        <img src="/uploads/resep/<?= htmlspecialchars($r['thumbnail']) ?>"
              style="width:60px;height:60px;border-radius:12px;object-fit:cover;flex-shrink:0;border:1.5px solid var(--border);"
-             onerror="this.src='/resep-masakan/assets/images/default-resep.svg'">
+             onerror="this.src='/assets/images/default-resep.svg'">
         <div style="flex:1;min-width:0;">
             <div style="font-size:0.9rem;font-weight:700;color:var(--text-1);line-height:1.3;margin-bottom:4px;">
                 <?= htmlspecialchars($r['judul']) ?>
@@ -248,12 +248,12 @@ $no_start = $offset + 1;
 
     <!-- Baris 3: Aksi -->
     <div style="display:flex;gap:8px;">
-        <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($r['slug']) ?>"
+        <a href="/detail-resep.php?slug=<?= urlencode($r['slug']) ?>"
            style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px;background:rgba(52,152,219,0.08);border-radius:10px;color:#2471a3;text-decoration:none;font-size:0.78rem;font-weight:600;"
            target="_blank">
             <i class="fas fa-eye"></i> Lihat
         </a>
-        <a href="/resep-masakan/user/edit-resep.php?id=<?= $r['id'] ?>"
+        <a href="/user/edit-resep.php?id=<?= $r['id'] ?>"
            style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px;background:rgba(45,106,79,0.08);border-radius:10px;color:var(--green-2);text-decoration:none;font-size:0.78rem;font-weight:600;">
             <i class="fas fa-edit"></i> Edit
         </a>
@@ -271,7 +271,7 @@ $no_start = $offset + 1;
 <?php if ($total_page > 1): ?>
 <div class="pagination" style="margin-top:1.5rem;">
     <?php
-    $base = '/resep-masakan/admin/kelola-resep.php?q='.urlencode($q).'&filter='.$filter.'&page=';
+    $base = '/admin/kelola-resep.php?q='.urlencode($q).'&filter='.$filter.'&page=';
     if ($page > 1) echo "<a href='{$base}".($page-1)."'><i class='fas fa-chevron-left'></i></a>";
     for ($p=max(1,$page-2);$p<=min($total_page,$page+2);$p++)
         echo "<a href='{$base}{$p}' class='".($p===$page?'active':'')."'>{$p}</a>";

@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header('Location: /resep-masakan/login.php');
+    header('Location: /login.php');
     exit;
 }
 
@@ -14,7 +14,7 @@ $current = basename($_SERVER['PHP_SELF']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= isset($page_title) ? $page_title . ' — ' : '' ?>DapurIn Admin</title>
-    <link rel="stylesheet" href="/resep-masakan/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -821,39 +821,39 @@ $current = basename($_SERVER['PHP_SELF']);
 
     <nav class="sidebar-nav">
         <div class="nav-section">Utama</div>
-        <a href="/resep-masakan/admin/dashboard.php" class="nav-item <?= $current==='dashboard.php'?'active':'' ?>">
+        <a href="/admin/dashboard.php" class="nav-item <?= $current==='dashboard.php'?'active':'' ?>">
             <div class="nav-icon"><i class="fas fa-chart-pie"></i></div>
             Dashboard
         </a>
 
         <div class="nav-section">Konten</div>
-        <a href="/resep-masakan/admin/kelola-resep.php" class="nav-item <?= $current==='kelola-resep.php'?'active':'' ?>">
+        <a href="/admin/kelola-resep.php" class="nav-item <?= $current==='kelola-resep.php'?'active':'' ?>">
             <div class="nav-icon"><i class="fas fa-book-open"></i></div>
             Kelola Resep
         </a>
-        <a href="/resep-masakan/admin/kelola-kategori.php" class="nav-item <?= $current==='kelola-kategori.php'?'active':'' ?>">
+        <a href="/admin/kelola-kategori.php" class="nav-item <?= $current==='kelola-kategori.php'?'active':'' ?>">
             <div class="nav-icon"><i class="fas fa-tags"></i></div>
             Kategori & Jenis
         </a>
-        <a href="/resep-masakan/admin/kelola-komentar.php" class="nav-item <?= $current==='kelola-komentar.php'?'active':'' ?>">
+        <a href="/admin/kelola-komentar.php" class="nav-item <?= $current==='kelola-komentar.php'?'active':'' ?>">
             <div class="nav-icon"><i class="fas fa-comments"></i></div>
             Moderasi Komentar
         </a>
 
         <div class="nav-section">Pengguna</div>
-        <a href="/resep-masakan/admin/kelola-user.php" class="nav-item <?= $current==='kelola-user.php'?'active':'' ?>">
+        <a href="/admin/kelola-user.php" class="nav-item <?= $current==='kelola-user.php'?'active':'' ?>">
             <div class="nav-icon"><i class="fas fa-users"></i></div>
             Kelola User
         </a>
 
         <div class="nav-section">Laporan</div>
-        <a href="/resep-masakan/admin/laporan.php" class="nav-item <?= $current==='laporan.php'?'active':'' ?>">
+        <a href="/admin/laporan.php" class="nav-item <?= $current==='laporan.php'?'active':'' ?>">
             <div class="nav-icon"><i class="fas fa-file-alt"></i></div>
             Laporan & Export
         </a>
 
         <div class="nav-section">Lainnya</div>
-        <a href="/resep-masakan/home.php" class="nav-item" target="_blank">
+        <a href="/home.php" class="nav-item" target="_blank">
             <div class="nav-icon"><i class="fas fa-globe"></i></div>
             Lihat Website
             <i class="fas fa-external-link-alt" style="font-size:0.6rem; margin-left:auto; opacity:0.5;"></i>
@@ -862,19 +862,19 @@ $current = basename($_SERVER['PHP_SELF']);
 
     <div class="sidebar-footer">
         <div class="sidebar-user">
-            <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($_SESSION['foto'] ?? 'default.png') ?>"
+            <img src="/uploads/profil/<?= htmlspecialchars($_SESSION['foto'] ?? 'default.png') ?>"
                  alt="<?= htmlspecialchars($_SESSION['nama']) ?>"
-                 onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                 onerror="this.src='/assets/images/default-avatar.svg'">
             <div class="user-info">
                 <div class="user-name"><?= htmlspecialchars($_SESSION['nama']) ?></div>
                 <div class="user-role">Administrator</div>
             </div>
         </div>
         <div class="sidebar-footer-links">
-            <a href="/resep-masakan/user/profil.php" title="Pengaturan">
+            <a href="/user/profil.php" title="Pengaturan">
                 <i class="fas fa-cog"></i> Pengaturan
             </a>
-            <a href="/resep-masakan/logout.php" class="logout" title="Keluar">
+            <a href="/logout.php" class="logout" title="Keluar">
                 <i class="fas fa-sign-out-alt"></i> Keluar
             </a>
         </div>
@@ -898,7 +898,7 @@ $current = basename($_SERVER['PHP_SELF']);
             <div class="topbar-date">
                 <i class="far fa-calendar-alt"></i> <?= date('d M Y') ?>
             </div>
-            <a href="/resep-masakan/user/tambah-resep.php" class="topbar-btn">
+            <a href="/user/tambah-resep.php" class="topbar-btn">
                 <i class="fas fa-plus"></i> Tambah Resep
             </a>
         </div>

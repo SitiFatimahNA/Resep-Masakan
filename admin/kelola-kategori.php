@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 $page_title = 'Kelola Kategori';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/resep-masakan/config/koneksi.php';
+require_once dirname(__DIR__) . '/config/koneksi.php';
 require_once 'includes/admin-header.php';
 ?>
 <style>
@@ -74,11 +74,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 if ($aksi === 'hapus-kategori' && $id) {
     mysqli_query($koneksi, "DELETE FROM kategori WHERE id=$id");
-    header('Location: /resep-masakan/admin/kelola-kategori.php?msg=deleted'); exit;
+    header('Location: /admin/kelola-kategori.php?msg=deleted'); exit;
 }
 if ($aksi === 'hapus-jenis' && $id) {
     mysqli_query($koneksi, "DELETE FROM jenis_masakan WHERE id=$id");
-    header('Location: /resep-masakan/admin/kelola-kategori.php?msg=deleted'); exit;
+    header('Location: /admin/kelola-kategori.php?msg=deleted'); exit;
 }
 
 if ($aksi === 'edit-form-kategori' && $id)
@@ -120,7 +120,7 @@ while ($j = mysqli_fetch_assoc($jenis_list)) $jenis_arr[] = $j;
         <div class="admin-card" style="margin-bottom:1.5rem;">
             <div class="admin-card-header">
                 <h3><i class="fas fa-<?= $edit_kat?'edit':'plus' ?>"></i> <?= $edit_kat?'Edit Kategori':'Tambah Kategori' ?></h3>
-                <?php if ($edit_kat): ?><a href="/resep-masakan/admin/kelola-kategori.php" class="btn btn-dark btn-sm">Batal</a><?php endif; ?>
+                <?php if ($edit_kat): ?><a href="/admin/kelola-kategori.php" class="btn btn-dark btn-sm">Batal</a><?php endif; ?>
             </div>
             <div style="padding:1.2rem;">
                 <form method="POST">
@@ -142,7 +142,7 @@ while ($j = mysqli_fetch_assoc($jenis_list)) $jenis_arr[] = $j;
             </div>
         </div>
 
-        <!-- List Kategori — MOBILE: card, DESKTOP: tabel -->
+        <!-- List Kategori � MOBILE: card, DESKTOP: tabel -->
         <!-- Desktop -->
         <div class="admin-card tabel-kategori">
             <table class="admin-table">
@@ -197,7 +197,7 @@ while ($j = mysqli_fetch_assoc($jenis_list)) $jenis_arr[] = $j;
         <div class="admin-card" style="margin-bottom:1.5rem;">
             <div class="admin-card-header">
                 <h3><i class="fas fa-<?= $edit_jenis?'edit':'plus' ?>"></i> <?= $edit_jenis?'Edit Jenis':'Tambah Jenis' ?></h3>
-                <?php if ($edit_jenis): ?><a href="/resep-masakan/admin/kelola-kategori.php" class="btn btn-dark btn-sm">Batal</a><?php endif; ?>
+                <?php if ($edit_jenis): ?><a href="/admin/kelola-kategori.php" class="btn btn-dark btn-sm">Batal</a><?php endif; ?>
             </div>
             <div style="padding:1.2rem;">
                 <form method="POST">

@@ -1,8 +1,8 @@
-ï»¿<?php
+<?php
 $page_title = 'Kelola User';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-require_once $_SERVER['DOCUMENT_ROOT'] . '/resep-masakan/config/koneksi.php';
+require_once dirname(__DIR__) . '/config/koneksi.php';
 
 // Proses aksi SEBELUM include header (agar header() redirect bisa jalan)
 if (session_status() === PHP_SESSION_NONE) session_start();
@@ -17,7 +17,7 @@ if ($aksi === 'toggle-role' && $id && $id !== (int)$_SESSION['user_id']) {
         $new = $cur['role'] === 'admin' ? 'user' : 'admin';
         mysqli_query($koneksi, "UPDATE users SET role='$new' WHERE id=$id");
     }
-    header('Location: /resep-masakan/admin/kelola-user.php?msg=updated');
+    header('Location: /admin/kelola-user.php?msg=updated');
     exit;
 }
 
@@ -26,7 +26,7 @@ if ($aksi === 'hapus' && $id && $id !== (int)$_SESSION['user_id']) {
     $u = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT foto FROM users WHERE id=$id"));
     if ($u && $u['foto'] && $u['foto'] !== 'default.png') @unlink('../uploads/profil/' . $u['foto']);
     mysqli_query($koneksi, "DELETE FROM users WHERE id=$id");
-    header('Location: /resep-masakan/admin/kelola-user.php?msg=deleted');
+    header('Location: /admin/kelola-user.php?msg=deleted');
     exit;
 }
 
@@ -93,7 +93,7 @@ require_once 'includes/admin-header.php';
         </select>
         <button type="submit" class="btn btn-gold btn-sm"><i class="fas fa-search"></i> Cari</button>
         <?php if ($q || $filter!=='semua'): ?>
-        <a href="/resep-masakan/admin/kelola-user.php" class="btn btn-dark btn-sm"><i class="fas fa-times"></i> Reset</a>
+        <a href="/admin/kelola-user.php" class="btn btn-dark btn-sm"><i class="fas fa-times"></i> Reset</a>
         <?php endif; ?>
     </form>
 </div>
@@ -112,9 +112,9 @@ require_once 'includes/admin-header.php';
                 <td style="color:var(--text-3);font-size:0.78rem;font-weight:600;"><?= $no++ ?></td>
                 <td>
                     <div style="display:flex;align-items:center;gap:12px;">
-                        <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($u['foto'] ?? 'default.png') ?>"
+                        <img src="/uploads/profil/<?= htmlspecialchars($u['foto'] ?? 'default.png') ?>"
                              style="width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid var(--green-pale);flex-shrink:0;"
-                             onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                             onerror="this.src='/assets/images/default-avatar.svg'">
                         <div>
                             <div style="font-size:0.85rem;font-weight:600;color:var(--text-1);">
                                 <?= htmlspecialchars($u['nama']) ?>
@@ -143,7 +143,7 @@ require_once 'includes/admin-header.php';
                             <i class="fas fa-trash"></i>
                         </a>
                         <?php else: ?>
-                        <span style="font-size:0.75rem;color:var(--text-3);">â€”</span>
+                        <span style="font-size:0.75rem;color:var(--text-3);">—</span>
                         <?php endif; ?>
                     </div>
                 </td>
@@ -166,9 +166,9 @@ require_once 'includes/admin-header.php';
 
     <!-- Baris 1: Avatar + Nama + Role badge -->
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:0.8rem;">
-        <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($u['foto'] ?? 'default.png') ?>"
+        <img src="/uploads/profil/<?= htmlspecialchars($u['foto'] ?? 'default.png') ?>"
              style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--green-pale);flex-shrink:0;"
-             onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+             onerror="this.src='/assets/images/default-avatar.svg'">
         <div style="flex:1;min-width:0;">
             <div style="font-size:0.9rem;font-weight:700;color:var(--text-1);display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
                 <?= htmlspecialchars($u['nama']) ?>
@@ -207,7 +207,7 @@ require_once 'includes/admin-header.php';
     </div>
     <?php else: ?>
     <div style="text-align:center;font-size:0.75rem;color:var(--text-3);padding:6px;background:var(--bg);border-radius:10px;">
-        <i class="fas fa-lock" style="font-size:0.68rem;"></i> Akun sendiri â€” tidak bisa diubah
+        <i class="fas fa-lock" style="font-size:0.68rem;"></i> Akun sendiri — tidak bisa diubah
     </div>
     <?php endif; ?>
 </div>
@@ -217,7 +217,7 @@ require_once 'includes/admin-header.php';
 <?php if ($total_page > 1): ?>
 <div class="pagination" style="margin-top:1.5rem;">
     <?php
-    $base = '/resep-masakan/admin/kelola-user.php?q='.urlencode($q).'&filter='.$filter.'&page=';
+    $base = '/admin/kelola-user.php?q='.urlencode($q).'&filter='.$filter.'&page=';
     if ($page>1) echo "<a href='{$base}".($page-1)."'><i class='fas fa-chevron-left'></i></a>";
     for ($p=max(1,$page-2);$p<=min($total_page,$page+2);$p++)
         echo "<a href='{$base}{$p}' class='".($p===$page?'active':'')."'>{$p}</a>";
