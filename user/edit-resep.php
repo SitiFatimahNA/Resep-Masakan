@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 session_start();
 require_once dirname(__DIR__) . '/config/koneksi.php';
 
@@ -12,7 +12,7 @@ $error = '';
 
 if (!$id) { header('Location: /user/resep-saya.php'); exit; }
 
-// Ambil data resep — hanya milik sendiri atau admin
+// Ambil data resep ï¿½ hanya milik sendiri atau admin
 $stmt = mysqli_prepare($koneksi, "SELECT * FROM resep WHERE id = ?");
 mysqli_stmt_bind_param($stmt, 'i', $id);
 mysqli_stmt_execute($stmt);
@@ -408,11 +408,11 @@ require_once '../includes/header.php';
                 <?php
                 $n = $nutrisi_data;
                 $nutrisi_fields = [
-                    ['name'=>'kalori',      'label'=>'?? Kalori (kkal)', 'placeholder'=>'250'],
-                    ['name'=>'protein',     'label'=>'?? Protein (g)',   'placeholder'=>'15'],
-                    ['name'=>'karbohidrat', 'label'=>'?? Karbo (g)',     'placeholder'=>'30'],
-                    ['name'=>'lemak',       'label'=>'?? Lemak (g)',     'placeholder'=>'10'],
-                    ['name'=>'serat',       'label'=>'?? Serat (g)',     'placeholder'=>'5'],
+                    ['name'=>'kalori',      'label'=>'&#x1F525; Kalori (kkal)', 'placeholder'=>'250'],
+                    ['name'=>'protein',     'label'=>'&#x1F4AA; Protein (g)',   'placeholder'=>'15'],
+                    ['name'=>'karbohidrat', 'label'=>'&#x1F35E; Karbo (g)',     'placeholder'=>'30'],
+                    ['name'=>'lemak',       'label'=>'&#x1F9C8; Lemak (g)',     'placeholder'=>'10'],
+                    ['name'=>'serat',       'label'=>'&#x1F33F; Serat (g)',     'placeholder'=>'5'],
                 ];
                 foreach ($nutrisi_fields as $nf):
                 ?>

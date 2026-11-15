@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 session_start();
 require_once dirname(__DIR__) . '/config/koneksi.php';
 
@@ -395,7 +395,7 @@ require_once '../includes/header.php';
                 </button>
             </div>
             <small style="color:var(--text-muted); font-size:0.78rem; display:block; margin-bottom:1rem;">
-                <i class="fas fa-info-circle"></i> Opsional — isi alat masak yang dibutuhkan (wajan, panci, dll)
+                <i class="fas fa-info-circle"></i> Opsional ï¿½ isi alat masak yang dibutuhkan (wajan, panci, dll)
             </small>
             <div id="alat-container">
                 <?php
@@ -426,7 +426,7 @@ require_once '../includes/header.php';
             <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:1rem;">
                 <div class="form-group" style="margin:0;">
                     <label class="form-label" style="display:flex; align-items:center; gap:4px;">
-                        <span style="color:#e74c3c;">??</span> Kalori (kkal)
+                        <span>&#x1F525;</span> Kalori (kkal)
                     </label>
                     <input type="number" name="kalori" class="form-control" min="0" step="0.1"
                            placeholder="250" value="<?= htmlspecialchars($_POST['kalori'] ?? '') ?>">
