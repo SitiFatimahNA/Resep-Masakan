@@ -395,7 +395,7 @@ require_once '../includes/header.php';
                 </button>
             </div>
             <small style="color:var(--text-muted); font-size:0.78rem; display:block; margin-bottom:1rem;">
-                <i class="fas fa-info-circle"></i> Opsional � isi alat masak yang dibutuhkan (wajan, panci, dll)
+                <i class="fas fa-info-circle"></i> Opsional &mdash; isi alat masak yang dibutuhkan (wajan, panci, dll)
             </small>
             <div id="alat-container">
                 <?php
@@ -433,28 +433,28 @@ require_once '../includes/header.php';
                 </div>
                 <div class="form-group" style="margin:0;">
                     <label class="form-label" style="display:flex; align-items:center; gap:4px;">
-                        <span>??</span> Protein (g)
+                        <span>&#x1F4AA;</span> Protein (g)
                     </label>
                     <input type="number" name="protein" class="form-control" min="0" step="0.1"
                            placeholder="15" value="<?= htmlspecialchars($_POST['protein'] ?? '') ?>">
                 </div>
                 <div class="form-group" style="margin:0;">
                     <label class="form-label" style="display:flex; align-items:center; gap:4px;">
-                        <span>??</span> Karbohidrat (g)
+                        <span>&#x1F35E;</span> Karbohidrat (g)
                     </label>
                     <input type="number" name="karbohidrat" class="form-control" min="0" step="0.1"
                            placeholder="30" value="<?= htmlspecialchars($_POST['karbohidrat'] ?? '') ?>">
                 </div>
                 <div class="form-group" style="margin:0;">
                     <label class="form-label" style="display:flex; align-items:center; gap:4px;">
-                        <span>??</span> Lemak (g)
+                        <span>&#x1F9C8;</span> Lemak (g)
                     </label>
                     <input type="number" name="lemak" class="form-control" min="0" step="0.1"
                            placeholder="10" value="<?= htmlspecialchars($_POST['lemak'] ?? '') ?>">
                 </div>
                 <div class="form-group" style="margin:0;">
                     <label class="form-label" style="display:flex; align-items:center; gap:4px;">
-                        <span>??</span> Serat (g)
+                        <span>&#x1F33F;</span> Serat (g)
                     </label>
                     <input type="number" name="serat" class="form-control" min="0" step="0.1"
                            placeholder="5" value="<?= htmlspecialchars($_POST['serat'] ?? '') ?>">
