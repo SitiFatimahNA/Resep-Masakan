@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $page_title = 'Kelola Komentar';
 error_reporting(0);
 ini_set('display_errors', 0);
@@ -58,11 +58,11 @@ while ($k = mysqli_fetch_assoc($result)) $kom_arr[] = $k;
 require_once 'includes/admin-header.php';
 ?>
 <style>
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .tabel-komentar { display: none !important; }
     .cards-komentar { display: block !important; }
 }
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
     .tabel-komentar { display: block !important; }
     .cards-komentar { display: none !important; }
 }

@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 $page_title = 'Kelola User';
 error_reporting(0);
 ini_set('display_errors', 0);
@@ -55,11 +55,11 @@ while ($u = mysqli_fetch_assoc($result)) $user_arr[] = $u;
 require_once 'includes/admin-header.php';
 ?>
 <style>
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .tabel-user { display: none !important; }
     .cards-user { display: block !important; }
 }
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
     .tabel-user { display: block !important; }
     .cards-user { display: none !important; }
 }
@@ -143,7 +143,7 @@ require_once 'includes/admin-header.php';
                             <i class="fas fa-trash"></i>
                         </a>
                         <?php else: ?>
-                        <span style="font-size:0.75rem;color:var(--text-3);">—</span>
+                        <span style="font-size:0.75rem;color:var(--text-3);">ï¿½</span>
                         <?php endif; ?>
                     </div>
                 </td>
@@ -207,7 +207,7 @@ require_once 'includes/admin-header.php';
     </div>
     <?php else: ?>
     <div style="text-align:center;font-size:0.75rem;color:var(--text-3);padding:6px;background:var(--bg);border-radius:10px;">
-        <i class="fas fa-lock" style="font-size:0.68rem;"></i> Akun sendiri — tidak bisa diubah
+        <i class="fas fa-lock" style="font-size:0.68rem;"></i> Akun sendiri ï¿½ tidak bisa diubah
     </div>
     <?php endif; ?>
 </div>

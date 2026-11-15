@@ -70,7 +70,7 @@ if (isset($_GET['export']) && $_GET['export'] === 'csv') {
 // Include admin header SETELAH semua proses yang butuh redirect/header
 require_once 'includes/admin-header.php';?>
 <style>
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .tabel-laporan { display: none !important; }
     .cards-laporan { display: block !important; }
 
@@ -88,7 +88,7 @@ require_once 'includes/admin-header.php';?>
     .laporan-filter-form select { width: 100% !important; }
     .laporan-filter-form .btn { align-self: flex-start; }
 }
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
     .tabel-laporan { display: block !important; }
     .cards-laporan { display: none !important; }
 }

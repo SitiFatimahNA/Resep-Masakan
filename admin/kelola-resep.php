@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $page_title = 'Kelola Resep';
 error_reporting(0);
 ini_set('display_errors', 0);
@@ -46,11 +46,11 @@ $where     = ['1=1'];
 require_once 'includes/admin-header.php';
 ?>
 <style>
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .tabel-resep { display: none !important; }
     .cards-resep { display: block !important; }
 }
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
     .tabel-resep { display: block !important; }
     .cards-resep { display: none !important; }
 }
@@ -79,7 +79,7 @@ $result = mysqli_query($koneksi,
 ?>
 
 <style>
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .page-header h1 { font-size: 1.2rem !important; }
     .filter-bar { flex-direction: column !important; gap: 8px !important; }
     .filter-bar form { flex-direction: column !important; gap: 6px !important; }

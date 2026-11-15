@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
@@ -676,7 +676,7 @@ $current = basename($_SERVER['PHP_SELF']);
 
 
     /* ===== MOBILE ADMIN RESPONSIVE ===== */
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
         /* Page header */
         .page-header h1 { font-size: 1.1rem !important; white-space: nowrap; }
         .page-header {
@@ -779,11 +779,11 @@ $current = basename($_SERVER['PHP_SELF']);
     }
 
     /* desktop-table & mobile-cards toggle */
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
         .desktop-table { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; }
         .mobile-cards  { display: block !important; visibility: visible !important; }
     }
-    @media (min-width: 769px) {
+    @media (min-width: 1025px) {
         .mobile-cards { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; }
         .desktop-table { display: block !important; visibility: visible !important; height: auto !important; }
     }

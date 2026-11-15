@@ -42,7 +42,7 @@ for ($i = 5; $i >= 0; $i--) {
 .dash-mid-grid   { display:grid; grid-template-columns:1.2fr 1fr; gap:1.5rem; margin-bottom:1.5rem; }
 .dash-bot-grid   { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .dash-stat-grid  { grid-template-columns: repeat(2,1fr) !important; gap: 0.8rem !important; }
     .dash-mid-grid   { grid-template-columns: 1fr !important; gap: 1rem !important; }
     .dash-bot-grid   { grid-template-columns: 1fr !important; gap: 1rem !important; }

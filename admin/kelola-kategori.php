@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 error_reporting(0);
 ini_set('display_errors', 0);
 $page_title = 'Kelola Kategori';
@@ -99,11 +99,11 @@ while ($j = mysqli_fetch_assoc($jenis_list)) $jenis_arr[] = $j;
 require_once 'includes/admin-header.php';
 ?>
 <style>
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .tabel-kategori { display: none !important; }
     .cards-kategori { display: block !important; }
 }
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
     .tabel-kategori { display: block !important; }
     .cards-kategori { display: none !important; }
 }
