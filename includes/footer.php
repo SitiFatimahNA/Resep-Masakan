@@ -1,4 +1,4 @@
-﻿</div>
+</div>
 <!-- End Main Content -->
 
 <!-- FOOTER -->
@@ -17,10 +17,10 @@
             <div>
                 <h4 class="footer-title">Navigasi</h4>
                 <div class="footer-links">
-                    <a href="/resep-masakan/index.php">Beranda</a>
-                    <a href="/resep-masakan/resep.php">Semua Resep</a>
-                    <a href="/resep-masakan/kategori.php">Kategori</a>
-                    <a href="/resep-masakan/populer.php">Terpopuler</a>
+                    <a href="/index.php">Beranda</a>
+                    <a href="/resep.php">Semua Resep</a>
+                    <a href="/kategori.php">Kategori</a>
+                    <a href="/populer.php">Terpopuler</a>
                 </div>
             </div>
 
@@ -28,10 +28,10 @@
             <div>
                 <h4 class="footer-title">Kategori</h4>
                 <div class="footer-links">
-                    <a href="/resep-masakan/resep.php?kategori=ayam">Ayam</a>
-                    <a href="/resep-masakan/resep.php?kategori=ikan">Ikan</a>
-                    <a href="/resep-masakan/resep.php?kategori=sayuran">Sayuran</a>
-                    <a href="/resep-masakan/resep.php?kategori=dessert">Dessert</a>
+                    <a href="/resep.php?kategori=ayam">Ayam</a>
+                    <a href="/resep.php?kategori=ikan">Ikan</a>
+                    <a href="/resep.php?kategori=sayuran">Sayuran</a>
+                    <a href="/resep.php?kategori=dessert">Dessert</a>
                 </div>
             </div>
 
@@ -40,13 +40,13 @@
                 <h4 class="footer-title">Akun</h4>
                 <div class="footer-links">
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        <a href="/resep-masakan/user/profil.php">Profil Saya</a>
-                        <a href="/resep-masakan/user/resep-saya.php">Resep Saya</a>
-                        <a href="/resep-masakan/user/favorit.php">Favorit</a>
-                        <a href="/resep-masakan/logout.php">Keluar</a>
+                        <a href="/user/profil.php">Profil Saya</a>
+                        <a href="/user/resep-saya.php">Resep Saya</a>
+                        <a href="/user/favorit.php">Favorit</a>
+                        <a href="/logout.php">Keluar</a>
                     <?php else: ?>
-                        <a href="/resep-masakan/login.php">Masuk</a>
-                        <a href="/resep-masakan/register.php">Daftar</a>
+                        <a href="/login.php">Masuk</a>
+                        <a href="/register.php">Daftar</a>
                     <?php endif; ?>
                 </div>
             </div>

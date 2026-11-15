@@ -1,8 +1,8 @@
-﻿<?php
+<?php
 session_start();
-require_once '../config/koneksi.php';
+require_once dirname(__DIR__) . '/config/koneksi.php';
 
-if (!isset($_SESSION['user_id'])) { header('Location: /resep-masakan/login.php'); exit; }
+if (!isset($_SESSION['user_id'])) { header('Location: /login.php'); exit; }
 
 $page_title = 'Resep Saya';
 $user_id    = (int)$_SESSION['user_id'];
@@ -51,7 +51,7 @@ require_once '../includes/header.php';
                 </h1>
                 <p style="color:rgba(255,255,255,0.5);font-size:0.875rem;margin-top:4px;">Kelola semua resep yang sudah kamu buat</p>
             </div>
-            <a href="/resep-masakan/user/tambah-resep.php" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#52b788,#40916c);color:#fff;padding:12px 24px;border-radius:50px;font-size:0.875rem;font-weight:600;text-decoration:none;box-shadow:0 6px 20px rgba(82,183,136,0.4);transition:all 0.3s;"
+            <a href="/user/tambah-resep.php" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#52b788,#40916c);color:#fff;padding:12px 24px;border-radius:50px;font-size:0.875rem;font-weight:600;text-decoration:none;box-shadow:0 6px 20px rgba(82,183,136,0.4);transition:all 0.3s;"
                onmouseover="this.style.transform='translateY(-2px)'"
                onmouseout="this.style.transform=''">
                 <i class="fas fa-plus"></i> Tambah Resep Baru
@@ -127,7 +127,7 @@ require_once '../includes/header.php';
         </div>
         <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#1a2e1a;margin-bottom:0.5rem;">Belum ada resep</h3>
         <p style="color:#8a9e87;margin-bottom:1.8rem;font-size:0.875rem;">Yuk bagikan resep masakan favoritmu!</p>
-        <a href="/resep-masakan/user/tambah-resep.php" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2d6a4f,#40916c);color:#fff;padding:11px 24px;border-radius:20px;font-size:0.875rem;font-weight:600;text-decoration:none;box-shadow:0 4px 14px rgba(45,106,79,0.3);">
+        <a href="/user/tambah-resep.php" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2d6a4f,#40916c);color:#fff;padding:11px 24px;border-radius:20px;font-size:0.875rem;font-weight:600;text-decoration:none;box-shadow:0 4px 14px rgba(45,106,79,0.3);">
             <i class="fas fa-plus"></i> Buat Resep Pertama
         </a>
     </div>
@@ -140,12 +140,12 @@ require_once '../includes/header.php';
              onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(45,106,79,0.05)';this.style.borderColor='#e4ede6'">
             <!-- Gambar -->
             <div style="position:relative;overflow:hidden;height:180px;flex-shrink:0;cursor:pointer;"
-                 onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'">
-                <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
+                 onclick="window.location='/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'">
+                <img src="/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
                      style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;"
                      onmouseover="this.style.transform='scale(1.05)'"
                      onmouseout="this.style.transform=''"
-                     onerror="this.src='/resep-masakan/assets/images/default-resep.svg'">
+                     onerror="this.src='/assets/images/default-resep.svg'">
                 <!-- Status badge -->
                 <span style="position:absolute;top:12px;left:12px;padding:4px 12px;border-radius:20px;font-size:0.68rem;font-weight:700;
                     background:<?= $resep['status']==='publik'?'#2d6a4f':'rgba(0,0,0,0.65)' ?>;color:#fff;">
@@ -175,19 +175,19 @@ require_once '../includes/header.php';
                 </div>
                 <!-- Actions -->
                 <div style="display:flex;gap:6px;padding-top:0.8rem;border-top:1px solid #f0f5f0;">
-                    <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>"
+                    <a href="/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>"
                        style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px;background:#f4f7f4;border-radius:10px;font-size:0.75rem;font-weight:600;color:#4a6741;text-decoration:none;transition:all 0.2s;"
                        onmouseover="this.style.background='#e8f5e8'"
                        onmouseout="this.style.background='#f4f7f4'">
                         <i class="fas fa-eye"></i> Lihat
                     </a>
-                    <a href="/resep-masakan/user/edit-resep.php?id=<?= $resep['id'] ?>"
+                    <a href="/user/edit-resep.php?id=<?= $resep['id'] ?>"
                        style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px;background:#f4f7f4;border-radius:10px;font-size:0.75rem;font-weight:600;color:#2d6a4f;text-decoration:none;transition:all 0.2s;"
                        onmouseover="this.style.background='#d8f3dc'"
                        onmouseout="this.style.background='#f4f7f4'">
                         <i class="fas fa-edit"></i> Edit
                     </a>
-                    <a href="/resep-masakan/user/hapus-resep.php?id=<?= $resep['id'] ?>"
+                    <a href="/user/hapus-resep.php?id=<?= $resep['id'] ?>"
                        onclick="return confirm('Yakin ingin menghapus resep ini?')"
                        style="display:flex;align-items:center;justify-content:center;padding:8px 12px;background:#fef2f2;border-radius:10px;font-size:0.75rem;color:#c0392b;text-decoration:none;transition:all 0.2s;"
                        onmouseover="this.style.background='#fde8e8'"

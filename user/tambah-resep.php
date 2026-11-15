@@ -1,10 +1,10 @@
-﻿<?php
+<?php
 session_start();
-require_once '../config/koneksi.php';
+require_once dirname(__DIR__) . '/config/koneksi.php';
 
 // Harus login
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /resep-masakan/login.php');
+    header('Location: /login.php');
     exit;
 }
 
@@ -177,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                      VALUES ($id_resep, $kalori, $protein, $karbohidrat, $lemak, $serat)");
             }
 
-            header("Location: /resep-masakan/detail-resep.php?slug=" . urlencode($slug) . "&success=1");
+            header("Location: /detail-resep.php?slug=" . urlencode($slug) . "&success=1");
             exit;
         }
     }
@@ -191,7 +191,7 @@ require_once '../includes/header.php';
     <div style="position:absolute;top:-60px;right:-60px;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(82,183,136,0.12) 0%,transparent 70%);pointer-events:none;"></div>
     <div class="container" style="position:relative;z-index:1;max-width:860px;">
         <p style="font-size:0.72rem;font-weight:600;color:#52b788;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">
-            <a href="/resep-masakan/user/resep-saya.php" style="color:#52b788;text-decoration:none;">Resep Saya</a>
+            <a href="/user/resep-saya.php" style="color:#52b788;text-decoration:none;">Resep Saya</a>
             <i class="fas fa-chevron-right" style="font-size:0.55rem;margin:0 6px;"></i> Tambah Resep
         </p>
         <h1 style="font-family:'Playfair Display',serif;font-size:2rem;color:#fff;font-weight:700;letter-spacing:-0.5px;">
@@ -395,7 +395,7 @@ require_once '../includes/header.php';
                 </button>
             </div>
             <small style="color:var(--text-muted); font-size:0.78rem; display:block; margin-bottom:1rem;">
-                <i class="fas fa-info-circle"></i> Opsional — isi alat masak yang dibutuhkan (wajan, panci, dll)
+                <i class="fas fa-info-circle"></i> Opsional � isi alat masak yang dibutuhkan (wajan, panci, dll)
             </small>
             <div id="alat-container">
                 <?php
@@ -426,35 +426,35 @@ require_once '../includes/header.php';
             <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:1rem;">
                 <div class="form-group" style="margin:0;">
                     <label class="form-label" style="display:flex; align-items:center; gap:4px;">
-                        <span style="color:#e74c3c;">🔥</span> Kalori (kkal)
+                        <span style="color:#e74c3c;">??</span> Kalori (kkal)
                     </label>
                     <input type="number" name="kalori" class="form-control" min="0" step="0.1"
                            placeholder="250" value="<?= htmlspecialchars($_POST['kalori'] ?? '') ?>">
                 </div>
                 <div class="form-group" style="margin:0;">
                     <label class="form-label" style="display:flex; align-items:center; gap:4px;">
-                        <span>💪</span> Protein (g)
+                        <span>??</span> Protein (g)
                     </label>
                     <input type="number" name="protein" class="form-control" min="0" step="0.1"
                            placeholder="15" value="<?= htmlspecialchars($_POST['protein'] ?? '') ?>">
                 </div>
                 <div class="form-group" style="margin:0;">
                     <label class="form-label" style="display:flex; align-items:center; gap:4px;">
-                        <span>🌾</span> Karbohidrat (g)
+                        <span>??</span> Karbohidrat (g)
                     </label>
                     <input type="number" name="karbohidrat" class="form-control" min="0" step="0.1"
                            placeholder="30" value="<?= htmlspecialchars($_POST['karbohidrat'] ?? '') ?>">
                 </div>
                 <div class="form-group" style="margin:0;">
                     <label class="form-label" style="display:flex; align-items:center; gap:4px;">
-                        <span>🥑</span> Lemak (g)
+                        <span>??</span> Lemak (g)
                     </label>
                     <input type="number" name="lemak" class="form-control" min="0" step="0.1"
                            placeholder="10" value="<?= htmlspecialchars($_POST['lemak'] ?? '') ?>">
                 </div>
                 <div class="form-group" style="margin:0;">
                     <label class="form-label" style="display:flex; align-items:center; gap:4px;">
-                        <span>🌿</span> Serat (g)
+                        <span>??</span> Serat (g)
                     </label>
                     <input type="number" name="serat" class="form-control" min="0" step="0.1"
                            placeholder="5" value="<?= htmlspecialchars($_POST['serat'] ?? '') ?>">
@@ -464,7 +464,7 @@ require_once '../includes/header.php';
 
         <!-- Tombol Submit -->
         <div style="display:flex; gap:0.8rem; justify-content:flex-end; flex-wrap:wrap;">
-            <a href="/resep-masakan/user/resep-saya.php" class="btn btn-dark btn-sm">
+            <a href="/user/resep-saya.php" class="btn btn-dark btn-sm">
                 <i class="fas fa-times"></i> Batal
             </a>
             <button type="submit" name="aksi" value="draft" class="btn btn-outline btn-sm">

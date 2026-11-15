@@ -1,8 +1,8 @@
-﻿<?php
+<?php
 session_start();
-require_once '../config/koneksi.php';
+require_once dirname(__DIR__) . '/config/koneksi.php';
 
-if (!isset($_SESSION['user_id'])) { header('Location: /resep-masakan/login.php'); exit; }
+if (!isset($_SESSION['user_id'])) { header('Location: /login.php'); exit; }
 
 $page_title = 'Resep Favorit';
 $user_id    = (int)$_SESSION['user_id'];
@@ -61,7 +61,7 @@ require_once '../includes/header.php';
         </div>
         <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#1a2e1a;margin-bottom:0.5rem;">Belum ada favorit</h3>
         <p style="color:#8a9e87;margin-bottom:2rem;font-size:0.875rem;max-width:360px;margin-left:auto;margin-right:auto;">Simpan resep yang kamu suka dengan menekan ikon hati di halaman resep</p>
-        <a href="/resep-masakan/resep.php" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2d6a4f,#40916c);color:#fff;padding:11px 24px;border-radius:20px;font-size:0.875rem;font-weight:600;text-decoration:none;box-shadow:0 4px 14px rgba(45,106,79,0.3);">
+        <a href="/resep.php" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2d6a4f,#40916c);color:#fff;padding:11px 24px;border-radius:20px;font-size:0.875rem;font-weight:600;text-decoration:none;box-shadow:0 4px 14px rgba(45,106,79,0.3);">
             <i class="fas fa-search"></i> Jelajahi Resep
         </a>
     </div>
@@ -73,12 +73,12 @@ require_once '../includes/header.php';
              onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 14px 36px rgba(45,106,79,0.12)';this.style.borderColor='#95d5b2'"
              onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(45,106,79,0.05)';this.style.borderColor='#e4ede6'">
             <div style="position:relative;overflow:hidden;height:185px;flex-shrink:0;cursor:pointer;"
-                 onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'">
-                <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
+                 onclick="window.location='/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'">
+                <img src="/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
                      style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;"
                      onmouseover="this.style.transform='scale(1.05)'"
                      onmouseout="this.style.transform=''"
-                     onerror="this.src='/resep-masakan/assets/images/default-resep.svg'">
+                     onerror="this.src='/assets/images/default-resep.svg'">
                 <!-- Hapus favorit -->
                 <button onclick="event.stopPropagation(); hapusFavorit(<?= $resep['id'] ?>, this)"
                         style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.9);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#e74c3c;font-size:0.85rem;box-shadow:0 2px 8px rgba(0,0,0,0.15);transition:all 0.2s;"
@@ -91,7 +91,7 @@ require_once '../includes/header.php';
                 </span>
             </div>
             <div style="padding:1.1rem;flex:1;display:flex;flex-direction:column;cursor:pointer;"
-                 onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'">
+                 onclick="window.location='/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'">
                 <div style="font-size:0.68rem;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px;">
                     <?= htmlspecialchars($resep['nama_kategori']) ?>
                 </div>
@@ -135,7 +135,7 @@ require_once '../includes/header.php';
 <script>
 function hapusFavorit(id, btn) {
     if (!confirm('Hapus dari favorit?')) return;
-    fetch('/resep-masakan/user/ajax-favorit.php', {
+    fetch('/user/ajax-favorit.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: 'id_resep=' + id

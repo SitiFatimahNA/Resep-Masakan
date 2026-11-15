@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // Mulai session jika belum
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -16,13 +16,13 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <title><?= isset($page_title) ? $page_title . ' | ' : '' ?>DapurIn</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/resep-masakan/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <!-- Favicon -->
-    <link rel="icon" href="/resep-masakan/assets/images/favicon.png" type="image/png">
+    <link rel="icon" href="/assets/images/favicon.png" type="image/png">
 </head>
 <body class="page-enter">
 
@@ -30,7 +30,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <nav class="navbar" id="navbar">
     <div class="navbar-brand">
         <i class="fas fa-utensils logo-icon" style="font-size:1.4rem;"></i>
-        <a href="/resep-masakan/index.php">
+        <a href="/index.php">
             Dapur<span>In</span>
         </a>
     </div>
@@ -38,25 +38,25 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <!-- Menu -->
     <ul class="navbar-menu" id="navbar-menu">
         <li>
-            <a href="/resep-masakan/index.php" 
+            <a href="/index.php" 
                class="<?= $current_page === 'index.php' ? 'active' : '' ?>">
                 Beranda
             </a>
         </li>
         <li>
-            <a href="/resep-masakan/resep.php" 
+            <a href="/resep.php" 
                class="<?= $current_page === 'resep.php' ? 'active' : '' ?>">
                 Resep
             </a>
         </li>
         <li>
-            <a href="/resep-masakan/kategori.php" 
+            <a href="/kategori.php" 
                class="<?= $current_page === 'kategori.php' ? 'active' : '' ?>">
                 Kategori
             </a>
         </li>
         <li>
-            <a href="/resep-masakan/populer.php" 
+            <a href="/populer.php" 
                class="<?= $current_page === 'populer.php' ? 'active' : '' ?>">
                 Populer
             </a>
@@ -67,15 +67,15 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <div class="navbar-actions">
         <!-- Search (desktop) -->
         <div class="navbar-search">
-            <form action="/resep-masakan/resep.php" method="GET">
+            <form action="/resep.php" method="GET">
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" name="q" placeholder="Cari resep..." 
                        value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>">
             </form>
         </div>
 
-        <!-- Search mobile — langsung tampil, tidak perlu tap ikon -->
-        <form class="navbar-mobile-search-form" action="/resep-masakan/resep.php" method="GET">
+        <!-- Search mobile � langsung tampil, tidak perlu tap ikon -->
+        <form class="navbar-mobile-search-form" action="/resep.php" method="GET">
             <i class="fas fa-search" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#8a9e87;font-size:0.78rem;pointer-events:none;"></i>
             <input type="text" name="q" placeholder="Cari resep..."
                    value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>"
@@ -85,33 +85,33 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <?php if (isset($_SESSION['user_id'])): ?>
             <!-- Tambah Resep / Admin (desktop only) -->
             <?php if ($_SESSION['role'] === 'admin'): ?>
-                <a href="/resep-masakan/admin/dashboard.php" class="btn btn-outline btn-sm navbar-desktop-only">
+                <a href="/admin/dashboard.php" class="btn btn-outline btn-sm navbar-desktop-only">
                     <i class="fas fa-tachometer-alt"></i> Admin
                 </a>
             <?php else: ?>
-                <a href="/resep-masakan/user/tambah-resep.php" class="btn btn-gold btn-sm navbar-desktop-only">
+                <a href="/user/tambah-resep.php" class="btn btn-gold btn-sm navbar-desktop-only">
                     <i class="fas fa-plus"></i> Tambah Resep
                 </a>
             <?php endif; ?>
 
             <!-- Avatar Dropdown -->
             <div class="user-dropdown">
-                <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($_SESSION['foto'] ?? 'default.png') ?>?v=<?= $_SESSION['user_id'] ?? 0 ?>" 
+                <img src="/uploads/profil/<?= htmlspecialchars($_SESSION['foto'] ?? 'default.png') ?>?v=<?= $_SESSION['user_id'] ?? 0 ?>" 
                      alt="<?= htmlspecialchars($_SESSION['nama']) ?>"
                      class="user-avatar"
-                     onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                     onerror="this.src='/assets/images/default-avatar.svg'">
                 <div class="dropdown-menu">
-                    <a href="/resep-masakan/user/profil.php">
+                    <a href="/user/profil.php">
                         <i class="fas fa-user"></i> Profil Saya
                     </a>
-                    <a href="/resep-masakan/user/resep-saya.php">
+                    <a href="/user/resep-saya.php">
                         <i class="fas fa-utensils"></i> Resep Saya
                     </a>
-                    <a href="/resep-masakan/user/favorit.php">
+                    <a href="/user/favorit.php">
                         <i class="fas fa-heart"></i> Favorit
                     </a>
                     <div class="divider"></div>
-                    <a href="/resep-masakan/logout.php" style="color: var(--danger);">
+                    <a href="/logout.php" style="color: var(--danger);">
                         <i class="fas fa-sign-out-alt"></i> Keluar
                     </a>
                 </div>
@@ -119,10 +119,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
         <?php else: ?>
             <!-- Belum login -->
-            <a href="/resep-masakan/login.php" class="btn btn-outline btn-sm">
+            <a href="/login.php" class="btn btn-outline btn-sm">
                 <i class="fas fa-sign-in-alt"></i> Masuk
             </a>
-            <a href="/resep-masakan/register.php" class="btn btn-gold btn-sm">
+            <a href="/register.php" class="btn btn-gold btn-sm">
                 <i class="fas fa-user-plus"></i> Daftar
             </a>
         <?php endif; ?>

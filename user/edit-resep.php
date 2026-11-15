@@ -1,18 +1,18 @@
-﻿<?php
+<?php
 session_start();
-require_once '../config/koneksi.php';
+require_once dirname(__DIR__) . '/config/koneksi.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /resep-masakan/login.php');
+    header('Location: /login.php');
     exit;
 }
 
 $id    = (int)($_GET['id'] ?? 0);
 $error = '';
 
-if (!$id) { header('Location: /resep-masakan/user/resep-saya.php'); exit; }
+if (!$id) { header('Location: /user/resep-saya.php'); exit; }
 
-// Ambil data resep — hanya milik sendiri atau admin
+// Ambil data resep � hanya milik sendiri atau admin
 $stmt = mysqli_prepare($koneksi, "SELECT * FROM resep WHERE id = ?");
 mysqli_stmt_bind_param($stmt, 'i', $id);
 mysqli_stmt_execute($stmt);
@@ -20,7 +20,7 @@ $resep = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
 mysqli_stmt_close($stmt);
 
 if (!$resep || ($resep['user_id'] != $_SESSION['user_id'] && $_SESSION['role'] !== 'admin')) {
-    header('Location: /resep-masakan/user/resep-saya.php');
+    header('Location: /user/resep-saya.php');
     exit;
 }
 
@@ -177,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                      VALUES ($id, $kalori, $protein, $karbohidrat, $lemak, $serat)");
             }
 
-            header("Location: /resep-masakan/detail-resep.php?slug=" . urlencode($resep['slug']) . "&updated=1");
+            header("Location: /detail-resep.php?slug=" . urlencode($resep['slug']) . "&updated=1");
             exit;
         }
     }
@@ -192,7 +192,7 @@ require_once '../includes/header.php';
     <div style="position:absolute;top:-60px;right:-60px;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(82,183,136,0.12) 0%,transparent 70%);pointer-events:none;"></div>
     <div class="container" style="position:relative;z-index:1;max-width:860px;">
         <p style="font-size:0.72rem;font-weight:600;color:#52b788;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">
-            <a href="/resep-masakan/user/resep-saya.php" style="color:#52b788;text-decoration:none;">Resep Saya</a>
+            <a href="/user/resep-saya.php" style="color:#52b788;text-decoration:none;">Resep Saya</a>
             <i class="fas fa-chevron-right" style="font-size:0.55rem;margin:0 6px;"></i> Edit Resep
         </p>
         <h1 style="font-family:'Playfair Display',serif;font-size:2rem;color:#fff;font-weight:700;letter-spacing:-0.5px;">
@@ -291,7 +291,7 @@ require_once '../includes/header.php';
                     <label class="form-label">Ganti Thumbnail</label>
                     <?php if ($resep['thumbnail'] && $resep['thumbnail'] !== 'default-resep.svg'): ?>
                     <div style="margin-bottom:8px;">
-                        <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
+                        <img src="/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
                              style="width:100%; height:120px; object-fit:cover; border-radius:var(--radius-sm); border:1px solid var(--border);"
                              onerror="this.style.display='none'">
                     </div>
@@ -408,11 +408,11 @@ require_once '../includes/header.php';
                 <?php
                 $n = $nutrisi_data;
                 $nutrisi_fields = [
-                    ['name'=>'kalori',      'label'=>'🔥 Kalori (kkal)', 'placeholder'=>'250'],
-                    ['name'=>'protein',     'label'=>'💪 Protein (g)',   'placeholder'=>'15'],
-                    ['name'=>'karbohidrat', 'label'=>'🌾 Karbo (g)',     'placeholder'=>'30'],
-                    ['name'=>'lemak',       'label'=>'🥑 Lemak (g)',     'placeholder'=>'10'],
-                    ['name'=>'serat',       'label'=>'🌿 Serat (g)',     'placeholder'=>'5'],
+                    ['name'=>'kalori',      'label'=>'?? Kalori (kkal)', 'placeholder'=>'250'],
+                    ['name'=>'protein',     'label'=>'?? Protein (g)',   'placeholder'=>'15'],
+                    ['name'=>'karbohidrat', 'label'=>'?? Karbo (g)',     'placeholder'=>'30'],
+                    ['name'=>'lemak',       'label'=>'?? Lemak (g)',     'placeholder'=>'10'],
+                    ['name'=>'serat',       'label'=>'?? Serat (g)',     'placeholder'=>'5'],
                 ];
                 foreach ($nutrisi_fields as $nf):
                 ?>
@@ -427,7 +427,7 @@ require_once '../includes/header.php';
         </div>
 
         <div style="display:flex; gap:1rem; justify-content:flex-end;">
-            <a href="/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>" class="btn btn-dark btn-sm">
+            <a href="/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>" class="btn btn-dark btn-sm">
                 <i class="fas fa-times"></i> Batal
             </a>
             <button type="submit" class="btn btn-gold btn-sm">

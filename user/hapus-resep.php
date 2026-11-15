@@ -1,14 +1,14 @@
 <?php
 session_start();
-require_once '../config/koneksi.php';
+require_once dirname(__DIR__) . '/config/koneksi.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /resep-masakan/login.php');
+    header('Location: /login.php');
     exit;
 }
 
 $id = (int)($_GET['id'] ?? 0);
-if (!$id) { header('Location: /resep-masakan/user/resep-saya.php'); exit; }
+if (!$id) { header('Location: /user/resep-saya.php'); exit; }
 
 // Ambil resep — pastikan milik sendiri atau admin
 $stmt = mysqli_prepare($koneksi, "SELECT * FROM resep WHERE id = ?");
@@ -18,7 +18,7 @@ $resep = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
 mysqli_stmt_close($stmt);
 
 if (!$resep || ($resep['user_id'] != $_SESSION['user_id'] && $_SESSION['role'] !== 'admin')) {
-    header('Location: /resep-masakan/user/resep-saya.php');
+    header('Location: /user/resep-saya.php');
     exit;
 }
 
@@ -41,9 +41,9 @@ mysqli_stmt_close($del);
 
 // Redirect sesuai role
 if ($_SESSION['role'] === 'admin') {
-    header('Location: /resep-masakan/admin/kelola-resep.php?deleted=1');
+    header('Location: /admin/kelola-resep.php?deleted=1');
 } else {
-    header('Location: /resep-masakan/user/resep-saya.php?deleted=1');
+    header('Location: /user/resep-saya.php?deleted=1');
 }
 exit;
 ?>

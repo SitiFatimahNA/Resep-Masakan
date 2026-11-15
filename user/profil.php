@@ -1,8 +1,8 @@
-﻿<?php
+<?php
 session_start();
-require_once '../config/koneksi.php';
+require_once dirname(__DIR__) . '/config/koneksi.php';
 
-if (!isset($_SESSION['user_id'])) { header('Location: /resep-masakan/login.php'); exit; }
+if (!isset($_SESSION['user_id'])) { header('Location: /login.php'); exit; }
 
 $page_title = 'Profil Saya';
 $user_id    = (int)$_SESSION['user_id'];
@@ -79,12 +79,12 @@ require_once '../includes/header.php';
         <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
             <!-- Avatar -->
             <div style="position:relative;cursor:pointer;" onclick="document.getElementById('foto-upload').click()" title="Klik untuk ganti foto">
-                <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($user['foto'] ?? 'default.png') ?>?v=<?= time() ?>"
+                <img src="/uploads/profil/<?= htmlspecialchars($user['foto'] ?? 'default.png') ?>?v=<?= time() ?>"
                      id="avatar-preview"
                      style="width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid rgba(82,183,136,0.5);box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:opacity 0.2s;"
                      onmouseover="this.style.opacity='0.8'"
                      onmouseout="this.style.opacity='1'"
-                     onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                     onerror="this.src='/assets/images/default-avatar.svg'">
                 <div style="position:absolute;bottom:0;right:0;width:26px;height:26px;background:linear-gradient(135deg,#40916c,#52b788);border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid rgba(10,46,26,0.8);">
                     <i class="fas fa-camera" style="font-size:0.6rem;color:#fff;"></i>
                 </div>
@@ -157,10 +157,10 @@ require_once '../includes/header.php';
                 <div style="margin-bottom:1.2rem;">
                     <label style="display:block;font-size:0.72rem;font-weight:700;color:#4a6741;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;">Foto Profil</label>
                     <div style="display:flex;align-items:center;gap:14px;">
-                        <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($user['foto'] ?? 'default.png') ?>"
+                        <img src="/uploads/profil/<?= htmlspecialchars($user['foto'] ?? 'default.png') ?>"
                              id="preview-img"
                              style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid #c8ddc8;flex-shrink:0;"
-                             onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                             onerror="this.src='/assets/images/default-avatar.svg'">
                         <div style="flex:1;">
                             <input type="file" name="foto" accept="image/*"
                                    id="foto-upload"
@@ -235,17 +235,17 @@ require_once '../includes/header.php';
             <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #f0f5f0;">
                 <p style="font-size:0.75rem;font-weight:700;color:#8a9e87;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;">Navigasi Cepat</p>
                 <div style="display:flex;flex-direction:column;gap:6px;">
-                    <a href="/resep-masakan/user/resep-saya.php" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f4f7f4;border-radius:10px;text-decoration:none;color:#1a2e1a;font-size:0.85rem;font-weight:500;transition:background 0.2s;"
+                    <a href="/user/resep-saya.php" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f4f7f4;border-radius:10px;text-decoration:none;color:#1a2e1a;font-size:0.85rem;font-weight:500;transition:background 0.2s;"
                        onmouseover="this.style.background='#e8f5e8'"
                        onmouseout="this.style.background='#f4f7f4'">
                         <i class="fas fa-book-open" style="color:#2d6a4f;width:16px;text-align:center;"></i> Resep Saya
                     </a>
-                    <a href="/resep-masakan/user/favorit.php" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f4f7f4;border-radius:10px;text-decoration:none;color:#1a2e1a;font-size:0.85rem;font-weight:500;transition:background 0.2s;"
+                    <a href="/user/favorit.php" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f4f7f4;border-radius:10px;text-decoration:none;color:#1a2e1a;font-size:0.85rem;font-weight:500;transition:background 0.2s;"
                        onmouseover="this.style.background='#e8f5e8'"
                        onmouseout="this.style.background='#f4f7f4'">
                         <i class="fas fa-heart" style="color:#e74c3c;width:16px;text-align:center;"></i> Favorit Saya
                     </a>
-                    <a href="/resep-masakan/user/tambah-resep.php" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f4f7f4;border-radius:10px;text-decoration:none;color:#1a2e1a;font-size:0.85rem;font-weight:500;transition:background 0.2s;"
+                    <a href="/user/tambah-resep.php" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f4f7f4;border-radius:10px;text-decoration:none;color:#1a2e1a;font-size:0.85rem;font-weight:500;transition:background 0.2s;"
                        onmouseover="this.style.background='#e8f5e8'"
                        onmouseout="this.style.background='#f4f7f4'">
                         <i class="fas fa-plus" style="color:#2d6a4f;width:16px;text-align:center;"></i> Tambah Resep
