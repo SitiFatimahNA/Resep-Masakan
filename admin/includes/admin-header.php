@@ -51,6 +51,9 @@ $current = basename($_SERVER['PHP_SELF']);
         max-width: 100%;
     }
 
+    /* Override style.css publik yang punya margin-top untuk navbar */
+    .main-content { margin-top: 0 !important; }
+
     body {
         font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
         background: var(--bg);
