@@ -73,10 +73,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if ($aksi === 'hapus-kategori' && $id) {
+    // Hapus relasi di resep_kategori dulu, lalu update resep yang pakai kategori ini
+    mysqli_query($koneksi, "DELETE FROM resep_kategori WHERE id_kategori=$id");
+    mysqli_query($koneksi, "UPDATE resep SET id_kategori=NULL WHERE id_kategori=$id");
     mysqli_query($koneksi, "DELETE FROM kategori WHERE id=$id");
     header('Location: /admin/kelola-kategori.php?msg=deleted'); exit;
 }
 if ($aksi === 'hapus-jenis' && $id) {
+    mysqli_query($koneksi, "UPDATE resep SET id_jenis=NULL WHERE id_jenis=$id");
     mysqli_query($koneksi, "DELETE FROM jenis_masakan WHERE id=$id");
     header('Location: /admin/kelola-kategori.php?msg=deleted'); exit;
 }
@@ -142,7 +146,7 @@ while ($j = mysqli_fetch_assoc($jenis_list)) $jenis_arr[] = $j;
             </div>
         </div>
 
-        <!-- List Kategori — MOBILE: card, DESKTOP: tabel -->
+        <!-- List Kategori ï¿½ MOBILE: card, DESKTOP: tabel -->
         <!-- Desktop -->
         <div class="admin-card tabel-kategori">
             <table class="admin-table">
