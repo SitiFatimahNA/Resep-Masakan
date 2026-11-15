@@ -1186,6 +1186,7 @@ select.form-control { cursor: pointer; }
 @media (max-width: 768px) {
     /* Padding bawah hero cukup untuk tombol + wave */
     .detail-hero-container {
+        padding-top: 1.5rem !important;
         padding-bottom: 5.5rem !important;
     }
 
