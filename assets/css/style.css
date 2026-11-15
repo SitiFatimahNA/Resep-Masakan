@@ -242,6 +242,7 @@ ul { list-style: none; }
     opacity: 1 !important;
     visibility: visible !important;
     transform: translateY(0) !important;
+    pointer-events: auto !important;
 }
 
 .dropdown-menu a {

@@ -85,23 +85,18 @@ function toggleMenu() {
 document.addEventListener('DOMContentLoaded', function() {
     const avatar = document.querySelector('.user-avatar');
     const dropdown = document.querySelector('.user-dropdown');
-    if (avatar && dropdown) {
-        // Support both click dan touchend untuk mobile
-        ['click', 'touchend'].forEach(function(evt) {
-            avatar.addEventListener(evt, function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                dropdown.classList.toggle('open');
-            }, { passive: false });
-        });
-    }
+    if (!avatar || !dropdown) return;
+
+    avatar.addEventListener('click', function(e) {
+        e.stopPropagation();
+        dropdown.classList.toggle('open');
+    });
+
     // Tutup saat tap/klik di luar
-    ['click', 'touchend'].forEach(function(evt) {
-        document.addEventListener(evt, function(e) {
-            if (dropdown && !dropdown.contains(e.target)) {
-                dropdown.classList.remove('open');
-            }
-        });
+    document.addEventListener('click', function(e) {
+        if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove('open');
+        }
     });
 });
 
