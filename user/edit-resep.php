@@ -328,7 +328,7 @@ require_once '../includes/header.php';
             <div id="bahan-container">
                 <?php foreach ($bahan_arr as $b): ?>
                 <div class="bahan-row" style="display:grid; grid-template-columns:2fr 1fr 1fr 40px; gap:8px; margin-bottom:8px;">
-                    <input type="text" name="bahan_nama[]" class="form-control" value="<?= htmlspecialchars($b['nama_bahan']) ?>">
+                    <input type="text" name="bahan_nama[]" class="form-control bahan-nama-input" value="<?= htmlspecialchars($b['nama_bahan']) ?>">
                     <input type="text" name="bahan_jumlah[]" class="form-control" value="<?= htmlspecialchars($b['jumlah']) ?>">
                     <input type="text" name="bahan_satuan[]" class="form-control" value="<?= htmlspecialchars($b['satuan'] ?? '') ?>">
                     <button type="button" onclick="hapusBaris(this)" style="background:var(--danger);color:#fff;border:none;border-radius:var(--radius-sm);cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;margin-top:2px;">
@@ -445,7 +445,7 @@ function tambahBahan() {
     row.className = 'bahan-row';
     row.style.cssText = 'display:grid;grid-template-columns:2fr 1fr 1fr 40px;gap:8px;margin-bottom:8px;';
     row.innerHTML = `
-        <input type="text" name="bahan_nama[]" class="form-control" placeholder="Nama bahan">
+        <input type="text" name="bahan_nama[]" class="form-control bahan-nama-input" placeholder="Nama bahan">
         <input type="text" name="bahan_jumlah[]" class="form-control" placeholder="Jumlah">
         <input type="text" name="bahan_satuan[]" class="form-control" placeholder="Satuan">
         <button type="button" onclick="hapusBaris(this)" style="background:var(--danger);color:#fff;border:none;border-radius:var(--radius-sm);cursor:pointer;width:36px;height:36px;display:flex;align-items:center;justify-content:center;margin-top:2px;">
