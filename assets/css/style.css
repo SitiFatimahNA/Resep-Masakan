@@ -234,11 +234,10 @@ ul { list-style: none; }
 }
 
 .user-dropdown:hover .dropdown-menu {
-    opacity: 1; visibility: visible;
-    transform: translateY(0);
+    /* Hover dinonaktifkan - pakai JS toggle untuk semua device */
 }
 
-/* Toggle via JS (tap di mobile) */
+/* Toggle via JS (tap/klik) */
 .user-dropdown.open .dropdown-menu {
     opacity: 1 !important;
     visibility: visible !important;
