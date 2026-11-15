@@ -75,15 +75,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if ($aksi === 'hapus-kategori' && $id) {
-    // Hapus relasi di resep_kategori dulu, lalu update resep yang pakai kategori ini
+    mysqli_query($koneksi, "SET FOREIGN_KEY_CHECKS=0");
     mysqli_query($koneksi, "DELETE FROM resep_kategori WHERE id_kategori=$id");
     mysqli_query($koneksi, "UPDATE resep SET id_kategori=NULL WHERE id_kategori=$id");
     mysqli_query($koneksi, "DELETE FROM kategori WHERE id=$id");
+    mysqli_query($koneksi, "SET FOREIGN_KEY_CHECKS=1");
     header('Location: /admin/kelola-kategori.php?msg=deleted'); exit;
 }
 if ($aksi === 'hapus-jenis' && $id) {
+    mysqli_query($koneksi, "SET FOREIGN_KEY_CHECKS=0");
     mysqli_query($koneksi, "UPDATE resep SET id_jenis=NULL WHERE id_jenis=$id");
     mysqli_query($koneksi, "DELETE FROM jenis_masakan WHERE id=$id");
+    mysqli_query($koneksi, "SET FOREIGN_KEY_CHECKS=1");
     header('Location: /admin/kelola-kategori.php?msg=deleted'); exit;
 }
 
