@@ -47,7 +47,6 @@ if (isset($_GET['export']) && $_GET['export'] === 'csv') {
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename="laporan-resep-'.date('Ymd').'.csv"');
     $out = fopen('php://output', 'w');
-    fprintf($out, chr(0xEF).chr(0xBB).chr(0xBF));
     fputcsv($out, ['No','Judul','Pembuat','Kategori','Jenis','Kesulitan','Waktu(mnt)','Porsi','Views','Rating','Komentar','Status','Tanggal']);
     $no = 1;
     foreach ($resep_list as $r) {
