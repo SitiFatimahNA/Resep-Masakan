@@ -81,6 +81,24 @@ function toggleMenu() {
     hamburger.classList.toggle('open');
 }
 
+// Toggle dropdown avatar — tap buka, tap lagi tutup
+document.addEventListener('DOMContentLoaded', function() {
+    const avatar = document.querySelector('.user-avatar');
+    const dropdown = document.querySelector('.user-dropdown');
+    if (avatar && dropdown) {
+        avatar.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdown.classList.toggle('open');
+        });
+    }
+    // Tutup saat klik di luar
+    document.addEventListener('click', function(e) {
+        if (dropdown && !dropdown.contains(e.target)) {
+            dropdown.classList.remove('open');
+        }
+    });
+});
+
 // Animate on scroll
 const animateElements = document.querySelectorAll('.animate');
 const observer = new IntersectionObserver((entries) => {

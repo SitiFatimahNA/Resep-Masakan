@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar — DapurIn</title>
+    <title>Daftar ï¿½ DapurIn</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -173,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="auth-left-footer">
-        <p>© <?= date('Y') ?> DapurIn. Semua hak dilindungi.</p>
+        <p>ï¿½ <?= date('Y') ?> DapurIn. Semua hak dilindungi.</p>
     </div>
 </div>
 
@@ -286,10 +286,10 @@ document.getElementById('konfirm').addEventListener('input', function() {
     const match = document.getElementById('match-text');
     if (!this.value) { match.textContent = ''; return; }
     if (this.value === pw) {
-        match.textContent = '? Password cocok';
+        match.textContent = 'âœ“ Password cocok';
         match.style.color = '#27ae60';
     } else {
-        match.textContent = '? Tidak cocok';
+        match.textContent = 'âœ— Tidak cocok';
         match.style.color = '#e74c3c';
     }
 });

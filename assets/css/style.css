@@ -238,6 +238,13 @@ ul { list-style: none; }
     transform: translateY(0);
 }
 
+/* Toggle via JS (tap di mobile) */
+.user-dropdown.open .dropdown-menu {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+}
+
 .dropdown-menu a {
     display: flex;
     align-items: center;
