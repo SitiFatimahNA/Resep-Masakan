@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 session_start();
 require_once __DIR__ . '/config/koneksi.php';
 
@@ -107,10 +107,10 @@ require_once 'includes/header.php';
                 </h1>
 
                 <p style="color:rgba(255,255,255,0.65);font-size:1rem;line-height:1.8;max-width:460px;margin-bottom:2.5rem;">
-                    Temukan ribuan resep masakan Indonesia dari berbagai kategori. Dari sarapan pagi hingga dessert malam — semua ada di sini.
+                    Temukan ribuan resep masakan Indonesia dari berbagai kategori. Dari sarapan pagi hingga dessert malam &mdash; semua ada di sini.
                 </p>
 
-                <!-- Gambar hero — hanya tampil di mobile, posisi antara deskripsi dan tombol -->
+                <!-- Gambar hero ï¿½ hanya tampil di mobile, posisi antara deskripsi dan tombol -->
                 <div class="hero-img-mobile" style="margin-bottom:2rem;position:relative;border-radius:20px;overflow:hidden;">
                     <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=85"
                          alt="Masakan Lezat"
@@ -197,7 +197,7 @@ require_once 'includes/header.php';
                      style="animation:float 6s ease-in-out infinite;"
                      onerror="this.src='https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&q=80'">
 
-                <!-- Floating card — Rating -->
+                <!-- Floating card ï¿½ Rating -->
                 <div class="hero-float-card" style="
                     position:absolute;top:30px;right:-20px;
                     background:rgba(255,255,255,0.95);
@@ -217,8 +217,8 @@ require_once 'includes/header.php';
                     <div style="font-size:0.7rem;color:#888;margin-top:3px;"><?= $total_resep ?>+ ulasan</div>
                 </div>
 
-                <!-- Floating card — Resep baru -->
-                <!-- Floating card — Resep baru -->
+                <!-- Floating card ï¿½ Resep baru -->
+                <!-- Floating card ï¿½ Resep baru -->
                 <div class="hero-float-card" style="
                     position:absolute;bottom:40px;left:-30px;
                     background:rgba(255,255,255,0.95);

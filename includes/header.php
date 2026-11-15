@@ -74,7 +74,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </form>
         </div>
 
-        <!-- Search mobile — langsung tampil, tidak perlu tap ikon -->
+        <!-- Search mobile ï¿½ langsung tampil, tidak perlu tap ikon -->
         <form class="navbar-mobile-search-form" action="/resep.php" method="GET">
             <i class="fas fa-search" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#8a9e87;font-size:0.78rem;pointer-events:none;"></i>
             <input type="text" name="q" placeholder="Cari resep..."
@@ -101,6 +101,12 @@ $current_page = basename($_SERVER['PHP_SELF']);
                      class="user-avatar"
                      onerror="this.src='/assets/images/default-avatar.svg'">
                 <div class="dropdown-menu">
+                    <?php if ($_SESSION['role'] === 'admin'): ?>
+                    <a href="/admin/dashboard.php">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard Admin
+                    </a>
+                    <div class="divider"></div>
+                    <?php endif; ?>
                     <a href="/user/profil.php">
                         <i class="fas fa-user"></i> Profil Saya
                     </a>
