@@ -1,6 +1,6 @@
-ï»¿<?php
+<?php
 session_start();
-require_once 'config/koneksi.php';
+require_once __DIR__ . '/config/koneksi.php';
 
 $page_title = 'Beranda';
 
@@ -107,10 +107,10 @@ require_once 'includes/header.php';
                 </h1>
 
                 <p style="color:rgba(255,255,255,0.65);font-size:1rem;line-height:1.8;max-width:460px;margin-bottom:2.5rem;">
-                    Temukan ribuan resep masakan Indonesia dari berbagai kategori. Dari sarapan pagi hingga dessert malam â€” semua ada di sini.
+                    Temukan ribuan resep masakan Indonesia dari berbagai kategori. Dari sarapan pagi hingga dessert malam — semua ada di sini.
                 </p>
 
-                <!-- Gambar hero â€” hanya tampil di mobile, posisi antara deskripsi dan tombol -->
+                <!-- Gambar hero — hanya tampil di mobile, posisi antara deskripsi dan tombol -->
                 <div class="hero-img-mobile" style="margin-bottom:2rem;position:relative;border-radius:20px;overflow:hidden;">
                     <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=85"
                          alt="Masakan Lezat"
@@ -140,7 +140,7 @@ require_once 'includes/header.php';
 
                 <!-- CTA -->
                 <div style="display:flex;gap:1rem;margin-bottom:3rem;flex-wrap:wrap;">
-                    <a href="/resep-masakan/resep.php" style="
+                    <a href="/resep.php" style="
                         display:inline-flex;align-items:center;gap:8px;
                         background:linear-gradient(135deg,#52b788,#2d6a4f);
                         color:#fff;padding:14px 28px;border-radius:50px;
@@ -152,7 +152,7 @@ require_once 'includes/header.php';
                         <i class="fas fa-utensils"></i> Jelajahi Resep
                     </a>
                     <?php if (!isset($_SESSION['user_id'])): ?>
-                    <a href="/resep-masakan/register.php" style="
+                    <a href="/register.php" style="
                         display:inline-flex;align-items:center;gap:8px;
                         background:rgba(255,255,255,0.08);
                         color:#fff;padding:14px 28px;border-radius:50px;
@@ -197,7 +197,7 @@ require_once 'includes/header.php';
                      style="animation:float 6s ease-in-out infinite;"
                      onerror="this.src='https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&q=80'">
 
-                <!-- Floating card â€” Rating -->
+                <!-- Floating card — Rating -->
                 <div class="hero-float-card" style="
                     position:absolute;top:30px;right:-20px;
                     background:rgba(255,255,255,0.95);
@@ -217,8 +217,8 @@ require_once 'includes/header.php';
                     <div style="font-size:0.7rem;color:#888;margin-top:3px;"><?= $total_resep ?>+ ulasan</div>
                 </div>
 
-                <!-- Floating card â€” Resep baru -->
-                <!-- Floating card â€” Resep baru -->
+                <!-- Floating card — Resep baru -->
+                <!-- Floating card — Resep baru -->
                 <div class="hero-float-card" style="
                     position:absolute;bottom:40px;left:-30px;
                     background:rgba(255,255,255,0.95);
@@ -262,7 +262,7 @@ require_once 'includes/header.php';
                     Pilih <span style="color:var(--green);">Kategori</span> Favoritmu
                 </h2>
             </div>
-            <a href="/resep-masakan/kategori.php" style="display:inline-flex;align-items:center;gap:6px;color:var(--green);font-size:0.875rem;font-weight:600;text-decoration:none;border:1.5px solid var(--green);padding:8px 18px;border-radius:20px;transition:all 0.3s;"
+            <a href="/kategori.php" style="display:inline-flex;align-items:center;gap:6px;color:var(--green);font-size:0.875rem;font-weight:600;text-decoration:none;border:1.5px solid var(--green);padding:8px 18px;border-radius:20px;transition:all 0.3s;"
                onmouseover="this.style.background='var(--green)';this.style.color='#fff'"
                onmouseout="this.style.background='';this.style.color='var(--green)'">
                 Semua Kategori <i class="fas fa-arrow-right"></i>
@@ -282,7 +282,7 @@ require_once 'includes/header.php';
             foreach ($kategori_list as $kat):
                 $img = $kat_img[$kat['slug']] ?? null;
             ?>
-            <a href="/resep-masakan/resep.php?kategori=<?= urlencode($kat['slug']) ?>"
+            <a href="/resep.php?kategori=<?= urlencode($kat['slug']) ?>"
                style="
                 text-decoration:none;display:block;
                 background:#fff;border-radius:20px;
@@ -295,7 +295,7 @@ require_once 'includes/header.php';
                 <!-- Gambar -->
                 <div style="height:110px;overflow:hidden;position:relative;">
                     <?php if ($img): ?>
-                    <img src="/resep-masakan/assets/images/kategori/<?= $img ?>"
+                    <img src="/assets/images/kategori/<?= $img ?>"
                          style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;"
                          onmouseover="this.style.transform='scale(1.08)'"
                          onmouseout="this.style.transform=''"
@@ -331,7 +331,7 @@ require_once 'includes/header.php';
                     Resep <span style="color:var(--green);">Terbaru</span>
                 </h2>
             </div>
-            <a href="/resep-masakan/resep.php" style="display:inline-flex;align-items:center;gap:6px;color:var(--green);font-size:0.875rem;font-weight:600;text-decoration:none;border:1.5px solid var(--green);padding:8px 18px;border-radius:20px;transition:all 0.3s;"
+            <a href="/resep.php" style="display:inline-flex;align-items:center;gap:6px;color:var(--green);font-size:0.875rem;font-weight:600;text-decoration:none;border:1.5px solid var(--green);padding:8px 18px;border-radius:20px;transition:all 0.3s;"
                onmouseover="this.style.background='var(--green)';this.style.color='#fff'"
                onmouseout="this.style.background='';this.style.color='var(--green)'">
                 Lihat Semua <i class="fas fa-arrow-right"></i>
@@ -341,12 +341,12 @@ require_once 'includes/header.php';
         <?php if (empty($resep_terbaru)): ?>
         <div style="text-align:center;padding:5rem;background:#f8faf8;border-radius:20px;">
             <i class="fas fa-utensils" style="font-size:3rem;color:#d4e6d4;display:block;margin-bottom:1rem;"></i>
-            <p style="color:var(--text-muted);">Belum ada resep. <a href="/resep-masakan/<?= isset($_SESSION['user_id'])?'user/tambah-resep.php':'register.php' ?>" style="color:var(--green);font-weight:600;">Jadilah yang pertama!</a></p>
+            <p style="color:var(--text-muted);">Belum ada resep. <a href="/<?= isset($_SESSION['user_id'])?'user/tambah-resep.php':'register.php' ?>" style="color:var(--green);font-weight:600;">Jadilah yang pertama!</a></p>
         </div>
         <?php else: ?>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;" class="grid-resep-home">
             <?php foreach ($resep_terbaru as $resep): ?>
-            <div onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'"
+            <div onclick="window.location='/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'"
                  style="
                     background:#fff;border-radius:20px;overflow:hidden;
                     border:1.5px solid #e8f0e8;cursor:pointer;
@@ -358,11 +358,11 @@ require_once 'includes/header.php';
                  onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(45,106,79,0.06)';this.style.borderColor='#e8f0e8'">
                 <!-- Gambar -->
                 <div style="position:relative;overflow:hidden;height:200px;flex-shrink:0;">
-                    <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
+                    <img src="/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
                          style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;"
                          onmouseover="this.style.transform='scale(1.05)'"
                          onmouseout="this.style.transform=''"
-                         onerror="this.src='/resep-masakan/assets/images/default-resep.svg'">
+                         onerror="this.src='/assets/images/default-resep.svg'">
                     <!-- Badge kesulitan -->
                     <span style="
                         position:absolute;top:12px;left:12px;
@@ -399,9 +399,9 @@ require_once 'includes/header.php';
                         </div>
                         <!-- Nama user di bawah bintang -->
                         <div style="display:flex;align-items:center;gap:5px;font-size:0.72rem;color:var(--text-muted);">
-                            <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($resep['foto_user'] ?? 'default.png') ?>"
+                            <img src="/uploads/profil/<?= htmlspecialchars($resep['foto_user'] ?? 'default.png') ?>"
                                  style="width:18px;height:18px;border-radius:50%;object-fit:cover;border:1px solid #c8ddc8;flex-shrink:0;"
-                                 onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                                 onerror="this.src='/assets/images/default-avatar.svg'">
                             <?= htmlspecialchars(mb_strimwidth($resep['nama_user'],0,18,'...')) ?>
                         </div>
                     </div>
@@ -430,7 +430,7 @@ require_once 'includes/header.php';
                     Resep <span style="color:#95d5b2;">Populer</span>
                 </h2>
             </div>
-            <a href="/resep-masakan/populer.php" style="display:inline-flex;align-items:center;gap:6px;color:#95d5b2;font-size:0.875rem;font-weight:600;text-decoration:none;border:1.5px solid rgba(149,213,178,0.4);padding:8px 18px;border-radius:20px;transition:all 0.3s;"
+            <a href="/populer.php" style="display:inline-flex;align-items:center;gap:6px;color:#95d5b2;font-size:0.875rem;font-weight:600;text-decoration:none;border:1.5px solid rgba(149,213,178,0.4);padding:8px 18px;border-radius:20px;transition:all 0.3s;"
                onmouseover="this.style.background='rgba(149,213,178,0.1)'"
                onmouseout="this.style.background=''">
                 Lihat Semua <i class="fas fa-arrow-right"></i>
@@ -439,7 +439,7 @@ require_once 'includes/header.php';
 
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;" class="grid-populer-home">
             <?php foreach ($resep_populer as $i => $resep): ?>
-            <div onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'"
+            <div onclick="window.location='/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'"
                  style="
                     background:rgba(255,255,255,0.06);border-radius:20px;overflow:hidden;
                     border:1.5px solid rgba(255,255,255,0.1);cursor:pointer;
@@ -450,11 +450,11 @@ require_once 'includes/header.php';
                  onmouseout="this.style.transform='';this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.1)'">
                 <!-- Gambar -->
                 <div style="position:relative;overflow:hidden;height:170px;">
-                    <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
+                    <img src="/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
                          style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;"
                          onmouseover="this.style.transform='scale(1.05)'"
                          onmouseout="this.style.transform=''"
-                         onerror="this.src='/resep-masakan/assets/images/default-resep.svg'">
+                         onerror="this.src='/assets/images/default-resep.svg'">
                     <!-- Rank -->
                     <div style="
                         position:absolute;top:10px;left:10px;
@@ -519,7 +519,7 @@ require_once 'includes/header.php';
                     Bergabung dan bagikan resep andalanmu kepada jutaan pecinta kuliner di seluruh Indonesia.
                 </p>
                 <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-                    <a href="/resep-masakan/register.php" style="
+                    <a href="/register.php" style="
                         display:inline-flex;align-items:center;gap:8px;
                         background:linear-gradient(135deg,#52b788,#40916c);
                         color:#fff;padding:14px 32px;border-radius:50px;
@@ -530,7 +530,7 @@ require_once 'includes/header.php';
                        onmouseout="this.style.transform=''">
                         <i class="fas fa-user-plus"></i> Daftar Gratis
                     </a>
-                    <a href="/resep-masakan/login.php" style="
+                    <a href="/login.php" style="
                         display:inline-flex;align-items:center;gap:8px;
                         background:rgba(255,255,255,0.1);
                         color:#fff;padding:14px 32px;border-radius:50px;

@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 session_start();
-require_once 'config/koneksi.php';
+require_once __DIR__ . '/config/koneksi.php';
 $page_title = 'Resep Populer';
 
 $page     = max(1, (int)($_GET['page'] ?? 1));
@@ -34,7 +34,7 @@ require_once 'includes/header.php';
     <div style="position:absolute;top:-100px;right:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(82,183,136,0.12) 0%,transparent 70%);pointer-events:none;"></div>
     <div class="container" style="position:relative;z-index:1;">
         <p style="font-size:0.72rem;font-weight:600;color:#52b788;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">
-            <a href="/resep-masakan/home.php" style="color:#52b788;text-decoration:none;">Beranda</a>
+            <a href="/home.php" style="color:#52b788;text-decoration:none;">Beranda</a>
             <i class="fas fa-chevron-right" style="font-size:0.55rem;margin:0 6px;"></i> Populer
         </p>
         <h1 style="font-family:'Playfair Display',serif;font-size:2.5rem;color:#fff;font-weight:700;letter-spacing:-0.5px;margin-bottom:0.5rem;">
@@ -72,17 +72,17 @@ require_once 'includes/header.php';
             foreach ($podium as $p):
                 $r = $resep_list[$p['idx']];
             ?>
-            <div class="podium-card-<?= $p['rank'] ?>" onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($r['slug']) ?>'"
+            <div class="podium-card-<?= $p['rank'] ?>" onclick="window.location='/detail-resep.php?slug=<?= urlencode($r['slug']) ?>'"
                  style="background:#fff;border-radius:20px;overflow:hidden;border:1.5px solid #e4ede6;cursor:pointer;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 2px 12px rgba(45,106,79,0.07);"
                  onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 20px 50px rgba(45,106,79,0.15)';this.style.borderColor='#95d5b2'"
                  onmouseout="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(45,106,79,0.07)';this.style.borderColor='#e4ede6'">
                 <!-- Gambar -->
                 <div style="position:relative;overflow:hidden;height:<?= $p['h'] ?>;">
-                    <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($r['thumbnail']) ?>"
+                    <img src="/uploads/resep/<?= htmlspecialchars($r['thumbnail']) ?>"
                          style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;"
                          onmouseover="this.style.transform='scale(1.05)'"
                          onmouseout="this.style.transform=''"
-                         onerror="this.src='/resep-masakan/assets/images/default-resep.svg'">
+                         onerror="this.src='/assets/images/default-resep.svg'">
                     <!-- Medal badge -->
                     <div style="position:absolute;top:12px;left:12px;width:36px;height:36px;background:<?= $p['medal'] ?>;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;color:#fff;box-shadow:0 3px 10px rgba(0,0,0,0.3);">
                         #<?= $p['rank'] ?>
@@ -130,16 +130,16 @@ require_once 'includes/header.php';
 
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;">
         <?php foreach (array_slice($resep_list, 3) as $i => $resep): ?>
-        <div onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'"
+        <div onclick="window.location='/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'"
              style="background:#fff;border-radius:18px;overflow:hidden;border:1.5px solid #e4ede6;cursor:pointer;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 2px 8px rgba(45,106,79,0.05);display:flex;flex-direction:column;"
              onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 40px rgba(45,106,79,0.13)';this.style.borderColor='#95d5b2'"
              onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(45,106,79,0.05)';this.style.borderColor='#e4ede6'">
             <div style="position:relative;overflow:hidden;height:160px;flex-shrink:0;">
-                <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
+                <img src="/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
                      style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;"
                      onmouseover="this.style.transform='scale(1.05)'"
                      onmouseout="this.style.transform=''"
-                     onerror="this.src='/resep-masakan/assets/images/default-resep.svg'">
+                     onerror="this.src='/assets/images/default-resep.svg'">
                 <div style="position:absolute;top:10px;left:10px;width:28px;height:28px;background:rgba(10,46,26,0.75);backdrop-filter:blur(8px);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.72rem;color:#fff;">
                     #<?= $i+4 ?>
                 </div>

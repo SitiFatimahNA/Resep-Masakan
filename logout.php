@@ -6,6 +6,6 @@ $_SESSION = [];
 session_destroy();
 
 // Redirect ke halaman login
-header('Location: /resep-masakan/login.php');
+header('Location: /login.php');
 exit;
 ?>

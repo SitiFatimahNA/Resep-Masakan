@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 session_start();
-require_once 'config/koneksi.php';
+require_once __DIR__ . '/config/koneksi.php';
 $page_title = 'Kategori';
 
 $kategori_list = mysqli_query($koneksi,
@@ -39,7 +39,7 @@ $jenis_img = [
     <div style="position:absolute;bottom:-50px;right:-100px;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(82,183,136,0.12) 0%,transparent 70%);pointer-events:none;"></div>
     <div class="container" style="position:relative;z-index:1;">
         <p style="font-size:0.72rem;font-weight:600;color:#52b788;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">
-            <a href="/resep-masakan/home.php" style="color:#52b788;text-decoration:none;">Beranda</a>
+            <a href="/home.php" style="color:#52b788;text-decoration:none;">Beranda</a>
             <i class="fas fa-chevron-right" style="font-size:0.55rem;margin:0 6px;"></i> Kategori
         </p>
         <h1 style="font-family:'Playfair Display',serif;font-size:2.5rem;color:#fff;font-weight:700;letter-spacing:-0.5px;margin-bottom:0.5rem;">
@@ -73,13 +73,13 @@ $jenis_img = [
             <?php while ($k = mysqli_fetch_assoc($kategori_list)):
                 $img = $kat_img[$k['slug']] ?? null;
             ?>
-            <a href="/resep-masakan/resep.php?kategori=<?= urlencode($k['slug']) ?>"
+            <a href="/resep.php?kategori=<?= urlencode($k['slug']) ?>"
                style="text-decoration:none;background:#fff;border-radius:20px;overflow:hidden;border:1.5px solid #e4ede6;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 2px 8px rgba(45,106,79,0.05);display:block;"
                onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 18px 45px rgba(45,106,79,0.14)';this.style.borderColor='#95d5b2'"
                onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(45,106,79,0.05)';this.style.borderColor='#e4ede6'">
                 <div style="position:relative;height:130px;overflow:hidden;">
                     <?php if ($img): ?>
-                    <img src="/resep-masakan/assets/images/kategori/<?= $img ?>"
+                    <img src="/assets/images/kategori/<?= $img ?>"
                          style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;"
                          onmouseover="this.style.transform='scale(1.08)'"
                          onmouseout="this.style.transform=''"
@@ -116,13 +116,13 @@ $jenis_img = [
             <?php while ($j = mysqli_fetch_assoc($jenis_list)):
                 $jimg = $jenis_img[$j['slug']] ?? null;
             ?>
-            <a href="/resep-masakan/resep.php?jenis=<?= urlencode($j['slug']) ?>"
+            <a href="/resep.php?jenis=<?= urlencode($j['slug']) ?>"
                style="text-decoration:none;background:#fff;border-radius:18px;overflow:hidden;border:1.5px solid #e4ede6;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 2px 8px rgba(45,106,79,0.05);display:block;"
                onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 40px rgba(45,106,79,0.13)';this.style.borderColor='#95d5b2'"
                onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(45,106,79,0.05)';this.style.borderColor='#e4ede6'">
                 <div style="position:relative;height:110px;overflow:hidden;">
                     <?php if ($jimg): ?>
-                    <img src="/resep-masakan/assets/images/kategori/<?= $jimg ?>"
+                    <img src="/assets/images/kategori/<?= $jimg ?>"
                          style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;"
                          onmouseover="this.style.transform='scale(1.08)'"
                          onmouseout="this.style.transform=''"

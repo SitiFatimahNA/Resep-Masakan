@@ -1,9 +1,9 @@
-ï»¿<?php
+<?php
 session_start();
-require_once 'config/koneksi.php';
+require_once __DIR__ . '/config/koneksi.php';
 
 if (isset($_SESSION['user_id'])) {
-    header('Location: '.($_SESSION['role']==='admin'?'/resep-masakan/admin/dashboard.php':'/resep-masakan/home.php'));
+    header('Location: '.($_SESSION['role']==='admin'?'/admin/dashboard.php':'/home.php'));
     exit;
 }
 
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['email']   = $user['email'];
             $_SESSION['role']    = $user['role'];
             $_SESSION['foto']    = $user['foto'];
-            header('Location: '.($user['role']==='admin'?'/resep-masakan/admin/dashboard.php':'/resep-masakan/home.php'));
+            header('Location: '.($user['role']==='admin'?'/admin/dashboard.php':'/home.php'));
             exit;
         } else {
             $error = 'Email atau password salah.';
@@ -43,15 +43,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masuk â€” DapurIn</title>
-    <link rel="stylesheet" href="/resep-masakan/assets/css/style.css">
+    <title>Masuk — DapurIn</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
         body{font-family:'Poppins',sans-serif;min-height:100vh;display:flex;overflow:hidden;}
 
-        /* KIRI â€” Panel dekorasi */
+        /* KIRI — Panel dekorasi */
         .auth-left{
             width:45%;flex-shrink:0;
             background:linear-gradient(160deg,#0a2e1a 0%,#1a4731 50%,#2d6a4f 100%);
@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .auth-left-footer{position:relative;z-index:1;}
         .auth-left-footer p{font-size:0.75rem;color:rgba(255,255,255,0.3);}
 
-        /* KANAN â€” Form */
+        /* KANAN — Form */
         .auth-right{
             flex:1;
             background:#f4f7f4;
@@ -247,7 +247,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="auth-left-footer">
-        <p>Â© <?= date('Y') ?> DapurIn. Semua hak dilindungi.</p>
+        <p>© <?= date('Y') ?> DapurIn. Semua hak dilindungi.</p>
     </div>
 </div>
 
@@ -255,7 +255,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="auth-right">
     <div class="auth-form-wrap">
         <h1 class="auth-form-title">Masuk ke Akun</h1>
-        <p class="auth-form-sub">Belum punya akun? <a href="/resep-masakan/register.php" style="color:#2d6a4f;font-weight:600;">Daftar sekarang</a></p>
+        <p class="auth-form-sub">Belum punya akun? <a href="/register.php" style="color:#2d6a4f;font-weight:600;">Daftar sekarang</a></p>
 
         <?php if ($error): ?>
         <div class="auth-error"><i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?></div>
@@ -296,7 +296,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="auth-divider">atau</div>
 
         <div class="auth-link">
-            Belum punya akun? <a href="/resep-masakan/register.php">Daftar Gratis</a>
+            Belum punya akun? <a href="/register.php">Daftar Gratis</a>
         </div>
     </div>
 </div>

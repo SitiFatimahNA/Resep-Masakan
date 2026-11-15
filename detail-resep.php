@@ -1,9 +1,9 @@
-﻿<?php
+<?php
 session_start();
-require_once 'config/koneksi.php';
+require_once __DIR__ . '/config/koneksi.php';
 
 $slug = trim($_GET['slug'] ?? '');
-if (!$slug) { header('Location: /resep-masakan/resep.php'); exit; }
+if (!$slug) { header('Location: /resep.php'); exit; }
 
 $is_admin        = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
 $user_id_session = (int)($_SESSION['user_id'] ?? 0);
@@ -24,11 +24,11 @@ mysqli_stmt_execute($stmt);
 $resep = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
 mysqli_stmt_close($stmt);
 
-if (!$resep) { header('Location: /resep-masakan/resep.php'); exit; }
+if (!$resep) { header('Location: /resep.php'); exit; }
 
 if ($resep['status'] === 'draft') {
     if (!$is_admin && $resep['id_pemilik'] !== $user_id_session) {
-        header('Location: /resep-masakan/resep.php'); exit;
+        header('Location: /resep.php'); exit;
     }
 }
 
@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['komentar'])) {
                 mysqli_stmt_bind_param($ks,'iis',$resep['id'],$_SESSION['user_id'],$isi);
             }
             mysqli_stmt_execute($ks); mysqli_stmt_close($ks);
-            header("Location: /resep-masakan/detail-resep.php?slug=".urlencode($slug)."#komentar"); exit;
+            header("Location: /detail-resep.php?slug=".urlencode($slug)."#komentar"); exit;
         }
     }
 }
@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rating'])) {
                 "INSERT INTO rating (id_resep,id_user,nilai) VALUES (?,?,?) ON DUPLICATE KEY UPDATE nilai=?");
             mysqli_stmt_bind_param($rs3,'iiii',$resep['id'],$_SESSION['user_id'],$nilai,$nilai);
             mysqli_stmt_execute($rs3); mysqli_stmt_close($rs3);
-            header("Location: /resep-masakan/detail-resep.php?slug=".urlencode($slug)); exit;
+            header("Location: /detail-resep.php?slug=".urlencode($slug)); exit;
         }
     }
 }
@@ -138,9 +138,9 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
     <div class="container detail-hero-container" style="position:relative;z-index:1;padding:2.5rem 1.5rem 4rem;">
         <!-- Breadcrumb -->
         <div style="font-size:0.75rem;color:rgba(255,255,255,0.45);margin-bottom:1.2rem;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-            <a href="/resep-masakan/home.php" style="color:#52b788;text-decoration:none;">Beranda</a>
+            <a href="/home.php" style="color:#52b788;text-decoration:none;">Beranda</a>
             <i class="fas fa-chevron-right" style="font-size:0.55rem;"></i>
-            <a href="/resep-masakan/resep.php" style="color:#52b788;text-decoration:none;">Resep</a>
+            <a href="/resep.php" style="color:#52b788;text-decoration:none;">Resep</a>
             <i class="fas fa-chevron-right" style="font-size:0.55rem;"></i>
             <span style="color:rgba(255,255,255,0.6);"><?= htmlspecialchars(mb_strimwidth($resep['judul'],0,40,'...')) ?></span>
         </div>
@@ -154,7 +154,7 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                         <?= ucfirst($resep['tingkat_kesulitan']) ?>
                     </span>
                     <?php foreach ($kategori_resep as $kr): ?>
-                    <a href="/resep-masakan/resep.php?kategori=<?= $kr['slug'] ?>" style="background:rgba(82,183,136,0.2);color:#95d5b2;padding:4px 12px;border-radius:20px;font-size:0.72rem;font-weight:600;text-decoration:none;border:1px solid rgba(82,183,136,0.3);">
+                    <a href="/resep.php?kategori=<?= $kr['slug'] ?>" style="background:rgba(82,183,136,0.2);color:#95d5b2;padding:4px 12px;border-radius:20px;font-size:0.72rem;font-weight:600;text-decoration:none;border:1px solid rgba(82,183,136,0.3);">
                         <?= htmlspecialchars($kr['nama_kategori']) ?>
                     </a>
                     <?php endforeach; ?>
@@ -167,9 +167,9 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                 <!-- Penulis & info -->
                 <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
                     <div style="display:flex;align-items:center;gap:8px;">
-                        <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($resep['foto_user'] ?? 'default.png') ?>"
+                        <img src="/uploads/profil/<?= htmlspecialchars($resep['foto_user'] ?? 'default.png') ?>"
                              style="width:32px;height:32px;border-radius:50%;object-fit:cover;border:2px solid rgba(82,183,136,0.5);"
-                             onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                             onerror="this.src='/assets/images/default-avatar.svg'">
                         <span style="font-size:0.85rem;color:rgba(255,255,255,0.7);font-weight:500;">
                             <?= htmlspecialchars($resep['nama_user']) ?>
                         </span>
@@ -189,7 +189,7 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                 </div>
             </div>
 
-            <!-- Aksi — desktop kanan, mobile bawah info -->
+            <!-- Aksi � desktop kanan, mobile bawah info -->
             <div class="detail-hero-actions" style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;">
                 <?php if (isset($_SESSION['user_id'])): ?>
                 <button onclick="toggleFavorit()" id="btn-favorit"
@@ -206,7 +206,7 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                 </button>
                 <?php endif; ?>
                 <?php if (isset($_SESSION['user_id']) && ($_SESSION['user_id']==$resep['id_pemilik'] || $_SESSION['role']==='admin')): ?>
-                <a href="/resep-masakan/user/edit-resep.php?id=<?= $resep['id'] ?>"
+                <a href="/user/edit-resep.php?id=<?= $resep['id'] ?>"
                    style="display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:20px;font-size:0.85rem;font-weight:600;background:rgba(255,255,255,0.1);color:#fff;text-decoration:none;border:1.5px solid rgba(255,255,255,0.2);transition:all 0.2s;white-space:nowrap;"
                    onmouseover="this.style.background='rgba(255,255,255,0.18)'"
                    onmouseout="this.style.background='rgba(255,255,255,0.1)'">
@@ -234,10 +234,10 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
 
         <!-- Foto utama -->
         <div style="border-radius:24px;overflow:hidden;box-shadow:0 8px 32px rgba(45,106,79,0.15);">
-            <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
+            <img src="/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
                  class="detail-resep-img"
                  alt="<?= htmlspecialchars($resep['judul']) ?>"
-                 onerror="this.src='/resep-masakan/assets/images/default-resep.svg'">
+                 onerror="this.src='/assets/images/default-resep.svg'">
         </div>
 
         <!-- Info cepat 4 kotak -->
@@ -386,7 +386,7 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                             <?= nl2br(htmlspecialchars($l['instruksi'])) ?>
                         </p>
                         <?php if ($l['foto_langkah']): ?>
-                        <img src="/resep-masakan/uploads/langkah/<?= htmlspecialchars($l['foto_langkah']) ?>"
+                        <img src="/uploads/langkah/<?= htmlspecialchars($l['foto_langkah']) ?>"
                              style="margin-top:12px;width:100%;max-width:420px;border-radius:14px;object-fit:cover;border:1.5px solid #e4ede6;">
                         <?php endif; ?>
                     </div>
@@ -424,9 +424,9 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
             <form method="POST" style="margin-bottom:2rem;background:#f4f7f4;border-radius:16px;padding:1.2rem;">
                 <input type="hidden" name="parent_id" value="0">
                 <div style="display:flex;gap:10px;align-items:flex-start;">
-                    <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($_SESSION['foto'] ?? 'default.png') ?>"
+                    <img src="/uploads/profil/<?= htmlspecialchars($_SESSION['foto'] ?? 'default.png') ?>"
                          style="width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid #c8ddc8;flex-shrink:0;"
-                         onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                         onerror="this.src='/assets/images/default-avatar.svg'">
                     <div style="flex:1;">
                         <textarea name="komentar" rows="3" placeholder="Bagikan pengalamanmu memasak resep ini..."
                                   style="width:100%;padding:10px 14px;background:#fff;border:1.5px solid #e4ede6;border-radius:12px;font-size:0.875rem;font-family:inherit;color:#1a2e1a;outline:none;resize:none;transition:border-color 0.2s;"
@@ -442,7 +442,7 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
             </form>
             <?php else: ?>
             <div style="background:#f4f7f4;border-radius:14px;padding:1.2rem;margin-bottom:1.5rem;text-align:center;font-size:0.875rem;color:#8a9e87;">
-                <a href="/resep-masakan/login.php" style="color:#2d6a4f;font-weight:600;">Login</a> untuk berkomentar
+                <a href="/login.php" style="color:#2d6a4f;font-weight:600;">Login</a> untuk berkomentar
             </div>
             <?php endif; ?>
 
@@ -458,9 +458,9 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                 <div>
                     <!-- Komentar utama -->
                     <div style="display:flex;gap:12px;padding:1rem;background:#f4f7f4;border-radius:14px;">
-                        <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($k['foto'] ?? 'default.png') ?>"
+                        <img src="/uploads/profil/<?= htmlspecialchars($k['foto'] ?? 'default.png') ?>"
                              style="width:38px;height:38px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid #c8ddc8;"
-                             onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                             onerror="this.src='/assets/images/default-avatar.svg'">
                         <div style="flex:1;">
                             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;flex-wrap:wrap;gap:6px;">
                                 <div style="display:flex;align-items:center;gap:8px;">
@@ -491,9 +491,9 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                         <?php foreach ($k['replies'] as $reply): ?>
                         <div>
                             <div style="display:flex;gap:10px;padding:0.8rem;background:#eef7f0;border-radius:12px;border-left:3px solid #95d5b2;">
-                                <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($reply['foto'] ?? 'default.png') ?>"
+                                <img src="/uploads/profil/<?= htmlspecialchars($reply['foto'] ?? 'default.png') ?>"
                                      style="width:30px;height:30px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid #c8ddc8;"
-                                     onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                                     onerror="this.src='/assets/images/default-avatar.svg'">
                                 <div style="flex:1;">
                                     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;flex-wrap:wrap;gap:5px;">
                                         <div style="display:flex;align-items:center;gap:6px;">
@@ -599,7 +599,7 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
             </form>
             <?php else: ?>
             <p style="text-align:center;font-size:0.85rem;color:#8a9e87;">
-                <a href="/resep-masakan/login.php" style="color:#2d6a4f;font-weight:600;">Login</a> untuk memberi rating
+                <a href="/login.php" style="color:#2d6a4f;font-weight:600;">Login</a> untuk memberi rating
             </p>
             <?php endif; ?>
         </div>
@@ -631,15 +631,15 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
         <!-- Penulis -->
         <div style="background:linear-gradient(135deg,#0a2e1a,#1a4731);border-radius:20px;padding:1.5rem;box-shadow:0 4px 16px rgba(10,46,26,0.2);">
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;">
-                <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($resep['foto_user'] ?? 'default.png') ?>"
+                <img src="/uploads/profil/<?= htmlspecialchars($resep['foto_user'] ?? 'default.png') ?>"
                      style="width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid rgba(82,183,136,0.5);"
-                     onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                     onerror="this.src='/assets/images/default-avatar.svg'">
                 <div>
                     <div style="font-size:0.9rem;font-weight:700;color:#fff;"><?= htmlspecialchars($resep['nama_user']) ?></div>
                     <div style="font-size:0.72rem;color:rgba(255,255,255,0.45);">Penulis Resep</div>
                 </div>
             </div>
-            <a href="/resep-masakan/resep.php?penulis=<?= $resep['id_pemilik'] ?>"
+            <a href="/resep.php?penulis=<?= $resep['id_pemilik'] ?>"
                style="display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,255,255,0.1);color:#95d5b2;border:1px solid rgba(149,213,178,0.2);border-radius:20px;padding:8px;font-size:0.78rem;font-weight:600;text-decoration:none;transition:all 0.2s;"
                onmouseover="this.style.background='rgba(255,255,255,0.18)'"
                onmouseout="this.style.background='rgba(255,255,255,0.1)'">
@@ -724,7 +724,7 @@ function toggleReplyForm(id) {
 
 // ===== FAVORIT =====
 function toggleFavorit() {
-    fetch('/resep-masakan/user/ajax-favorit.php', {
+    fetch('/user/ajax-favorit.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: 'id_resep=<?= $resep["id"] ?>'

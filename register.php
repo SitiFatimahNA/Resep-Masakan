@@ -1,8 +1,8 @@
-﻿<?php
+<?php
 session_start();
-require_once 'config/koneksi.php';
+require_once __DIR__ . '/config/koneksi.php';
 
-if (isset($_SESSION['user_id'])) { header('Location: /resep-masakan/home.php'); exit; }
+if (isset($_SESSION['user_id'])) { header('Location: /home.php'); exit; }
 
 $error = '';
 
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mysqli_stmt_bind_param($stmt2,'sss',$nama,$email,$hashed);
             if (mysqli_stmt_execute($stmt2)) {
                 mysqli_stmt_close($stmt2);
-                header('Location: /resep-masakan/login.php?registered=1'); exit;
+                header('Location: /login.php?registered=1'); exit;
             } else {
                 $error = 'Terjadi kesalahan, coba lagi.';
                 mysqli_stmt_close($stmt2);
@@ -51,8 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar — DapurIn</title>
-    <link rel="stylesheet" href="/resep-masakan/assets/css/style.css">
+    <title>Daftar � DapurIn</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -173,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="auth-left-footer">
-        <p>© <?= date('Y') ?> DapurIn. Semua hak dilindungi.</p>
+        <p>� <?= date('Y') ?> DapurIn. Semua hak dilindungi.</p>
     </div>
 </div>
 
@@ -181,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="auth-right">
     <div class="auth-form-wrap">
         <h1 class="auth-form-title">Buat Akun Baru</h1>
-        <p class="auth-form-sub">Sudah punya akun? <a href="/resep-masakan/login.php">Masuk di sini</a></p>
+        <p class="auth-form-sub">Sudah punya akun? <a href="/login.php">Masuk di sini</a></p>
 
         <?php if ($error): ?>
         <div class="auth-error"><i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?></div>
@@ -245,7 +245,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
 
         <div class="auth-link">
-            Sudah punya akun? <a href="/resep-masakan/login.php">Masuk</a>
+            Sudah punya akun? <a href="/login.php">Masuk</a>
         </div>
     </div>
 </div>
@@ -286,10 +286,10 @@ document.getElementById('konfirm').addEventListener('input', function() {
     const match = document.getElementById('match-text');
     if (!this.value) { match.textContent = ''; return; }
     if (this.value === pw) {
-        match.textContent = '✓ Password cocok';
+        match.textContent = '? Password cocok';
         match.style.color = '#27ae60';
     } else {
-        match.textContent = '✗ Tidak cocok';
+        match.textContent = '? Tidak cocok';
         match.style.color = '#e74c3c';
     }
 });

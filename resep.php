@@ -1,6 +1,6 @@
-﻿<?php
+<?php
 session_start();
-require_once 'config/koneksi.php';
+require_once __DIR__ . '/config/koneksi.php';
 
 $page_title = 'Daftar Resep';
 
@@ -143,7 +143,7 @@ require_once 'includes/header.php';
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
             <div>
                 <p style="font-size:0.72rem;font-weight:600;color:#52b788;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">
-                    <a href="/resep-masakan/home.php" style="color:#52b788;text-decoration:none;">Beranda</a>
+                    <a href="/home.php" style="color:#52b788;text-decoration:none;">Beranda</a>
                     <i class="fas fa-chevron-right" style="font-size:0.55rem;margin:0 6px;"></i>
                     Resep
                     <?php if ($kategori): ?>
@@ -175,7 +175,7 @@ require_once 'includes/header.php';
                     $params_url = $_GET; $params_url['sort'] = $sv; unset($params_url['page']);
                     $active = $sort === $sv;
                 ?>
-                <a href="/resep-masakan/resep.php?<?= http_build_query($params_url) ?>"
+                <a href="/resep.php?<?= http_build_query($params_url) ?>"
                    style="
                     display:inline-flex;align-items:center;gap:5px;
                     padding:7px 14px;border-radius:20px;font-size:0.78rem;font-weight:600;
@@ -210,7 +210,7 @@ require_once 'includes/header.php';
                     <i class="fas fa-sliders-h" style="color:var(--green);"></i> Filter Resep
                 </span>
                 <?php if ($q || $kategori || $jenis || $kesulitan || $sort !== 'terbaru'): ?>
-                <a href="/resep-masakan/resep.php" style="font-size:0.72rem;color:var(--danger);text-decoration:none;font-weight:600;">
+                <a href="/resep.php" style="font-size:0.72rem;color:var(--danger);text-decoration:none;font-weight:600;">
                     <i class="fas fa-times"></i> Reset
                 </a>
                 <?php endif; ?>
@@ -317,7 +317,7 @@ require_once 'includes/header.php';
             </div>
             <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#1a2e1a;margin-bottom:0.5rem;">Resep tidak ditemukan</h3>
             <p style="color:#8a9e87;margin-bottom:1.5rem;">Coba kata kunci atau filter yang berbeda</p>
-            <a href="/resep-masakan/resep.php" style="
+            <a href="/resep.php" style="
                 display:inline-flex;align-items:center;gap:8px;
                 background:linear-gradient(135deg,#2d6a4f,#40916c);
                 color:#fff;padding:10px 24px;border-radius:20px;
@@ -329,7 +329,7 @@ require_once 'includes/header.php';
         <!-- Grid -->
         <div class="resep-grid-main" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:2rem;">
             <?php foreach ($resep_list as $resep): ?>
-            <div onclick="window.location='/resep-masakan/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'"
+            <div onclick="window.location='/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>'"
                  style="
                     background:#fff;border-radius:20px;overflow:hidden;
                     border:1.5px solid #e4ede6;cursor:pointer;
@@ -342,11 +342,11 @@ require_once 'includes/header.php';
 
                 <!-- Gambar -->
                 <div style="position:relative;overflow:hidden;height:190px;flex-shrink:0;">
-                    <img src="/resep-masakan/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
+                    <img src="/uploads/resep/<?= htmlspecialchars($resep['thumbnail']) ?>"
                          style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;"
                          onmouseover="this.style.transform='scale(1.05)'"
                          onmouseout="this.style.transform=''"
-                         onerror="this.src='/resep-masakan/assets/images/default-resep.svg'">
+                         onerror="this.src='/assets/images/default-resep.svg'">
 
                     <!-- Badge kesulitan -->
                     <span style="
@@ -432,9 +432,9 @@ require_once 'includes/header.php';
                         </div>
                         <!-- Baris 2: Foto + Nama pembuat -->
                         <div style="display:flex;align-items:center;gap:6px;overflow:hidden;">
-                            <img src="/resep-masakan/uploads/profil/<?= htmlspecialchars($resep['foto_user'] ?? 'default.png') ?>"
+                            <img src="/uploads/profil/<?= htmlspecialchars($resep['foto_user'] ?? 'default.png') ?>"
                                  style="width:20px;height:20px;border-radius:50%;object-fit:cover;border:1.5px solid #c8ddc8;flex-shrink:0;"
-                                 onerror="this.src='/resep-masakan/assets/images/default-avatar.svg'">
+                                 onerror="this.src='/assets/images/default-avatar.svg'">
                             <span style="font-size:0.72rem;color:#8a9e87;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
                                 <?= htmlspecialchars($resep['nama_user']) ?>
                             </span>
@@ -450,7 +450,7 @@ require_once 'includes/header.php';
         <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:1rem;">
             <?php
             $pu = $_GET; unset($pu['page']);
-            $base_url = '/resep-masakan/resep.php?'.http_build_query($pu).'&page=';
+            $base_url = '/resep.php?'.http_build_query($pu).'&page=';
             ?>
             <?php if ($page > 1): ?>
             <a href="<?= $base_url.($page-1) ?>" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:#fff;border:1.5px solid #e4ede6;color:#4a6741;text-decoration:none;transition:all 0.2s;"
@@ -500,7 +500,7 @@ require_once 'includes/header.php';
 
 <script>
 function toggleFavorit(id, btn) {
-    fetch('/resep-masakan/user/ajax-favorit.php', {
+    fetch('/user/ajax-favorit.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: 'id_resep=' + id
