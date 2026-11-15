@@ -3,24 +3,12 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 $page_title = 'Kelola Kategori';
 require_once dirname(__DIR__) . '/config/koneksi.php';
-require_once 'includes/admin-header.php';
-?>
-<style>
-@media (max-width: 768px) {
-    .tabel-kategori { display: none !important; }
-    .cards-kategori { display: block !important; }
-}
-@media (min-width: 769px) {
-    .tabel-kategori { display: block !important; }
-    .cards-kategori { display: none !important; }
-}
-</style>
-<?php
-$error = $success = '';
-$edit_kat = $edit_jenis = null;
+if (session_status() === PHP_SESSION_NONE) session_start();
 
 $aksi = $_POST['aksi'] ?? $_GET['aksi'] ?? '';
 $id   = (int)($_GET['id'] ?? $_POST['id'] ?? 0);
+$error = $success = '';
+$edit_kat = $edit_jenis = null;
 
 function buat_slug_k($str) {
     return preg_replace('/[\s-]+/', '-', preg_replace('/[^a-z0-9\s-]/', '', strtolower(trim($str))));
@@ -107,11 +95,17 @@ $kat_arr = [];
 while ($k = mysqli_fetch_assoc($kategori_list)) $kat_arr[] = $k;
 $jenis_arr = [];
 while ($j = mysqli_fetch_assoc($jenis_list)) $jenis_arr[] = $j;
-?>
 
+require_once 'includes/admin-header.php';
+?>
 <style>
 @media (max-width: 768px) {
-    .kat-grid { grid-template-columns: 1fr !important; }
+    .tabel-kategori { display: none !important; }
+    .cards-kategori { display: block !important; }
+}
+@media (min-width: 769px) {
+    .tabel-kategori { display: block !important; }
+    .cards-kategori { display: none !important; }
 }
 </style>
 
