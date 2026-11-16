@@ -280,6 +280,11 @@ require_once 'includes/admin-header.php';?>
     .admin-table{font-size:11px;}
     a{text-decoration:none;color:inherit;}
     #print-header{display:block!important;}
+    /* Hilangkan URL dan tanggal otomatis dari browser */
+    @page {
+        margin: 1cm;
+        size: A4;
+    }
 }
 #print-header{display:none;}
 </style>
