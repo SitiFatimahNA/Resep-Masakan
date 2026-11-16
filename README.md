@@ -1,6 +1,6 @@
 ﻿<div align="center">
 
-# 🍳 DapurIn — Sistem Informasi Resep Masakan
+# 🍳 DapurIn — Platform Resep Masakan
 
 <p>Platform berbagi dan mengelola resep masakan berbasis <strong>PHP Native</strong> + <strong>MySQL</strong></p>
 
@@ -9,10 +9,10 @@
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![XAMPP](https://img.shields.io/badge/XAMPP-FB7A24?style=for-the-badge&logo=xampp&logoColor=white)](https://apachefriends.org)
 
 [![License](https://img.shields.io/badge/License-MIT-2d6a4f?style=flat-square)](LICENSE)
-[![Status](https://img.shields.io/badge/Status-Completed-2d6a4f?style=flat-square)]()
+[![Status](https://img.shields.io/badge/Status-Active-2d6a4f?style=flat-square)]()
+[![Live](https://img.shields.io/badge/Live-dapurin.free.nf-40916c?style=flat-square&logo=googlechrome&logoColor=white)](https://dapurin.free.nf)
 [![GitHub](https://img.shields.io/badge/GitHub-SitiFatimahNA-181717?style=flat-square&logo=github)](https://github.com/SitiFatimahNA/Resep-Masakan)
 
 </div>
@@ -25,7 +25,7 @@
 
 Tampilan didesain dengan tema **hijau elegan** dan mendukung **mobile responsive** penuh — nyaman diakses dari HP maupun desktop.
 
-> Project ini dikerjakan sebagai tugas akhir mata pelajaran Pemrograman Web.
+> 🌐 **Live:** [dapurin.free.nf](https://dapurin.free.nf)
 
 ---
 
@@ -36,10 +36,10 @@ Tampilan didesain dengan tema **hijau elegan** dan mendukung **mobile responsive
 <td width="33%">
 
 ### 🌐 Publik
-- Hero section modern + animasi float
-- Daftar resep dengan filter, pencarian, pagination
-- Detail resep: bahan, langkah, nutrisi, alat masak
-- Kategori & jenis masakan
+- Hero section modern dengan border-radius elegan
+- Daftar resep + filter, pencarian, pagination
+- Detail resep: bahan checklist, langkah, nutrisi, alat masak
+- Kategori & jenis masakan dinamis
 - Resep terpopuler (podium top 3)
 - Foto profil pembuat di card resep
 
@@ -47,14 +47,14 @@ Tampilan didesain dengan tema **hijau elegan** dan mendukung **mobile responsive
 <td width="33%">
 
 ### 👤 User (Login)
-- Tambah resep (bahan, langkah, alat, nutrisi)
-- Edit & hapus resep sendiri
+- Tambah & edit resep (bahan, langkah, alat, nutrisi)
 - Status **Publik / Draft**
 - Rating bintang 1–5
 - Komentar + reply bertingkat
-- Simpan resep ke favorit
-- Edit profil & foto (klik foto langsung)
-- Ganti password
+- **Edit & hapus komentar sendiri** (AJAX)
+- Simpan & hapus resep favorit (AJAX)
+- Halaman resep saya & favorit
+- Edit profil & foto + ganti password
 
 </td>
 <td width="33%">
@@ -76,19 +76,20 @@ Tampilan didesain dengan tema **hijau elegan** dan mendukung **mobile responsive
 
 ## 📱 Responsif Mobile
 
-Tampilan dioptimalkan untuk semua ukuran layar dengan pendekatan **dual view** (tabel di desktop, card di mobile):
+Tampilan dioptimalkan untuk semua ukuran layar dengan pendekatan **dual view**:
 
 ```
 Desktop  ████████████████████  1200px+   → sidebar + tabel + grid 3 kolom
-Tablet   █████████████         768px+    → sidebar + tabel compact
-Mobile   ████████              < 768px   → hamburger menu + card layout
+Tablet   █████████████         1024px+   → sidebar + tabel compact
+Mobile   ████████              < 1024px  → hamburger menu + card layout
 ```
 
-Fitur mobile khusus:
-- Navbar: search bar langsung + avatar dropdown toggle tap
+Fitur mobile:
+- Navbar: search bar + tombol Masuk/Daftar proporsional
 - Admin: sidebar slide-in dengan overlay
-- Card resep: 2 kolom dengan foto profil pembuat
-- Detail resep: tombol Simpan/Edit tidak tertutup wave
+- Card resep: 2 kolom dengan info waktu di thumbnail
+- Filter bar: stack vertikal, tombol full width
+- Komentar: edit & hapus inline tanpa reload
 
 ---
 
@@ -102,6 +103,7 @@ Fitur mobile khusus:
 | Akses Halaman | Role-based access control (admin / user) |
 | Upload File | Validasi ekstensi + ukuran (maks 2MB) |
 | Session | PHP session dengan role check tiap halaman |
+| AJAX | Verifikasi ownership sebelum edit/hapus komentar |
 
 ---
 
@@ -122,7 +124,7 @@ Fitur mobile khusus:
 │ langkah_resep    │ Langkah memasak + foto langkah             │
 │ alat_masak       │ Daftar alat masak tiap resep               │
 │ nutrisi          │ Info nutrisi per porsi (kalori, protein…)  │
-│ komentar         │ Komentar + reply bertingkat                │
+│ komentar         │ Komentar + reply bertingkat (parent_id)    │
 │ rating           │ Rating bintang 1–5 per user per resep      │
 │ favorit          │ Resep yang disimpan user                   │
 └──────────────────┴────────────────────────────────────────────┘
@@ -130,47 +132,39 @@ Fitur mobile khusus:
 
 ---
 
-## 🚀 Instalasi & Menjalankan
+## 🚀 Instalasi Lokal
 
 ### Prasyarat
-
 - [XAMPP](https://www.apachefriends.org/) (PHP 8.x + MySQL + Apache)
 - [Git](https://git-scm.com/)
 
-### Langkah Instalasi
+### Langkah
 
 **1. Clone repository**
-
 ```bash
 cd C:\xampp\htdocs
 git clone https://github.com/SitiFatimahNA/Resep-Masakan.git resep-masakan
 ```
 
 **2. Import database**
-
 ```
 1. Buka http://localhost/phpmyadmin
-2. Klik "New" → buat database: resep_masakan
-3. Pilih tab "Import" → pilih file: config/database.sql
-4. Klik "Go"
+2. Buat database: resep_masakan
+3. Import file: config/database.sql
 ```
 
-**3. Konfigurasi koneksi**
-
-Buat file `config/koneksi.php`:
-
+**3. Buat file koneksi** `config/koneksi.php`
 ```php
 <?php
+date_default_timezone_set('Asia/Jakarta');
 $koneksi = mysqli_connect('localhost', 'root', '', 'resep_masakan');
-if (!$koneksi) die('Koneksi gagal: ' . mysqli_connect_error());
 mysqli_set_charset($koneksi, 'utf8mb4');
+mysqli_query($koneksi, "SET time_zone = '+07:00'");
 ```
 
-**4. Jalankan aplikasi**
-
+**4. Jalankan**
 ```
-1. Buka XAMPP Control Panel → Start Apache & MySQL
-2. Buka browser → http://localhost/resep-masakan/
+http://localhost/resep-masakan/
 ```
 
 ---
@@ -190,68 +184,59 @@ mysqli_set_charset($koneksi, 'utf8mb4');
 resep-masakan/
 │
 ├── 📂 admin/                    # Panel Admin
-│   ├── 📂 includes/             # Layout admin (header & footer)
+│   ├── 📂 includes/
 │   │   ├── admin-header.php     # Sidebar, topbar, CSS admin
-│   │   └── admin-footer.php     # Closing tags + JS
+│   │   └── admin-footer.php
 │   ├── dashboard.php            # Statistik & chart
 │   ├── kelola-resep.php         # CRUD resep + dual view
-│   ├── kelola-user.php          # Manajemen user + dual view
+│   ├── kelola-user.php          # Manajemen user
 │   ├── kelola-kategori.php      # CRUD kategori & jenis
-│   ├── kelola-komentar.php      # Moderasi komentar + dual view
+│   ├── kelola-komentar.php      # Moderasi komentar
 │   └── laporan.php              # Filter + Export CSV + Cetak PDF
 │
-├── 📂 assets/
-│   ├── 📂 css/style.css         # Stylesheet utama (tema hijau elegan)
-│   └── 📂 images/               # Gambar default & ikon
+├── 📂 assets/css/style.css      # Stylesheet utama (tema hijau elegan)
 │
 ├── 📂 config/
-│   ├── database.sql             # Skema database + data awal
+│   ├── database.sql             # Skema database
 │   └── koneksi.php              # Koneksi DB (tidak di-push ke Git)
 │
 ├── 📂 includes/
-│   ├── header.php               # Navbar responsif + search mobile
-│   └── footer.php               # Footer + JavaScript global
+│   ├── header.php               # Navbar responsif
+│   └── footer.php               # Footer + kategori dinamis + JS global
 │
-├── 📂 uploads/
-│   ├── resep/                   # Thumbnail resep
-│   ├── profil/                  # Foto profil user
-│   └── langkah/                 # Foto langkah memasak
+├── 📂 uploads/                  # File upload user
 │
-├── 📂 user/                     # Fitur khusus user login
-│   ├── tambah-resep.php         # Form tambah resep (bahan dinamis)
-│   ├── edit-resep.php           # Form edit resep
-│   ├── hapus-resep.php          # Hapus resep
-│   ├── resep-saya.php           # Daftar resep milik user
-│   ├── favorit.php              # Daftar resep favorit
-│   ├── profil.php               # Edit profil & ganti password
-│   └── ajax-favorit.php         # Handler AJAX toggle favorit
+├── 📂 user/                     # Fitur user login
+│   ├── tambah-resep.php
+│   ├── edit-resep.php
+│   ├── resep-saya.php
+│   ├── favorit.php
+│   ├── profil.php
+│   ├── ajax-favorit.php         # AJAX toggle favorit
+│   └── ajax-komentar.php        # AJAX edit & hapus komentar
 │
-├── home.php                     # Beranda utama
-├── resep.php                    # Daftar semua resep + filter
-├── detail-resep.php             # Detail resep lengkap
+├── home.php                     # Beranda
+├── resep.php                    # Daftar resep + filter
+├── detail-resep.php             # Detail resep + komentar
 ├── kategori.php                 # Semua kategori
-├── populer.php                  # Resep terpopuler (podium top 3)
-├── login.php                    # Halaman login
-├── register.php                 # Halaman daftar akun
-└── logout.php                   # Proses logout
+├── populer.php                  # Resep terpopuler
+├── login.php
+├── register.php
+└── logout.php
 ```
 
 ---
 
 ## 🛠️ Tech Stack
 
-<div align="center">
-
 | Layer | Teknologi |
 |-------|-----------|
-| **Backend** | PHP 8.x Native (tanpa framework) |
-| **Database** | MySQL 8.0 + mysqli |
+| **Backend** | PHP 8.x Native |
+| **Database** | MySQL 8.0 + mysqli Prepared Statements |
 | **Frontend** | HTML5, CSS3, JavaScript Vanilla |
 | **Icon** | Font Awesome 6.5 |
 | **Font** | Playfair Display + Poppins + Plus Jakarta Sans |
-| **Server** | Apache via XAMPP |
-
-</div>
+| **Hosting** | InfinityFree |
 
 ---
 
@@ -260,35 +245,14 @@ resep-masakan/
 - 🔍 Filter rentang tanggal & status (Publik / Draft)
 - 📋 Tabel detail: judul, pembuat, kategori, views, rating, komentar
 - 📥 **Export CSV** — langsung dibuka di Excel / Google Sheets
-- 🖨️ **Cetak PDF** — via browser print dialog (`Ctrl+P`)
-
----
-
-## 📸 Screenshot
-
-> *Screenshot akan ditambahkan setelah proses demo selesai.*
-
----
-
-## 👩‍💻 Pembuat
-
-<div align="center">
-
-| | |
-|:--:|:--|
-| **Nama** | Siti Fatimah Nur Az-Zahra |
-| **Project** | DapurIn — Sistem Informasi Resep Masakan |
-| **Stack** | PHP Native + MySQL + Vanilla JS |
-| **Repository** | [github.com/SitiFatimahNA/Resep-Masakan](https://github.com/SitiFatimahNA/Resep-Masakan) |
-
-<br>
-
-*Dibuat dengan dedikasi untuk tugas akhir Pemrograman Web* 🌿
-
-</div>
+- 🖨️ **Cetak PDF** — via browser print dialog
 
 ---
 
 <div align="center">
-<sub>© 2026 Siti Fatimah Nur Az-Zahra — DapurIn</sub>
+
+**Dibuat oleh Siti Fatimah Nur Az-Zahra**
+
+© 2026 DapurIn — All rights reserved.
+
 </div>
