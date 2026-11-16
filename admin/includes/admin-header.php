@@ -7,8 +7,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 }
 
 $current = basename($_SERVER['PHP_SELF']);
-?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
