@@ -41,7 +41,7 @@ require_once '../includes/header.php';
 
 <!-- HERO -->
 <div class="main-content" style="padding:0;">
-<div style="background:linear-gradient(160deg,#0a2e1a 0%,#1a4731 50%,#2d6a4f 100%);padding:3rem 0 5rem;position:relative;overflow:hidden;">
+<div style="background:linear-gradient(160deg,#0a2e1a 0%,#1a4731 50%,#2d6a4f 100%);padding:3rem 0 4rem;position:relative;overflow:hidden;border-radius:0 0 40px 40px;">
     <div style="position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(82,183,136,0.12) 0%,transparent 70%);pointer-events:none;"></div>
     <div class="container" style="position:relative;z-index:1;">
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
@@ -59,14 +59,9 @@ require_once '../includes/header.php';
             </a>
         </div>
     </div>
-    <div style="position:absolute;bottom:0;left:0;width:100%;overflow:hidden;line-height:0;">
-        <svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;height:40px;">
-            <path d="M0,40 C240,0 480,40 720,20 C960,0 1200,35 1440,40 L1440,40 L0,40 Z" fill="#f4f7f4"/>
-        </svg>
-    </div>
 </div>
 
-<div style="background:#f4f7f4;padding:2rem 0 5rem;">
+<div style="background:#f4f7f4;padding:2rem 0 5rem;margin-top:-2px;">
 <div class="container">
 
     <?php if (isset($_GET['deleted'])): ?>

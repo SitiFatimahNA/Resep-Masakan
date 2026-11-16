@@ -417,7 +417,7 @@ require_once 'includes/header.php';
      RESEP POPULER
      =================================================================== -->
 <?php if (!empty($resep_populer)): ?>
-<section style="padding:5rem 0;background:linear-gradient(160deg,#0a2e1a 0%,#1a4731 60%,#2d6a4f 100%);position:relative;overflow:hidden;">
+<section style="padding:5rem 0;background:linear-gradient(160deg,#0a2e1a 0%,#1a4731 60%,#2d6a4f 100%);position:relative;overflow:hidden;border-radius:0 0 40px 40px;">
     <!-- Pattern bg -->
     <div style="position:absolute;inset:0;background:url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%2352b788\' fill-opacity=\'0.05\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/svg%3E') repeat;opacity:0.5;pointer-events:none;"></div>
     <div style="position:absolute;top:-100px;right:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(82,183,136,0.12) 0%,transparent 70%);pointer-events:none;"></div>
