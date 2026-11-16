@@ -190,10 +190,10 @@ require_once '../includes/header.php';
                     </a>
                     <a href="/user/hapus-resep.php?id=<?= $resep['id'] ?>"
                        onclick="return confirm('Yakin ingin menghapus resep ini?')"
-                       style="display:flex;align-items:center;justify-content:center;padding:8px 12px;background:#fef2f2;border-radius:10px;font-size:0.75rem;color:#c0392b;text-decoration:none;transition:all 0.2s;"
+                       style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px;background:#fef2f2;border-radius:10px;font-size:0.75rem;font-weight:600;color:#c0392b;text-decoration:none;transition:all 0.2s;"
                        onmouseover="this.style.background='#fde8e8'"
                        onmouseout="this.style.background='#fef2f2'">
-                        <i class="fas fa-trash"></i>
+                        <i class="fas fa-trash"></i> Hapus
                     </a>
                 </div>
             </div>
