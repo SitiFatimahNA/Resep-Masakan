@@ -3,6 +3,14 @@
 
 <!-- FOOTER -->
 <footer class="footer">
+    <?php
+    // Ambil semua kategori dari database
+    $footer_kategori = [];
+    if (isset($koneksi)) {
+        $res_kat = mysqli_query($koneksi, "SELECT id, nama_kategori FROM kategori ORDER BY nama_kategori ASC");
+        if ($res_kat) while ($fk = mysqli_fetch_assoc($res_kat)) $footer_kategori[] = $fk;
+    }
+    ?>
     <div class="container">
         <div class="footer-grid">
             <!-- Brand -->
@@ -13,25 +21,33 @@
                 </p>
             </div>
 
-            <!-- Navigasi -->
-            <div>
-                <h4 class="footer-title">Navigasi</h4>
-                <div class="footer-links">
-                    <a href="/index.php">Beranda</a>
-                    <a href="/resep.php">Semua Resep</a>
-                    <a href="/kategori.php">Kategori</a>
-                    <a href="/populer.php">Terpopuler</a>
+            <!-- Navigasi + Kategori dalam 1 div, 2 kolom di mobile -->
+            <div class="footer-nav-kat">
+                <!-- Navigasi -->
+                <div>
+                    <h4 class="footer-title">Navigasi</h4>
+                    <div class="footer-links">
+                        <a href="/index.php">Beranda</a>
+                        <a href="/resep.php">Semua Resep</a>
+                        <a href="/kategori.php">Kategori</a>
+                        <a href="/populer.php">Terpopuler</a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Kategori -->
-            <div>
-                <h4 class="footer-title">Kategori</h4>
-                <div class="footer-links">
-                    <a href="/resep.php?kategori=ayam">Ayam</a>
-                    <a href="/resep.php?kategori=ikan">Ikan</a>
-                    <a href="/resep.php?kategori=sayuran">Sayuran</a>
-                    <a href="/resep.php?kategori=dessert">Dessert</a>
+                <!-- Kategori dari DB -->
+                <div>
+                    <h4 class="footer-title">Kategori</h4>
+                    <div class="footer-links">
+                        <?php if (!empty($footer_kategori)): ?>
+                            <?php foreach ($footer_kategori as $fk): ?>
+                                <a href="/resep.php?kategori=<?= urlencode(strtolower($fk['nama_kategori'])) ?>">
+                                    <?= htmlspecialchars($fk['nama_kategori']) ?>
+                                </a>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <a href="/kategori.php">Lihat Kategori</a>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
 

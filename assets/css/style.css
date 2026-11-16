@@ -1569,3 +1569,18 @@ select.form-control { cursor: pointer; }
     /* Tab nav */
     .tab-nav button { font-size: 0.9rem !important; padding: 10px 16px !important; }
 }
+
+/* =====================================================
+   FOOTER — Navigasi & Kategori 2 kolom di mobile
+   ===================================================== */
+.footer-nav-kat {
+    display: contents; /* di desktop tetap ikut footer-grid normal */
+}
+
+@media (max-width: 768px) {
+    .footer-nav-kat {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 1rem !important;
+    }
+}
