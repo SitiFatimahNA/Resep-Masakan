@@ -54,7 +54,7 @@
 
         <!-- Footer Bottom -->
         <div class="footer-bottom">
-            <p>&copy; <?= date('Y') ?> <span>DapurIn</span>. Dibuat oleh <span>Siti Fatimah Nur Az-Zahra</span></p>
+            <p>&copy; <?= date('Y') ?> <span>DapurIn</span>. All rights reserved.</p>
         </div>
     </div>
 </footer>
