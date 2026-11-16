@@ -747,16 +747,36 @@ $current = basename($_SERVER['PHP_SELF']);
         .btn-action { width: 38px !important; height: 38px !important; border-radius: 10px !important; font-size: 0.85rem !important; }
 
         /* Tombol umum di mobile */
-        .btn { font-size: 0.88rem !important; padding: 9px 16px !important; }
-        .btn-sm { font-size: 0.85rem !important; padding: 8px 14px !important; }
+        .btn { font-size: 0.9rem !important; padding: 10px 18px !important; }
+        .btn-sm { font-size: 0.88rem !important; padding: 9px 16px !important; }
 
         /* Form control global di mobile */
-        .form-control { font-size: 0.9rem !important; padding: 10px 13px !important; }
-        .form-label { font-size: 0.85rem !important; }
+        .form-control { font-size: 0.92rem !important; padding: 10px 14px !important; }
+        .form-label { font-size: 0.88rem !important; }
 
         /* Text umum lebih readable */
-        .admin-table td { font-size: 0.82rem !important; }
-        .admin-card-header h3 { font-size: 0.9rem !important; }
+        .admin-table td { font-size: 0.88rem !important; padding: 11px 12px !important; }
+        .admin-table th { font-size: 0.75rem !important; padding: 10px 12px !important; }
+        .admin-card-header h3 { font-size: 0.95rem !important; }
+        
+        /* Badge */
+        .badge { font-size: 0.78rem !important; padding: 4px 12px !important; }
+        
+        /* Alert */
+        .alert { font-size: 0.9rem !important; }
+        
+        /* Stat card di dashboard */
+        .stat-card { padding: 0.9rem !important; }
+        .dash-stat-num { font-size: 1.4rem !important; }
+        .dash-stat-label { font-size: 0.78rem !important; }
+        
+        /* Sidebar nav item */
+        .nav-item { font-size: 0.95rem !important; padding: 11px 14px !important; }
+        .nav-section { font-size: 0.7rem !important; }
+        
+        /* Sidebar brand */
+        .sidebar-brand-text .name { font-size: 1.1rem !important; }
+        .sidebar-brand-text .badge { font-size: 0.65rem !important; }
 
         /* Admin card header */
         .admin-card-header { flex-wrap: wrap; gap: 8px; }

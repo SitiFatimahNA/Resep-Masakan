@@ -1513,3 +1513,59 @@ select.form-control { cursor: pointer; }
         height: 200px !important;
     }
 }
+
+/* =====================================================
+   MOBILE FONT SIZE — Keseluruhan Halaman Publik
+   ===================================================== */
+@media (max-width: 768px) {
+    /* Body & teks dasar */
+    body { font-size: 15px !important; }
+    
+    /* Navbar */
+    .navbar-brand { font-size: 1.2rem !important; }
+    .navbar-menu a { font-size: 0.95rem !important; }
+    
+    /* Hero home */
+    .hero-title { font-size: 2rem !important; line-height: 1.2 !important; }
+    .hero-subtitle { font-size: 1rem !important; }
+    .hero-actions .btn { font-size: 0.95rem !important; padding: 11px 20px !important; }
+    
+    /* Section heading */
+    .section-title { font-size: 1.6rem !important; }
+    .section-subtitle { font-size: 0.95rem !important; }
+    
+    /* Card resep */
+    .card-title { font-size: 0.95rem !important; }
+    .card-text { font-size: 0.85rem !important; }
+    .card-meta { font-size: 0.8rem !important; }
+    
+    /* Tombol umum */
+    .btn { font-size: 0.9rem !important; padding: 10px 18px !important; }
+    .btn-sm { font-size: 0.85rem !important; padding: 8px 14px !important; }
+    .btn-lg { font-size: 1rem !important; padding: 12px 24px !important; }
+    
+    /* Form controls */
+    input, select, textarea { font-size: 0.95rem !important; padding: 10px 14px !important; }
+    label { font-size: 0.9rem !important; }
+    
+    /* Detail resep */
+    .detail-hero-title { font-size: 1.8rem !important; }
+    .detail-info-item { font-size: 0.85rem !important; }
+    .detail-section-title { font-size: 1.3rem !important; }
+    .detail-content p, .detail-content li { font-size: 0.95rem !important; line-height: 1.7 !important; }
+    
+    /* Kategori card */
+    .kategori-card h3 { font-size: 0.95rem !important; }
+    .kategori-card p { font-size: 0.8rem !important; }
+    
+    /* Footer */
+    .footer-title { font-size: 1rem !important; }
+    .footer a, .footer p { font-size: 0.88rem !important; }
+    
+    /* Profil */
+    .profil-name { font-size: 1.3rem !important; }
+    .profil-bio { font-size: 0.9rem !important; }
+    
+    /* Tab nav */
+    .tab-nav button { font-size: 0.9rem !important; padding: 10px 16px !important; }
+}
