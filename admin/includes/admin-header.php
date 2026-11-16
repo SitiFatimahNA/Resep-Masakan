@@ -721,7 +721,7 @@ $current = basename($_SERVER['PHP_SELF']);
             padding-top: 10px !important;
             padding-bottom: 10px !important;
             padding-right: 14px !important;
-            padding-left: 42px !important;
+            padding-left: 38px !important;
         }
         .filter-bar form select {
             width: 100% !important;
