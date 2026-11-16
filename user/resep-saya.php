@@ -147,13 +147,16 @@ require_once '../includes/header.php';
                      onmouseover="this.style.transform='scale(1.05)'"
                      onmouseout="this.style.transform=''"
                      onerror="this.src='/assets/images/default-resep.svg'">
-                <!-- Status badge -->
-                <span style="position:absolute;top:12px;left:12px;padding:4px 12px;border-radius:20px;font-size:0.68rem;font-weight:700;
-                    background:<?= $resep['status']==='publik'?'#2d6a4f':'rgba(0,0,0,0.65)' ?>;color:#fff;">
+                <!-- Status badge kiri atas -->
+                <span style="position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:20px;font-size:0.68rem;font-weight:700;background:<?= $resep['status']==='publik'?'#2d6a4f':'rgba(0,0,0,0.65)' ?>;color:#fff;">
                     <?= ucfirst($resep['status']) ?>
                 </span>
-                <!-- Views -->
-                <span style="position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,0.6);color:#fff;padding:3px 8px;border-radius:20px;font-size:0.65rem;">
+                <!-- Waktu masak kiri bawah -->
+                <span style="position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,0.65);color:#fff;padding:3px 9px;border-radius:20px;font-size:0.68rem;font-weight:600;display:flex;align-items:center;gap:4px;">
+                    <i class="fas fa-clock"></i> <?= $resep['waktu_masak'] ?> mnt
+                </span>
+                <!-- Views kanan bawah -->
+                <span style="position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.6);color:#fff;padding:3px 8px;border-radius:20px;font-size:0.65rem;">
                     <i class="fas fa-eye"></i> <?= number_format($resep['views']) ?>
                 </span>
             </div>
@@ -170,9 +173,6 @@ require_once '../includes/header.php';
                         <?php $rat=round($resep['rata_rating']); for($s=1;$s<=5;$s++) echo $s<=$rat?'<i class="fas fa-star"></i>':'<i class="far fa-star" style="color:#e0e0e0;"></i>'; ?>
                     </div>
                     <span style="font-size:0.68rem;color:#8a9e87;">(<?= $resep['jumlah_rating'] ?>)</span>
-                    <span style="font-size:0.68rem;color:#8a9e87;margin-left:auto;">
-                        <i class="fas fa-clock"></i> <?= $resep['waktu_masak'] ?> mnt
-                    </span>
                 </div>
                 <!-- Actions -->
                 <div style="display:flex;gap:6px;padding-top:0.8rem;border-top:1px solid #f0f5f0;flex-wrap:wrap;">
