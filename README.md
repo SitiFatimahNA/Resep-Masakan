@@ -240,6 +240,122 @@ resep-masakan/
 
 ---
 
+## 🗂️ ERD (Entity Relationship Diagram)
+
+```mermaid
+erDiagram
+    users {
+        int id PK
+        varchar nama
+        varchar email
+        varchar password
+        enum role
+        varchar foto
+        text bio
+        timestamp created_at
+    }
+    kategori {
+        int id PK
+        varchar nama_kategori
+        varchar slug
+        varchar icon
+    }
+    jenis_masakan {
+        int id PK
+        varchar nama_jenis
+        varchar slug
+    }
+    resep {
+        int id PK
+        int user_id FK
+        int id_kategori FK
+        int id_jenis FK
+        varchar judul
+        varchar slug
+        text deskripsi
+        enum tingkat_kesulitan
+        int waktu_masak
+        int porsi
+        varchar thumbnail
+        enum status
+        int views
+        timestamp created_at
+    }
+    resep_kategori {
+        int id_resep FK
+        int id_kategori FK
+    }
+    bahan_resep {
+        int id PK
+        int id_resep FK
+        varchar nama_bahan
+        varchar jumlah
+        varchar satuan
+    }
+    langkah_resep {
+        int id PK
+        int id_resep FK
+        int urutan
+        text instruksi
+        varchar foto_langkah
+    }
+    alat_masak {
+        int id PK
+        int id_resep FK
+        varchar nama_alat
+    }
+    nutrisi {
+        int id PK
+        int id_resep FK
+        float kalori
+        float protein
+        float karbohidrat
+        float lemak
+        float serat
+    }
+    komentar {
+        int id PK
+        int id_resep FK
+        int id_user FK
+        int parent_id FK
+        text komentar
+        enum status
+        timestamp created_at
+    }
+    rating {
+        int id PK
+        int id_resep FK
+        int id_user FK
+        tinyint nilai
+        timestamp created_at
+    }
+    favorit {
+        int id PK
+        int id_resep FK
+        int id_user FK
+        timestamp created_at
+    }
+
+    users ||--o{ resep : "membuat"
+    users ||--o{ komentar : "menulis"
+    users ||--o{ rating : "memberi"
+    users ||--o{ favorit : "menyimpan"
+    resep ||--o{ bahan_resep : "memiliki"
+    resep ||--o{ langkah_resep : "memiliki"
+    resep ||--o{ alat_masak : "membutuhkan"
+    resep ||--o| nutrisi : "memiliki"
+    resep ||--o{ komentar : "menerima"
+    resep ||--o{ rating : "menerima"
+    resep ||--o{ favorit : "disimpan di"
+    resep ||--o{ resep_kategori : "termasuk"
+    kategori ||--o{ resep : "mengkategorikan"
+    kategori ||--o{ resep_kategori : "dimiliki"
+    jenis_masakan ||--o{ resep : "mengklasifikasi"
+    komentar ||--o{ komentar : "dibalas"
+```
+
+---
+
 ## 📊 Fitur Laporan Admin
 
 - 🔍 Filter rentang tanggal & status (Publik / Draft)
