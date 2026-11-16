@@ -34,6 +34,7 @@ require_once '../includes/header.php';
 ?>
 
 <!-- HERO -->
+<div class="main-content" style="padding:0;">
 <div style="background:linear-gradient(160deg,#0a2e1a 0%,#1a4731 50%,#2d6a4f 100%);padding:3rem 0 5rem;position:relative;overflow:hidden;">
     <div style="position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(82,183,136,0.12) 0%,transparent 70%);pointer-events:none;"></div>
     <div class="container" style="position:relative;z-index:1;">
@@ -69,7 +70,7 @@ require_once '../includes/header.php';
     <?php else: ?>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:2rem;">
         <?php foreach ($favorit_list as $resep): ?>
-        <div style="background:#fff;border-radius:20px;overflow:hidden;border:1.5px solid #e4ede6;box-shadow:0 2px 8px rgba(45,106,79,0.05);display:flex;flex-direction:column;transition:all 0.3s;"
+        <div class="fav-card" style="background:#fff;border-radius:20px;overflow:hidden;border:1.5px solid #e4ede6;box-shadow:0 2px 8px rgba(45,106,79,0.05);display:flex;flex-direction:column;transition:all 0.3s;"
              onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 14px 36px rgba(45,106,79,0.12)';this.style.borderColor='#95d5b2'"
              onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(45,106,79,0.05)';this.style.borderColor='#e4ede6'">
             <div style="position:relative;overflow:hidden;height:185px;flex-shrink:0;cursor:pointer;"
@@ -79,8 +80,9 @@ require_once '../includes/header.php';
                      onmouseover="this.style.transform='scale(1.05)'"
                      onmouseout="this.style.transform=''"
                      onerror="this.src='/assets/images/default-resep.svg'">
-                <!-- Hapus favorit -->
+        <!-- Hapus favorit -->
                 <button onclick="event.stopPropagation(); hapusFavorit(<?= $resep['id'] ?>, this)"
+                        data-id="<?= $resep['id'] ?>"
                         style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.9);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#e74c3c;font-size:0.85rem;box-shadow:0 2px 8px rgba(0,0,0,0.15);transition:all 0.2s;"
                         onmouseover="this.style.background='#e74c3c';this.style.color='#fff'"
                         onmouseout="this.style.background='rgba(255,255,255,0.9)';this.style.color='#e74c3c'">
@@ -143,7 +145,6 @@ require_once '../includes/header.php';
 
 <script>
 function hapusFavorit(id, btn) {
-    if (!confirm('Hapus dari favorit?')) return;
     fetch('/user/ajax-favorit.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -152,7 +153,7 @@ function hapusFavorit(id, btn) {
     .then(r => r.json())
     .then(data => {
         if (data.status === 'removed') {
-            const card = btn.closest('[onmouseover]');
+            const card = btn.closest('.fav-card');
             card.style.opacity = '0';
             card.style.transform = 'scale(0.9)';
             card.style.transition = 'all 0.3s ease';
