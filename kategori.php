@@ -47,11 +47,7 @@ $jenis_img = [
         </h1>
         <p style="color:rgba(255,255,255,0.5);font-size:0.9rem;">Temukan resep berdasarkan bahan atau jenis sajian favoritmu</p>
     </div>
-    <div style="position:absolute;bottom:0;left:0;width:100%;overflow:hidden;line-height:0;">
-        <svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;height:40px;">
-            <path d="M0,40 C240,0 480,40 720,20 C960,0 1200,35 1440,40 L1440,40 L0,40 Z" fill="#f4f7f4"/>
-        </svg>
-    </div>
+    
 </div>
 
 <div style="background:#f4f7f4;padding:2rem 0 5rem;">

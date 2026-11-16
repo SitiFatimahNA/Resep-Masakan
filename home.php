@@ -243,11 +243,7 @@ require_once 'includes/header.php';
     </div>
 
     <!-- Wave bottom -->
-    <div style="position:absolute;bottom:0;left:0;width:100%;overflow:hidden;line-height:0;">
-        <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;height:60px;">
-            <path d="M0,60 C240,0 480,60 720,30 C960,0 1200,55 1440,60 L1440,60 L0,60 Z" fill="#f8faf8"/>
-        </svg>
-    </div>
+    
 </section>
 
 <!-- ===================================================================
