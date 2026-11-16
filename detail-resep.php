@@ -472,6 +472,7 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                                     <strong style="font-size:0.875rem;color:#1a2e1a;"><?= htmlspecialchars($k['nama']) ?></strong>
                                     <span style="font-size:0.72rem;color:#8a9e87;"><?= date('d M Y H:i', strtotime($k['created_at'])) ?></span>
                                 </div>
+                                <div style="display:flex;align-items:center;gap:5px;">
                                 <?php if (isset($_SESSION['user_id'])): ?>
                                 <button onclick="toggleReplyForm('reply-form-<?= $k['id'] ?>')"
                                         style="display:flex;align-items:center;gap:5px;background:none;border:1.5px solid #c8ddc8;border-radius:20px;padding:3px 10px;font-size:0.75rem;color:#40916c;cursor:pointer;font-family:inherit;transition:all 0.2s;"
@@ -483,10 +484,38 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                                     <?php endif; ?>
                                 </button>
                                 <?php endif; ?>
+                                <?php if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] == $k['id_user'] || $_SESSION['role']==='admin')): ?>
+                                <button onclick="editKomentar(<?= $k['id'] ?>, this)"
+                                        style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;background:rgba(45,106,79,0.08);border:none;border-radius:50%;color:#2d6a4f;cursor:pointer;font-size:0.75rem;transition:all 0.2s;"
+                                        title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button onclick="hapusKomentar(<?= $k['id'] ?>, this)"
+                                        style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;background:rgba(231,76,60,0.08);border:none;border-radius:50%;color:#c0392b;cursor:pointer;font-size:0.75rem;transition:all 0.2s;"
+                                        title="Hapus">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <?php endif; ?>
+                                </div>
                             </div>
-                            <p style="font-size:0.875rem;color:#4a6741;margin:0;line-height:1.7;">
+                            <p id="teks-komentar-<?= $k['id'] ?>" style="font-size:0.875rem;color:#4a6741;margin:0;line-height:1.7;">
                                 <?= nl2br(htmlspecialchars($k['komentar'])) ?>
                             </p>
+                            <!-- Form edit inline -->
+                            <div id="edit-form-<?= $k['id'] ?>" style="display:none;margin-top:8px;">
+                                <textarea id="edit-teks-<?= $k['id'] ?>" rows="3"
+                                          style="width:100%;padding:8px 12px;background:#fff;border:1.5px solid #2d6a4f;border-radius:10px;font-size:0.875rem;font-family:inherit;color:#1a2e1a;outline:none;resize:none;"><?= htmlspecialchars($k['komentar']) ?></textarea>
+                                <div style="display:flex;gap:6px;margin-top:6px;">
+                                    <button onclick="simpanEdit(<?= $k['id'] ?>)"
+                                            style="display:inline-flex;align-items:center;gap:5px;background:#2d6a4f;color:#fff;border:none;border-radius:20px;padding:6px 14px;font-size:0.78rem;font-weight:600;cursor:pointer;font-family:inherit;">
+                                        <i class="fas fa-check"></i> Simpan
+                                    </button>
+                                    <button onclick="batalEdit(<?= $k['id'] ?>)"
+                                            style="background:#f4f7f4;color:#8a9e87;border:1.5px solid #e4ede6;border-radius:20px;padding:6px 14px;font-size:0.78rem;cursor:pointer;font-family:inherit;">
+                                        Batal
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -506,14 +535,43 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                                             <span style="font-size:0.68rem;color:#8a9e87;"><?= date('d M Y H:i', strtotime($reply['created_at'])) ?></span>
                                             <span style="font-size:0.65rem;background:#d8f3dc;color:#2d6a4f;padding:1px 7px;border-radius:10px;font-weight:600;">balasan</span>
                                         </div>
+                                        <div style="display:flex;align-items:center;gap:4px;">
                                         <?php if (isset($_SESSION['user_id'])): ?>
                                         <button onclick="toggleReplyForm('reply-form-r-<?= $reply['id'] ?>')"
                                                 style="display:flex;align-items:center;gap:4px;background:none;border:1px solid #c8ddc8;border-radius:20px;padding:2px 8px;font-size:0.7rem;color:#40916c;cursor:pointer;font-family:inherit;">
                                             <i class="fas fa-reply"></i> Balas
                                         </button>
                                         <?php endif; ?>
+                                        <?php if (isset($_SESSION['user_id']) && ($_SESSION['user_id'] == $reply['id_user'] || $_SESSION['role']==='admin')): ?>
+                                        <button onclick="editKomentar(<?= $reply['id'] ?>, this)"
+                                                style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;background:rgba(45,106,79,0.08);border:none;border-radius:50%;color:#2d6a4f;cursor:pointer;font-size:0.7rem;"
+                                                title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button onclick="hapusKomentar(<?= $reply['id'] ?>, this)"
+                                                style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;background:rgba(231,76,60,0.08);border:none;border-radius:50%;color:#c0392b;cursor:pointer;font-size:0.7rem;"
+                                                title="Hapus">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        <?php endif; ?>
+                                        </div>
                                     </div>
-                                    <p style="font-size:0.82rem;color:#4a6741;margin:0;line-height:1.6;"><?= nl2br(htmlspecialchars($reply['komentar'])) ?></p>
+                                    <p id="teks-komentar-<?= $reply['id'] ?>" style="font-size:0.82rem;color:#4a6741;margin:0;line-height:1.6;"><?= nl2br(htmlspecialchars($reply['komentar'])) ?></p>
+                                    <!-- Form edit reply inline -->
+                                    <div id="edit-form-<?= $reply['id'] ?>" style="display:none;margin-top:6px;">
+                                        <textarea id="edit-teks-<?= $reply['id'] ?>" rows="2"
+                                                  style="width:100%;padding:7px 10px;background:#fff;border:1.5px solid #2d6a4f;border-radius:8px;font-size:0.82rem;font-family:inherit;color:#1a2e1a;outline:none;resize:none;"><?= htmlspecialchars($reply['komentar']) ?></textarea>
+                                        <div style="display:flex;gap:5px;margin-top:5px;">
+                                            <button onclick="simpanEdit(<?= $reply['id'] ?>)"
+                                                    style="display:inline-flex;align-items:center;gap:4px;background:#2d6a4f;color:#fff;border:none;border-radius:20px;padding:5px 12px;font-size:0.75rem;font-weight:600;cursor:pointer;font-family:inherit;">
+                                                <i class="fas fa-check"></i> Simpan
+                                            </button>
+                                            <button onclick="batalEdit(<?= $reply['id'] ?>)"
+                                                    style="background:#f4f7f4;color:#8a9e87;border:1.5px solid #e4ede6;border-radius:20px;padding:5px 12px;font-size:0.75rem;cursor:pointer;font-family:inherit;">
+                                                Batal
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- Form balas reply -->
@@ -727,7 +785,59 @@ function toggleReplyForm(id) {
     }
 }
 
-// ===== FAVORIT =====
+// ===== KOMENTAR: EDIT & HAPUS =====
+function hapusKomentar(id, btn) {
+    if (!confirm('Hapus komentar ini?')) return;
+    fetch('/user/ajax-komentar.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'action=hapus&id=' + id
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.status === 'ok') {
+            const card = btn.closest('[style*="border-radius:14px"], [style*="border-radius:12px"]');
+            if (card) {
+                card.style.opacity = '0';
+                card.style.transition = 'opacity 0.3s';
+                setTimeout(() => card.remove(), 300);
+            }
+        } else {
+            alert(data.message);
+        }
+    });
+}
+
+function editKomentar(id, btn) {
+    document.getElementById('teks-komentar-' + id).style.display = 'none';
+    document.getElementById('edit-form-' + id).style.display = 'block';
+    document.getElementById('edit-teks-' + id).focus();
+}
+
+function batalEdit(id) {
+    document.getElementById('teks-komentar-' + id).style.display = '';
+    document.getElementById('edit-form-' + id).style.display = 'none';
+}
+
+function simpanEdit(id) {
+    const teks = document.getElementById('edit-teks-' + id).value.trim();
+    if (teks.length < 3) { alert('Komentar terlalu pendek'); return; }
+    fetch('/user/ajax-komentar.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'action=edit&id=' + id + '&teks=' + encodeURIComponent(teks)
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.status === 'ok') {
+            document.getElementById('teks-komentar-' + id).innerHTML = data.teks.replace(/\n/g, '<br>');
+            batalEdit(id);
+        } else {
+            alert(data.message);
+        }
+    });
+}
+
 function toggleFavorit() {
     fetch('/user/ajax-favorit.php', {
         method: 'POST',
