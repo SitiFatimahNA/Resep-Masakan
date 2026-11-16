@@ -189,7 +189,7 @@ require_once 'includes/header.php';
         </div>
     </div>
     <!-- Wave -->
-    <div style="position:absolute;bottom:0;left:0;width:100%;overflow:hidden;line-height:0;">
+    <div style="position:absolute;bottom:-1px;left:0;width:100%;overflow:hidden;line-height:0;">
         <svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;height:40px;">
             <path d="M0,20 C360,40 1080,0 1440,20 L1440,40 L0,40 Z" fill="#f4f7f4"/>
         </svg>
@@ -197,7 +197,7 @@ require_once 'includes/header.php';
 </div>
 
 <!-- ===== MAIN CONTENT ===== -->
-<div style="background:#f4f7f4;min-height:60vh;padding:2rem 0 5rem;">
+<div style="background:#f4f7f4;min-height:60vh;padding:2rem 0 5rem;margin-top:-1px;">
 <div class="container">
 <div style="display:grid;grid-template-columns:260px 1fr;gap:1.8rem;align-items:start;">
 
@@ -225,7 +225,7 @@ require_once 'includes/header.php';
                             <i class="fas fa-search" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#8a9e87;font-size:0.82rem;pointer-events:none;z-index:2;"></i>
                             <input type="text" name="q" value="<?= htmlspecialchars($q) ?>"
                                    placeholder="Nama resep..."
-                                   style="width:100%;padding:9px 12px 9px 34px;background:#f4f7f4;border:1.5px solid #e4ede6;border-radius:10px;font-size:0.85rem;color:#1a2e1a;outline:none;transition:border-color 0.2s;"
+                                   style="width:100%;padding:9px 12px 9px 34px;background:#fff;border:1.5px solid #e4ede6;border-radius:10px;font-size:0.85rem;color:#1a2e1a;outline:none;transition:border-color 0.2s;"
                                    onfocus="this.style.borderColor='var(--green)'"
                                    onblur="this.style.borderColor='#e4ede6'">
                         </div>
