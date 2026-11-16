@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once __DIR__ . '/config/koneksi.php';
 
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masuk � DapurIn</title>
+    <title>Masuk | DapurIn</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
         body{font-family:'Poppins',sans-serif;min-height:100vh;display:flex;overflow:hidden;}
 
-        /* KIRI � Panel dekorasi */
+        /* KIRI ï¿½ Panel dekorasi */
         .auth-left{
             width:45%;flex-shrink:0;
             background:linear-gradient(160deg,#0a2e1a 0%,#1a4731 50%,#2d6a4f 100%);
@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .auth-left-footer{position:relative;z-index:1;}
         .auth-left-footer p{font-size:0.75rem;color:rgba(255,255,255,0.3);}
 
-        /* KANAN � Form */
+        /* KANAN ï¿½ Form */
         .auth-right{
             flex:1;
             background:#f4f7f4;
@@ -266,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="auth-left-footer">
-        <p>� <?= date('Y') ?> DapurIn. Semua hak dilindungi.</p>
+        <p>ï¿½ <?= date('Y') ?> DapurIn. Semua hak dilindungi.</p>
     </div>
 </div>
 
