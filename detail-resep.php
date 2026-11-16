@@ -470,8 +470,8 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;flex-wrap:wrap;gap:6px;">
                                 <div style="display:flex;align-items:center;gap:8px;">
                                     <strong style="font-size:0.875rem;color:#1a2e1a;"><?= htmlspecialchars($k['nama']) ?></strong>
-                                    <span style="font-size:0.72rem;color:#8a9e87;"><?= date('d M Y H:i', strtotime($k['created_at'])) ?></span>
                                 </div>
+                                <div style="font-size:0.72rem;color:#8a9e87;margin-bottom:5px;"><?= date('d M Y H:i', strtotime($k['created_at'])) ?></div>
                                 <div style="display:flex;align-items:center;gap:5px;">
                                 <?php if (isset($_SESSION['user_id'])): ?>
                                 <button onclick="toggleReplyForm('reply-form-<?= $k['id'] ?>')"
@@ -532,9 +532,9 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
                                     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;flex-wrap:wrap;gap:5px;">
                                         <div style="display:flex;align-items:center;gap:6px;">
                                             <strong style="font-size:0.82rem;color:#1a2e1a;"><?= htmlspecialchars($reply['nama']) ?></strong>
-                                            <span style="font-size:0.68rem;color:#8a9e87;"><?= date('d M Y H:i', strtotime($reply['created_at'])) ?></span>
                                             <span style="font-size:0.65rem;background:#d8f3dc;color:#2d6a4f;padding:1px 7px;border-radius:10px;font-weight:600;">balasan</span>
                                         </div>
+                                        <div style="font-size:0.68rem;color:#8a9e87;margin-bottom:3px;"><?= date('d M Y H:i', strtotime($reply['created_at'])) ?></div>
                                         <div style="display:flex;align-items:center;gap:4px;">
                                         <?php if (isset($_SESSION['user_id'])): ?>
                                         <button onclick="toggleReplyForm('reply-form-r-<?= $reply['id'] ?>')"
