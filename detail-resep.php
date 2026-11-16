@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once __DIR__ . '/config/koneksi.php';
 
@@ -224,7 +224,7 @@ $dc = $diff_color[$resep['tingkat_kesulitan']] ?? '#2d6a4f';
     <!-- Wave -->
     <div style="position:absolute;bottom:0;left:0;width:100%;overflow:hidden;line-height:0;">
         <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;height:50px;">
-            <path d="M0,25 C360,50 1080,0 1440,25 L1440,50 L0,50 Z" fill="#f4f7f4"/>
+            <path d="M0,50 C240,0 480,50 720,25 C960,0 1200,45 1440,50 L1440,50 L0,50 Z" fill="#f4f7f4"/>
         </svg>
     </div>
 </div>
@@ -766,3 +766,4 @@ document.querySelectorAll('#star-input input').forEach(input => {
 </script>
 
 <?php require_once 'includes/footer.php'; ?>
+

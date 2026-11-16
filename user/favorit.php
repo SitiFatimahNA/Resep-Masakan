@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once dirname(__DIR__) . '/config/koneksi.php';
 
@@ -47,7 +47,7 @@ require_once '../includes/header.php';
     </div>
     <div style="position:absolute;bottom:0;left:0;width:100%;overflow:hidden;line-height:0;">
         <svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;height:40px;">
-            <path d="M0,20 C360,40 1080,0 1440,20 L1440,40 L0,40 Z" fill="#f4f7f4"/>
+            <path d="M0,40 C240,0 480,40 720,20 C960,0 1200,35 1440,40 L1440,40 L0,40 Z" fill="#f4f7f4"/>
         </svg>
     </div>
 </div>
@@ -164,3 +164,4 @@ function hapusFavorit(id, btn) {
 </script>
 
 <?php require_once '../includes/footer.php'; ?>
+
