@@ -127,7 +127,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .auth-link a{color:#2d6a4f;font-weight:600;text-decoration:none;}
         .auth-link a:hover{text-decoration:underline;}
 
-        @media(max-width:768px){.auth-left{display:none;}.auth-right{padding:2rem 1.5rem;}}
+        @media(max-width:768px){
+            .auth-left{display:none;}
+            .auth-right{
+                padding:2.5rem 1.5rem;
+                align-items:flex-start;
+                padding-top:3rem;
+            }
+            .auth-form-wrap{ width:100%; }
+            .auth-form-title{ font-size:1.5rem !important; }
+            .auth-input{
+                font-size:1rem !important;
+                padding:13px 14px 13px 44px !important;
+            }
+            .auth-input-icon{
+                left:14px !important;
+                font-size:1rem !important;
+            }
+            .auth-btn{
+                padding:14px !important;
+                font-size:1rem !important;
+            }
+            .auth-label{ font-size:0.8rem !important; }
+        }
         @keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
     </style>
 </head>

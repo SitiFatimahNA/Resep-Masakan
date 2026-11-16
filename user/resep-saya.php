@@ -175,22 +175,22 @@ require_once '../includes/header.php';
                     </span>
                 </div>
                 <!-- Actions -->
-                <div style="display:flex;gap:6px;padding-top:0.8rem;border-top:1px solid #f0f5f0;">
+                <div style="display:flex;gap:6px;padding-top:0.8rem;border-top:1px solid #f0f5f0;flex-wrap:wrap;">
                     <a href="/detail-resep.php?slug=<?= urlencode($resep['slug']) ?>"
-                       style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px;background:#f4f7f4;border-radius:10px;font-size:0.75rem;font-weight:600;color:#4a6741;text-decoration:none;transition:all 0.2s;"
+                       style="flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px 4px;background:#f4f7f4;border-radius:10px;font-size:0.72rem;font-weight:600;color:#4a6741;text-decoration:none;transition:all 0.2s;white-space:nowrap;"
                        onmouseover="this.style.background='#e8f5e8'"
                        onmouseout="this.style.background='#f4f7f4'">
                         <i class="fas fa-eye"></i> Lihat
                     </a>
                     <a href="/user/edit-resep.php?id=<?= $resep['id'] ?>"
-                       style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px;background:#f4f7f4;border-radius:10px;font-size:0.75rem;font-weight:600;color:#2d6a4f;text-decoration:none;transition:all 0.2s;"
+                       style="flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px 4px;background:#f4f7f4;border-radius:10px;font-size:0.72rem;font-weight:600;color:#2d6a4f;text-decoration:none;transition:all 0.2s;white-space:nowrap;"
                        onmouseover="this.style.background='#d8f3dc'"
                        onmouseout="this.style.background='#f4f7f4'">
                         <i class="fas fa-edit"></i> Edit
                     </a>
                     <a href="/user/hapus-resep.php?id=<?= $resep['id'] ?>"
                        onclick="return confirm('Yakin ingin menghapus resep ini?')"
-                       style="display:flex;align-items:center;justify-content:center;padding:8px 10px;background:#fef2f2;border-radius:10px;font-size:0.75rem;color:#c0392b;text-decoration:none;transition:all 0.2s;flex-shrink:0;"
+                       style="display:flex;align-items:center;justify-content:center;width:36px;flex-shrink:0;padding:8px;background:#fef2f2;border-radius:10px;font-size:0.82rem;color:#c0392b;text-decoration:none;transition:all 0.2s;"
                        onmouseover="this.style.background='#fde8e8'"
                        onmouseout="this.style.background='#fef2f2'">
                         <i class="fas fa-trash"></i>
