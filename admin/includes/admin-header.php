@@ -59,9 +59,10 @@ $current = basename($_SERVER['PHP_SELF']);
     /* Sembunyikan navbar publik jika ikut ke-render di admin */
     .navbar { display: none !important; }
 
-    /* Pastikan admin-wrapper tidak ada gap */
-    .admin-wrapper { margin: 0 !important; padding: 0 !important; }
-    .admin-main { margin-top: 0 !important; padding-top: 0 !important; }
+    /* Sembunyikan page-header di mobile karena judul sudah ada di topbar */
+    @media (max-width: 1024px) {
+        .page-header { display: none !important; }
+    }
 
     body {
         font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
