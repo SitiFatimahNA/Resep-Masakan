@@ -264,11 +264,16 @@ $current = basename($_SERVER['PHP_SELF']);
         display: flex;
         align-items: center;
         justify-content: space-between;
-        position: sticky;
+        position: fixed;
         top: 0;
-        z-index: 100;
+        left: var(--sidebar-w);
+        right: 0;
+        z-index: 150;
         box-shadow: var(--shadow-sm);
     }
+
+    /* Beri ruang di bawah topbar agar konten tidak tertutup */
+    .admin-content { padding-top: calc(var(--topbar-h) + 1.5rem) !important; }
 
     .topbar-left { display: flex; align-items: center; gap: 12px; }
 
@@ -739,6 +744,8 @@ $current = basename($_SERVER['PHP_SELF']);
             height: 56px;
             min-height: 56px;
             flex-wrap: nowrap;
+            left: 0 !important;
+            right: 0 !important;
         }
         .topbar-date { display: none; }
         .topbar-title { font-size: 0.9rem !important; }
@@ -770,7 +777,7 @@ $current = basename($_SERVER['PHP_SELF']);
             box-shadow: 4px 0 30px rgba(0,0,0,0.5);
         }
         .admin-main { margin-left: 0 !important; padding-top: 0 !important; }
-        .admin-content { padding: 0.6rem 0.8rem 1rem !important; }
+        .admin-content { padding: 0.6rem 0.8rem 1rem !important; padding-top: calc(56px + 0.6rem) !important; }
 
         /* Hamburger button */
         .admin-hamburger { display: flex !important; }
