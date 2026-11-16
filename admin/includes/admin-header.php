@@ -710,14 +710,40 @@ $current = basename($_SERVER['PHP_SELF']);
         }
 
         /* Filter bar — mobile: stack vertikal, input full width */
-        .filter-bar { flex-direction: column !important; align-items: stretch !important; }
-        .filter-bar form { flex-direction: column !important; align-items: stretch !important; }
+        .filter-bar { flex-direction: column !important; align-items: stretch !important; padding: 1rem !important; }
+        .filter-bar form { flex-direction: column !important; align-items: stretch !important; gap: 10px !important; }
         .filter-bar form input,
-        .filter-bar form select { width: 100% !important; min-width: unset !important; }
-        .filter-bar form .btn { align-self: flex-start; width: auto !important; }
+        .filter-bar form select {
+            width: 100% !important;
+            min-width: unset !important;
+            font-size: 0.9rem !important;
+            padding: 10px 14px !important;
+            height: 44px !important;
+        }
+        .filter-bar form .btn,
+        .filter-bar form button {
+            width: 100% !important;
+            justify-content: center !important;
+            height: 44px !important;
+            font-size: 0.9rem !important;
+            border-radius: 12px !important;
+        }
+        .filter-bar > span { align-self: flex-start; font-size: 0.85rem !important; }
 
         /* Tombol aksi lebih besar di mobile */
-        .btn-action { width: 36px !important; height: 36px !important; border-radius: 10px !important; }
+        .btn-action { width: 38px !important; height: 38px !important; border-radius: 10px !important; font-size: 0.85rem !important; }
+
+        /* Tombol umum di mobile */
+        .btn { font-size: 0.88rem !important; padding: 9px 16px !important; }
+        .btn-sm { font-size: 0.85rem !important; padding: 8px 14px !important; }
+
+        /* Form control global di mobile */
+        .form-control { font-size: 0.9rem !important; padding: 10px 13px !important; }
+        .form-label { font-size: 0.85rem !important; }
+
+        /* Text umum lebih readable */
+        .admin-table td { font-size: 0.82rem !important; }
+        .admin-card-header h3 { font-size: 0.9rem !important; }
 
         /* Admin card header */
         .admin-card-header { flex-wrap: wrap; gap: 8px; }
