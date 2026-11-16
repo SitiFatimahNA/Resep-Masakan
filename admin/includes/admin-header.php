@@ -49,11 +49,20 @@ $current = basename($_SERVER['PHP_SELF']);
     html, body {
         overflow-x: hidden;
         max-width: 100%;
-        background: var(--bg-card); /* Sama dengan warna topbar agar tidak ada jeda putih */
+        background: var(--bg-card);
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     /* Override style.css publik yang punya margin-top untuk navbar */
     .main-content { margin-top: 0 !important; }
+
+    /* Sembunyikan navbar publik jika ikut ke-render di admin */
+    .navbar { display: none !important; }
+
+    /* Pastikan admin-wrapper tidak ada gap */
+    .admin-wrapper { margin: 0 !important; padding: 0 !important; }
+    .admin-main { margin-top: 0 !important; padding-top: 0 !important; }
 
     body {
         font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
@@ -728,8 +737,8 @@ $current = basename($_SERVER['PHP_SELF']);
         /* Topbar mobile */
         .admin-topbar {
             padding: 0 0.8rem;
-            height: auto;
-            min-height: var(--topbar-h);
+            height: 56px;
+            min-height: 56px;
             flex-wrap: nowrap;
         }
         .topbar-date { display: none; }
@@ -762,7 +771,7 @@ $current = basename($_SERVER['PHP_SELF']);
             box-shadow: 4px 0 30px rgba(0,0,0,0.5);
         }
         .admin-main { margin-left: 0 !important; padding-top: 0 !important; }
-        .admin-content { padding: 1rem !important; }
+        .admin-content { padding: 0.6rem 0.8rem 1rem !important; }
 
         /* Hamburger button */
         .admin-hamburger { display: flex !important; }

@@ -43,9 +43,9 @@ for ($i = 5; $i >= 0; $i--) {
 .dash-bot-grid   { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
 
 @media (max-width: 1024px) {
-    .dash-stat-grid  { grid-template-columns: repeat(2,1fr) !important; gap: 0.8rem !important; }
-    .dash-mid-grid   { grid-template-columns: 1fr !important; gap: 1rem !important; }
-    .dash-bot-grid   { grid-template-columns: 1fr !important; gap: 1rem !important; }
+    .dash-stat-grid  { grid-template-columns: repeat(2,1fr) !important; gap: 0.6rem !important; margin-bottom: 0.8rem !important; }
+    .dash-mid-grid   { grid-template-columns: 1fr !important; gap: 0.8rem !important; margin-bottom: 0.8rem !important; }
+    .dash-bot-grid   { grid-template-columns: 1fr !important; gap: 0.8rem !important; }
     .dash-stat-num   { font-size: 1.3rem !important; }
     .dash-stat-label { font-size: 0.7rem !important; }
     .dash-stat-sub   { display: none !important; }
