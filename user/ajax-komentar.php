@@ -1,6 +1,8 @@
 <?php
+ob_start();
 session_start();
 require_once dirname(__DIR__) . '/config/koneksi.php';
+ob_clean();
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['user_id'])) {
@@ -17,7 +19,6 @@ if ($id <= 0) {
     exit;
 }
 
-// Cek kepemilikan komentar
 $cek = mysqli_prepare($koneksi, "SELECT id, id_user FROM komentar WHERE id = ?");
 mysqli_stmt_bind_param($cek, 'i', $id);
 mysqli_stmt_execute($cek);
@@ -29,14 +30,12 @@ if (!$row) {
     exit;
 }
 
-// Hanya pemilik atau admin yang boleh edit/hapus
 if ($row['id_user'] != $uid && $_SESSION['role'] !== 'admin') {
     echo json_encode(['status'=>'error','message'=>'Tidak diizinkan']);
     exit;
 }
 
 if ($action === 'hapus') {
-    // Hapus balasan dulu, lalu komentar utama
     mysqli_query($koneksi, "DELETE FROM komentar WHERE parent_id = $id");
     $del = mysqli_prepare($koneksi, "DELETE FROM komentar WHERE id = ?");
     mysqli_stmt_bind_param($del, 'i', $id);
@@ -59,4 +58,3 @@ if ($action === 'hapus') {
 } else {
     echo json_encode(['status'=>'error','message'=>'Aksi tidak dikenal']);
 }
-?>
