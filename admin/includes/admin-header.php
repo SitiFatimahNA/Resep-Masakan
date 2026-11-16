@@ -712,7 +712,7 @@ $current = basename($_SERVER['PHP_SELF']);
         /* Filter bar — mobile: stack vertikal, input full width */
         .filter-bar { flex-direction: column !important; align-items: stretch !important; padding: 1rem !important; }
         .filter-bar form { flex-direction: column !important; align-items: stretch !important; gap: 10px !important; }
-        /* input search — jaga padding-left agar icon tidak tertutup */
+        /* input search — padding-left pas dengan icon di left:14px */
         .filter-bar form input {
             width: 100% !important;
             min-width: unset !important;
@@ -721,7 +721,7 @@ $current = basename($_SERVER['PHP_SELF']);
             padding-top: 10px !important;
             padding-bottom: 10px !important;
             padding-right: 14px !important;
-            padding-left: 38px !important;
+            padding-left: 40px !important;
         }
         .filter-bar form select {
             width: 100% !important;

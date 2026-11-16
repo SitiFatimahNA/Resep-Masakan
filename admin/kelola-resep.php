@@ -102,8 +102,9 @@ $result = mysqli_query($koneksi,
 <div class="filter-bar">
     <form method="GET" style="display:flex;gap:8px;flex:1;align-items:center;flex-wrap:wrap;">
         <div style="position:relative;flex:1;min-width:200px;">
-            <input type="text" name="q" class="form-control" placeholder="🔍 Cari resep atau pembuat..."
-                   value="<?= htmlspecialchars($q) ?>" style="padding-left:14px;">
+            <i class="fas fa-search" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-3);font-size:0.85rem;pointer-events:none;"></i>
+            <input type="text" name="q" class="form-control" placeholder="Cari resep atau pembuat..."
+                   value="<?= htmlspecialchars($q) ?>" style="padding-left:40px;">
         </div>
         <select name="filter" class="form-control" style="width:150px;" onchange="this.form.submit()">
             <option value="semua" <?= $filter==='semua'?'selected':'' ?>>Semua Status</option>
