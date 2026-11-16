@@ -21,9 +21,9 @@
                 </p>
             </div>
 
-            <!-- Navigasi + Kategori dalam 1 div, 2 kolom di mobile -->
+            <!-- Navigasi + Akun di kiri, Kategori di kanan -->
             <div class="footer-nav-kat">
-                <!-- Navigasi -->
+                <!-- Kolom kiri: Navigasi + Akun -->
                 <div class="footer-nav-col">
                     <h4 class="footer-title">Navigasi</h4>
                     <div class="footer-links">
@@ -32,9 +32,22 @@
                         <a href="/kategori.php">Kategori</a>
                         <a href="/populer.php">Terpopuler</a>
                     </div>
+
+                    <h4 class="footer-title" style="margin-top:1.2rem;">Akun</h4>
+                    <div class="footer-links">
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <a href="/user/profil.php">Profil Saya</a>
+                            <a href="/user/resep-saya.php">Resep Saya</a>
+                            <a href="/user/favorit.php">Favorit</a>
+                            <a href="/logout.php">Keluar</a>
+                        <?php else: ?>
+                            <a href="/login.php">Masuk</a>
+                            <a href="/register.php">Daftar</a>
+                        <?php endif; ?>
+                    </div>
                 </div>
 
-                <!-- Kategori dari DB -->
+                <!-- Kolom kanan: Kategori dari DB -->
                 <div class="footer-kat-col">
                     <h4 class="footer-title">Kategori</h4>
                     <div class="footer-links">
@@ -48,22 +61,6 @@
                             <a href="/kategori.php">Lihat Kategori</a>
                         <?php endif; ?>
                     </div>
-                </div>
-            </div>
-
-            <!-- Akun -->
-            <div>
-                <h4 class="footer-title">Akun</h4>
-                <div class="footer-links">
-                    <?php if (isset($_SESSION['user_id'])): ?>
-                        <a href="/user/profil.php">Profil Saya</a>
-                        <a href="/user/resep-saya.php">Resep Saya</a>
-                        <a href="/user/favorit.php">Favorit</a>
-                        <a href="/logout.php">Keluar</a>
-                    <?php else: ?>
-                        <a href="/login.php">Masuk</a>
-                        <a href="/register.php">Daftar</a>
-                    <?php endif; ?>
                 </div>
             </div>
         </div>

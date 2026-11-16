@@ -76,10 +76,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
         <!-- Search mobile � langsung tampil, tidak perlu tap ikon -->
         <form class="navbar-mobile-search-form" action="/resep.php" method="GET">
-            <i class="fas fa-search" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#8a9e87;font-size:0.78rem;pointer-events:none;"></i>
+            <i class="fas fa-search" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#8a9e87;font-size:0.82rem;pointer-events:none;z-index:2;"></i>
             <input type="text" name="q" placeholder="Cari resep..."
                    value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>"
-                   autocomplete="off">
+                   autocomplete="off"
+                   style="padding-left:32px !important;">
         </form>
 
         <?php if (isset($_SESSION['user_id'])): ?>
