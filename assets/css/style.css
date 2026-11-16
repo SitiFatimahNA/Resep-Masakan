@@ -1611,15 +1611,26 @@ select.form-control { cursor: pointer; }
 
     /* Search mobile — input lebih lega, icon tidak terpotong */
     .navbar-mobile-search-form {
-        max-width: 140px !important;
+        max-width: 130px !important;
+        min-width: 100px !important;
     }
     .navbar-mobile-search-form input {
-        padding-left: 30px !important;
-        font-size: 0.82rem !important;
+        padding-left: 28px !important;
+        font-size: 0.8rem !important;
+        height: 36px !important;
     }
     .navbar-mobile-search-form i {
         left: 9px !important;
-        font-size: 0.75rem !important;
+        font-size: 0.72rem !important;
+    }
+
+    /* Tombol Masuk & Daftar — teks tetap tampil tapi lebih kecil */
+    .navbar-actions .btn-outline,
+    .navbar-actions .btn-gold {
+        padding: 7px 10px !important;
+        font-size: 0.78rem !important;
+        gap: 4px !important;
+        white-space: nowrap !important;
     }
 
     /* Resep-saya & favorit — 1 kolom di layar sangat kecil */
@@ -1634,9 +1645,13 @@ select.form-control { cursor: pointer; }
     [style*="grid-template-columns:repeat(2,1fr)"] {
         grid-template-columns: 1fr !important;
     }
-
-    .navbar-actions .btn-outline span,
-    .navbar-actions .btn-gold span {
-        display: none; /* sembunyikan teks, hanya icon */
+    /* search hilang, beri ruang untuk tombol */
+    .navbar-mobile-search-form {
+        display: none !important;
+    }
+    .navbar-actions .btn-outline,
+    .navbar-actions .btn-gold {
+        padding: 7px 12px !important;
+        font-size: 0.8rem !important;
     }
 }
