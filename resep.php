@@ -222,10 +222,9 @@ require_once 'includes/header.php';
                     <div style="margin-bottom:1.2rem;">
                         <label style="display:block;font-size:0.75rem;font-weight:700;color:#4a6741;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Cari</label>
                         <div style="position:relative;">
-                            <i class="fas fa-search" style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#40916c;font-size:0.85rem;pointer-events:none;z-index:2;"></i>
                             <input type="text" name="q" value="<?= htmlspecialchars($q) ?>"
-                                   placeholder="Nama resep..."
-                                   style="width:100%;padding:11px 12px 11px 38px;background:#fff;border:1.5px solid #e4ede6;border-radius:10px;font-size:0.9rem;color:#1a2e1a;outline:none;transition:border-color 0.2s;"
+                                   placeholder="🔍 Nama resep..."
+                                   style="width:100%;padding:11px 14px;background:#fff;border:1.5px solid #e4ede6;border-radius:10px;font-size:0.9rem;color:#1a2e1a;outline:none;transition:border-color 0.2s;"
                                    onfocus="this.style.borderColor='var(--green)'"
                                    onblur="this.style.borderColor='#e4ede6'">
                         </div>

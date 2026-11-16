@@ -90,9 +90,8 @@ require_once 'includes/admin-header.php';
 <div class="filter-bar">
     <form method="GET" style="display:flex;gap:8px;flex:1;flex-wrap:wrap;">
         <div style="position:relative;flex:1;min-width:200px;">
-            <i class="fas fa-search" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-3);font-size:0.82rem;pointer-events:none;z-index:2;"></i>
-            <input type="text" name="q" class="form-control" placeholder="Cari komentar atau nama user..."
-                   value="<?= htmlspecialchars($q) ?>" style="padding-left:36px;">
+            <input type="text" name="q" class="form-control" placeholder="🔍 Cari komentar atau nama user..."
+                   value="<?= htmlspecialchars($q) ?>" style="padding-left:14px;">
         </div>
         <select name="filter" class="form-control" style="width:140px;" onchange="this.form.submit()">
             <option value="semua"    <?= $filter==='semua'?'selected':'' ?>>Semua</option>
