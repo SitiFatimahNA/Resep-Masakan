@@ -1655,3 +1655,23 @@ select.form-control { cursor: pointer; }
         font-size: 0.8rem !important;
     }
 }
+
+/* =====================================================
+   NAVBAR — Tombol Masuk & Daftar saat belum login
+   ===================================================== */
+@media (max-width: 768px) {
+    .navbar-auth-btn {
+        padding: 8px 14px !important;
+        font-size: 0.85rem !important;
+        gap: 5px !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+    }
+}
+@media (max-width: 400px) {
+    .navbar-auth-btn {
+        padding: 7px 10px !important;
+        font-size: 0.78rem !important;
+    }
+    .navbar-auth-btn i { font-size: 0.78rem !important; }
+}

@@ -74,7 +74,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </form>
         </div>
 
-        <!-- Search mobile � langsung tampil, tidak perlu tap ikon -->
+        <!-- Search mobile — tampil hanya jika sudah login (kalau belum login navbar sudah penuh tombol Masuk+Daftar) -->
+        <?php if (isset($_SESSION['user_id'])): ?>
         <form class="navbar-mobile-search-form" action="/resep.php" method="GET">
             <i class="fas fa-search" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#8a9e87;font-size:0.82rem;pointer-events:none;z-index:2;"></i>
             <input type="text" name="q" placeholder="Cari resep..."
@@ -82,6 +83,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                    autocomplete="off"
                    style="padding-left:32px !important;">
         </form>
+        <?php endif; ?>
 
         <?php if (isset($_SESSION['user_id'])): ?>
             <!-- Tambah Resep / Admin (desktop only) -->
@@ -126,10 +128,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
         <?php else: ?>
             <!-- Belum login -->
-            <a href="/login.php" class="btn btn-outline btn-sm">
+            <a href="/login.php" class="btn btn-outline btn-sm navbar-auth-btn">
                 <i class="fas fa-sign-in-alt"></i> Masuk
             </a>
-            <a href="/register.php" class="btn btn-gold btn-sm">
+            <a href="/register.php" class="btn btn-gold btn-sm navbar-auth-btn">
                 <i class="fas fa-user-plus"></i> Daftar
             </a>
         <?php endif; ?>
