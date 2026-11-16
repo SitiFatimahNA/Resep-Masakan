@@ -24,7 +24,7 @@
             <!-- Navigasi + Kategori dalam 1 div, 2 kolom di mobile -->
             <div class="footer-nav-kat">
                 <!-- Navigasi -->
-                <div>
+                <div class="footer-nav-col">
                     <h4 class="footer-title">Navigasi</h4>
                     <div class="footer-links">
                         <a href="/index.php">Beranda</a>
@@ -35,7 +35,7 @@
                 </div>
 
                 <!-- Kategori dari DB -->
-                <div>
+                <div class="footer-kat-col">
                     <h4 class="footer-title">Kategori</h4>
                     <div class="footer-links">
                         <?php if (!empty($footer_kategori)): ?>
