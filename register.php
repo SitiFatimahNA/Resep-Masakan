@@ -195,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="auth-left-footer">
-        <p>ï¿½ <?= date('Y') ?> DapurIn. Semua hak dilindungi.</p>
+        <p>&copy; <?= date('Y') ?> DapurIn. Semua hak dilindungi.</p>
     </div>
 </div>
 
