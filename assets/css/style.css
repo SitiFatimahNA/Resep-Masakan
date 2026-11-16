@@ -1675,3 +1675,13 @@ select.form-control { cursor: pointer; }
     }
     .navbar-auth-btn i { font-size: 0.78rem !important; }
 }
+
+/* =====================================================
+   RESEP FILTER — Pastikan icon search tidak menutupi teks
+   ===================================================== */
+@media (max-width: 768px) {
+    /* Input dengan icon search di resep.php */
+    .resep-search-input {
+        padding-left: 46px !important;
+    }
+}
