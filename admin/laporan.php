@@ -96,15 +96,17 @@ require_once 'includes/admin-header.php';?>
 
 <div class="page-header">
     <h1>Laporan <span>Resep</span></h1>
-    <div class="laporan-actions" style="display:flex;gap:8px;flex-shrink:0;">
-        <a href="?dari=<?= $dari ?>&sampai=<?= $sampai ?>&jenis=<?= $jenis ?>&export=csv"
-           class="btn btn-outline btn-sm">
-            <i class="fas fa-file-csv"></i> <span class="btn-label">Export CSV</span>
-        </a>
-        <button onclick="cetakPDF()" class="btn btn-gold btn-sm">
-            <i class="fas fa-print"></i> <span class="btn-label">Cetak / PDF</span>
-        </button>
-    </div>
+</div>
+
+<!-- Tombol export — tampil di semua ukuran layar -->
+<div class="laporan-actions" style="display:flex;gap:8px;margin-bottom:1.2rem;">
+    <a href="?dari=<?= $dari ?>&sampai=<?= $sampai ?>&jenis=<?= $jenis ?>&export=csv"
+       class="btn btn-outline btn-sm">
+        <i class="fas fa-file-csv"></i> Export CSV
+    </a>
+    <button onclick="cetakPDF()" class="btn btn-gold btn-sm">
+        <i class="fas fa-print"></i> Cetak / PDF
+    </button>
 </div>
 
 <!-- Filter -->
