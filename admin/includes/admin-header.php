@@ -712,23 +712,36 @@ $current = basename($_SERVER['PHP_SELF']);
         /* Filter bar — mobile: stack vertikal, input full width */
         .filter-bar { flex-direction: column !important; align-items: stretch !important; padding: 1rem !important; }
         .filter-bar form { flex-direction: column !important; align-items: stretch !important; gap: 10px !important; }
-        .filter-bar form input,
+        /* input search — jaga padding-left agar icon tidak tertutup */
+        .filter-bar form input {
+            width: 100% !important;
+            min-width: unset !important;
+            font-size: 0.9rem !important;
+            height: 46px !important;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+            padding-right: 14px !important;
+            padding-left: 42px !important;
+        }
         .filter-bar form select {
             width: 100% !important;
             min-width: unset !important;
             font-size: 0.9rem !important;
             padding: 10px 14px !important;
-            height: 44px !important;
+            height: 46px !important;
         }
         .filter-bar form .btn,
         .filter-bar form button {
             width: 100% !important;
             justify-content: center !important;
-            height: 44px !important;
+            height: 46px !important;
             font-size: 0.9rem !important;
             border-radius: 12px !important;
         }
         .filter-bar > span { align-self: flex-start; font-size: 0.85rem !important; }
+        /* pastikan icon search di dalam input tidak geser */
+        .filter-bar form .fa-search,
+        .filter-bar form [class*="fa-search"] { font-size: 0.9rem !important; }
 
         /* Tombol aksi lebih besar di mobile */
         .btn-action { width: 38px !important; height: 38px !important; border-radius: 10px !important; font-size: 0.85rem !important; }
@@ -766,24 +779,25 @@ $current = basename($_SERVER['PHP_SELF']);
 
         /* Topbar mobile */
         .admin-topbar {
-            padding: 0 0.8rem;
-            height: 56px;
-            min-height: 56px;
+            padding: 0 1rem;
+            height: 62px;
+            min-height: 62px;
             flex-wrap: nowrap;
             left: 0 !important;
             right: 0 !important;
         }
         .topbar-date { display: none; }
-        .topbar-title { font-size: 0.9rem !important; }
+        .topbar-title { font-size: 1rem !important; font-weight: 700 !important; }
         .topbar-breadcrumb { display: none; }
         .topbar-btn {
-            padding: 7px 12px !important;
-            font-size: 0.75rem !important;
+            padding: 8px 14px !important;
+            font-size: 0.82rem !important;
             gap: 5px !important;
             white-space: nowrap;
         }
-        .topbar-left { gap: 8px; min-width: 0; overflow: hidden; }
-        .topbar-right { flex-shrink: 0; gap: 6px; }
+        .topbar-left { gap: 10px; min-width: 0; overflow: hidden; }
+        .topbar-right { flex-shrink: 0; gap: 8px; }
+        .admin-hamburger { width: 42px !important; height: 42px !important; }
 
         /* Sidebar mobile */
         .admin-sidebar {
@@ -803,7 +817,7 @@ $current = basename($_SERVER['PHP_SELF']);
             box-shadow: 4px 0 30px rgba(0,0,0,0.5);
         }
         .admin-main { margin-left: 0 !important; padding-top: 0 !important; }
-        .admin-content { padding: 0.6rem 0.8rem 1rem !important; padding-top: calc(56px + 0.6rem) !important; }
+        .admin-content { padding: 0.8rem 1rem 1.2rem !important; padding-top: calc(62px + 0.8rem) !important; }
 
         /* Hamburger button */
         .admin-hamburger { display: flex !important; }
