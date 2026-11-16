@@ -222,7 +222,7 @@ require_once 'includes/header.php';
                     <div style="margin-bottom:1.2rem;">
                         <label style="display:block;font-size:0.75rem;font-weight:700;color:#4a6741;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Cari</label>
                         <div style="position:relative;">
-                            <i class="fas fa-search" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#8a9e87;font-size:0.82rem;"></i>
+                            <i class="fas fa-search" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#8a9e87;font-size:0.82rem;pointer-events:none;z-index:2;"></i>
                             <input type="text" name="q" value="<?= htmlspecialchars($q) ?>"
                                    placeholder="Nama resep..."
                                    style="width:100%;padding:9px 12px 9px 34px;background:#f4f7f4;border:1.5px solid #e4ede6;border-radius:10px;font-size:0.85rem;color:#1a2e1a;outline:none;transition:border-color 0.2s;"
