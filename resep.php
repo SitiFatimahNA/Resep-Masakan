@@ -132,7 +132,6 @@ require_once 'includes/header.php';
 ?>
 
 <!-- ===== PAGE HERO ===== -->
-<div class="main-content" style="padding:0;margin-bottom:0;">
 <div style="
     background:linear-gradient(160deg,#0a2e1a 0%,#1a4731 50%,#2d6a4f 100%);
     padding:3rem 0 5rem;
@@ -196,7 +195,6 @@ require_once 'includes/header.php';
         </svg>
     </div>
 </div>
-</div><!-- end main-content -->
 
 <!-- ===== MAIN CONTENT ===== -->
 <div style="background:#f4f7f4;min-height:60vh;padding:2rem 0 5rem;margin-top:-1px;">
@@ -224,10 +222,10 @@ require_once 'includes/header.php';
                     <div style="margin-bottom:1.2rem;">
                         <label style="display:block;font-size:0.75rem;font-weight:700;color:#4a6741;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Cari</label>
                         <div style="position:relative;">
-                            <i class="fas fa-search" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#40916c;font-size:0.9rem;pointer-events:none;z-index:2;"></i>
+                            <span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#40916c;font-size:1rem;pointer-events:none;z-index:3;line-height:1;">🔍</span>
                             <input type="text" name="q" value="<?= htmlspecialchars($q) ?>"
                                    placeholder="Nama resep..."
-                                   style="width:100%;padding:11px 12px 11px 42px;background:#fff;border:1.5px solid #e4ede6;border-radius:10px;font-size:0.9rem;color:#1a2e1a;outline:none;transition:border-color 0.2s;"
+                                   style="width:100%;padding:11px 12px 11px 42px;background:#fff;border:1.5px solid #e4ede6;border-radius:10px;font-size:0.9rem;color:#1a2e1a;outline:none;transition:border-color 0.2s;position:relative;z-index:1;"
                                    onfocus="this.style.borderColor='var(--green)'"
                                    onblur="this.style.borderColor='#e4ede6'">
                         </div>
