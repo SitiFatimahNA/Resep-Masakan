@@ -5,14 +5,30 @@ require_once __DIR__ . '/config/koneksi.php';
 $page_title = 'Daftar Resep';
 
 $q         = trim($_GET['q'] ?? '');
-$kategori  = trim($_GET['kategori'] ?? '');
+$kategori  = trim($_GET['kategori'] ?? '');  // bisa slug atau id
 $jenis     = trim($_GET['jenis'] ?? '');
 $kesulitan = trim($_GET['kesulitan'] ?? '');
 $sort      = trim($_GET['sort'] ?? 'terbaru');
-$penulis   = (int)($_GET['penulis'] ?? 0); // filter by user_id
+$penulis   = (int)($_GET['penulis'] ?? 0);
 $page      = max(1, (int)($_GET['page'] ?? 1));
 $per_page  = 9;
 $offset    = ($page - 1) * $per_page;
+
+// Resolve kategori: kalau angka = id, kalau string = slug → cari id-nya
+$kategori_id   = 0;
+$kategori_nama = '';
+if ($kategori !== '') {
+    if (is_numeric($kategori)) {
+        $kr = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT id, nama_kategori FROM kategori WHERE id=" . (int)$kategori));
+    } else {
+        $esc = mysqli_real_escape_string($koneksi, $kategori);
+        $kr  = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT id, nama_kategori FROM kategori WHERE slug='$esc'"));
+    }
+    if ($kr) {
+        $kategori_id   = (int)$kr['id'];
+        $kategori_nama = $kr['nama_kategori'];
+    }
+}
 
 $where   = ["r.status = 'publik'"];
 $params  = [];
@@ -26,11 +42,11 @@ if ($q !== '') {
     $types   .= 'ss';
 }
 
-if ($kategori !== '') {
-    $where[]  = "(EXISTS (SELECT 1 FROM resep_kategori rk2 JOIN kategori k2 ON rk2.id_kategori=k2.id WHERE rk2.id_resep=r.id AND k2.slug=?) OR EXISTS (SELECT 1 FROM kategori k3 WHERE k3.id=r.id_kategori AND k3.slug=?))";
-    $params[] = $kategori;
-    $params[] = $kategori;
-    $types   .= 'ss';
+if ($kategori_id > 0) {
+    $where[]  = "(EXISTS (SELECT 1 FROM resep_kategori rk2 WHERE rk2.id_resep=r.id AND rk2.id_kategori=?) OR r.id_kategori=?)";
+    $params[] = $kategori_id;
+    $params[] = $kategori_id;
+    $types   .= 'ii';
 }
 
 if ($jenis !== '') {
@@ -149,14 +165,14 @@ require_once 'includes/header.php';
                     Resep
                     <?php if ($kategori): ?>
                     <i class="fas fa-chevron-right" style="font-size:0.55rem;margin:0 6px;"></i>
-                    <?= htmlspecialchars(ucwords(str_replace('-',' ',$kategori))) ?>
+                    <?= htmlspecialchars($kategori_nama ?: ucwords(str_replace('-',' ',$kategori))) ?>
                     <?php endif; ?>
                 </p>
                 <h1 style="font-family:'Playfair Display',serif;font-size:2.2rem;color:#fff;font-weight:700;letter-spacing:-0.5px;margin:0;">
                     <?php if ($q): ?>
                         Hasil "<span style="color:#95d5b2;"><?= htmlspecialchars($q) ?></span>"
-                    <?php elseif ($kategori): ?>
-                        Resep <span style="color:#95d5b2;"><?= htmlspecialchars(ucwords(str_replace('-',' ',$kategori))) ?></span>
+                    <?php elseif ($kategori_id): ?>
+                        Resep <span style="color:#95d5b2;"><?= htmlspecialchars($kategori_nama) ?></span>
                     <?php elseif ($penulis && $nama_penulis): ?>
                         Resep oleh <span style="color:#95d5b2;"><?= htmlspecialchars($nama_penulis) ?></span>
                     <?php else: ?>
@@ -235,7 +251,7 @@ require_once 'includes/header.php';
                                 onchange="this.style.borderColor='var(--green)'">
                             <option value="">Semua Kategori</option>
                             <?php while ($kat = mysqli_fetch_assoc($kategori_list)): ?>
-                            <option value="<?= $kat['slug'] ?>" <?= $kategori===$kat['slug']?'selected':'' ?>>
+                            <option value="<?= $kat['id'] ?>" <?= $kategori_id===$kat['id']?'selected':'' ?>>
                                 <?= htmlspecialchars($kat['nama_kategori']) ?>
                             </option>
                             <?php endwhile; ?>

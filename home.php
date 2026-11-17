@@ -269,7 +269,7 @@ require_once 'includes/header.php';
             <?php
             foreach ($kategori_list as $kat):
             ?>
-            <a href="/resep.php?kategori=<?= urlencode($kat['slug']) ?>"
+            <a href="/resep.php?kategori=<?= $kat['id'] ?>"
                style="
                 text-decoration:none;display:block;
                 background:#fff;border-radius:20px;

@@ -54,7 +54,7 @@ $jenis_img = [];
 
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;">
             <?php while ($k = mysqli_fetch_assoc($kategori_list)): ?>
-            <a href="/resep.php?kategori=<?= urlencode($k['slug']) ?>"
+            <a href="/resep.php?kategori=<?= $k['id'] ?>"
                style="text-decoration:none;background:#fff;border-radius:20px;overflow:hidden;border:1.5px solid #e4ede6;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 2px 8px rgba(45,106,79,0.05);display:block;"
                onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 18px 45px rgba(45,106,79,0.14)';this.style.borderColor='#95d5b2'"
                onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(45,106,79,0.05)';this.style.borderColor='#e4ede6'">
