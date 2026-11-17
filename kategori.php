@@ -18,13 +18,7 @@ $jenis_list = mysqli_query($koneksi,
 require_once 'includes/header.php';
 
 $kat_img = [];
-$jenis_img = [
-    'sarapan'=>'jenis-sarapan.jpg','makan-siang'=>'jenis-makan-siang.jpg',
-    'makan-malam'=>'jenis-makan-malam.jpg','camilan'=>'jenis-camilan.jpg',
-    'minuman'=>'jenis-minuman.jpg','dessert'=>'jenis-dessert.jpg',
-    'sup-soto'=>'jenis-sup-soto.jpg','bakar-panggang'=>'jenis-bakar-panggang.jpg',
-    'goreng'=>'jenis-goreng.jpg','rebus-kukus'=>'jenis-rebus-kukus.jpg',
-];
+$jenis_img = [];
 ?>
 
 <!-- HERO -->
@@ -100,16 +94,14 @@ $jenis_img = [
         </div>
 
         <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;">
-            <?php while ($j = mysqli_fetch_assoc($jenis_list)):
-                $jimg = $jenis_img[$j['slug']] ?? null;
-            ?>
+            <?php while ($j = mysqli_fetch_assoc($jenis_list)): ?>
             <a href="/resep.php?jenis=<?= urlencode($j['slug']) ?>"
                style="text-decoration:none;background:#fff;border-radius:18px;overflow:hidden;border:1.5px solid #e4ede6;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 2px 8px rgba(45,106,79,0.05);display:block;"
                onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 16px 40px rgba(45,106,79,0.13)';this.style.borderColor='#95d5b2'"
                onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(45,106,79,0.05)';this.style.borderColor='#e4ede6'">
                 <div style="position:relative;height:110px;overflow:hidden;">
-                    <?php if ($jimg): ?>
-                    <img src="/assets/images/kategori/<?= $jimg ?>"
+                    <?php if (!empty($j['gambar'])): ?>
+                    <img src="/uploads/jenis/<?= htmlspecialchars($j['gambar']) ?>"
                          style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;"
                          onmouseover="this.style.transform='scale(1.08)'"
                          onmouseout="this.style.transform=''"
