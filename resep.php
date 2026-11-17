@@ -27,9 +27,10 @@ if ($q !== '') {
 }
 
 if ($kategori !== '') {
-    $where[]  = "EXISTS (SELECT 1 FROM resep_kategori rk2 JOIN kategori k2 ON rk2.id_kategori=k2.id WHERE rk2.id_resep=r.id AND k2.slug=?)";
+    $where[]  = "(EXISTS (SELECT 1 FROM resep_kategori rk2 JOIN kategori k2 ON rk2.id_kategori=k2.id WHERE rk2.id_resep=r.id AND k2.slug=?) OR EXISTS (SELECT 1 FROM kategori k3 WHERE k3.id=r.id_kategori AND k3.slug=?))";
     $params[] = $kategori;
-    $types   .= 's';
+    $params[] = $kategori;
+    $types   .= 'ss';
 }
 
 if ($jenis !== '') {
