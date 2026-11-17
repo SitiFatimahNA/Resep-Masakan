@@ -17,14 +17,7 @@ $jenis_list = mysqli_query($koneksi,
 
 require_once 'includes/header.php';
 
-$kat_img = [
-    'ayam'=>'kat-ayam.jpg','daging-sapi'=>'kat-daging.jpg',
-    'ikan'=>'kat-ikan.jpg','seafood'=>'kat-seafood.jpg',
-    'sayuran'=>'kat-sayuran.jpg','tahu-tempe'=>'kat-tahu.jpg',
-    'telur'=>'kat-telur.jpg','kambing'=>'kat-kambing.jpg',
-    'bebek'=>'kat-bebek.jpg','buah-buahan'=>'kat-buah.jpg',
-    'mie-pasta'=>'kat-mie.jpg','nasi'=>'kat-nasi.jpg',
-];
+$kat_img = [];
 $jenis_img = [
     'sarapan'=>'jenis-sarapan.jpg','makan-siang'=>'jenis-makan-siang.jpg',
     'makan-malam'=>'jenis-makan-malam.jpg','camilan'=>'jenis-camilan.jpg',
@@ -66,20 +59,18 @@ $jenis_img = [
         </div>
 
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;">
-            <?php while ($k = mysqli_fetch_assoc($kategori_list)):
-                $img = $kat_img[$k['slug']] ?? null;
-            ?>
+            <?php while ($k = mysqli_fetch_assoc($kategori_list)): ?>
             <a href="/resep.php?kategori=<?= urlencode($k['slug']) ?>"
                style="text-decoration:none;background:#fff;border-radius:20px;overflow:hidden;border:1.5px solid #e4ede6;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);box-shadow:0 2px 8px rgba(45,106,79,0.05);display:block;"
                onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 18px 45px rgba(45,106,79,0.14)';this.style.borderColor='#95d5b2'"
                onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(45,106,79,0.05)';this.style.borderColor='#e4ede6'">
                 <div style="position:relative;height:130px;overflow:hidden;">
-                    <?php if ($img): ?>
-                    <img src="/assets/images/kategori/<?= $img ?>"
+                    <?php if (!empty($k['gambar'])): ?>
+                    <img src="/uploads/kategori/<?= htmlspecialchars($k['gambar']) ?>"
                          style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s;"
                          onmouseover="this.style.transform='scale(1.08)'"
                          onmouseout="this.style.transform=''"
-                         onerror="this.parentElement.style.background='#e8f5e8'">
+                         onerror="this.parentElement.style.background='linear-gradient(135deg,#d8f3dc,#95d5b2)'">
                     <?php else: ?>
                     <div style="width:100%;height:100%;background:linear-gradient(135deg,#d8f3dc,#95d5b2);display:flex;align-items:center;justify-content:center;">
                         <i class="fas fa-utensils" style="font-size:2.5rem;color:#2d6a4f;opacity:0.4;"></i>

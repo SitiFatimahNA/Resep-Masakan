@@ -267,16 +267,7 @@ require_once 'includes/header.php';
 
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;">
             <?php
-            $kat_img = [
-                'ayam'=>'kat-ayam.jpg','daging-sapi'=>'kat-daging.jpg',
-                'ikan'=>'kat-ikan.jpg','seafood'=>'kat-seafood.jpg',
-                'sayuran'=>'kat-sayuran.jpg','tahu-tempe'=>'kat-tahu.jpg',
-                'telur'=>'kat-telur.jpg','kambing'=>'kat-kambing.jpg',
-                'bebek'=>'kat-bebek.jpg','buah-buahan'=>'kat-buah.jpg',
-                'mie-pasta'=>'kat-mie.jpg','nasi'=>'kat-nasi.jpg',
-            ];
             foreach ($kategori_list as $kat):
-                $img = $kat_img[$kat['slug']] ?? null;
             ?>
             <a href="/resep.php?kategori=<?= urlencode($kat['slug']) ?>"
                style="
@@ -290,8 +281,8 @@ require_once 'includes/header.php';
                onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(45,106,79,0.06)';this.style.borderColor='#e8f0e8'">
                 <!-- Gambar -->
                 <div style="height:110px;overflow:hidden;position:relative;">
-                    <?php if ($img): ?>
-                    <img src="/assets/images/kategori/<?= $img ?>"
+                    <?php if (!empty($kat['gambar'])): ?>
+                    <img src="/uploads/kategori/<?= htmlspecialchars($kat['gambar']) ?>"
                          style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;"
                          onmouseover="this.style.transform='scale(1.08)'"
                          onmouseout="this.style.transform=''"
