@@ -23,6 +23,11 @@ assets/images/kategori/*
 .DS_Store
 Thumbs.db
 
+# Archive files
+*.zip
+*.rar
+*.tar.gz
+
 # Editor files
 .vscode/
 .idea/
