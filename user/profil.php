@@ -26,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($aksi === 'update_profil') {
         $nama = trim($_POST['nama'] ?? '');
-        $bio  = trim($_POST['bio']  ?? '');
         if (strlen($nama) < 3) { $error = 'Nama minimal 3 karakter.'; }
         else {
             $foto = $user['foto'];
@@ -44,11 +43,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
             if (!$error) {
-                $upd = mysqli_prepare($koneksi, "UPDATE users SET nama=?,bio=?,foto=? WHERE id=?");
-                mysqli_stmt_bind_param($upd,'sssi',$nama,$bio,$foto,$user_id);
+                $upd = mysqli_prepare($koneksi, "UPDATE users SET nama=?,foto=? WHERE id=?");
+                mysqli_stmt_bind_param($upd,'ssi',$nama,$foto,$user_id);
                 mysqli_stmt_execute($upd); mysqli_stmt_close($upd);
                 $_SESSION['nama'] = $nama; $_SESSION['foto'] = $foto;
-                $user['nama'] = $nama; $user['bio'] = $bio; $user['foto'] = $foto;
+                $user['nama'] = $nama; $user['foto'] = $foto;
                 $success = 'Profil berhasil diperbarui.';
             }
         }
@@ -180,14 +179,6 @@ require_once '../includes/header.php';
                     <label style="display:block;font-size:0.72rem;font-weight:700;color:#4a6741;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px;">Email</label>
                     <input type="email" value="<?= htmlspecialchars($user['email']) ?>" disabled
                            style="width:100%;padding:10px 14px;background:#f0f5f0;border:1.5px solid #e4ede6;border-radius:12px;font-size:0.875rem;color:#8a9e87;cursor:not-allowed;">
-                </div>
-
-                <div style="margin-bottom:1.5rem;">
-                    <label style="display:block;font-size:0.72rem;font-weight:700;color:#4a6741;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px;">Bio</label>
-                    <textarea name="bio" rows="3" placeholder="Ceritakan tentang dirimu..."
-                              style="width:100%;padding:10px 14px;background:#f4f7f4;border:1.5px solid #d4e6d4;border-radius:12px;font-size:0.875rem;font-family:inherit;color:#1a2e1a;outline:none;resize:none;transition:border-color 0.2s;"
-                              onfocus="this.style.borderColor='#40916c'"
-                              onblur="this.style.borderColor='#d4e6d4'"><?= htmlspecialchars($user['bio'] ?? '') ?></textarea>
                 </div>
 
                 <button type="submit" style="width:100%;padding:11px;background:linear-gradient(135deg,#2d6a4f,#40916c);color:#fff;border:none;border-radius:12px;font-size:0.875rem;font-weight:600;cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(45,106,79,0.25);transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:8px;"
