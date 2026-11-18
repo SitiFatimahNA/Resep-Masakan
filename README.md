@@ -227,7 +227,53 @@ resep-masakan/
 
 ---
 
-## 🛠️ Tech Stack
+## 📸 Screenshots
+
+### 🌐 Halaman Publik
+
+| Beranda | Semua Resep |
+|---------|-------------|
+| ![Beranda](docs/screenshots/home.png) | ![Resep](docs/screenshots/resep.png) |
+
+| Detail Resep | Kategori |
+|-------------|----------|
+| ![Detail](docs/screenshots/detail-resep.png) | ![Kategori](docs/screenshots/kategori.png) |
+
+| Terpopuler |
+|-----------|
+| ![Populer](docs/screenshots/populer.png) |
+
+### 🔐 Autentikasi
+
+| Login | Register |
+|-------|----------|
+| ![Login](docs/screenshots/login.png) | ![Register](docs/screenshots/register.png) |
+
+### 👤 User
+
+| Resep Saya | Tambah Resep |
+|-----------|-------------|
+| ![Resep Saya](docs/screenshots/resep-saya.png) | ![Tambah Resep](docs/screenshots/tambah-resep.png) |
+
+| Favorit | Profil |
+|---------|--------|
+| ![Favorit](docs/screenshots/favorit.png) | ![Profil](docs/screenshots/profil.png) |
+
+### 🔧 Admin
+
+| Dashboard | Kelola Resep |
+|-----------|-------------|
+| ![Dashboard](docs/screenshots/dashboard.png) | ![Kelola Resep](docs/screenshots/kelola-resep.png) |
+
+| Kelola Kategori & Jenis | Kelola Komentar |
+|------------------------|----------------|
+| ![Kategori](docs/screenshots/kelola-kategori.png) | ![Komentar](docs/screenshots/kelola-komentar.png) |
+
+| Kelola User | Laporan & Export |
+|------------|-----------------|
+| ![User](docs/screenshots/kelola-user.png) | ![Laporan](docs/screenshots/laporan.png) |
+
+---
 
 | Layer | Teknologi |
 |-------|-----------|
