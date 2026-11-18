@@ -161,8 +161,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="blob" style="bottom:-100px;left:-100px;width:300px;height:300px;"></div>
 
     <div class="auth-brand">
+        <a href="/home.php" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
         <div class="auth-brand-icon"><i class="fas fa-utensils"></i></div>
         <div class="auth-brand-text">Dapur<span>In</span></div>
+        </a>
     </div>
 
     <div class="auth-left-body">
