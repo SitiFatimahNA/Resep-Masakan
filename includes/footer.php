@@ -23,7 +23,7 @@
 
             <!-- Navigasi + Akun di kiri, Kategori di kanan -->
             <div class="footer-nav-kat">
-                <!-- Kolom kiri: Navigasi + Akun -->
+                <!-- Kolom 1: Navigasi -->
                 <div class="footer-nav-col">
                     <h4 class="footer-title">Navigasi</h4>
                     <div class="footer-links">
@@ -32,8 +32,11 @@
                         <a href="/kategori.php">Kategori</a>
                         <a href="/populer.php">Terpopuler</a>
                     </div>
+                </div>
 
-                    <h4 class="footer-title" style="margin-top:1.2rem;">Akun</h4>
+                <!-- Kolom 2: Akun -->
+                <div class="footer-akun-col">
+                    <h4 class="footer-title">Akun</h4>
                     <div class="footer-links">
                         <?php if (isset($_SESSION['user_id'])): ?>
                             <a href="/user/profil.php">Profil Saya</a>
@@ -47,13 +50,13 @@
                     </div>
                 </div>
 
-                <!-- Kolom kanan: Kategori dari DB -->
+                <!-- Kolom 3: Kategori dari DB -->
                 <div class="footer-kat-col">
                     <h4 class="footer-title">Kategori</h4>
                     <div class="footer-links">
                         <?php if (!empty($footer_kategori)): ?>
                             <?php foreach ($footer_kategori as $fk): ?>
-                                <a href="/resep.php?kategori=<?= urlencode(strtolower($fk['nama_kategori'])) ?>">
+                                <a href="/resep.php?kategori=<?= $fk['id'] ?>">
                                     <?= htmlspecialchars($fk['nama_kategori']) ?>
                                 </a>
                             <?php endforeach; ?>

@@ -5,9 +5,7 @@ $page_title = 'Kelola Kategori';
 require_once dirname(__DIR__) . '/config/koneksi.php';
 if (session_status() === PHP_SESSION_NONE) session_start();
 
-// Pastikan kolom gambar ada di tabel kategori dan jenis_masakan
-mysqli_query($koneksi, "ALTER TABLE kategori ADD COLUMN IF NOT EXISTS gambar VARCHAR(255) DEFAULT NULL");
-mysqli_query($koneksi, "ALTER TABLE jenis_masakan ADD COLUMN IF NOT EXISTS gambar VARCHAR(255) DEFAULT NULL");
+// Kolom gambar sudah ada di tabel kategori dan jenis_masakan
 
 $aksi = $_POST['aksi'] ?? $_GET['aksi'] ?? '';
 $id   = (int)($_GET['id'] ?? $_POST['id'] ?? 0);

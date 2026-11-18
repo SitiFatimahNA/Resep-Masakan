@@ -1574,7 +1574,7 @@ select.form-control { cursor: pointer; }
    FOOTER — Navigasi & Kategori 2 kolom di mobile
    ===================================================== */
 .footer-nav-kat {
-    display: contents; /* di desktop: nav-col & kat-col langsung jadi item footer-grid */
+    display: contents; /* di desktop: nav-col, akun-col & kat-col langsung jadi item footer-grid */
 }
 
 @media (max-width: 768px) {
@@ -1583,11 +1583,11 @@ select.form-control { cursor: pointer; }
         grid-template-columns: 1fr !important;
         gap: 1.5rem !important;
     }
-    /* footer-nav-kat jadi grid 2 kolom: navigasi kiri, kategori kanan */
+    /* footer-nav-kat jadi grid 3 kolom di mobile */
     .footer-nav-kat {
         display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 1.2rem !important;
+        grid-template-columns: 1fr 1fr 1fr !important;
+        gap: 1rem !important;
         align-items: start !important;
     }
 }
