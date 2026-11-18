@@ -5,6 +5,8 @@ config/koneksi.php
 uploads/resep/*
 uploads/profil/*
 uploads/langkah/*
+uploads/kategori/*
+uploads/jenis/*
 
 # Gambar kategori (upload manual)
 assets/images/kategori/*
@@ -13,6 +15,8 @@ assets/images/kategori/*
 !uploads/resep/.gitkeep
 !uploads/profil/.gitkeep
 !uploads/langkah/.gitkeep
+!uploads/kategori/.gitkeep
+!uploads/jenis/.gitkeep
 !assets/images/kategori/.gitkeep
 
 # OS files
