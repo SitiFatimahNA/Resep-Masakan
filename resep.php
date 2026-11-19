@@ -237,6 +237,7 @@ require_once 'includes/header.php';
                             <i class="fas fa-search" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#8a9e87;font-size:0.85rem;pointer-events:none;"></i>
                             <input type="text" name="q" value="<?= htmlspecialchars($q) ?>"
                                    placeholder="Nama resep..."
+                                   class="resep-search-input"
                                    style="width:100%;padding:11px 14px 11px 46px;background:#fff;border:1.5px solid #e4ede6;border-radius:10px;font-size:0.9rem;color:#1a2e1a;outline:none;transition:border-color 0.2s;"
                                    onfocus="this.style.borderColor='var(--green)'"
                                    onblur="this.style.borderColor='#e4ede6'">

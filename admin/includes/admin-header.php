@@ -995,7 +995,7 @@ function toggleSidebar() {
     if (isOpen) {
         closeSidebar();
     } else {
-        // Set sidebar properties
+        // Reset dulu visibility sebelum animasi buka
         sidebar.setAttribute('data-open', 'true');
         sidebar.style.cssText = `
             position: fixed !important;
@@ -1004,15 +1004,20 @@ function toggleSidebar() {
             width: 260px !important;
             height: 100% !important;
             z-index: 99999 !important;
-            transform: translateX(0) !important;
             visibility: visible !important;
             display: flex !important;
             flex-direction: column !important;
             overflow-y: auto !important;
-            box-shadow: 4px 0 30px rgba(0,0,0,0.6) !important;
             background: var(--green-1) !important;
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
         `;
-        // Set overlay
+        // Trigger animasi buka di frame berikutnya
+        requestAnimationFrame(function () {
+            sidebar.style.transform = 'translateX(0)';
+            sidebar.style.boxShadow = '4px 0 30px rgba(0,0,0,0.6)';
+        });
+        // Set overlay dengan fade in
         if (overlay) {
             overlay.style.cssText = `
                 display: block !important;
@@ -1023,7 +1028,12 @@ function toggleSidebar() {
                 height: 100% !important;
                 background: rgba(0,0,0,0.6) !important;
                 z-index: 99998 !important;
+                opacity: 0;
+                transition: opacity 0.3s ease;
             `;
+            requestAnimationFrame(function () {
+                overlay.style.opacity = '1';
+            });
         }
     }
 }
@@ -1033,19 +1043,22 @@ function closeSidebar() {
     const overlay = document.getElementById('sidebar-overlay');
     if (sidebar) {
         sidebar.setAttribute('data-open', 'false');
-        sidebar.style.cssText = `
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 260px !important;
-            height: 100% !important;
-            z-index: 99999 !important;
-            transform: translateX(-100%) !important;
-            visibility: hidden !important;
-        `;
+        // Animasi geser dulu, baru sembunyikan setelah selesai
+        sidebar.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1)';
+        sidebar.style.transform = 'translateX(-100%)';
+        setTimeout(function () {
+            sidebar.style.visibility = 'hidden';
+        }, 300);
     }
     if (overlay) {
-        overlay.style.cssText = 'display: none !important;';
+        overlay.style.transition = 'opacity 0.3s ease';
+        overlay.style.opacity = '0';
+        setTimeout(function () {
+            overlay.style.cssText = 'display: none !important;';
+        }, 300);
     }
 }
+
+// Langsung pindah halaman saat klik menu — tidak perlu tunggu animasi
+// Sidebar otomatis hilang karena halaman baru di-load dari awal
 </script>

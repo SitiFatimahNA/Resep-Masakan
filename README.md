@@ -402,6 +402,114 @@ erDiagram
 
 ---
 
+## 📖 Panduan Penggunaan
+
+### 🌐 Pengunjung (Tanpa Login)
+
+**Menjelajah Resep**
+1. Buka halaman utama → tampil resep terbaru & terpopuler
+2. Klik **Semua Resep** di navbar untuk melihat seluruh resep
+3. Gunakan **Filter Resep** untuk menyaring berdasarkan kategori, jenis, kesulitan, atau waktu masak
+4. Ketik nama resep di kolom **Cari** lalu klik **Terapkan Filter**
+5. Klik kartu resep untuk melihat detail lengkap (bahan, langkah, nutrisi, alat masak)
+
+**Melihat Resep Terpopuler**
+1. Klik menu **Terpopuler** di navbar
+2. Lihat podium top 3 dan daftar resep dengan views & rating tertinggi
+
+---
+
+### 👤 User (Setelah Login)
+
+**Registrasi Akun**
+1. Klik tombol **Daftar** di navbar
+2. Isi nama lengkap, email, password (minimal 6 karakter), konfirmasi password
+3. Klik **Daftar Sekarang** → otomatis login dan masuk ke beranda
+
+**Login**
+1. Klik tombol **Masuk** di navbar
+2. Isi email dan password
+3. Klik **Masuk** → diarahkan ke beranda
+
+**Menambah Resep Baru**
+1. Setelah login, klik **+ Tambah Resep** di navbar atau topbar admin
+2. Isi informasi dasar: judul, deskripsi, kategori, jenis, tingkat kesulitan, waktu masak, porsi
+3. Upload foto thumbnail resep (maks 2MB, format JPG/PNG/WEBP)
+4. Tambahkan **bahan** satu per satu: nama bahan, jumlah, satuan → klik **+ Tambah Bahan**
+5. Tambahkan **langkah memasak**: tulis instruksi, bisa upload foto tiap langkah → klik **+ Tambah Langkah**
+6. (Opsional) Tambahkan alat masak dan informasi nutrisi
+7. Pilih status: **Publik** (tampil di beranda) atau **Draft** (tersimpan, tidak tampil)
+8. Klik **Simpan Resep**
+
+**Mengedit & Menghapus Resep Sendiri**
+1. Klik **Resep Saya** di menu profil
+2. Klik ikon ✏️ untuk edit atau 🗑️ untuk hapus resep
+
+**Memberi Rating**
+1. Buka halaman detail resep
+2. Klik bintang 1–5 di bagian bawah judul resep
+3. Rating tersimpan otomatis (bisa diubah kapan saja)
+
+**Berkomentar**
+1. Scroll ke bawah halaman detail resep
+2. Tulis komentar di kolom yang tersedia → klik **Kirim**
+3. Untuk membalas komentar orang lain, klik **Balas** di bawah komentar tersebut
+4. Komentar sendiri bisa diedit (klik ✏️) atau dihapus (klik 🗑️) tanpa reload halaman
+
+**Menyimpan Resep Favorit**
+1. Di halaman detail resep, klik tombol **♡ Simpan** di bagian atas
+2. Resep tersimpan di halaman **Favorit** (menu profil)
+3. Klik tombol yang sama lagi untuk menghapus dari favorit
+
+**Mengedit Profil**
+1. Klik foto profil / nama di navbar → pilih **Profil**
+2. Edit nama, bio, dan foto profil
+3. Untuk ganti password: isi password lama, password baru, konfirmasi → klik **Simpan**
+
+---
+
+### 🔧 Admin
+
+**Login Admin**
+1. Buka `/login.php`
+2. Gunakan akun admin: `admin@resepmasakan.com` / `password`
+3. Otomatis diarahkan ke **Dashboard Admin**
+
+**Dashboard**
+- Lihat statistik: total resep, member, komentar, views, rating, resep publik
+- Bar chart resep per bulan (6 bulan terakhir)
+- Daftar resep terpopuler
+
+**Kelola Resep**
+1. Klik **Kelola Resep** di sidebar
+2. Gunakan filter untuk mencari resep berdasarkan judul, status, atau kategori
+3. Klik ikon 👁️ untuk lihat detail, ✏️ untuk edit, 🗑️ untuk hapus
+4. Klik tombol toggle **Publik/Draft** untuk mengubah status resep langsung dari tabel
+
+**Kelola Kategori & Jenis**
+1. Klik **Kategori & Jenis** di sidebar
+2. Tambah kategori baru: isi nama → klik **Tambah**
+3. Edit atau hapus kategori/jenis yang sudah ada
+
+**Moderasi Komentar**
+1. Klik **Moderasi Komentar** di sidebar
+2. Filter berdasarkan status (Aktif / Nonaktif)
+3. Klik toggle untuk mengaktifkan atau menonaktifkan komentar
+4. Klik 🗑️ untuk menghapus komentar permanen
+
+**Kelola User**
+1. Klik **Kelola User** di sidebar
+2. Lihat daftar semua user beserta jumlah resep yang dibuat
+3. Ubah role user (admin/user) atau hapus akun
+
+**Laporan & Export**
+1. Klik **Laporan & Export** di sidebar
+2. Set rentang tanggal dan filter status → klik **Terapkan**
+3. Klik **Export CSV** untuk download data ke Excel/Google Sheets
+4. Klik **Cetak PDF** untuk membuka dialog print browser
+
+---
+
 ## 📊 Fitur Laporan Admin
 
 - 🔍 Filter rentang tanggal & status (Publik / Draft)
